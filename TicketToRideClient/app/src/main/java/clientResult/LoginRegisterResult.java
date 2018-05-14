@@ -1,15 +1,18 @@
 package clientResult;
 
-public class LoginRegisterResult implements Result
-{
-    boolean result = false;
-    String message = "not set";
+/**
+ * Created by Lance on 5/14/2018.
+ */
 
-    public boolean isValid(){return result;}
+public class LoginRegisterResult extends Result {
 
-    public void setResult(boolean result){this.result = result;}
+    public LoginRegisterResult(boolean success)
+    {
+        super(success, null);
+    }
 
-    public String getMessage(){return message;}
-
-    public void setMessage(String toSet){message = toSet;}
+    public LoginRegisterResult(boolean success, String message)
+    {
+        super(success, message);
+    }
 }

@@ -8,6 +8,7 @@ import java.util.UUID;
  */
 
 public class Game {
+    private int gameNumber;
     private int playerCount;
     private int currentPlayers;
     private String ID;

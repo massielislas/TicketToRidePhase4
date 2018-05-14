@@ -1,11 +1,5 @@
 package clientModel;
 
-import clientModel.Command;
-import clientModel.Host;
-import clientModel.Port;
-import clientModel.UserPass;
-import clientResult.LoginRegisterResult;
-
 /**
  * Created by zachgormley on 5/13/18.
  */

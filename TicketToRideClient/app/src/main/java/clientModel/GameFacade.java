@@ -1,9 +1,5 @@
 package clientModel;
 
-import clientModel.Command;
-import clientModel.Game;
-import clientResult.GameResult;
-
 /**
  * Created by zachgormley on 5/13/18.
  */

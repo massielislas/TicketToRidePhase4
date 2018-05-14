@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\Topper\Desktop\CS 340\TicketToRide\TicketToRideServer\app\app.iml" filepath="C:\Users\Topper\Desktop\CS 340\TicketToRide\TicketToRideServer\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/serverlibrary/serverlibrary.iml" filepath="$PROJECT_DIR$/serverlibrary/serverlibrary.iml" />
-      <module fileurl="file://C:\Users\Lance\AndroidStudioProjects\TicketToRide\TicketToRideServer\serverlibrary\serverlibrary.iml" filepath="C:\Users\Lance\AndroidStudioProjects\TicketToRide\TicketToRideServer\serverlibrary\serverlibrary.iml" />
     </modules>
   </component>
 </project>

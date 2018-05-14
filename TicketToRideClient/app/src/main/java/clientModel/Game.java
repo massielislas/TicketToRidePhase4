@@ -3,9 +3,8 @@ package clientModel;
 import java.util.Observable;
 import java.util.UUID;
 
-class Game extends Observable
+public class Game extends Observable
 {
-
     int gameNumber;
 
     String ID;
