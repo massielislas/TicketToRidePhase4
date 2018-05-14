@@ -3,11 +3,11 @@ package clientModel;
 import java.util.Observable;
 import java.util.TreeMap;
 
-public class Games extends Observable
+class Games extends Observable
 {
     TreeMap<Integer, Game> gameList = new TreeMap<>();
 
-    public void addGame(Game game)
+    void addGame(Game game)
     {
         gameList.put(game.getGameNumber(), game);
         setChanged(); //set change has occurred
@@ -15,7 +15,7 @@ public class Games extends Observable
         clearChanged(); //no longer have a change!
     }
 
-    public TreeMap<Integer, Game> getGameList()
+    TreeMap<Integer, Game> getGameList()
     {
         return gameList;
     }

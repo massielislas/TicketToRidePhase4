@@ -1,4 +1,5 @@
 package clientModel;
 
-public class Command {
+class Command
+{
 }

@@ -1,4 +1,4 @@
-package clientFacade;
+package clientModel;
 
 import clientModel.Command;
 import clientModel.Host;

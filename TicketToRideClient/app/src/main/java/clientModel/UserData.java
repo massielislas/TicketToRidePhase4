@@ -1,12 +1,12 @@
 package clientModel;
 
-public class UserData
+class UserData
 {
     UserPass username;
 
     Game currentGame;
 
-    public UserData(UserPass username) {this.username = username;}
+    UserData(UserPass username) {this.username = username;}
 
-    public void setGame(Game game){currentGame = game;}
+    void setGame(Game game){currentGame = game;}
 }

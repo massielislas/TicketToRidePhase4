@@ -1,12 +1,12 @@
 package clientModel;
 
-public class UserPass
+class UserPass
 {
     String data;
 
-    public UserPass(String string){data = string;}
+    UserPass(String string){data = string;}
 
-    public boolean verify()
+    boolean verify()
     {
         char[] dataArray = data.toCharArray();
         for (char c: dataArray)

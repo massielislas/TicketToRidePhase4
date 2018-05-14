@@ -1,14 +1,14 @@
 package clientModel;
 
-public class Host {
+class Host {
     String data;
 
-    public Host(String string)
+    Host(String string)
     {
         data = string;
     }
 
-    public boolean verify()
+    boolean verify()
     {
         char[] dataArray = data.toCharArray();
         for (char c: dataArray)

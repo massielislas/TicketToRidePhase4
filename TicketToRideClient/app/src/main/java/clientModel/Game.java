@@ -3,7 +3,7 @@ package clientModel;
 import java.util.Observable;
 import java.util.UUID;
 
-public class Game extends Observable
+class Game extends Observable
 {
 
     int gameNumber;
@@ -14,13 +14,13 @@ public class Game extends Observable
 
     int currentPlayers; //current in game
 
-    public Game(int playerCount, int currentPlayers) {
+    Game(int playerCount, int currentPlayers) {
         this.playerCount = playerCount;
         this.currentPlayers = currentPlayers;
         this.ID = UUID.randomUUID().toString();
     }
 
-    public void addPlayer()
+    void addPlayer()
     {
         currentPlayers++;
         setChanged(); //set change has occurred
@@ -28,19 +28,19 @@ public class Game extends Observable
         clearChanged(); //no longer have a change!
     }
 
-    public int getGameNumber() {
+    int getGameNumber() {
         return gameNumber;
     }
 
-    public void setGameNumber(int gameNumber) {
+    void setGameNumber(int gameNumber) {
     }
 
-    public int getPlayerCount()
+    int getPlayerCount()
     {
         return playerCount;
     }
 
-    public void setPlayerCount(int playerCount)
+    void setPlayerCount(int playerCount)
     {
         this.playerCount = playerCount;
     }

@@ -1,11 +1,11 @@
 package clientModel;
 
-public class Port {
+class Port {
     String data;
 
-    public Port(String string){data = string;}
+    Port(String string){data = string;}
 
-    public boolean verify()
+    boolean verify()
     {
         char[] dataArray = data.toCharArray();
         for (char c: dataArray)
