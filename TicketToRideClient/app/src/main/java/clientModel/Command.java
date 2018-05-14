@@ -1,0 +1,5 @@
+package clientModel;
+
+class Command
+{
+}
