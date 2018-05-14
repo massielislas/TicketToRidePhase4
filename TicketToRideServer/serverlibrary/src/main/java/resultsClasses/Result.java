@@ -16,7 +16,7 @@ public class Result {
         this.message = message;
     }
 
-    public boolean isSuccess() {
+    public boolean isValid() {
         return success;
     }
 
