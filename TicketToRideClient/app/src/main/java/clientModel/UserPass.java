@@ -1,14 +1,25 @@
 package clientModel;
 
-class UserPass
-{
-    String data;
+/**
+ * Created by Lance on 5/14/2018.
+ */
 
-    UserPass(String string){data = string;}
+public class UserPass {
+    private final int MAXLENGTH = 40;
+    private String nameOrPassword;
 
-    boolean verify()
+    public boolean verify()
     {
-        char[] dataArray = data.toCharArray();
+        if (nameOrPassword == null)
+        {
+            return false;
+        }
+        if (nameOrPassword.length() > MAXLENGTH)
+        {
+            return false;
+        }
+        char[] dataArray = nameOrPassword.toCharArray();
+
         for (char c: dataArray)
         {
             if ((!Character.isDigit(c)) && (!Character.isLetter(c))) return false;
