@@ -1,5 +1,7 @@
 package Models;
 
+import resultsClasses.LoginRegisterResult;
+
 /**
  * Created by Topper on 5/14/2018.
  */

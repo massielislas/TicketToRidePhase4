@@ -6,6 +6,9 @@ package resultsClasses;
 
 public class LoginRegisterResult extends Result
 {
+    public LoginRegisterResult() {
+
+    }
 
     public LoginRegisterResult(boolean success)
     {
