@@ -5,10 +5,17 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import root.tickettorideclient.Views.GamesView;
 import root.tickettorideclient.Views.LoginView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoginCallback{
     FragmentManager fragmentManager;
+
+    @Override
+    public void onLoginSuccess() {
+        Fragment gamesFragment = new GamesView();
+        fragmentManager.beginTransaction().replace(R.id.main_acttivity_container, gamesFragment).addToBackStack(null).commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
