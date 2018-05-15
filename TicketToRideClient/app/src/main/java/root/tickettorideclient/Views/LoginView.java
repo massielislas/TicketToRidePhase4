@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import root.tickettorideclient.LoginCallback;
 import root.tickettorideclient.R;
 
 
@@ -53,7 +54,7 @@ public class LoginView extends Fragment{
         signInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
+                ((LoginCallback) getActivity()).onLoginSuccess();
             }
         });
 
@@ -61,7 +62,7 @@ public class LoginView extends Fragment{
         registerButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
+                ((LoginCallback) getActivity()).onLoginSuccess();
             }
         });
     }
