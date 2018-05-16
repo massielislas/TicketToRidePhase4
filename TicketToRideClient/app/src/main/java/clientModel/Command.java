@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
  * Created by Topper on 5/14/2018.
  */
 
-public class Command implements iCommand {
+public class Command implements ICommand {
 
     private String targetClass;
     private String instanceMethodName;

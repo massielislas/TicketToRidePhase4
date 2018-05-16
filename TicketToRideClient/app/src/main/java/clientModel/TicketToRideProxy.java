@@ -14,13 +14,12 @@ public class TicketToRideProxy implements ITicketToRide {
         ClientCommunicator.getInstance().setPort(port.data);
         String[] paramTypes = {"UserPass.class","UserPass.class","Host.class","Port.class"};
         Object[] params = {username, password, null,null};
-//        Command loginCommand = new Command("TicketToRideFacade.class",
-//                ".getInstance",
-//                "registerUser",
-//                paramTypes,
-//                params,
-//                )
-//        ClientCommunicator.getInstance().send("POST", loginCommand);
+        Command loginCommand = new Command("TicketToRideFacade.class",
+                "getInstance",
+                "registerUser",null,null,
+                paramTypes,
+                params);
+        LoginRegisterResult result = (LoginRegisterResult) ClientCommunicator.getInstance().send("POST", loginCommand);
         return null;
     }
 
