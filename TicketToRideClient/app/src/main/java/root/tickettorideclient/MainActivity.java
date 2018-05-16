@@ -8,13 +8,18 @@ import android.os.Bundle;
 import root.tickettorideclient.Views.GamesView;
 import root.tickettorideclient.Views.LoginView;
 
-public class MainActivity extends AppCompatActivity implements LoginCallback{
+public class MainActivity extends AppCompatActivity implements ICallBack {
     FragmentManager fragmentManager;
 
     @Override
     public void onLoginSuccess() {
         Fragment gamesFragment = new GamesView();
         fragmentManager.beginTransaction().replace(R.id.main_acttivity_container, gamesFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onGameCreated() {
+
     }
 
     @Override
