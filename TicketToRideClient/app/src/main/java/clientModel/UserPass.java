@@ -8,6 +8,11 @@ public class UserPass {
     private final int MAXLENGTH = 40;
     private String nameOrPassword;
 
+    public UserPass(String string)
+    {
+        nameOrPassword = string;
+    }
+
     public boolean verify()
     {
         if (nameOrPassword == null)

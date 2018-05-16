@@ -6,6 +6,10 @@ package root.tickettorideclient.Views;
 
 public class GameListItem {
 
+    public GameListItem(){
+
+    }
+
     public GameListItem (String gameId, String playersJoined, String maxPlayers) {
         this.gameId = gameId;
         this.playersJoined = playersJoined;
