@@ -36,6 +36,7 @@ public class TicketToRideFacade implements ITicketToRide{
 
     @Override
     public GameResult createNewGame(Game game) {
+        //if(TicketToRideServer.getInstance().)
         return null;
     }
 

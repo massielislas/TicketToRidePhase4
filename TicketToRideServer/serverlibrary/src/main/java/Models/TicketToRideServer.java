@@ -13,6 +13,7 @@ class TicketToRideServer {
     private List<Game> activeGames;
     private List<Game> notYetActiveGames;
     private Map<UserPass,UserPass> userPasswordMap;
+    private List<UserPass> activeUsers;
 
     static TicketToRideServer getInstance(){
         return instance;
@@ -44,6 +45,16 @@ class TicketToRideServer {
         else
         {
             return false;
+        }
+    }
+    boolean addNewGame(Game game)
+    {
+        if(activeGames.contains(game) || notYetActiveGames.contains(game)) {
+            return false;
+        }
+        else {
+            notYetActiveGames.add(game);
+            return true;
         }
     }
 }
