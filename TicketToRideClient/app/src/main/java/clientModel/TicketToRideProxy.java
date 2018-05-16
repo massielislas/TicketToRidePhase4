@@ -21,12 +21,6 @@ public class TicketToRideProxy implements ITicketToRide {
         Object[] instanceMethodArgs = new Object[0];
         String[] methodParamTypeNames = {"UserPass", "UserPass", "Host", "Port"};
         Object[] methodArguments = {username, password, host, port};
-
-        String[] instanceParamTypeNames = new String[0];
-        Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"UserPass", "UserPass", "Host", "Port"};
-        Object[] methodArguments = {username, password, host, port};
-
         Command command = new Command("TicketToRideFacade", "getInstance",
                 "loginUser", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                 methodArguments);
@@ -75,9 +69,6 @@ public class TicketToRideProxy implements ITicketToRide {
 
     @Override
     public Result addPlayerToGame(UserPass username, Game game) {
-<<<<<<< HEAD
-=======
-
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
         String[] methodParamTypeNames = {"UserPass", "Game"};
@@ -135,27 +126,6 @@ public class TicketToRideProxy implements ITicketToRide {
         Object[] instanceMethodArgs = new Object[0];
         String[] methodParamTypeNames = {"Game"};
         Object[] methodArguments = {game};
-
-        Command command = new Command("TicketToRideFacade", "getInstance",
-                "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-                methodArguments);
-
-<<<<<<< HEAD
-=======
-        String[] instanceParamTypeNames = new String[0];
-        Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"Game"};
-        Object[] methodArguments = {game};
-
-        Command command = new Command("TicketToRideFacade", "getInstance",
-                "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-                methodArguments);
-
-        String[] instanceParamTypeNames = new String[0];
-        Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"Game"};
-        Object[] methodArguments = {game};
-
         Command command = new Command("TicketToRideFacade", "getInstance",
                 "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                 methodArguments);
