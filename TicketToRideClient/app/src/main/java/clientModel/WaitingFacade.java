@@ -11,7 +11,6 @@ public class WaitingFacade
 
     public GameStartResult startGame()
     {
-        Command command = new Command();
-        return proxy.dostuff(command);
+        return proxy.startGame(currentGame);
     }
 }

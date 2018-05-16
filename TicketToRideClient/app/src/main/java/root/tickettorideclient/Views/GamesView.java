@@ -78,7 +78,8 @@ public class GamesView extends Fragment{
         }
 
         public void bind(final GameListItem gameListItem){
-            final String textToSet = "Game " + gameListItem.getGameId() + "\n" + "Players joined" + gameListItem.getPlayersJoined();
+            final String textToSet = "Game " + gameListItem.getGameId() + "\n" +
+                    "Players joined" + gameListItem.getPlayersJoined() + "/" + gameListItem.getMaxPlayers();
             gameDescription.setText(textToSet);
             gameDescription.setOnClickListener(new View.OnClickListener(){
                 @Override
