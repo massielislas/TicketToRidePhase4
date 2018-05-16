@@ -1,5 +1,7 @@
 package clientModel;
 
+import java.util.Observer;
+
 import clientResult.GameResult;
 import clientResult.Result;
 
@@ -20,7 +22,7 @@ public class GameFacade
         GameResult result =  proxy.createNewGame(game);
         if (result.isSuccess())
         {
-            gameList.getGameList().put(game.getGameNumber(), game);
+            gameList.getGameList().put(result.getToReturn().getGameNumber(), result.getToReturn());
         }
         return result;
     }
@@ -34,6 +36,10 @@ public class GameFacade
             userData.setCurrentGame(game);
         }
         return result;
+    }
+    public void addObserver(Observer o)
+    {
+        gameList.addAnObserver(o);
     }
 }
 

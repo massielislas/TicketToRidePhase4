@@ -1,5 +1,7 @@
 package clientModel;
 
+import java.util.Observer;
+
 import clientResult.GameStartResult;
 
 /**
@@ -14,5 +16,10 @@ public class WaitingFacade
     public GameStartResult startGame()
     {
         return proxy.startGame(currentGame);
+    }
+
+    public void addObserver(Observer o)
+    {
+        currentGame.addAnObserver(o);
     }
 }
