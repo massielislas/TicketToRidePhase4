@@ -11,17 +11,26 @@ public class GameFacade
 {
     TicketToRideProxy proxy;
     UserData userData = UserData.getUserData();
+    Games gameList = Games.getGames();
 
     public GameResult createGame(int playerCount)
     {
-        return proxy.createNewGame(playerCount);
+        int gameNumber = gameList.getGameList().size() + 1;
+        Game game = new Game(playerCount, 1, gameNumber);
+        GameResult result =  proxy.createNewGame(game);
+        if (result.isSuccess())
+        {
+            gameList.getGameList().put(game.getGameNumber(), game);
+        }
+        return result;
     }
-    public Result joinGame(int gameID, int currentPlayers)
+    public Result joinGame(int gameNumber)
     {
-        Game game = new Game(gameID, currentPlayers);
+        Game game = gameList.getGameList().get(gameNumber);
         Result result = proxy.addPlayerToGame(userData.getUsername(), game);
         if (result.isSuccess())
         {
+            game.addPlayer();
             userData.setCurrentGame(game);
         }
         return result;
