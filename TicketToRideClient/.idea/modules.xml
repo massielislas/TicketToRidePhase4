@@ -3,19 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TicketToRideClient.iml" filepath="$PROJECT_DIR$/TicketToRideClient.iml" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <module fileurl="file://C:\Users\Topper\Desktop\CS 340\TicketToRide\TicketToRideClient\TicketToRideClient.iml" filepath="C:\Users\Topper\Desktop\CS 340\TicketToRide\TicketToRideClient\TicketToRideClient.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/TicketToRideClient.iml" filepath="$PROJECT_DIR$/TicketToRideClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
->>>>>>> integration
-=======
-      <module fileurl="file://$PROJECT_DIR$/TicketToRideClient.iml" filepath="$PROJECT_DIR$/TicketToRideClient.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
->>>>>>> integration
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Topper\Desktop\CS 340\TicketToRide\TicketToRideClient\app\app.iml" filepath="C:\Users\Topper\Desktop\CS 340\TicketToRide\TicketToRideClient\app\app.iml" />
     </modules>
   </component>
 </project>
