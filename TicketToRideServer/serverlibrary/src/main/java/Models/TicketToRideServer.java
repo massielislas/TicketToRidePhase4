@@ -55,11 +55,8 @@ class TicketToRideServer {
         }
     }
 
-    boolean addUserPass(UserPass username, UserPass password)
-    {
-        //If the User already exists, then return false, otherwise put the pair into the map
-        if(!userPasswordMap.containsKey(username)) {
-            userPasswordMap.put(username, password);
+    boolean doesGameExist(Game toCheck) {
+        if (notYetActiveGames.contains(toCheck)) {
             return true;
         }
         else {
@@ -67,8 +64,11 @@ class TicketToRideServer {
         }
     }
 
-    boolean doesGameExist(Game toCheck) {
-        if (notYetActiveGames.contains(toCheck)) {
+    boolean addUserPass(UserPass username, UserPass password)
+    {
+        //If the User already exists, then return false, otherwise put the pair into the map
+        if(!userPasswordMap.containsKey(username)) {
+            userPasswordMap.put(username, password);
             return true;
         }
         else {
@@ -91,5 +91,9 @@ class TicketToRideServer {
             }
         }
         return new Result(false, "That game doesn't exist!");
+    }
+
+    public void addGameToQueue(Game toAdd) {
+        notYetActiveGames.add(toAdd);
     }
 }
