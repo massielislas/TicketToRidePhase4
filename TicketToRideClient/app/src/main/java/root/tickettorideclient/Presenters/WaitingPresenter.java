@@ -3,6 +3,7 @@ package root.tickettorideclient.Presenters;
 import java.util.Observable;
 import java.util.Observer;
 
+import clientModel.Game;
 import root.tickettorideclient.Views.IWaitingPresenter;
 
 /**
@@ -20,7 +21,8 @@ public class WaitingPresenter implements IWaitingPresenter, Observer {
     @Override
     public void update(Observable observable, Object o) {
         //update player count
-        Integer numPlayers = 0; //FIXME: grab playerCount from Object
+        Game game = (Game) o;
+        int numPlayers = game.getPlayerCount(); //FIXME - need Game to be public
         view.updatePlayerCount(numPlayers);
     }
 }

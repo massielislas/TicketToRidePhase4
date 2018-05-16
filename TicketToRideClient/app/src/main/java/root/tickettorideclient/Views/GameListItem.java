@@ -5,6 +5,13 @@ package root.tickettorideclient.Views;
  */
 
 public class GameListItem {
+
+    public GameListItem (String gameId, String playersJoined, String maxPlayers) {
+        this.gameId = gameId;
+        this.playersJoined = playersJoined;
+        this.maxPlayers = maxPlayers;
+    }
+
     public String getGameId() {
         return gameId;
     }
@@ -21,6 +28,11 @@ public class GameListItem {
         this.playersJoined = playersJoined;
     }
 
+    public String getMaxPlayers() { return maxPlayers; }
+
+    public void setMaxPlayers(String maxPlayers) { this.maxPlayers = maxPlayers;}
+
     String gameId;
     String playersJoined;
+    String maxPlayers;
 }

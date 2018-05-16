@@ -1,5 +1,7 @@
 package root.tickettorideclient.Presenters;
 
+import clientModel.LoginRegisterFacade;
+import clientResult.LoginRegisterResult;
 import root.tickettorideclient.Views.ILoginPresenter;
 
 
@@ -9,33 +11,53 @@ import root.tickettorideclient.Views.ILoginPresenter;
 
 public class LoginPresenter implements ILoginPresenter {
 
-    private ILoginView loginView = null;
+    private ILoginView view = null;
+    private LoginRegisterFacade facade = null;
 
-    public LoginPresenter (ILoginView loginView) {
-        this.loginView = loginView;
+    public LoginPresenter (ILoginView view) {
+        this.view = view;
+        this.facade = new LoginRegisterFacade();
     }
 
     public void register(String username, String password, String host, String port) {
-        //TODO: write me
+        //TODO: verify
 
-        //check input for validity
+        //call register method
+        LoginRegisterResult result = facade.verifyRegister(username, password, host, port);
 
-
-        //if false,
-
+        //if unsuccessful,
+        //pop toast with error message
+        if (!result.isSuccess()) {
+            view.popErrorToast(result.getMessage());
+        }
 
         //if successful,
-        //send off to server
-
-        //if successful,
-
-        //if false,
+        //switch views
+        if (result.isSuccess()) {
+            view.switchToGamesView();
+        }
 
         return;
     }
 
     public void login(String username, String password, String host, String port) {
-        //TODO: write me
-        return;
+        //TODO: verify
+
+        //call login method
+        LoginRegisterResult result = facade.verifyLogin(username, password, host, port);
+
+
+        //if unsuccessful,
+        //pop toast with error message
+        if (!result.isSuccess()) {
+            view.popErrorToast(result.getMessage());
+        }
+
+
+        //if successful,
+        //switch views
+        if (result.isSuccess()) {
+            view.switchToGamesView();
+        }
     }
 }
