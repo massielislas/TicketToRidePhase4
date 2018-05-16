@@ -11,6 +11,7 @@ public class Poller {
     private static final Poller instance = new Poller();
     private Timer mTimer;
     private boolean running;
+
     private Poller(){}
     public static Poller getInstance()
     {
