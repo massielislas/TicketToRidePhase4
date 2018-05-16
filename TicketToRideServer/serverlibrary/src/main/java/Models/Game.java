@@ -20,6 +20,16 @@ public class Game {
         this.ID = UUID.randomUUID().toString();
     }
 
+    public boolean addPlayerToGame(UserPass user) {
+        if (currentPlayers == playerCount) {
+            return false;
+        }
+        else {
+            currentPlayers++;
+            return true;
+        }
+    }
+
     public int getPlayerCount()
     {
         return playerCount;
