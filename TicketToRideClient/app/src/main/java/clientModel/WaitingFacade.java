@@ -13,16 +13,17 @@ public class WaitingFacade
     Game currentGame;
     TicketToRideProxy proxy = new TicketToRideProxy();
     Games gameList = Games.getGames();
+    UserData userData = UserData.getUserData();
 
-    public WaitingFacade(int gameID)
+    public WaitingFacade()
     {
-        currentGame = gameList.getGameList().get(gameID);
+        currentGame = userData.getCurrentGame();
     }
+
     public GameStartResult startGame()
     {
         return proxy.startGame(currentGame);
     }
-
     public void addObserver(Observer o)
     {
         currentGame.addAnObserver(o);
