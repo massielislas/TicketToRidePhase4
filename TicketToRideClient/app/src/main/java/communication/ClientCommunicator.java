@@ -1,4 +1,4 @@
-package clientModel;
+package communication;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,9 +47,34 @@ public class ClientCommunicator {
         }
     }
 
+    public String get(URL url)
+    {
+        try
+        {
+            HttpURLConnection http = (HttpURLConnection) url.openConnection();
+            http.setRequestMethod("GET");
+            http.setDoOutput(false); //no request body
+            http.addRequestProperty("Accept", "application/json");
+            http.connect();
+            if (http.getResponseCode() == HttpURLConnection.HTTP_OK)
+            {
+                return readString(http.getInputStream());
+            }
+            else
+            {
+                System.out.println("Error in getResponseCode: " + http.getResponseMessage());
+                return null;
+            }
+        }
+        catch(IOException error)
+        {
+            System.out.println("Error in post method!\n" + error.getStackTrace());
+            return null;
+        }
+    }
+
     private String readString(InputStream inputStream) throws IOException
     {
-        // System.out.println("readinnn??");
         StringBuilder sb = new StringBuilder();
         InputStreamReader reader = new InputStreamReader(inputStream);
         char[] buf = new char[1024];
