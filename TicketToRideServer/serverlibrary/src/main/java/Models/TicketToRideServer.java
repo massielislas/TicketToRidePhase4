@@ -64,8 +64,7 @@ class TicketToRideServer {
         }
     }
 
-    boolean addUserPass(UserPass username, UserPass password)
-    {
+    boolean addUserPass(UserPass username, UserPass password) {
         //If the User already exists, then return false, otherwise put the pair into the map
         if(!userPasswordMap.containsKey(username)) {
             userPasswordMap.put(username, password);
