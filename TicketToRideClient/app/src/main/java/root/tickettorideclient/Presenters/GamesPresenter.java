@@ -25,10 +25,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
     public GamesPresenter(IGamesView view) {
         this.view = view;
         this.facade = new GameFacade();
-
-        //register this with observable UserData
-
-
+        this.facade.addObserver(this);
     }
 
     public void createGame(Integer numPlayers) {

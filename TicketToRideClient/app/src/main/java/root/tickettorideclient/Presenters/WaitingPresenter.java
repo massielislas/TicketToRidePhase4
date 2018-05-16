@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import clientModel.Game;
+import clientModel.WaitingFacade;
 import root.tickettorideclient.Views.IWaitingPresenter;
 
 /**
@@ -13,12 +14,13 @@ import root.tickettorideclient.Views.IWaitingPresenter;
 public class WaitingPresenter implements IWaitingPresenter, Observer {
 
     private IWaitingView view = null;
+    private WaitingFacade facade;
 
     public WaitingPresenter (IWaitingView view) {
 
         this.view = view;
-
-        // waiting face . regsiter self (this)
+        this.facade = new WaitingFacade();
+        this.facade.addObserver(this);
     }
 
     @Override
