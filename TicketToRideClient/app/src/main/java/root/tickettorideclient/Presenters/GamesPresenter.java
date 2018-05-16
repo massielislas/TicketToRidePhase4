@@ -12,8 +12,6 @@ import clientResult.GameResult;
 import root.tickettorideclient.Views.GameListItem;
 import root.tickettorideclient.Views.IGamesPresenter;
 
-import clientModel.Games;
-
 /**
  * Created by madeleineaydelotte on 5/14/18.
  */
@@ -27,13 +25,14 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         this.view = view;
         this.facade = new GameFacade();
 
+        //register this with observable UserData
+
 
     }
 
     public void createGame(Integer numPlayers) {
-        //TODO: write me
 
-        GameResult result = facade.createGame(numPlayers); //FIXME: should take in numPlayers
+        GameResult result = facade.createGame(numPlayers);
 
         //if unsucessful,
         //pop error toast
@@ -42,7 +41,6 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         }
 
         //if successful,
-        //joinGame (already done??)
         //switch views
         if (result.isSuccess()) {
             view.switchToWaitingView();
@@ -55,7 +53,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
     public void joinGame(Integer gameID) {
         //TODO: write me
 
-        GameResult result = facade.joinGame(gameID); //FIXME: should take gameID???
+        GameResult result = facade.joinGame(gameID);
 
         //if unsuccessful,
         //pop error toast
@@ -75,18 +73,8 @@ public class GamesPresenter implements IGamesPresenter, Observer {
     @Override
     public void update(Observable observable, Object o) {
         //update Game List
-        Games games = (Games) o; //FIXME - need Game to be public
 
-        TreeMap<Integer, Game> gameMap = games.getGameList();
-
-        ArrayList<GameListItem> gameListItems = new ArrayList<>();
-
-        for (Map.Entry<Integer, Game> entry : gameMap.entrySet()) {
-            gameListItems.add(new GameListItem(entry.getValue().getGameNumber().toString(),
-                                            entry.getValue().getPlayerCount().toString(),
-                                            entry.getValue().getCurrentPlayers.toString()));
-        }
-
+        ArrayList<GameListItem> gameListItems = (ArrayList<GameListItem>) o;
         view.updateGamesList(gameListItems);
     }
 }
