@@ -11,7 +11,7 @@ import clientResult.Result;
 
 public class GameFacade
 {
-    TicketToRideProxy proxy;
+    TicketToRideProxy proxy = new TicketToRideProxy();
     UserData userData = UserData.getUserData();
     Games gameList = Games.getGames();
 
