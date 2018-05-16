@@ -1,9 +1,10 @@
-package Models;
+package clientModel;
 
-import resultsClasses.GameResult;
-import resultsClasses.GameStartResult;
-import resultsClasses.LoginRegisterResult;
-import resultsClasses.Result;
+
+import clientResult.GameResult;
+import clientResult.GameStartResult;
+import clientResult.LoginRegisterResult;
+import clientResult.Result;
 
 /**
  * Created by Topper on 5/14/2018.
