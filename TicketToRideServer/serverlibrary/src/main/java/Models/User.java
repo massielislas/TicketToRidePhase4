@@ -21,7 +21,14 @@ public class User {
     @Override
     public boolean equals(Object obj)
     {
-        return true;
+        if(obj instanceof User)
+        {
+            User userObj = (User) obj;
+            if(userObj.ID.equals(this.ID) && userObj.password.equals(this.password) && userObj.userName.equals(this.userName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

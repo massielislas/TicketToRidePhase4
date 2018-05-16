@@ -1,5 +1,7 @@
 package clientModel;
 
+import clientResult.GameStartResult;
+
 /**
  * Created by zachgormley on 5/13/18.
  */

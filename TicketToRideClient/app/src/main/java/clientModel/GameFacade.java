@@ -12,9 +12,9 @@ public class GameFacade
     TicketToRideProxy proxy;
     UserData userData = UserData.getUserData();
 
-    public GameResult createGame(int playerCount)
+    public GameResult createGame(Game game)
     {
-        return proxy.createNewGame(playerCount);
+        return proxy.createNewGame(game);
     }
     public Result joinGame(int gameID, int currentPlayers)
     {

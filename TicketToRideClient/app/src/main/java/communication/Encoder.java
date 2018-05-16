@@ -12,28 +12,28 @@ import java.io.InputStreamReader;
 
 public class Encoder
 {
-    public String Encode(Object obj)
+    public static String Encode(Object obj)
     {
         Gson gson = new Gson();
         String toRet = gson.toJson(obj);
         return toRet;
     }
 
-    public Object Decode(StringBuilder JSON, Class type)
+    public static Object Decode(StringBuilder JSON, Class type)
     {
         Gson gson = new Gson();
         Object toRet = gson.fromJson(JSON.toString(), type);
         return toRet;
     }
 
-    public Object Decode(InputStreamReader JSON, Class type)
+    public static Object Decode(InputStreamReader JSON, Class type)
     {
         Gson gson = new Gson();
         Object toRet = gson.fromJson(JSON, type);
         return toRet;
     }
 
-    public Object Decode(String JSON, Class type)
+    public static Object Decode(String JSON, Class type)
     {
         Gson gson = new Gson();
         Object toRet = gson.fromJson(JSON, type);

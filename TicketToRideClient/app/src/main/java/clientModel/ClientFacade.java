@@ -12,6 +12,9 @@ public class ClientFacade
 {
     public void executeCommands(ArrayList<Command> commands)
     {
-
+        for(Command c: commands){
+            c.Execute();
+        }
     }
+
 }
