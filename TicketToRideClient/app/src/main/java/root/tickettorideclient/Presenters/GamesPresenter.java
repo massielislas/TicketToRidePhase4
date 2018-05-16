@@ -26,12 +26,14 @@ public class GamesPresenter implements IGamesPresenter, Observer {
     public GamesPresenter(IGamesView view) {
         this.view = view;
         this.facade = new GameFacade();
+
+
     }
 
     public void createGame(Integer numPlayers) {
         //TODO: write me
 
-        GameResult result = facade.createGame(); //FIXME: should take in numPlayers
+        GameResult result = facade.createGame(numPlayers); //FIXME: should take in numPlayers
 
         //if unsucessful,
         //pop error toast
@@ -53,7 +55,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
     public void joinGame(Integer gameID) {
         //TODO: write me
 
-        GameResult result = facade.joinGame(/*gameID*/); //FIXME: should take gameID???
+        GameResult result = facade.joinGame(gameID); //FIXME: should take gameID???
 
         //if unsuccessful,
         //pop error toast
@@ -80,9 +82,11 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         ArrayList<GameListItem> gameListItems = new ArrayList<>();
 
         for (Map.Entry<Integer, Game> entry : gameMap.entrySet()) {
-
+            gameListItems.add(new GameListItem(entry.getValue().getGameNumber().toString(),
+                                            entry.getValue().getPlayerCount().toString(),
+                                            entry.getValue().getCurrentPlayers.toString()));
         }
 
-        view.updateGamesList(); //FIXME: take list??????
+        view.updateGamesList(gameListItems);
     }
 }
