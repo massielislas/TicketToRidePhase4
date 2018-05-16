@@ -1,5 +1,7 @@
 package clientModel;
 
+import java.util.Observer;
+
 class UserData
 {
     UserPass username;
