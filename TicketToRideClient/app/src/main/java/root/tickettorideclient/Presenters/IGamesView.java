@@ -11,12 +11,7 @@ import root.tickettorideclient.Views.GameListItem;
  */
 
 public interface IGamesView {
-<<<<<<< HEAD
-    public boolean updateGamesList(List<GameListItem> gameList);
-    public boolean switchToWaitingView();
-=======
     public void updateGamesList(ArrayList<GameListItem> gameList);
     public void switchToWaitingView();
->>>>>>> integration
     public void popErrorToast(String message);
 }

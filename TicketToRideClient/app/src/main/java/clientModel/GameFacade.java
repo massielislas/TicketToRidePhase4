@@ -22,11 +22,7 @@ public class GameFacade
         GameResult result =  proxy.createNewGame(game);
         if (result.isSuccess())
         {
-<<<<<<< HEAD
-            gameList.getGameList().put(game.getGameNumber(), game);
-=======
             gameList.getGameList().put(result.getToReturn().getGameNumber(), result.getToReturn());
->>>>>>> integration
         }
         return result;
     }

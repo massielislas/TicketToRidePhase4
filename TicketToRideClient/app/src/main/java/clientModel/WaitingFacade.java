@@ -1,10 +1,7 @@
 package clientModel;
 
-<<<<<<< HEAD
-=======
 import java.util.Observer;
 
->>>>>>> integration
 import clientResult.GameStartResult;
 
 /**
