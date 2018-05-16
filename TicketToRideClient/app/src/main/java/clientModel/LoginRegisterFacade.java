@@ -35,6 +35,8 @@ public class LoginRegisterFacade
         if (result.isSuccess())
         {
             userData.setUsername(username);
+            userData.setHost(host);
+            userData.setPort(port);
         }
         return result;
     }
@@ -51,7 +53,6 @@ public class LoginRegisterFacade
         else
         {
             LoginRegisterResult result = new LoginRegisterResult(false);
-            //result.setSuccess(false);
             result.setMessage("Invalid input!");
             return result;
         }
@@ -63,6 +64,8 @@ public class LoginRegisterFacade
         if (result.isSuccess())
         {
             userData.setUsername(username);
+            userData.setHost(host);
+            userData.setPort(port);
         }
         return result;
     }

@@ -11,6 +11,10 @@ public class GameResult extends Result {
 
     private Game toReturn;
 
+    public Game getToReturn() {
+        return toReturn;
+    }
+
     public GameResult(Game game)
     {
         this.toReturn = game;
