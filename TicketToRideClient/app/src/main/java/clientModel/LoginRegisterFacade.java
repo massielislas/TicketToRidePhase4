@@ -34,8 +34,7 @@ public class LoginRegisterFacade
 
     private LoginRegisterResult login(UserPass username, UserPass password, Host host, Port port)
     {
-        Command command = new Command();
-        return proxy.dostuff(command);
+        return proxy.registerUser(username, password, host, port);
     }
 
     public LoginRegisterResult verifyRegister(String strUsername, String strPassword, String strHost, String strPort)
@@ -58,8 +57,7 @@ public class LoginRegisterFacade
 
     private LoginRegisterResult register(UserPass username, UserPass password, Host host, Port port)
     {
-        Command command = new Command();
-        return proxy.dostuff(command);
+        return proxy.loginUser(username, password, host, port);
     }
 
 }
