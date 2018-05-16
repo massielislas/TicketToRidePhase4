@@ -10,8 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import root.tickettorideclient.LoginCallback;
+import root.tickettorideclient.Presenters.ILoginView;
+import root.tickettorideclient.Presenters.LoginPresenter;
 import root.tickettorideclient.R;
 
 
@@ -19,7 +22,7 @@ import root.tickettorideclient.R;
  * Created by Massiel on 5/12/2018.
  */
 
-public class LoginView extends Fragment{
+public class LoginView extends Fragment implements ILoginView {
     private EditText serverHostInput;
     private EditText serverPortInput;
     private EditText usernameInput;
@@ -33,9 +36,13 @@ public class LoginView extends Fragment{
     private String serverHost;
     private String serverPort;
 
+    private ILoginPresenter presenter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        presenter = new LoginPresenter(this);
     }
 
     @Nullable
@@ -54,7 +61,7 @@ public class LoginView extends Fragment{
         signInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                ((LoginCallback) getActivity()).onLoginSuccess();
+                presenter.login(username, password, serverHost, serverPort);
             }
         });
 
@@ -62,7 +69,7 @@ public class LoginView extends Fragment{
         registerButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                ((LoginCallback) getActivity()).onLoginSuccess();
+                presenter.register(username, password, serverHost, serverPort);
             }
         });
     }
@@ -169,5 +176,35 @@ public class LoginView extends Fragment{
         }
 
         return true;
+    }
+
+    @Override
+    public void disableLoginButton() {
+        signInButton.setEnabled(false);
+    }
+
+    @Override
+    public void enableLoginButton() {
+        signInButton.setEnabled(true);
+    }
+
+    @Override
+    public void disableRegisterButton() {
+        registerButton.setEnabled(false);
+    }
+
+    @Override
+    public void enableRegisterButton() {
+        registerButton.setEnabled(true);
+    }
+
+    @Override
+    public void popErrorToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void switchToGamesView() {
+        ((LoginCallback) getActivity()).onLoginSuccess();
     }
 }
