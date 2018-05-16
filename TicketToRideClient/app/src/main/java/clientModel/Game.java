@@ -13,9 +13,10 @@ public class Game extends Observable
 
     int currentPlayers; //current in game
 
-    Game(int playerCount, int currentPlayers) {
+    Game(int playerCount, int currentPlayers, int gameNumber) {
         this.playerCount = playerCount;
         this.currentPlayers = currentPlayers;
+        this.gameNumber = gameNumber;
         this.ID = UUID.randomUUID().toString();
     }
 
