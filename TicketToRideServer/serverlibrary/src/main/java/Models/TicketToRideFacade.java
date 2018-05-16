@@ -35,7 +35,7 @@ public class TicketToRideFacade implements ITicketToRide{
     }
 
     @Override
-    public GameResult createNewGame(int numPlayers) {
+    public GameResult createNewGame(Game game) {
         return null;
     }
 
