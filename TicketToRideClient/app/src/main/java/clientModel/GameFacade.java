@@ -1,5 +1,8 @@
 package clientModel;
 
+import clientResult.GameResult;
+import clientResult.Result;
+
 /**
  * Created by zachgormley on 5/13/18.
  */
@@ -7,16 +10,21 @@ package clientModel;
 public class GameFacade
 {
     TicketToRideProxy proxy;
+    UserData userData = UserData.getUserData();
 
-    public GameResult createGame()
+    public GameResult createGame(int playerCount)
     {
-        Command command = new Command();
-        return proxy.dostuff(command);
+        return proxy.createNewGame(playerCount);
     }
-    public GameResult joinGame(Game game)
+    public Result joinGame(int gameID, int currentPlayers)
     {
-        Command command = new Command();
-        return proxy.dostuff(command);
+        Game game = new Game(gameID, currentPlayers);
+        Result result = proxy.addPlayerToGame(userData.getUsername(), game);
+        if (result.isSuccess())
+        {
+            userData.setCurrentGame(game);
+        }
+        return result;
     }
 }
 

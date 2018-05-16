@@ -11,5 +11,7 @@ import clientModel.Command;
 public class ClientFacade
 {
     public void executeCommands(ArrayList<Command> commands)
-    {}
+    {
+
+    }
 }
