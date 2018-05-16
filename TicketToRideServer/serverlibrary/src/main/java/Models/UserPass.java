@@ -24,4 +24,22 @@ public class UserPass {
         }
         return true;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        UserPass compare = (UserPass) obj;
+
+        if (compare == this) {
+            return true;
+        }
+
+        if (!(nameOrPassword.equals(compare.nameOrPassword))) {
+            return false;
+        }
+
+        return true;
+    }
 }

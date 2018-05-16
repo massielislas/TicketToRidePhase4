@@ -59,4 +59,17 @@ public class Game {
     {
         this.ID = ID;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (!(((Game) obj).getID().equals(this.ID))) {
+            return false;
+        }
+        return true;
+    }
 }

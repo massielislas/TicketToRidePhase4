@@ -43,4 +43,33 @@ public class Game extends Observable
     {
         this.playerCount = playerCount;
     }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public int getCurrentPlayers() {
+        return currentPlayers;
+    }
+
+    public void setCurrentPlayers(int currentPlayers) {
+        this.currentPlayers = currentPlayers;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (!(((Game) obj).getID().equals(this.ID))) {
+            return false;
+        }
+        return true;
+    }
 }
