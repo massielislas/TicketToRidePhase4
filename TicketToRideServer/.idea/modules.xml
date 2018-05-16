@@ -4,6 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TicketToRideServer.iml" filepath="$PROJECT_DIR$/TicketToRideServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+<<<<<<< HEAD
+=======
+      <module fileurl="file://C:\Users\Topper\Desktop\CS 340\TicketToRide\TicketToRideServer\app\app.iml" filepath="C:\Users\Topper\Desktop\CS 340\TicketToRide\TicketToRideServer\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gson-2.8.4/gson-2.8.4.iml" filepath="$PROJECT_DIR$/gson-2.8.4/gson-2.8.4.iml" />
+>>>>>>> integration
       <module fileurl="file://$PROJECT_DIR$/serverlibrary/serverlibrary.iml" filepath="$PROJECT_DIR$/serverlibrary/serverlibrary.iml" />
     </modules>
   </component>
