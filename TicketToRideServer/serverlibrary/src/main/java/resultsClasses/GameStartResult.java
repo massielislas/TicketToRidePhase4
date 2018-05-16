@@ -10,4 +10,13 @@ import Models.Game;
 public class GameStartResult extends Result
 {
     private Game toReturn;
+
+    public GameStartResult(Game toReturn) {
+        this.toReturn = toReturn;
+    }
+
+    public GameStartResult(boolean success, String message) {
+        super(success, message);
+        toReturn = null;
+    }
 }

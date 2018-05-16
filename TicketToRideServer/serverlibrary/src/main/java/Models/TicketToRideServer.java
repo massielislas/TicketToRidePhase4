@@ -96,4 +96,13 @@ class TicketToRideServer {
     public void addGameToQueue(Game toAdd) {
         notYetActiveGames.add(toAdd);
     }
+
+    public boolean startGame(Game game) {
+        if (game.getCurrentPlayers() == game.getPlayerCount()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
