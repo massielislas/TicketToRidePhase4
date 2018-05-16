@@ -1,5 +1,7 @@
 package clientModel;
 
+import clientResult.LoginRegisterResult;
+
 /**
  * Created by zachgormley on 5/13/18.
  */
@@ -7,6 +9,7 @@ package clientModel;
 public class LoginRegisterFacade
 {
     TicketToRideProxy proxy;
+    UserData userData = UserData.getUserData();
 
     public LoginRegisterResult verifyLogin(String strUsername, String strPassword, String strHost, String strPort)
     {
@@ -19,8 +22,8 @@ public class LoginRegisterFacade
         if (valid) return login(username, password, host, port);
         else
         {
-            LoginRegisterResult result = new LoginRegisterResult();
-            result.setResult(false);
+            LoginRegisterResult result = new LoginRegisterResult(false);
+            //result.setSuccess(false);
             result.setMessage("Invalid input!");
             return result;
         }
@@ -28,7 +31,12 @@ public class LoginRegisterFacade
 
     private LoginRegisterResult login(UserPass username, UserPass password, Host host, Port port)
     {
-        return proxy.registerUser(username, password, host, port);
+        LoginRegisterResult result = proxy.loginUser(username, password, host, port);
+        if (result.isSuccess())
+        {
+            userData.setUsername(username);
+        }
+        return result;
     }
 
     public LoginRegisterResult verifyRegister(String strUsername, String strPassword, String strHost, String strPort)
@@ -42,8 +50,8 @@ public class LoginRegisterFacade
         if (valid) return register(username, password, host, port);
         else
         {
-            LoginRegisterResult result = new LoginRegisterResult();
-            result.setResult(false);
+            LoginRegisterResult result = new LoginRegisterResult(false);
+            //result.setSuccess(false);
             result.setMessage("Invalid input!");
             return result;
         }
@@ -51,7 +59,12 @@ public class LoginRegisterFacade
 
     private LoginRegisterResult register(UserPass username, UserPass password, Host host, Port port)
     {
-        return proxy.loginUser(username, password, host, port);
+        LoginRegisterResult result = proxy.registerUser(username, password, host, port);
+        if (result.isSuccess())
+        {
+            userData.setUsername(username);
+        }
+        return result;
     }
 
 }
