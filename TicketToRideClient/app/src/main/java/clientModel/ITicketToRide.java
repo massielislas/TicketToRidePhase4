@@ -15,7 +15,11 @@ public interface ITicketToRide {
     LoginRegisterResult registerUser(UserPass username, UserPass password, Host host, Port port);
     LoginRegisterResult loginUser(UserPass username, UserPass password, Host host, Port port);
     Result addPlayerToGame(UserPass username, Game game);
+<<<<<<< HEAD
     GameResult createNewGame(Game newGame);
+=======
+    GameResult createNewGame(Game game);
+>>>>>>> integration
     GameStartResult startGame(Game game);
 }
 

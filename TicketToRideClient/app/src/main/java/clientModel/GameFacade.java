@@ -1,5 +1,7 @@
 package clientModel;
 
+import java.util.Observer;
+
 import clientResult.GameResult;
 import clientResult.Result;
 
@@ -9,7 +11,7 @@ import clientResult.Result;
 
 public class GameFacade
 {
-    TicketToRideProxy proxy;
+    TicketToRideProxy proxy = new TicketToRideProxy();
     UserData userData = UserData.getUserData();
     Games gameList = Games.getGames();
 
@@ -20,7 +22,11 @@ public class GameFacade
         GameResult result =  proxy.createNewGame(game);
         if (result.isSuccess())
         {
+<<<<<<< HEAD
             gameList.getGameList().put(game.getGameNumber(), game);
+=======
+            gameList.getGameList().put(result.getToReturn().getGameNumber(), result.getToReturn());
+>>>>>>> integration
         }
         return result;
     }
@@ -34,6 +40,10 @@ public class GameFacade
             userData.setCurrentGame(game);
         }
         return result;
+    }
+    public void addObserver(Observer o)
+    {
+        gameList.addAnObserver(o);
     }
 }
 

@@ -9,7 +9,10 @@ import clientResult.LoginRegisterResult;
 import clientResult.Result;
 import communication.ClientCommunicator;
 import communication.Encoder;
+<<<<<<< HEAD
 
+=======
+>>>>>>> integration
 
 public class TicketToRideProxy implements ITicketToRide {
 
@@ -23,6 +26,14 @@ public class TicketToRideProxy implements ITicketToRide {
         String[] methodParamTypeNames = {"UserPass", "UserPass", "Host", "Port"};
         Object[] methodArguments = {username, password, host, port};
 
+<<<<<<< HEAD
+=======
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"UserPass", "UserPass", "Host", "Port"};
+        Object[] methodArguments = {username, password, host, port};
+
+>>>>>>> integration
         Command command = new Command("TicketToRideFacade", "getInstance",
                 "loginUser", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                 methodArguments);
@@ -44,6 +55,10 @@ public class TicketToRideProxy implements ITicketToRide {
 
     @Override
     public LoginRegisterResult loginUser(UserPass username, UserPass password, Host host, Port port) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> integration
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
         String[] methodParamTypeNames = {"UserPass", "UserPass", "Host", "Port"};
@@ -70,10 +85,18 @@ public class TicketToRideProxy implements ITicketToRide {
 
     @Override
     public Result addPlayerToGame(UserPass username, Game game) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> integration
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
         String[] methodParamTypeNames = {"UserPass", "Game"};
         Object[] methodArguments = {username, game};
+<<<<<<< HEAD
+=======
+
+>>>>>>> integration
         Command command = new Command("TicketToRideFacade", "getInstance",
                 "addPlayerToGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                 methodArguments);
@@ -95,6 +118,10 @@ public class TicketToRideProxy implements ITicketToRide {
 
     @Override
     public GameResult createNewGame(Game game) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> integration
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
         String[] methodParamTypeNames = {"Game"};
@@ -130,6 +157,18 @@ public class TicketToRideProxy implements ITicketToRide {
                 "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                 methodArguments);
 
+<<<<<<< HEAD
+=======
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"Game"};
+        Object[] methodArguments = {game};
+
+        Command command = new Command("TicketToRideFacade", "getInstance",
+                "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+
+>>>>>>> integration
         String jsonStr = Encoder.Encode(command);
         try
         {

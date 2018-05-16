@@ -1,5 +1,10 @@
 package clientModel;
 
+<<<<<<< HEAD
+=======
+import java.util.Observer;
+
+>>>>>>> integration
 import clientResult.GameStartResult;
 
 /**
@@ -9,10 +14,20 @@ import clientResult.GameStartResult;
 public class WaitingFacade
 {
     Game currentGame;
-    TicketToRideProxy proxy;
+    TicketToRideProxy proxy = new TicketToRideProxy();
+    Games gameList = Games.getGames();
 
+    public WaitingFacade(int gameID)
+    {
+        currentGame = gameList.getGameList().get(gameID);
+    }
     public GameStartResult startGame()
     {
         return proxy.startGame(currentGame);
+    }
+
+    public void addObserver(Observer o)
+    {
+        currentGame.addAnObserver(o);
     }
 }

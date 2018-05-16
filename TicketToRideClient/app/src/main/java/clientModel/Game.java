@@ -1,6 +1,7 @@
 package clientModel;
 
 import java.util.Observable;
+import java.util.Observer;
 import java.util.UUID;
 
 public class Game extends Observable
@@ -18,6 +19,19 @@ public class Game extends Observable
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
         this.ID = UUID.randomUUID().toString();
+    }
+
+    void addAnObserver(Observer o)
+    {
+        addObserver(o);
+    }
+
+    public int getCurrentPlayers() {
+        return currentPlayers;
+    }
+
+    public void setCurrentPlayers(int currentPlayers) {
+        this.currentPlayers = currentPlayers;
     }
 
     void addPlayer()

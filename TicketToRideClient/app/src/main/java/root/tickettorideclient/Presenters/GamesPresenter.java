@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import clientModel.Game;
 import clientModel.GameFacade;
 import clientResult.GameResult;
+import clientResult.Result;
 import root.tickettorideclient.Views.GameListItem;
 import root.tickettorideclient.Views.IGamesPresenter;
 
@@ -53,7 +54,11 @@ public class GamesPresenter implements IGamesPresenter, Observer {
     public void joinGame(Integer gameID) {
         //TODO: write me
 
+<<<<<<< HEAD
         GameResult result = facade.joinGame(gameID);
+=======
+        Result result = facade.joinGame(gameID);
+>>>>>>> integration
 
         //if unsuccessful,
         //pop error toast

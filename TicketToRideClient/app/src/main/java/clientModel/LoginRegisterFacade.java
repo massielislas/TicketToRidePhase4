@@ -8,7 +8,7 @@ import clientResult.LoginRegisterResult;
 
 public class LoginRegisterFacade
 {
-    TicketToRideProxy proxy;
+    TicketToRideProxy proxy = new TicketToRideProxy();
     UserData userData = UserData.getUserData();
 
     public LoginRegisterResult verifyLogin(String strUsername, String strPassword, String strHost, String strPort)
