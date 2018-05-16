@@ -1,9 +1,9 @@
 package Models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import resultsClasses.Result;
 
@@ -25,7 +25,7 @@ class TicketToRideServer {
     private TicketToRideServer() {
         activeGames = new ArrayList<>();
         notYetActiveGames = new ArrayList<>();
-        userPasswordMap = new TreeMap<>();
+        userPasswordMap = new HashMap<>();
     }
 
     //Check whether the Username and Password supplied match and correspond to a user
@@ -102,6 +102,8 @@ class TicketToRideServer {
             return true;
         }
         else {
+            activeGames.add(game);
+            notYetActiveGames.remove(game);
             return false;
         }
     }

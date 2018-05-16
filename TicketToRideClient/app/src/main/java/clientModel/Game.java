@@ -1,5 +1,8 @@
 package clientModel;
 
+import android.annotation.TargetApi;
+
+import java.util.Objects;
 import java.util.Observable;
 import java.util.UUID;
 
@@ -71,5 +74,11 @@ public class Game extends Observable
             return false;
         }
         return true;
+    }
+
+    @Override
+    @TargetApi(19)
+    public int hashCode() {
+        return Objects.hash(gameNumber, ID, currentPlayers, playerCount);
     }
 }

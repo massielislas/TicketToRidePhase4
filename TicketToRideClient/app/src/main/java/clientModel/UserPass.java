@@ -1,5 +1,9 @@
 package clientModel;
 
+import android.annotation.TargetApi;
+
+import java.util.Objects;
+
 /**
  * Created by Lance on 5/14/2018.
  */
@@ -48,5 +52,11 @@ public class UserPass {
         }
 
         return true;
+    }
+
+    @Override
+    @TargetApi(19)
+    public int hashCode() {
+        return Objects.hash(nameOrPassword);
     }
 }
