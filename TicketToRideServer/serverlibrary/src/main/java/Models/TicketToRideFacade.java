@@ -59,7 +59,13 @@ public class TicketToRideFacade implements ITicketToRide {
     }
 
     public GameResult createNewGame(Game newGame) {
-        return new GameResult(false, "Stub");
+        if (Server.doesGameExist(newGame)) {
+            return new GameResult(false, "That game already exists");
+        }
+        else {
+            Server.addGameToQueue(newGame);
+            return new GameResult(newGame);
+        }
     }
 
     public GameStartResult startGame(Game game) {
