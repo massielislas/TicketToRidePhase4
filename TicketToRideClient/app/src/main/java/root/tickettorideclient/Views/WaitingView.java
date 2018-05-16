@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import root.tickettorideclient.R;
 
@@ -14,6 +15,7 @@ import root.tickettorideclient.R;
  */
 
 public class WaitingView extends Fragment{
+    TextView playerNumber;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,8 @@ public class WaitingView extends Fragment{
     }
 
     public void setUpTextViews(View v){
-
+        playerNumber = (TextView) getView().findViewById(R.id.playerCounter);
+        playerNumber.setText("1000");
     }
 }
 
