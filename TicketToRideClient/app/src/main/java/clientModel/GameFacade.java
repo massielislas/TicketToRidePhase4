@@ -8,15 +8,15 @@ public class GameFacade
 {
     TicketToRideProxy proxy;
 
-    public GameResult createGame()
+    public GameResult createGame(int playerCount)
     {
-        Command command = new Command();
-        return proxy.dostuff(command);
+        return proxy.createNewGame(playerCount);
     }
-    public GameResult joinGame(Game game)
+    public GameResult joinGame(int gameID)
     {
         Command command = new Command();
-        return proxy.dostuff(command);
+        Game game(gameID) = new Game();
+        return proxy.addPlayerToGame(gameID);
     }
 }
 
