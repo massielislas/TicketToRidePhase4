@@ -10,6 +10,26 @@ class UserData
 
     Game currentGame;
 
+    Host host;
+
+    Port port;
+
+    public Host getHost() {
+        return host;
+    }
+
+    public void setHost(Host host) {
+        this.host = host;
+    }
+
+    public Port getPort() {
+        return port;
+    }
+
+    public void setPort(Port port) {
+        this.port = port;
+    }
+
     public static UserData getUserData() {
         return userData;
     }

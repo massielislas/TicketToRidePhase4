@@ -5,6 +5,12 @@ import java.util.TreeMap;
 
 class Games extends Observable
 {
+    static public Games games = new Games();
+
+    public static Games getGames() {
+        return games;
+    }
+
     TreeMap<Integer, Game> gameList = new TreeMap<>();
 
     void addGame(Game game)
