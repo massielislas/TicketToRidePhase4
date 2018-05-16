@@ -2,6 +2,7 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,6 +37,10 @@ public class CommandManager {
             System.arraycopy(allCommands,lastCommand,toReturn,0,allCommands.length-lastCommand);
         }
     }
-
+    public void addCommandsMultipleUsers(List<UserPass> userList, Command[] commands){
+        for(UserPass user:userList) {
+            addCommands(user,commands);
+        }
+    }
 
 }

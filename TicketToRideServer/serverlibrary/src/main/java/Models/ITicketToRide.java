@@ -17,3 +17,4 @@ public interface ITicketToRide {
     GameStartResult startGame(Game game);
 
 }
+
