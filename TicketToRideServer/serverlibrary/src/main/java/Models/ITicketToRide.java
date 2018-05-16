@@ -13,7 +13,7 @@ public interface ITicketToRide {
     LoginRegisterResult registerUser(UserPass username, UserPass password, Host host, Port port);
     LoginRegisterResult loginUser(UserPass username, UserPass password, Host host, Port port);
     Result addPlayerToGame(UserPass username, Game game);
-    GameResult createNewGame(int numPlayers);
+    GameResult createNewGame(Game newGame);
     GameStartResult startGame(Game game);
 
 }
