@@ -2,7 +2,7 @@ package clientModel;
 
 import java.util.Observer;
 
-class UserData
+public class UserData
 {
     static public UserData userData = new UserData();
 
