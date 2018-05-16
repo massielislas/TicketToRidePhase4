@@ -15,14 +15,16 @@ public class WaitingPresenter implements IWaitingPresenter, Observer {
     private IWaitingView view = null;
 
     public WaitingPresenter (IWaitingView view) {
+
         this.view = view;
+
+        // waiting face . regsiter self (this)
     }
 
     @Override
     public void update(Observable observable, Object o) {
         //update player count
-        Game game = (Game) o;
-        int numPlayers = game.getPlayerCount(); //FIXME - need Game to be public
+        int numPlayers = (int) o;
         view.updatePlayerCount(numPlayers);
     }
 }
