@@ -19,7 +19,7 @@ public class WaitingPresenter implements IWaitingPresenter, Observer {
     public WaitingPresenter (IWaitingView view) {
 
         this.view = view;
-        this.facade = new WaitingFacade();
+        this.facade = new WaitingFacade(0);
         this.facade.addObserver(this);
     }
 
