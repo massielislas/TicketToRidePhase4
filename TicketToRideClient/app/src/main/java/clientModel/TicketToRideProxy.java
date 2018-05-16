@@ -7,6 +7,7 @@ import clientResult.GameResult;
 import clientResult.GameStartResult;
 import clientResult.LoginRegisterResult;
 import clientResult.Result;
+import communication.ClientCommunicator;
 import communication.Encoder;
 
 public class TicketToRideProxy implements ITicketToRide {
