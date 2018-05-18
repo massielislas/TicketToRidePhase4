@@ -8,6 +8,10 @@ import Results.LoginRegisterResult;
 
 public class LoginRegisterFacade
 {
+    private static final LoginRegisterFacade instance = new LoginRegisterFacade();
+
+    public static LoginRegisterFacade getInstance() {return instance;}
+
     TicketToRideProxy proxy = new TicketToRideProxy();
     UserData userData = UserData.getUserData();
 
@@ -23,21 +27,25 @@ public class LoginRegisterFacade
         else
         {
             LoginRegisterResult result = new LoginRegisterResult(false);
-            //result.setSuccess(false);
+            result.setSuccess(false);
             result.setMessage("Invalid input!");
             return result;
         }
+       // System.out.println("Msg: " + result.getMessage());
     }
 
     private LoginRegisterResult login(UserPass username, UserPass password, Host host, Port port)
     {
-        LoginRegisterResult result = proxy.loginUser(username, password, host, port);
+        LoginRegisterResult result = proxy.loginUser(username.getNameOrPassword(), password.getNameOrPassword(),
+                host.data, port.data);
         if (result.isSuccess())
         {
+            System.out.println("Msg: " + result.getMessage());
             userData.setUsername(username);
             userData.setHost(host);
             userData.setPort(port);
         }
+        System.out.println("Msg: " + result.getMessage());
         return result;
     }
 
@@ -60,13 +68,15 @@ public class LoginRegisterFacade
 
     private LoginRegisterResult register(UserPass username, UserPass password, Host host, Port port)
     {
-        LoginRegisterResult result = proxy.registerUser(username, password, host, port);
+        LoginRegisterResult result = proxy.registerUser(username.getNameOrPassword(), password.getNameOrPassword(),
+                host.data, port.data);
         if (result.isSuccess())
         {
             userData.setUsername(username);
             userData.setHost(host);
             userData.setPort(port);
         }
+        System.out.println("Msg: " + result.getMessage());
         return result;
     }
 

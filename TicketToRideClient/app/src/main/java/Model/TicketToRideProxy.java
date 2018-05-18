@@ -16,11 +16,11 @@ public class TicketToRideProxy implements ITicketToRide {
     UserData userData = UserData.getUserData();
 
     @Override
-    public LoginRegisterResult registerUser(UserPass username, UserPass password, Host host, Port port) {
+    public LoginRegisterResult registerUser(String username, String password, String host, String port) {
         System.out.println("in registerUser of proxy");//TODO: REMOVE ME
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"Model.UserPass", "Model.UserPass", "Model.Host", "Model.Port"};
+        String[] methodParamTypeNames = {"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
         Object[] methodArguments = {username, password, host, port};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
@@ -29,7 +29,7 @@ public class TicketToRideProxy implements ITicketToRide {
         String jsonStr = Encoder.Encode(command);
         try
         {
-            URL url = new URL("http://" + host.data + ":" + port.data + "/command");
+            URL url = new URL("http://" + host + ":" + port + "/command");
 
             Object[] objects = new Object[3];
             objects[0] = url;
@@ -37,7 +37,10 @@ public class TicketToRideProxy implements ITicketToRide {
             objects[2] = "";
             String json = client.post(objects);
 
-            if (json == null) return null;
+            if (json == null) {
+                System.out.println("Json is null in proxy");
+                return null;
+            }
             Object result = Encoder.Decode(json, LoginRegisterResult.class);
             return (LoginRegisterResult)result;
         }
@@ -49,11 +52,11 @@ public class TicketToRideProxy implements ITicketToRide {
     }
 
     @Override
-    public LoginRegisterResult loginUser(UserPass username, UserPass password, Host host, Port port) {
+    public LoginRegisterResult loginUser(String username, String password, String host, String port) {
 
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"Model.UserPass", "Model.UserPass", "Model.Host", "Model.Port"};
+        String[] methodParamTypeNames = {"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
         Object[] methodArguments = {username, password, host, port};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
@@ -62,7 +65,7 @@ public class TicketToRideProxy implements ITicketToRide {
         String jsonStr = Encoder.Encode(command);
         try
         {
-            URL url = new URL("http://" + host.data + ":" + port.data + "/command");
+            URL url = new URL("http://" + host + ":" + port + "/command");
             Object[] objects = new Object[3];
             objects[0] = url;
             objects[1] = jsonStr;
@@ -80,11 +83,11 @@ public class TicketToRideProxy implements ITicketToRide {
     }
 
     @Override
-    public Result addPlayerToGame(UserPass username, Game game) {
+    public Result addPlayerToGame(String username, int playerCount, int currentPlayers, int gameNumber, String ID) {
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"Model.UserPass", "Model.Game"};
-        Object[] methodArguments = {username, game};
+        String[] methodParamTypeNames = {"java.lang.String", Integer.class.toString(), Integer.class.toString(), Integer.class.toString(), "java.lang.String"};
+        Object[] methodArguments = {username, playerCount, currentPlayers, gameNumber, ID};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
                 "addPlayerToGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
@@ -110,12 +113,12 @@ public class TicketToRideProxy implements ITicketToRide {
     }
 
     @Override
-    public GameResult createNewGame(Game game) {
+    public GameResult createNewGame(int playerCount, int currentPlayers, int gameNumber, String ID) {
 
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"Model.Game"};
-        Object[] methodArguments = {game};
+        String[] methodParamTypeNames = {Integer.class.toString(), Integer.class.toString(), Integer.class.toString(), "java.lang.String"};
+        Object[] methodArguments = {playerCount, currentPlayers, gameNumber, ID};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
                 "createNewGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
@@ -141,11 +144,11 @@ public class TicketToRideProxy implements ITicketToRide {
     }
 
     @Override
-    public GameStartResult startGame(Game game) {
+    public GameStartResult startGame(int playerCount, int currentPlayers, int gameNumber, String ID) {
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"Model.Game"};
-        Object[] methodArguments = {game};
+        String[] methodParamTypeNames = {Integer.class.toString(), Integer.class.toString(), Integer.class.toString(), "java.lang.String"};
+        Object[] methodArguments = {playerCount, currentPlayers, gameNumber, ID};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
                 "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,

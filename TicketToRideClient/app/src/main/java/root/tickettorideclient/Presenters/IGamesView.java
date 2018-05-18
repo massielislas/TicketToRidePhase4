@@ -1,5 +1,7 @@
 package root.tickettorideclient.Presenters;
 
+import android.os.Bundle;
+
 import java.util.ArrayList;
 
 import root.tickettorideclient.Views.GameListItem;
@@ -10,6 +12,6 @@ import root.tickettorideclient.Views.GameListItem;
 
 public interface IGamesView {
     public void updateGamesList(ArrayList<GameListItem> gameList);
-    public void switchToWaitingView();
+    public void switchToWaitingView(Bundle bundle);
     public void popErrorToast(String message);
 }
