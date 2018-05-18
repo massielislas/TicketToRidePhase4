@@ -6,4 +6,8 @@ package Results;
 
 public interface IResult {
     public boolean isSuccess();
+
+    public void setSuccess(boolean success);
+
+    public void setMessage(String message);
 }

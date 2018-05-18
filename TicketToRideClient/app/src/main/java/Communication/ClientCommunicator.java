@@ -101,7 +101,7 @@ public class ClientCommunicator {
                 else
                 {
                     System.out.println("Error in post response\nCode: " + http.getResponseMessage());
-                    objects[2] = null;
+                    objects[2] = readString(http.getInputStream());
                 }
             }
             catch(IOException error)
@@ -114,7 +114,8 @@ public class ClientCommunicator {
                 System.out.println(error.getLocalizedMessage());
                 //System.out.println("suppresed: ");
                 //System.out.print(error.getSuppressed());
-                objects[2] = null;
+                Result result = new Result(false, "IOException: " + error);
+                objects[2] = result;
             }
 
             return null;
@@ -165,12 +166,13 @@ public class ClientCommunicator {
                 }
                 else {
                     System.out.println("Error in getResponseCode: " + http.getResponseMessage());
-                    objects[1] = null;
+                    objects[1] = readString(http.getInputStream());
                 }
             }
             catch(IOException error) {
                 System.out.println("Error in post method!\n" + error.getStackTrace());
-                objects[1] = null;
+                Result result = new Result(false, "IOException: " + error);
+                objects[1] = result;
             }
             return null;
         }
