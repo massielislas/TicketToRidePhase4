@@ -125,6 +125,7 @@ public class GamesView extends Fragment implements IGamesView {
             GameListItem gameListItem = new GameListItem();
             gameListItem.setGameId(i + "");
             gameListItem.setPlayersJoined((5 - i) + "");
+            gameListItem.setMaxPlayers(4+"");
             gameListItems.add(gameListItem);
         }
 
