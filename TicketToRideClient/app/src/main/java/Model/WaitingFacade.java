@@ -10,6 +10,10 @@ import Results.GameStartResult;
 
 public class WaitingFacade
 {
+    private static final WaitingFacade instance = new WaitingFacade();
+
+    public static WaitingFacade getInstance() {return instance;}
+
     Game currentGame;
     TicketToRideProxy proxy = new TicketToRideProxy();
     Games gameList = Games.getGames();
@@ -22,7 +26,7 @@ public class WaitingFacade
 
     public GameStartResult startGame()
     {
-        return proxy.startGame(currentGame);
+        return proxy.startGame(currentGame.getPlayerCount(), currentGame.getCurrentPlayers(), currentGame.getGameNumber(), currentGame.getID());
     }
     public void addObserver(Observer o)
     {

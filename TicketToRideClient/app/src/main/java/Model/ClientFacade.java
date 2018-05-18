@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 public class ClientFacade
 {
+    private static final ClientFacade instance = new ClientFacade();
+
+    public static ClientFacade getInstance() {return instance;}
+
     public void executeCommands(ArrayList<Command> commands)
     {
         for(Command c: commands){

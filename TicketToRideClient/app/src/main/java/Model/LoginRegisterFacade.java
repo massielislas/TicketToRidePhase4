@@ -8,6 +8,10 @@ import Results.LoginRegisterResult;
 
 public class LoginRegisterFacade
 {
+    private static final LoginRegisterFacade instance = new LoginRegisterFacade();
+
+    public static LoginRegisterFacade getInstance() {return instance;}
+
     TicketToRideProxy proxy = new TicketToRideProxy();
     UserData userData = UserData.getUserData();
 
@@ -31,7 +35,8 @@ public class LoginRegisterFacade
 
     private LoginRegisterResult login(UserPass username, UserPass password, Host host, Port port)
     {
-        LoginRegisterResult result = proxy.loginUser(username, password, host, port);
+        LoginRegisterResult result = proxy.loginUser(username.getNameOrPassword(), password.getNameOrPassword(),
+                host.data, port.data);
         if (result.isSuccess())
         {
             userData.setUsername(username);
@@ -60,7 +65,8 @@ public class LoginRegisterFacade
 
     private LoginRegisterResult register(UserPass username, UserPass password, Host host, Port port)
     {
-        LoginRegisterResult result = proxy.registerUser(username, password, host, port);
+        LoginRegisterResult result = proxy.registerUser(username.getNameOrPassword(), password.getNameOrPassword(),
+                host.data, port.data);
         if (result.isSuccess())
         {
             userData.setUsername(username);
