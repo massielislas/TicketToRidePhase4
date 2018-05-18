@@ -70,14 +70,6 @@ public class Game extends Observable
         this.ID = ID;
     }
 
-    public int getCurrentPlayers() {
-        return currentPlayers;
-    }
-
-    public void setCurrentPlayers(int currentPlayers) {
-        this.currentPlayers = currentPlayers;
-    }
-
     @Override
     public boolean equals(Object obj) {
 
