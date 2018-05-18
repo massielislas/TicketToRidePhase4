@@ -73,6 +73,7 @@ public class ClientCommunicator {
         @Override
         protected Void doInBackground(Object... objects) {
             System.out.println("url: " + ((URL) objects[0]).toString() + "\ndata: " + (String) objects[1]);
+            Encoder encoder = new Encoder();
             try
             {
                 System.out.println("in try");
@@ -115,7 +116,7 @@ public class ClientCommunicator {
                 //System.out.println("suppresed: ");
                 //System.out.print(error.getSuppressed());
                 Result result = new Result(false, "IOException: " + error);
-                objects[2] = result;
+                objects[2] = encoder.Encode(result);
             }
 
             return null;
@@ -155,6 +156,7 @@ public class ClientCommunicator {
     private class GetTask extends AsyncTask<Object, Void, Void>{
         @Override
         protected Void doInBackground(Object... objects) {
+            Encoder encoder = new Encoder();
             try {
                 HttpURLConnection http = (HttpURLConnection) ((URL)objects[0]).openConnection();
                 http.setRequestMethod("GET");
@@ -172,7 +174,7 @@ public class ClientCommunicator {
             catch(IOException error) {
                 System.out.println("Error in post method!\n" + error.getStackTrace());
                 Result result = new Result(false, "IOException: " + error);
-                objects[1] = result;
+                objects[1] = encoder.Encode(result);
             }
             return null;
         }
