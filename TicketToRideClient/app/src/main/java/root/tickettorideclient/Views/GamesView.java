@@ -17,7 +17,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import root.tickettorideclient.IGameJoinedCallback;
-import root.tickettorideclient.ILoginCallback;
 import root.tickettorideclient.Presenters.GamesPresenter;
 import root.tickettorideclient.Presenters.IGamesView;
 import root.tickettorideclient.R;
@@ -75,6 +74,7 @@ public class GamesView extends Fragment implements IGamesView {
     }
 
     public void setUpInputs(){
+        playerNumberSpinner = (Spinner) view.findViewById(R.id.maxPlayersSpinner);
         playerNumberSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
