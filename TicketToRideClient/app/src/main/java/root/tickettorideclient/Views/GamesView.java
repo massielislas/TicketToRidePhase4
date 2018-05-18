@@ -38,6 +38,9 @@ public class GamesView extends Fragment implements IGamesView {
     final String MAX_PLAYERS_KEY = "MaxPlayers";
     final String PLAYERS_JOINED_KEY = "PlayersJoined";
 
+    int joinedGameMaxPlayers = 0;
+    int joinedGameJoinedPlayers = 0;
+
     public ArrayList<GameListItem> getGameListItems() {
         return gameListItems;
     }
@@ -50,12 +53,6 @@ public class GamesView extends Fragment implements IGamesView {
         this.presenter = new GamesPresenter(this);
     }
 
-    public void onGameJoined(int playersJoined, int maximumPlayers) {
-        Bundle bundle = new Bundle();
-        bundle.putInt(MAX_PLAYERS_KEY, 0);
-        bundle.putInt(PLAYERS_JOINED_KEY, 0);
-        switchToWaitingView(bundle);
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,7 +107,8 @@ public class GamesView extends Fragment implements IGamesView {
             @Override
             public void onClick(View view) {
                 presenter.createGame(numberOfPlayersSelected);
-                onGameJoined(1, numberOfPlayersSelected);
+                joinedGameMaxPlayers = numberOfPlayersSelected;
+                joinedGameJoinedPlayers = 0;
             }
         });
     }
@@ -139,9 +137,13 @@ public class GamesView extends Fragment implements IGamesView {
     }
 
     @Override
-    public void switchToWaitingView(Bundle bundle) {
-       ((IGameJoinedCallback) getActivity()).onGameCreated(bundle);
+    public void switchToWaitingView() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(MAX_PLAYERS_KEY, joinedGameMaxPlayers);
+        bundle.putInt(PLAYERS_JOINED_KEY, joinedGameJoinedPlayers);
+        ((IGameJoinedCallback) getActivity()).onGameCreated(bundle);
     }
+
 
     @Override
     public void popErrorToast(String message) {
@@ -164,7 +166,8 @@ public class GamesView extends Fragment implements IGamesView {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(getContext(), textToSet, Toast.LENGTH_LONG).show();
-                    onGameJoined(Integer.valueOf(gameListItem.getPlayersJoined()), Integer.valueOf(gameListItem.getPlayersJoined()));
+                    joinedGameJoinedPlayers = Integer.valueOf(gameListItem.getPlayersJoined());
+                    joinedGameMaxPlayers = Integer.valueOf(gameListItem.getMaxPlayers());
                 }
             });
         }
