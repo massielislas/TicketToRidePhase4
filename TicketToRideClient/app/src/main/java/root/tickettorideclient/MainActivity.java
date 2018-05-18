@@ -9,7 +9,7 @@ import root.tickettorideclient.Views.GamesView;
 import root.tickettorideclient.Views.LoginView;
 import root.tickettorideclient.Views.WaitingView;
 
-public class MainActivity extends AppCompatActivity implements ICallBack {
+public class MainActivity extends AppCompatActivity implements ILoginCallback, IGameJoinedCallback {
     FragmentManager fragmentManager;
 
     @Override
@@ -19,8 +19,9 @@ public class MainActivity extends AppCompatActivity implements ICallBack {
     }
 
     @Override
-    public void onGameCreated() {
+    public void onGameCreated(Bundle bundleFromGames) {
         Fragment waitingFragment = new WaitingView();
+        waitingFragment.setArguments(bundleFromGames);
         fragmentManager.beginTransaction().replace(R.id.main_acttivity_container, waitingFragment);
     }
 
