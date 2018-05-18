@@ -59,6 +59,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         //if successful,
         //switchViews
         if (result.isSuccess()) {
+
             view.switchToWaitingView();
         }
 
