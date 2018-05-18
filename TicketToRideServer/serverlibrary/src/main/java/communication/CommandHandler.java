@@ -28,7 +28,10 @@ public class CommandHandler implements HttpHandler {
             //for example, I'm trying to do LoginRegisterResult.isValid()
             //but LoginRegisterResult is type c
             //else exchange.sendResponseHeaders(HTTP_BAD_REQUEST, 0);
-            String jsonStr = encode.Encode(o);
+
+            String jsonStr = encode.Encode(o); //FIX THIS! WE NEED TO TURN THIS OBJECT INTO RESULT CLASS
+            //Trying to do something like -> (clientResult.GameResult)object
+
             PrintWriter out = new PrintWriter(exchange.getResponseBody());
             out.write(jsonStr);
             out.flush();
