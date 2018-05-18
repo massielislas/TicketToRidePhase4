@@ -16,17 +16,18 @@ public class CommandManager {
     public static CommandManager getInstance() {
         return instance;
     }
-    public void addCommands(UserPass username, Command[] commands) {
+
+    public void addCommand(UserPass username, Command command) {
         if(commandMap.containsKey(username)) {
-            Command[] previousCommands = commandMap.get(username);
-            ArrayList<Command> newCommandList = new ArrayList<>(Arrays.asList(commands));
-            ArrayList<Command> oldCommandList = new ArrayList<>(Arrays.asList(previousCommands));
-            oldCommandList.addAll(newCommandList);
-            commandMap.put(username, (Command[]) newCommandList.toArray());
+            Command[] commands = commandMap.get(username);
+            ArrayList<Command> commandList = new ArrayList<>(Arrays.asList(commands));
+            commandList.add(command);
+            commandMap.put(username, (Command[]) commandList.toArray());
         }
         else
         {
-            commandMap.put(username,commands);
+            Command[] newCommandArray = {command};
+            commandMap.put(username,newCommandArray);
         }
     }
 
@@ -37,10 +38,17 @@ public class CommandManager {
             System.arraycopy(allCommands,lastCommand,toReturn,0,allCommands.length-lastCommand);
         }
     }
-    public void addCommandsMultipleUsers(List<UserPass> userList, Command[] commands){
+    public void addCommandMultipleUsers(List<UserPass> userList, Command command){
         for(UserPass user:userList) {
-            addCommands(user,commands);
+            addCommand(user,command);
         }
     }
 
+    public void addCommandAllUsers(Command command)
+    {
+        for(UserPass key: commandMap.keySet())
+        {
+            addCommand(key, command);
+        }
+    }
 }
