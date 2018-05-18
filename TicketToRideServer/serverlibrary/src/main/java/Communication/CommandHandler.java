@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 
 import Model.Command;
 import Results.IResult;
+import Results.Result;
 
 import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
 import static java.net.HttpURLConnection.HTTP_OK;
@@ -39,12 +40,16 @@ public class CommandHandler implements HttpHandler {
 
             if (resultO.isSuccess()) {
                 exchange.sendResponseHeaders(HTTP_OK, 0);
+                resultO.setSuccess(true);
+                resultO.setMessage("yay");
             }
             else {
                 exchange.sendResponseHeaders(HTTP_BAD_REQUEST, 0);
+                resultO.setSuccess(false);
+                resultO.setMessage("nay");
             }
 
-            String jsonStr = encode.Encode(o);
+            String jsonStr = encode.Encode(resultO);
             PrintWriter out = new PrintWriter(exchange.getResponseBody());
             out.write(jsonStr);
             out.flush();

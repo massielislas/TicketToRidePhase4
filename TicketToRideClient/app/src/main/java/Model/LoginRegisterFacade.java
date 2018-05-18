@@ -27,10 +27,11 @@ public class LoginRegisterFacade
         else
         {
             LoginRegisterResult result = new LoginRegisterResult(false);
-            //result.setSuccess(false);
+            result.setSuccess(false);
             result.setMessage("Invalid input!");
             return result;
         }
+       // System.out.println("Msg: " + result.getMessage());
     }
 
     private LoginRegisterResult login(UserPass username, UserPass password, Host host, Port port)
@@ -39,10 +40,12 @@ public class LoginRegisterFacade
                 host.data, port.data);
         if (result.isSuccess())
         {
+            System.out.println("Msg: " + result.getMessage());
             userData.setUsername(username);
             userData.setHost(host);
             userData.setPort(port);
         }
+        System.out.println("Msg: " + result.getMessage());
         return result;
     }
 
@@ -73,6 +76,7 @@ public class LoginRegisterFacade
             userData.setHost(host);
             userData.setPort(port);
         }
+        System.out.println("Msg: " + result.getMessage());
         return result;
     }
 
