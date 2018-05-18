@@ -33,6 +33,7 @@ public class GamesView extends Fragment implements IGamesView {
     private RecyclerView gamesRecyclerView;
     private ArrayList<GameListItem>gameListItems = new ArrayList<>();
     private GamesListAdapter gamesListAdapter;
+    View view;
 
     public ArrayList<GameListItem> getGameListItems() {
         return gameListItems;
@@ -56,12 +57,16 @@ public class GamesView extends Fragment implements IGamesView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_games, container, false);
         setUpInputs();
-        View view = inflater.inflate(R.layout.fragment_games, container, false);
+        createList();
+        return view;
+    }
+
+    public void createList(){
         gamesRecyclerView = (RecyclerView) view.findViewById(R.id.gamesRecyclerView);
         gamesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
-        return view;
     }
 
     public void setUpInputs(){
@@ -121,6 +126,7 @@ public class GamesView extends Fragment implements IGamesView {
     @Override
     public void updateGamesList(ArrayList<GameListItem> gameList) {
         this.gameListItems = gameList;
+        createList();
     }
 
     @Override
