@@ -1,7 +1,7 @@
 package root.tickettorideclient.Presenters;
 
-import clientModel.LoginRegisterFacade;
-import clientResult.LoginRegisterResult;
+import Model.LoginRegisterFacade;
+import Results.LoginRegisterResult;
 import root.tickettorideclient.Views.ILoginPresenter;
 
 

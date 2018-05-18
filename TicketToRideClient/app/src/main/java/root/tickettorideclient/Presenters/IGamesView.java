@@ -1,9 +1,7 @@
 package root.tickettorideclient.Presenters;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import clientModel.Game;
 import root.tickettorideclient.Views.GameListItem;
 
 /**

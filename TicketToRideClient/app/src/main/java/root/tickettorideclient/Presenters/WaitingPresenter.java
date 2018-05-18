@@ -3,8 +3,7 @@ package root.tickettorideclient.Presenters;
 import java.util.Observable;
 import java.util.Observer;
 
-import clientModel.Game;
-import clientModel.WaitingFacade;
+import Model.WaitingFacade;
 import root.tickettorideclient.Views.IWaitingPresenter;
 
 /**
