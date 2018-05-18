@@ -20,7 +20,7 @@ public class TicketToRideProxy implements ITicketToRide {
         System.out.println("in registerUser of proxy");//TODO: REMOVE ME
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"Model.UserPass", "Model.UserPass", "Model.Host", "Model.Port"};
+        String[] methodParamTypeNames = {"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
         Object[] methodArguments = {username, password, host, port};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
@@ -53,7 +53,7 @@ public class TicketToRideProxy implements ITicketToRide {
 
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"Model.UserPass", "Model.UserPass", "Model.Host", "Model.Port"};
+        String[] methodParamTypeNames = {"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
         Object[] methodArguments = {username, password, host, port};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
@@ -83,7 +83,7 @@ public class TicketToRideProxy implements ITicketToRide {
     public Result addPlayerToGame(String username, int playerCount, int currentPlayers, int gameNumber, String ID) {
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"Model.UserPass", "Model.Game"};
+        String[] methodParamTypeNames = {"java.lang.String", Integer.class.toString(), Integer.class.toString(), Integer.class.toString(), "java.lang.String"};
         Object[] methodArguments = {username, playerCount, currentPlayers, gameNumber, ID};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
@@ -114,7 +114,7 @@ public class TicketToRideProxy implements ITicketToRide {
 
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"Model.Game"};
+        String[] methodParamTypeNames = {Integer.class.toString(), Integer.class.toString(), Integer.class.toString(), "java.lang.String"};
         Object[] methodArguments = {playerCount, currentPlayers, gameNumber, ID};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
@@ -144,7 +144,7 @@ public class TicketToRideProxy implements ITicketToRide {
     public GameStartResult startGame(int playerCount, int currentPlayers, int gameNumber, String ID) {
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"Model.Game"};
+        String[] methodParamTypeNames = {Integer.class.toString(), Integer.class.toString(), Integer.class.toString(), "java.lang.String"};
         Object[] methodArguments = {playerCount, currentPlayers, gameNumber, ID};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
