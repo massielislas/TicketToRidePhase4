@@ -1,5 +1,9 @@
 package clientModel;
 
+import android.annotation.TargetApi;
+
+import java.util.Objects;
+
 /**
  * Created by Lance on 5/14/2018.
  */
@@ -30,5 +34,29 @@ public class UserPass {
             if ((!Character.isDigit(c)) && (!Character.isLetter(c))) return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        UserPass compare = (UserPass) obj;
+
+        if (compare == this) {
+            return true;
+        }
+
+        if (!(nameOrPassword.equals(compare.nameOrPassword))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    @TargetApi(19)
+    public int hashCode() {
+        return Objects.hash(nameOrPassword);
     }
 }

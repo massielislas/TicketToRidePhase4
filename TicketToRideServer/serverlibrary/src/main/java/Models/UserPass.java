@@ -28,6 +28,23 @@ public class UserPass {
     }
 
     @Override
+<<<<<<< HEAD
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        UserPass compare = (UserPass) obj;
+
+        if (compare == this) {
+            return true;
+        }
+
+        if (!(nameOrPassword.equals(compare.nameOrPassword))) {
+            return false;
+        }
+
+        return true;
+=======
     public boolean equals(Object o) {
         if(o instanceof UserPass)
         {
@@ -43,5 +60,6 @@ public class UserPass {
     @Override
     public int hashCode() {
         return nameOrPassword.hashCode();
+>>>>>>> integration
     }
 }

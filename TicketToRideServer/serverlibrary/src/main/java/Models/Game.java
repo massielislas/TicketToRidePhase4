@@ -20,6 +20,16 @@ public class Game {
         this.ID = UUID.randomUUID().toString();
     }
 
+    public boolean addPlayerToGame(UserPass user) {
+        if (currentPlayers == playerCount) {
+            return false;
+        }
+        else {
+            currentPlayers++;
+            return true;
+        }
+    }
+
     public int getPlayerCount()
     {
         return playerCount;
@@ -50,5 +60,20 @@ public class Game {
         this.ID = ID;
     }
 
+<<<<<<< HEAD
+    @Override
+    public boolean equals(Object obj) {
 
+        if (obj == null) {
+            return false;
+        }
+
+        if (!(((Game) obj).getID().equals(this.ID))) {
+            return false;
+        }
+        return true;
+    }
+=======
+
+>>>>>>> integration
 }

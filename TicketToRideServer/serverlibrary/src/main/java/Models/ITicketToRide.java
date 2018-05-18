@@ -15,4 +15,6 @@ public interface ITicketToRide {
     Result addPlayerToGame(UserPass username, Game game);
     GameResult createNewGame(Game newGame);
     GameStartResult startGame(Game game);
+
 }
+

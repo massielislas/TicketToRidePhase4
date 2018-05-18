@@ -1,5 +1,8 @@
 package clientModel;
 
+import android.annotation.TargetApi;
+
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
@@ -57,5 +60,40 @@ public class Game extends Observable
     void setPlayerCount(int playerCount)
     {
         this.playerCount = playerCount;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public int getCurrentPlayers() {
+        return currentPlayers;
+    }
+
+    public void setCurrentPlayers(int currentPlayers) {
+        this.currentPlayers = currentPlayers;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (!(((Game) obj).getID().equals(this.ID))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    @TargetApi(19)
+    public int hashCode() {
+        return Objects.hash(gameNumber, ID, currentPlayers, playerCount);
     }
 }
