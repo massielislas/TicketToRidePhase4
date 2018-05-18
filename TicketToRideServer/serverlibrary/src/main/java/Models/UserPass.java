@@ -14,21 +14,17 @@ public class UserPass {
     private final int MAXLENGTH = 40;
     private String nameOrPassword;
 
-    public boolean verify()
-    {
-        if (nameOrPassword == null)
-        {
+    public boolean verify() {
+        if (nameOrPassword == null) {
             return false;
         }
-        if (nameOrPassword.length() > MAXLENGTH)
-        {
+        if (nameOrPassword.length() > MAXLENGTH) {
             return false;
         }
         return true;
     }
 
     @Override
-<<<<<<< HEAD
     public boolean equals(Object obj) {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
@@ -44,22 +40,10 @@ public class UserPass {
         }
 
         return true;
-=======
-    public boolean equals(Object o) {
-        if(o instanceof UserPass)
-        {
-            UserPass userPassObj = (UserPass) o;
-            if(userPassObj.nameOrPassword.equals(this.nameOrPassword))
-            {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
     public int hashCode() {
         return nameOrPassword.hashCode();
->>>>>>> integration
     }
 }
