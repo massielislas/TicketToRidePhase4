@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import resultsClasses.Result;
+import clientResult.Result;
 
 /**
  * Created by Topper on 5/15/2018.

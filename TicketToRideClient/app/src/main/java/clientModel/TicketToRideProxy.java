@@ -24,7 +24,7 @@ public class TicketToRideProxy implements ITicketToRide {
         Object[] methodArguments = {username, password, host, port};
         Command command = new Command("TicketToRideFacade", "getInstance",
                 "loginUser", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-                methodArguments);
+                methodArguments, "clientResult.LoginRegisterResult");
         String jsonStr = Encoder.Encode(command);
         try
         {
@@ -57,7 +57,7 @@ public class TicketToRideProxy implements ITicketToRide {
 
         Command command = new Command("TicketToRideFacade", "getInstance",
                 "registerUser", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-                methodArguments);
+                methodArguments, "clientResult.LoginRegisterResult");
         String jsonStr = Encoder.Encode(command);
         try
         {
@@ -87,7 +87,7 @@ public class TicketToRideProxy implements ITicketToRide {
 
         Command command = new Command("TicketToRideFacade", "getInstance",
                 "addPlayerToGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-                methodArguments);
+                methodArguments, "clientResult.GameResult");
         String jsonStr = Encoder.Encode(command);
         try
         {
@@ -118,7 +118,7 @@ public class TicketToRideProxy implements ITicketToRide {
 
         Command command = new Command("TicketToRideFacade", "getInstance",
                 "createNewGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-                methodArguments);
+                methodArguments, "clientResult.GameResult");
         String jsonStr = Encoder.Encode(command);
         try
         {
@@ -147,7 +147,7 @@ public class TicketToRideProxy implements ITicketToRide {
         Object[] methodArguments = {game};
         Command command = new Command("TicketToRideFacade", "getInstance",
                 "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-                methodArguments);
+                methodArguments, "clientResult.GameStartResult");
 
         String jsonStr = Encoder.Encode(command);
         try

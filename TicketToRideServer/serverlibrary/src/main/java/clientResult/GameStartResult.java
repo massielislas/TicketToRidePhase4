@@ -1,4 +1,4 @@
-package resultsClasses;
+package clientResult;
 
 
 import Models.Game;

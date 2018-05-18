@@ -1,9 +1,9 @@
 package Models;
 
-import resultsClasses.GameResult;
-import resultsClasses.GameStartResult;
-import resultsClasses.LoginRegisterResult;
-import resultsClasses.Result;
+import clientResult.GameResult;
+import clientResult.GameStartResult;
+import clientResult.LoginRegisterResult;
+import clientResult.Result;
 
 /**
  * Created by Lance on 5/15/2018.
