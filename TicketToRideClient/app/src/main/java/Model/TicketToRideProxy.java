@@ -24,7 +24,7 @@ public class TicketToRideProxy implements ITicketToRide {
         Object[] methodArguments = {username, password, host, port};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
-                "loginUser", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                "registerUser", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                 methodArguments);
         String jsonStr = Encoder.Encode(command);
         try
@@ -60,7 +60,7 @@ public class TicketToRideProxy implements ITicketToRide {
         Object[] methodArguments = {username, password, host, port};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
-                "registerUser", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                "loginUser", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                 methodArguments);
         String jsonStr = Encoder.Encode(command);
         try
