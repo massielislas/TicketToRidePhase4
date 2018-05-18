@@ -15,11 +15,16 @@ public class Command implements iCommand {
     private Object[] instanceMethodArgs;
     private String[] methodParamTypeNames;
     private Object[] methodArguments;
+    private String resultClassType;
+
+    public String getResultClassType() {
+        return resultClassType;
+    }
 
     public Command(String targetClass, String instanceMethodName,
                    String methodName, String[] instanceParamTypeNames,
                    Object[] instanceMethodArgs, String[] methodParamTypeNames,
-                   Object[] methodArguments) {
+                   Object[] methodArguments, String resultClassType) {
         this.targetClass = targetClass;
         this.instanceMethodName = instanceMethodName;
         this.methodName = methodName;
@@ -27,6 +32,7 @@ public class Command implements iCommand {
         this.instanceMethodArgs = instanceMethodArgs;
         this.methodParamTypeNames = methodParamTypeNames;
         this.methodArguments = methodArguments;
+        this.resultClassType = resultClassType;
     }
 
     public Object Execute() {

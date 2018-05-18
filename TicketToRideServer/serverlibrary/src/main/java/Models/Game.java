@@ -60,7 +60,6 @@ public class Game {
         this.ID = ID;
     }
 
-<<<<<<< HEAD
     @Override
     public boolean equals(Object obj) {
 
@@ -73,7 +72,4 @@ public class Game {
         }
         return true;
     }
-=======
-
->>>>>>> integration
 }

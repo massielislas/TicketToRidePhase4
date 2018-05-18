@@ -5,9 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/TicketToRideServer.iml" filepath="$PROJECT_DIR$/TicketToRideServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/gson-2.8.4/gson-2.8.4.iml" filepath="$PROJECT_DIR$/gson-2.8.4/gson-2.8.4.iml" />
-      <module fileurl="file://C:\Users\Massiel\AndroidStudioProjects\TicketToRide\TicketToRideServer\gson-2.8.4\gson-2.8.4.iml" filepath="C:\Users\Massiel\AndroidStudioProjects\TicketToRide\TicketToRideServer\gson-2.8.4\gson-2.8.4.iml" />
       <module fileurl="file://$PROJECT_DIR$/serverlibrary/serverlibrary.iml" filepath="$PROJECT_DIR$/serverlibrary/serverlibrary.iml" />
-      <module fileurl="file://C:\Users\Massiel\AndroidStudioProjects\TicketToRide\TicketToRideServer\serverlibrary\serverlibrary.iml" filepath="C:\Users\Massiel\AndroidStudioProjects\TicketToRide\TicketToRideServer\serverlibrary\serverlibrary.iml" />
     </modules>
   </component>
 </project>
