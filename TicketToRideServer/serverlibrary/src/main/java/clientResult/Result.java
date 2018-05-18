@@ -1,4 +1,4 @@
-package resultsClasses;
+package clientResult;
 
 /**
  * Created by Master_Chief on 5/14/2018.

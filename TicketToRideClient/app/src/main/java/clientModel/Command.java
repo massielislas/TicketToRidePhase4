@@ -15,18 +15,25 @@ public class Command implements ICommand {
     private Object[] instanceMethodArgs;
     private String[] methodParamTypeNames;
     private Object[] methodArguments;
+    private String resultClassType;
+
+    public String getResultClassType() {
+        return resultClassType;
+    }
 
     public Command(String targetClass, String instanceMethodName,
                    String methodName, String[] instanceParamTypeNames,
                    Object[] instanceMethodArgs, String[] methodParamTypeNames,
-                   Object[] methodArguments) {
+                   Object[] methodArguments, String resultClassType) {
         this.targetClass = targetClass;
         this.instanceMethodName = instanceMethodName;
         this.methodName = methodName;
         this.instanceParamTypeNames = instanceParamTypeNames;
         this.instanceMethodArgs = instanceMethodArgs;
+
         this.methodParamTypeNames = methodParamTypeNames;
         this.methodArguments = methodArguments;
+        this.resultClassType = resultClassType;
     }
 
     public Object Execute() {
