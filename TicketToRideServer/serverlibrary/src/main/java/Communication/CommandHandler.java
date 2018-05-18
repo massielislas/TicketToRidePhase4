@@ -38,18 +38,20 @@ public class CommandHandler implements HttpHandler {
             Object o = toExecute.Execute();
             IResult resultO = (IResult) o;
 
-            if (resultO.isSuccess()) {
+            if (resultO.isSuccess()) exchange.sendResponseHeaders(HTTP_OK, 0);
+            else exchange.sendResponseHeaders(HTTP_OK, 0);
+            /*{
                 System.out.println("Success");
-                exchange.sendResponseHeaders(HTTP_OK, 0);
+
                 resultO.setSuccess(true);
                 resultO.setMessage("yay");
             }
             else {
                 System.out.println("no success");
-                exchange.sendResponseHeaders(HTTP_BAD_REQUEST, 0);
-                resultO.setSuccess(false);
-                resultO.setMessage("nay");
-            }
+                exchange.sendResponseHeaders(HTTP_OK, 0);
+                //resultO.setSuccess(false);
+                //resultO.setMessage("nay");
+            }*/
 
             String jsonStr = encode.Encode(resultO);
             PrintWriter out = new PrintWriter(exchange.getResponseBody());
