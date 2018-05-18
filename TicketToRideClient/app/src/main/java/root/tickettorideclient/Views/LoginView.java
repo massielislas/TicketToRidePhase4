@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import root.tickettorideclient.ICallBack;
+import root.tickettorideclient.ILoginCallback;
 import root.tickettorideclient.Presenters.ILoginView;
 import root.tickettorideclient.Presenters.LoginPresenter;
 import root.tickettorideclient.R;
@@ -205,6 +205,6 @@ public class LoginView extends Fragment implements ILoginView {
 
     @Override
     public void switchToGamesView() {
-        ((ICallBack) getActivity()).onLoginSuccess();
+        ((ILoginCallback) getActivity()).onLoginSuccess();
     }
 }

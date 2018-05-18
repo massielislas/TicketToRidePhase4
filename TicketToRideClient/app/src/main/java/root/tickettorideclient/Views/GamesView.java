@@ -15,9 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import root.tickettorideclient.ICallBack;
+import root.tickettorideclient.IGameJoinedCallback;
+import root.tickettorideclient.ILoginCallback;
 import root.tickettorideclient.Presenters.GamesPresenter;
 import root.tickettorideclient.Presenters.IGamesView;
 import root.tickettorideclient.R;
@@ -33,6 +33,9 @@ public class GamesView extends Fragment implements IGamesView {
     private RecyclerView gamesRecyclerView;
     private ArrayList<GameListItem>gameListItems = new ArrayList<>();
     private GamesListAdapter gamesListAdapter;
+    private int numberOfPlayersSelected = 5;
+    final String MAX_PLAYERS_KEY = "MaxPlayers";
+    final String PLAYERS_JOINED_KEY = "PlayersJoined";
 
     public ArrayList<GameListItem> getGameListItems() {
         return gameListItems;
@@ -40,12 +43,17 @@ public class GamesView extends Fragment implements IGamesView {
 
     private IGamesPresenter presenter;
 
-    private int numberOfPlayers = 5;
-
     public void setGameListItems(ArrayList<GameListItem> gameListItems) {
         this.gameListItems = gameListItems;
 
         this.presenter = new GamesPresenter(this);
+    }
+
+    public void onGameJoined(int playersJoined, int maximumPlayers) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(MAX_PLAYERS_KEY, 0);
+        bundle.putInt(PLAYERS_JOINED_KEY, 0);
+        switchToWaitingView(bundle);
     }
 
     @Override
@@ -70,25 +78,25 @@ public class GamesView extends Fragment implements IGamesView {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch(i){
                     case 0:
-                        numberOfPlayers = 2;
+                        numberOfPlayersSelected = 2;
                         break;
                     case 1:
-                        numberOfPlayers = 3;
+                        numberOfPlayersSelected = 3;
                         break;
                     case 2:
-                        numberOfPlayers = 4;
+                        numberOfPlayersSelected = 4;
                         break;
                     case 3:
-                        numberOfPlayers = 5;
+                        numberOfPlayersSelected = 5;
                         break;
                     default:
-                        numberOfPlayers = 5;
+                        numberOfPlayersSelected = 5;
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                numberOfPlayers = 5;
+                numberOfPlayersSelected = 5;
             }
         });
 
@@ -96,7 +104,8 @@ public class GamesView extends Fragment implements IGamesView {
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.createGame(numberOfPlayers);
+                presenter.createGame(numberOfPlayersSelected);
+                onGameJoined(1, numberOfPlayersSelected);
             }
         });
     }
@@ -124,8 +133,8 @@ public class GamesView extends Fragment implements IGamesView {
     }
 
     @Override
-    public void switchToWaitingView() {
-        ((ICallBack) getActivity()).onGameCreated();
+    public void switchToWaitingView(Bundle bundle) {
+       ((IGameJoinedCallback) getActivity()).onGameCreated(bundle);
     }
 
     @Override
@@ -149,6 +158,7 @@ public class GamesView extends Fragment implements IGamesView {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(getContext(), textToSet, Toast.LENGTH_LONG).show();
+                    onGameJoined(Integer.valueOf(gameListItem.getPlayersJoined()), Integer.valueOf(gameListItem.getPlayersJoined()));
                 }
             });
         }
