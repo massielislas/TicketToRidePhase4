@@ -4,6 +4,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':gson-2.8.4')
     implementation files('libs/gson-2.6.2.jar')
+    compile 'com.google.code.gson:gson:2.8.1'
 }
 
 sourceCompatibility = "1.7"

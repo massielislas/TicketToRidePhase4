@@ -8,15 +8,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import root.tickettorideclient.ICallBack;
+import root.tickettorideclient.IGameJoinedCallback;
+import root.tickettorideclient.ILoginCallback;
 import root.tickettorideclient.Presenters.GamesPresenter;
 import root.tickettorideclient.Presenters.IGamesView;
 import root.tickettorideclient.R;
@@ -32,6 +33,9 @@ public class GamesView extends Fragment implements IGamesView {
     private RecyclerView gamesRecyclerView;
     private ArrayList<GameListItem>gameListItems = new ArrayList<>();
     private GamesListAdapter gamesListAdapter;
+    private int numberOfPlayersSelected = 5;
+    final String MAX_PLAYERS_KEY = "MaxPlayers";
+    final String PLAYERS_JOINED_KEY = "PlayersJoined";
 
     public ArrayList<GameListItem> getGameListItems() {
         return gameListItems;
@@ -45,6 +49,13 @@ public class GamesView extends Fragment implements IGamesView {
         this.presenter = new GamesPresenter(this);
     }
 
+    public void onGameJoined(int playersJoined, int maximumPlayers) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(MAX_PLAYERS_KEY, 0);
+        bundle.putInt(PLAYERS_JOINED_KEY, 0);
+        switchToWaitingView(bundle);
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,11 +64,50 @@ public class GamesView extends Fragment implements IGamesView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setUpInputs();
         View view = inflater.inflate(R.layout.fragment_games, container, false);
         gamesRecyclerView = (RecyclerView) view.findViewById(R.id.gamesRecyclerView);
         gamesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
         return view;
+    }
+
+    public void setUpInputs(){
+        playerNumberSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch(i){
+                    case 0:
+                        numberOfPlayersSelected = 2;
+                        break;
+                    case 1:
+                        numberOfPlayersSelected = 3;
+                        break;
+                    case 2:
+                        numberOfPlayersSelected = 4;
+                        break;
+                    case 3:
+                        numberOfPlayersSelected = 5;
+                        break;
+                    default:
+                        numberOfPlayersSelected = 5;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                numberOfPlayersSelected = 5;
+            }
+        });
+
+        createGameButton = (Button) gamesRecyclerView.findViewById(R.id.createGameButton);
+        createGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.createGame(numberOfPlayersSelected);
+                onGameJoined(1, numberOfPlayersSelected);
+            }
+        });
     }
 
     public void updateUI(){
@@ -83,8 +133,8 @@ public class GamesView extends Fragment implements IGamesView {
     }
 
     @Override
-    public void switchToWaitingView() {
-        ((ICallBack) getActivity()).onGameCreated();
+    public void switchToWaitingView(Bundle bundle) {
+       ((IGameJoinedCallback) getActivity()).onGameCreated(bundle);
     }
 
     @Override
@@ -108,6 +158,7 @@ public class GamesView extends Fragment implements IGamesView {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(getContext(), textToSet, Toast.LENGTH_LONG).show();
+                    onGameJoined(Integer.valueOf(gameListItem.getPlayersJoined()), Integer.valueOf(gameListItem.getPlayersJoined()));
                 }
             });
         }

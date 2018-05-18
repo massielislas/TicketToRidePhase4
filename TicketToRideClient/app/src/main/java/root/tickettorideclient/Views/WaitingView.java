@@ -21,6 +21,11 @@ public class WaitingView extends Fragment implements IWaitingView {
     TextView playerNumber;
     IWaitingPresenter presenter;
 
+    Integer numPlayersInGame;
+    Integer maxNumPlayers;
+    final String MAX_PLAYERS_KEY = "MaxPlayers";
+    final String PLAYERS_JOINED_KEY = "PlayersJoined";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,17 +37,20 @@ public class WaitingView extends Fragment implements IWaitingView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_waiting, container, false);
         setUpTextViews(v);
+        numPlayersInGame = getArguments().getInt(PLAYERS_JOINED_KEY);
+        maxNumPlayers = getArguments().getInt(MAX_PLAYERS_KEY);
         return v;
     }
 
     public void setUpTextViews(View v){
         playerNumber = (TextView) getView().findViewById(R.id.playerCounter);
-        playerNumber.setText("1000");
+        playerNumber.setText(numPlayersInGame.toString() + "/" + maxNumPlayers.toString());
     }
 
     @Override
     public void updatePlayerCount(Integer numPlayers) {
-        playerNumber.setText(numPlayers.toString());
+        numPlayersInGame = numPlayers;
+        playerNumber.setText(numPlayers.toString() + "/" + maxNumPlayers.toString());
     }
 
     @Override

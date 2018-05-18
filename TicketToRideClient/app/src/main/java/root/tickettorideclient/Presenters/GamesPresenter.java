@@ -1,15 +1,12 @@
 package root.tickettorideclient.Presenters;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.TreeMap;
 
-import clientModel.Game;
-import clientModel.GameFacade;
-import clientResult.GameResult;
-import clientResult.Result;
+import Model.GameFacade;
+import Results.GameResult;
+import Results.Result;
 import root.tickettorideclient.Views.GameListItem;
 import root.tickettorideclient.Views.IGamesPresenter;
 
@@ -34,7 +31,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
 
         //if unsucessful,
         //pop error toast
-        if (result.isSuccess()) {
+        if (!result.isSuccess()) {
             view.popErrorToast(result.getMessage());
         }
 
@@ -62,6 +59,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         //if successful,
         //switchViews
         if (result.isSuccess()) {
+
             view.switchToWaitingView();
         }
 
