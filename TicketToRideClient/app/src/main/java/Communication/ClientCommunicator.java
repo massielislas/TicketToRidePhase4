@@ -54,12 +54,12 @@ public class ClientCommunicator {
     public String post(Object[]objects){
         PostTask postTask = new PostTask();
         try {
-            postTask.execute(objects).wait();
+            postTask.execute(objects).get();
         }
         catch (Exception e) {
             Encoder encoder = new Encoder();
 
-            return encoder.Encode(new Result(false, "Exception while running async task"));
+            return encoder.Encode(new Result(false, "Exception while running async task: " + e.getMessage()));
         }
         System.out.println("in post, after execute post task, objects[2]" + (String)(objects[2]));
         return (String) (objects[2]);
