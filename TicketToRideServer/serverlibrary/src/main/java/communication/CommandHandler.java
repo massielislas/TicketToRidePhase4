@@ -16,17 +16,7 @@ import Models.Command;
 public class CommandHandler implements HttpHandler {
 
     public void handle(HttpExchange exchange) {
-<<<<<<< HEAD
-//        try {
-//            InputStreamReader ISR = new InputStreamReader(exchange.getRequestBody());
-//            Encoder encode = new Encoder();
-//            Command toExecute = (Command) encode.Decode(ISR, Command.class);
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        }
-=======
+
         try {
             System.out.println("HELLO");
             InputStreamReader ISR = new InputStreamReader(exchange.getRequestBody());
@@ -52,6 +42,5 @@ public class CommandHandler implements HttpHandler {
         catch (Exception e) {
             e.printStackTrace();
         }
->>>>>>> integration
     }
 }
