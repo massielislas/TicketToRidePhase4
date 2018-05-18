@@ -38,8 +38,7 @@ public class CommandHandler implements HttpHandler {
             Object o = toExecute.Execute();
             IResult resultO = (IResult) o;
 
-            if (resultO.isSuccess()) exchange.sendResponseHeaders(HTTP_OK, 0);
-            else exchange.sendResponseHeaders(HTTP_OK, 0);
+            exchange.sendResponseHeaders(HTTP_OK, 0);
             /*{
                 System.out.println("Success");
 
