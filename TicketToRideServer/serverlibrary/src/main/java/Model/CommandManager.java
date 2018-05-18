@@ -44,4 +44,11 @@ public class CommandManager {
         }
     }
 
+    public void addCommandAllUsers(Command command)
+    {
+        for(UserPass key: commandMap.keySet())
+        {
+            addCommand(key, command);
+        }
+    }
 }
