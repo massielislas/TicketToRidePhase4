@@ -39,11 +39,13 @@ public class CommandHandler implements HttpHandler {
             IResult resultO = (IResult) o;
 
             if (resultO.isSuccess()) {
+                System.out.println("Success");
                 exchange.sendResponseHeaders(HTTP_OK, 0);
                 resultO.setSuccess(true);
                 resultO.setMessage("yay");
             }
             else {
+                System.out.println("no success");
                 exchange.sendResponseHeaders(HTTP_BAD_REQUEST, 0);
                 resultO.setSuccess(false);
                 resultO.setMessage("nay");
