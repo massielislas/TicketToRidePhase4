@@ -16,13 +16,14 @@ import Models.Command;
 public class CommandHandler implements HttpHandler {
 
     public void handle(HttpExchange exchange) {
-//        try {
-//            InputStreamReader ISR = new InputStreamReader(exchange.getRequestBody());
-//            Encoder encode = new Encoder();
-//            Command toExecute = (Command) encode.Decode(ISR, Command.class);
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            System.out.println("HELLO");
+            InputStreamReader ISR = new InputStreamReader(exchange.getRequestBody());
+            Encoder encode = new Encoder();
+            Command toExecute = (Command) encode.Decode(ISR, Command.class);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
