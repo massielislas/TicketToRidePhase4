@@ -24,5 +24,6 @@ public class CommandHandler implements HttpHandler {
 //        catch (IOException e) {
 //            e.printStackTrace();
 //        }
+//        }
     }
 }
