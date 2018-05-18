@@ -31,7 +31,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
 
         //if unsucessful,
         //pop error toast
-        if (result.isSuccess()) {
+        if (!result.isSuccess()) {
             view.popErrorToast(result.getMessage());
         }
 
@@ -59,6 +59,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         //if successful,
         //switchViews
         if (result.isSuccess()) {
+
             view.switchToWaitingView();
         }
 

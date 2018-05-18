@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ public class GamesView extends Fragment implements IGamesView {
 
     private IGamesPresenter presenter;
 
+    private int numberOfPlayers = 5;
+
     public void setGameListItems(ArrayList<GameListItem> gameListItems) {
         this.gameListItems = gameListItems;
 
@@ -53,11 +56,49 @@ public class GamesView extends Fragment implements IGamesView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setUpInputs();
         View view = inflater.inflate(R.layout.fragment_games, container, false);
         gamesRecyclerView = (RecyclerView) view.findViewById(R.id.gamesRecyclerView);
         gamesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
         return view;
+    }
+
+    public void setUpInputs(){
+        playerNumberSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch(i){
+                    case 0:
+                        numberOfPlayers = 2;
+                        break;
+                    case 1:
+                        numberOfPlayers = 3;
+                        break;
+                    case 2:
+                        numberOfPlayers = 4;
+                        break;
+                    case 3:
+                        numberOfPlayers = 5;
+                        break;
+                    default:
+                        numberOfPlayers = 5;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                numberOfPlayers = 5;
+            }
+        });
+
+        createGameButton = (Button) gamesRecyclerView.findViewById(R.id.createGameButton);
+        createGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.createGame(numberOfPlayers);
+            }
+        });
     }
 
     public void updateUI(){

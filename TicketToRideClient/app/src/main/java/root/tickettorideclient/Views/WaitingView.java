@@ -21,6 +21,9 @@ public class WaitingView extends Fragment implements IWaitingView {
     TextView playerNumber;
     IWaitingPresenter presenter;
 
+    Integer numPlayersInGame;
+    Integer maxNumPlayers;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +45,8 @@ public class WaitingView extends Fragment implements IWaitingView {
 
     @Override
     public void updatePlayerCount(Integer numPlayers) {
-        playerNumber.setText(numPlayers.toString());
+        numPlayersInGame = numPlayers;
+        playerNumber.setText(numPlayers.toString() + "/" + maxNumPlayers.toString());
     }
 
     @Override
