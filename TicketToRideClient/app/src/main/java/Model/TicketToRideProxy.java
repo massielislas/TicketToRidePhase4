@@ -37,7 +37,10 @@ public class TicketToRideProxy implements ITicketToRide {
             objects[2] = "";
             String json = client.post(objects);
 
-            if (json == null) return null;
+            if (json == null) {
+                System.out.println("Json is null in proxy");
+                return null;
+            }
             Object result = Encoder.Decode(json, LoginRegisterResult.class);
             return (LoginRegisterResult)result;
         }

@@ -101,7 +101,7 @@ public class ClientCommunicator {
                 else
                 {
                     System.out.println("Error in post response\nCode: " + http.getResponseMessage());
-                    objects[2] = null;
+                    objects[2] = readString(http.getInputStream());
                 }
             }
             catch(IOException error)
