@@ -1,8 +1,7 @@
 package root.tickettorideclient.Presenters;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import clientModel.Game;
 import root.tickettorideclient.Views.GameListItem;
 
 /**
@@ -10,7 +9,7 @@ import root.tickettorideclient.Views.GameListItem;
  */
 
 public interface IGamesView {
-    public boolean updateGamesList(List<GameListItem> gameList);
-    public boolean switchToWaitingView();
+    public void updateGamesList(ArrayList<GameListItem> gameList);
+    public void switchToWaitingView();
     public void popErrorToast(String message);
 }

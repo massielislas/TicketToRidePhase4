@@ -14,7 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import root.tickettorideclient.ICallBack;
+import root.tickettorideclient.Presenters.GamesPresenter;
+import root.tickettorideclient.Presenters.IGamesView;
 import root.tickettorideclient.R;
 
 
@@ -22,7 +26,7 @@ import root.tickettorideclient.R;
  * Created by Massiel on 5/14/2018.
  */
 
-public class GamesView extends Fragment{
+public class GamesView extends Fragment implements IGamesView {
     private Spinner playerNumberSpinner;
     private Button createGameButton;
     private RecyclerView gamesRecyclerView;
@@ -33,8 +37,12 @@ public class GamesView extends Fragment{
         return gameListItems;
     }
 
+    private IGamesPresenter presenter;
+
     public void setGameListItems(ArrayList<GameListItem> gameListItems) {
         this.gameListItems = gameListItems;
+
+        this.presenter = new GamesPresenter(this);
     }
 
     @Override
@@ -67,6 +75,21 @@ public class GamesView extends Fragment{
             gameListItems.add(gameListItem);
         }
 
+    }
+
+    @Override
+    public void updateGamesList(ArrayList<GameListItem> gameList) {
+        this.gameListItems = gameList;
+    }
+
+    @Override
+    public void switchToWaitingView() {
+        ((ICallBack) getActivity()).onGameCreated();
+    }
+
+    @Override
+    public void popErrorToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     public class GameHolder extends RecyclerView.ViewHolder{

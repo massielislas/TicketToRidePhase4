@@ -3,7 +3,7 @@ package root.tickettorideclient.Presenters;
 import java.util.Observable;
 import java.util.Observer;
 
-import clientModel.Game;
+import Model.WaitingFacade;
 import root.tickettorideclient.Views.IWaitingPresenter;
 
 /**
@@ -13,16 +13,19 @@ import root.tickettorideclient.Views.IWaitingPresenter;
 public class WaitingPresenter implements IWaitingPresenter, Observer {
 
     private IWaitingView view = null;
+    private WaitingFacade facade;
 
     public WaitingPresenter (IWaitingView view) {
+
         this.view = view;
+        this.facade = new WaitingFacade();
+        this.facade.addObserver(this);
     }
 
     @Override
     public void update(Observable observable, Object o) {
         //update player count
-        Game game = (Game) o;
-        int numPlayers = game.getPlayerCount(); //FIXME - need Game to be public
+        int numPlayers = (int) o;
         view.updatePlayerCount(numPlayers);
     }
 }
