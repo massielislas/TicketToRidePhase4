@@ -27,7 +27,7 @@ public class TicketToRideProxy implements ITicketToRide {
         String jsonStr = Encoder.Encode(command);
         try
         {
-            URL url = new URL("http://" + host + ":" + port + "/command");
+            URL url = new URL("http://" + host.data + ":" + port.data + "/command");
             String json = client.post(url, jsonStr);
             if (json == null) return null;
             Object result = Encoder.Decode(json, LoginRegisterResult.class);
@@ -54,7 +54,7 @@ public class TicketToRideProxy implements ITicketToRide {
         String jsonStr = Encoder.Encode(command);
         try
         {
-            URL url = new URL("http://" + host + ":" + port + "/command");
+            URL url = new URL("http://" + host.data + ":" + port.data + "/command");
             String json = client.post(url, jsonStr);
             if (json == null) return null;
             Object result = Encoder.Decode(json, LoginRegisterResult.class);
@@ -80,7 +80,7 @@ public class TicketToRideProxy implements ITicketToRide {
         String jsonStr = Encoder.Encode(command);
         try
         {
-            URL url = new URL("http://" + userData.getHost() + ":" + userData.getPort() + "/command");
+            URL url = new URL("http://" + userData.getHost().data + ":" + userData.getPort().data + "/command");
             String json = client.post(url, jsonStr);
             if (json == null) return null;
             Object result = Encoder.Decode(json, Result.class);
@@ -107,7 +107,7 @@ public class TicketToRideProxy implements ITicketToRide {
         String jsonStr = Encoder.Encode(command);
         try
         {
-            URL url = new URL("http://" + userData.getHost() + ":" + userData.getPort() + "/command");
+            URL url = new URL("http://" + userData.getHost().data + ":" + userData.getPort().data + "/command");
             String json = client.post(url, jsonStr);
             if (json == null) return null;
             Object result = Encoder.Decode(json, GameResult.class);
@@ -133,7 +133,7 @@ public class TicketToRideProxy implements ITicketToRide {
         String jsonStr = Encoder.Encode(command);
         try
         {
-            URL url = new URL("http://" + userData.getHost() + ":" + userData.getPort() + "/command");
+            URL url = new URL("http://" + userData.getHost().data + ":" + userData.getPort().data + "/command");
             String json = client.post(url, jsonStr);
             if (json == null) return null;
             Object result = Encoder.Decode(json, GameStartResult.class);
