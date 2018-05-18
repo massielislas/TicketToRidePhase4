@@ -102,7 +102,7 @@ public class GamesView extends Fragment implements IGamesView {
             }
         });
 
-        createGameButton = (Button) gamesRecyclerView.findViewById(R.id.createGameButton);
+        createGameButton = (Button) view.findViewById(R.id.createGameButton);
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
