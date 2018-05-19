@@ -23,16 +23,12 @@ public class CommandManager {
         return instance;
     }
 
-    public CommandManager () {
-        commandMap = new HashMap<UserPass, Command[]>();
-    }
-
     public void addCommand(UserPass username, Command command) {
         if(commandMap.containsKey(username)) {
             Command[] commands = commandMap.get(username);
             ArrayList<Command> commandList = new ArrayList<>(Arrays.asList(commands));
             commandList.add(command);
-            commandMap.put(username, (Command[]) commandList.toArray());
+            commandMap.put(username, (Command[]) commandList.toArray(new Command[commandList.size()]));
         }
         else
         {
