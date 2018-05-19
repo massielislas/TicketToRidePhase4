@@ -6,5 +6,6 @@ package root.tickettorideclient.Presenters;
 
 public interface IWaitingView {
     public void updatePlayerCount(Integer numPlayers);
-    public void switchView(); //FIXME: rename? next Phase changes
+    public void switchView(); //FIXME: rename? next Phase changes; Currently just pops a toast
+  //  public Integer getCurrentPlayerCount();
 }

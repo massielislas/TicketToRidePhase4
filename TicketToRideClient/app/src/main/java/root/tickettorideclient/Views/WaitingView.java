@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import root.tickettorideclient.Presenters.IWaitingView;
 import root.tickettorideclient.Presenters.WaitingPresenter;
@@ -39,6 +40,11 @@ public class WaitingView extends Fragment implements IWaitingView {
         maxNumPlayers = getArguments().getInt(MAX_PLAYERS_KEY);
         View v = inflater.inflate(R.layout.fragment_waiting, container, false);
         setUpTextViews(v);
+
+        if (numPlayersInGame == maxNumPlayers) {
+            switchView();
+        }
+
         return v;
     }
 
@@ -50,12 +56,18 @@ public class WaitingView extends Fragment implements IWaitingView {
     @Override
     public void updatePlayerCount(Integer numPlayers) {
         numPlayersInGame = numPlayers;
-        playerNumber.setText(numPlayers.toString() + "/" + maxNumPlayers.toString());
+        playerNumber.setText(numPlayersInGame.toString() + "/" + maxNumPlayers.toString());
+        if (numPlayersInGame == maxNumPlayers) {
+            switchView();
+        }
     }
 
     @Override
     public void switchView() {
-        //TO BE IMPLEMENTED
+        //TO BE IMPLEMENTED for real, later
+        Toast.makeText(getContext(), "Game is now full- switch to game setup", Toast.LENGTH_LONG).show();
     }
+
+
 }
 
