@@ -65,6 +65,7 @@ public class Poller {
                 String json = ClientCommunicator.getClient().post(objects);
                 if (json == null) return;
                 PollResult result =(PollResult) Encoder.Decode(json, PollResult.class);
+                lastCommand = lastCommand + result.getCommands().length;
                 ClientFacade.getInstance().executeCommands(result.getCommands());
             }
             catch (MalformedURLException exception)

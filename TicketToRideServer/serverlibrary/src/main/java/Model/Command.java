@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 
 public class Command {
 
+
     private String targetClass;
     private String instanceMethodName;
     private String methodName;

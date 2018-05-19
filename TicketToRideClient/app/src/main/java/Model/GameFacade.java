@@ -2,7 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Observer;
-
 import Results.GameResult;
 import Results.Result;
 import root.tickettorideclient.Views.GameListItem;
@@ -31,12 +30,11 @@ public class GameFacade
         }
         return result;
     }
-
     public void addGame(Double playerCount, String ID) //called from ClientFacade
     {
         int gameNumber = gameList.getGameItems().size()+1;
         Game game = new Game(playerCount.intValue(), 0, gameNumber, ID);
-        gameList.getGameList().put(ID, game);
+        gameList.addGame(game);
     }
     public void addPlayer(String ID) //called from ClientFacade
     {

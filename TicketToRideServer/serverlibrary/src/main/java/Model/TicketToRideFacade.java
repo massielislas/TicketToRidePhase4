@@ -70,7 +70,6 @@ public class TicketToRideFacade implements ITicketToRide {
             return Server.addPlayerToGame(game, uName);
         }
     }
-
     //do we need this?!?!
     public GameResult createNewGame(Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
         return createNewGame((Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
@@ -86,7 +85,7 @@ public class TicketToRideFacade implements ITicketToRide {
         else {
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
-            String[] methodParamTypeNames = {Double.class.toString(), String.class.toString()};
+            String[] methodParamTypeNames = {"java.lang.Double", "java.lang.String"};
             Object[] methodArguments = {playerCount, ID};
             Command command = new Command("Model.GameFacade", "getInstance",
                     "addGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
