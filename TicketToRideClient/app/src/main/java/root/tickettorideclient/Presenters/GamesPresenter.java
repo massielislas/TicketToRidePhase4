@@ -73,4 +73,8 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         ArrayList<GameListItem> gameListItems = (ArrayList<GameListItem>) o;
         view.updateGamesList(gameListItems);
     }
+
+    public ArrayList<GameListItem> getGames () {
+        return facade.getGames();
+    }
 }

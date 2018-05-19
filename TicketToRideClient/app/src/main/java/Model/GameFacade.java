@@ -1,9 +1,11 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Observer;
 
 import Results.GameResult;
 import Results.Result;
+import root.tickettorideclient.Views.GameListItem;
 
 /**
  * Created by zachgormley on 5/13/18.
@@ -52,6 +54,10 @@ public class GameFacade
     public void addObserver(Observer o)
     {
         gameList.addAnObserver(o);
+    }
+
+    public ArrayList<GameListItem> getGames () {
+        return Games.games.getGameItems();
     }
 }
 

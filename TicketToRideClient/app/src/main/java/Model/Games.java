@@ -32,10 +32,6 @@ class Games extends Observable
 
     TreeMap<String, Game> getGameList()
     {
-        if (gameList.size() == 0) {
-            Game game = new Game(5,3,1,"testGame");
-            games.addGame(game);
-        }
         return gameList;
     }
 
@@ -48,6 +44,17 @@ class Games extends Observable
             array.add(item);
         }
         return array;
+    }
+
+    public ArrayList<GameListItem> getGameItems () {
+
+        //TODO: REMOVE ME
+        //for TESTING purposes only
+        if (gameList.size() == 0) {
+            Game game = new Game(5,3,1,"testGame");
+            games.gameList.put("testGame", game);
+        }
+        return makeArray();
     }
 
     //TESTING

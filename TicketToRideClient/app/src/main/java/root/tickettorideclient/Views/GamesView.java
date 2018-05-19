@@ -56,6 +56,7 @@ public class GamesView extends Fragment implements IGamesView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.presenter = new GamesPresenter(this);
+        gameListItems = presenter.getGames();
     }
 
     @Nullable
