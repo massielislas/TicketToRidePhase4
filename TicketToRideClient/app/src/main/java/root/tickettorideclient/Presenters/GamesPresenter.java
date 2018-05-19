@@ -32,13 +32,13 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         //if unsucessful,
         //pop error toast
         if (!result.isSuccess()) {
-            view.popErrorToast(result.getMessage());
+            view.popToast(result.getMessage());
         }
 
         //if successful,
-        //switch views
+        //pop toast
         if (result.isSuccess()) {
-            view.switchToWaitingView();
+            view.popToast("Successfully created game");
         }
 
 
@@ -52,7 +52,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         //if unsuccessful,
         //pop error toast
         if (!result.isSuccess()) {
-            view.popErrorToast(result.getMessage());
+            view.popToast(result.getMessage());
         }
 
         //if successful,

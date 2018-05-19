@@ -199,7 +199,7 @@ public class LoginView extends Fragment implements ILoginView {
     }
 
     @Override
-    public void popErrorToast(String message) {
+    public void popToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
