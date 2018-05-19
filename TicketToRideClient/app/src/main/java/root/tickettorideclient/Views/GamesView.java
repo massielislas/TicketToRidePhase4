@@ -119,16 +119,13 @@ public class GamesView extends Fragment implements IGamesView {
         gamesRecyclerView.setAdapter(gamesListAdapter);
     }
 
-    //Test
+    //TESTING
     public void addFakeGames(){
-        for(int i = 0; i < 5; i++){
-            GameListItem gameListItem = new GameListItem();
-            gameListItem.setGameId(i + "");
-            gameListItem.setPlayersJoined((5 - i) + "");
-            gameListItem.setMaxPlayers(4+"");
-            gameListItems.add(gameListItem);
-        }
-
+        GameListItem gameListItem  = new GameListItem();
+        gameListItem.setGameId("testGame");
+        gameListItem.setPlayersJoined("3");
+        gameListItem.setListNumber("1");
+        gameListItem.setMaxPlayers("5");
     }
 
     @Override
@@ -169,6 +166,7 @@ public class GamesView extends Fragment implements IGamesView {
                     Toast.makeText(getContext(), textToSet, Toast.LENGTH_LONG).show();
                     joinedGameJoinedPlayers = Integer.valueOf(gameListItem.getPlayersJoined());
                     joinedGameMaxPlayers = Integer.valueOf(gameListItem.getMaxPlayers());
+                    presenter.joinGame(gameListItem.getGameId());
                 }
             });
         }

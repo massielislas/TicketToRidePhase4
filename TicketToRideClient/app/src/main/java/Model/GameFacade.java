@@ -32,15 +32,15 @@ public class GameFacade
 
     public void addGame(Game game) //called from ClientFacade
     {
-        gameList.getGameList().put(game.getGameNumber(), game);
+        gameList.getGameList().put(game.getID(), game);
     }
     public void addPlayer(Game game) //called from ClientFacade
     {
         game.addPlayer();
     }
-    public Result joinGame(int gameNumber)
+    public Result joinGame(String gameID)
     {
-        Game game = gameList.getGameList().get(gameNumber);
+        Game game = gameList.getGameList().get(gameID);
         Result result = proxy.addPlayerToGame(userData.getUsername().getNameOrPassword(), game.getPlayerCount(), game.getCurrentPlayers(), game.getGameNumber(), game.getID());
         if (result.isSuccess())
         {

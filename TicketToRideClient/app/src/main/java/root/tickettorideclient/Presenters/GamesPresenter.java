@@ -45,7 +45,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         return;
     }
 
-    public void joinGame(Integer gameID) {
+    public void joinGame(String gameID) {
         //TODO: write me
 
         Result result = facade.joinGame(gameID);

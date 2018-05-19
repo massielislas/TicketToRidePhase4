@@ -6,5 +6,5 @@ package root.tickettorideclient.Views;
 
 public interface IGamesPresenter {
     public void createGame(Integer numPlayers);
-    public void joinGame(Integer gameID);
+    public void joinGame(String gameID);
 }
