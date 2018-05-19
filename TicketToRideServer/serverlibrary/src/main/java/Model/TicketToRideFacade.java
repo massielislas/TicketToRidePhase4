@@ -80,7 +80,7 @@ public class TicketToRideFacade implements ITicketToRide {
                         methodArguments);
                 CommandManager.getInstance().addCommandAllUsers(command);
             }
-            return Server.addPlayerToGame(game, uName);
+            return check;
         }
     }
     //do we need this?!?!
