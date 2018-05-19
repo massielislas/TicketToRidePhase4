@@ -10,6 +10,6 @@ public interface ILoginView {
     public void disableRegisterButton(); //used?
     public void enableRegisterButton(); //used?
 
-    public void popErrorToast(String message);
+    public void popToast(String message);
     public void switchToGamesView();
 }

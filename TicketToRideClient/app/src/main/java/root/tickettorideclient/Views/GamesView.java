@@ -107,8 +107,8 @@ public class GamesView extends Fragment implements IGamesView {
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                joinedGameMaxPlayers = numberOfPlayersSelected;
-                joinedGameJoinedPlayers = 1;
+//                joinedGameMaxPlayers = numberOfPlayersSelected;
+//                joinedGameJoinedPlayers = 1;
                 presenter.createGame(numberOfPlayersSelected);
             }
         });
@@ -145,7 +145,7 @@ public class GamesView extends Fragment implements IGamesView {
 
 
     @Override
-    public void popErrorToast(String message) {
+    public void popToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
