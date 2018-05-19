@@ -86,10 +86,10 @@ public class TicketToRideFacade implements ITicketToRide {
         else {
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
-            String[] methodParamTypeNames = {Integer.class.toString(), Integer.class.toString(), Integer.class.toString(), "java.lang.String"};
-            Object[] methodArguments = {playerCount, currentPlayers, gameNumber, ID};
-            Command command = new Command("Model.ClientFacade", "getInstance",
-                    "createNewGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+            String[] methodParamTypeNames = {Double.class.toString(), String.class.toString()};
+            Object[] methodArguments = {playerCount, ID};
+            Command command = new Command("Model.GameFacade", "getInstance",
+                    "addGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommandAllUsers(command);
             Server.addGameToQueue(newGame);
