@@ -38,8 +38,9 @@ public class GameFacade
     }
     public void addPlayer(String ID) //called from ClientFacade
     {
-        Game game = gameList.getGameList().get(ID);
-        game.addPlayer();
+        gameList.addPlayer(gameList.getGameList().get(ID));
+        //Game game = gameList.getGameList().get(ID);
+        //game.addPlayer();
     }
     public Result joinGame(String gameID)
     {

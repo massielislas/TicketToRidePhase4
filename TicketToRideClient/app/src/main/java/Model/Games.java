@@ -25,6 +25,13 @@ class Games extends Observable
         clearChanged(); //no longer have a change!
     }
 
+    void addPlayer(Game game)
+    {
+        game.addPlayer();
+        setChanged(); //set change has occurred
+        notifyObservers(makeArray()); //notify observers we have a change and give them new gameList
+        clearChanged(); //no longer have a change!
+    }
     void addAnObserver(Observer o)
     {
         addObserver(o);

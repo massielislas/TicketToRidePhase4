@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Model.GameFacade;
+import Model.WaitingFacade;
 import Results.GameResult;
 import Results.Result;
 import root.tickettorideclient.MainActivity;
@@ -23,12 +24,14 @@ public class GamesPresenter implements IGamesPresenter, Observer {
 
     private IGamesView view = null;
     private GameFacade facade = null;
+    //private WaitingFacade wFacade = null;
     private Activity mn = null;
 
     public GamesPresenter(IGamesView view, FragmentActivity mn) {
         this.view = view;
         this.facade = new GameFacade();
         this.facade.addObserver(this);
+        //this.wFacade.addObserver(this);
         this.mn = mn;
     }
 
