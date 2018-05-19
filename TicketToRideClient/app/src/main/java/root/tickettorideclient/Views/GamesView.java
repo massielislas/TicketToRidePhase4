@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import Model.Game;
 import root.tickettorideclient.IGameJoinedCallback;
+import root.tickettorideclient.MainActivity;
 import root.tickettorideclient.Presenters.GamesPresenter;
 import root.tickettorideclient.Presenters.IGamesView;
 import root.tickettorideclient.R;
@@ -55,7 +56,7 @@ public class GamesView extends Fragment implements IGamesView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.presenter = new GamesPresenter(this);
+        this.presenter = new GamesPresenter(this, getActivity());
         gameListItems = presenter.getGames();
     }
 

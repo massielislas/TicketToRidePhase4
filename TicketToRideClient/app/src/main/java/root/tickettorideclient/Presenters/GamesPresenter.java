@@ -1,5 +1,9 @@
 package root.tickettorideclient.Presenters;
 
+import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -7,6 +11,7 @@ import java.util.Observer;
 import Model.GameFacade;
 import Results.GameResult;
 import Results.Result;
+import root.tickettorideclient.MainActivity;
 import root.tickettorideclient.Views.GameListItem;
 import root.tickettorideclient.Views.IGamesPresenter;
 
@@ -18,11 +23,13 @@ public class GamesPresenter implements IGamesPresenter, Observer {
 
     private IGamesView view = null;
     private GameFacade facade = null;
+    private Activity mn = null;
 
-    public GamesPresenter(IGamesView view) {
+    public GamesPresenter(IGamesView view, FragmentActivity mn) {
         this.view = view;
         this.facade = new GameFacade();
         this.facade.addObserver(this);
+        this.mn = mn;
     }
 
     public void createGame(Integer numPlayers) {
@@ -68,8 +75,14 @@ public class GamesPresenter implements IGamesPresenter, Observer {
     public void update(Observable observable, Object o) {
         //update Game List
 
-        ArrayList<GameListItem> gameListItems = (ArrayList<GameListItem>) o;
-        view.updateGamesList(gameListItems);
+        final ArrayList<GameListItem> gameListItems = (ArrayList<GameListItem>) o;
+        mn.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                view.updateGamesList(gameListItems);
+            }
+        });
     }
 
     public ArrayList<GameListItem> getGames () {
