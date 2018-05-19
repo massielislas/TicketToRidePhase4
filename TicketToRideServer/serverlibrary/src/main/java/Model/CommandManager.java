@@ -31,7 +31,8 @@ public class CommandManager {
         }
     }
 
-    public void getNewCommands(UserPass username, int lastCommand) {
+    public void getNewCommands(String user, Integer lastCommand) {
+        UserPass username = new UserPass(user);
         if(commandMap.containsKey(username)){
             Command[] allCommands = commandMap.get(username);
             Command[] toReturn = new Command[allCommands.length-lastCommand];

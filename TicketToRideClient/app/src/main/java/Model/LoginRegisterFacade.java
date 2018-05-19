@@ -44,6 +44,7 @@ public class LoginRegisterFacade
             userData.setUsername(username);
             userData.setHost(host);
             userData.setPort(port);
+            Poller.getInstance().run();
         }
         System.out.println("Msg: " + result.getMessage());
         return result;
@@ -75,6 +76,7 @@ public class LoginRegisterFacade
             userData.setUsername(username);
             userData.setHost(host);
             userData.setPort(port);
+            Poller.getInstance().run();
         }
         System.out.println("Msg: " + result.getMessage());
         return result;
