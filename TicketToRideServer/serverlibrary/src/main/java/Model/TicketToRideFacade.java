@@ -26,6 +26,7 @@ public class TicketToRideFacade implements ITicketToRide {
         //If they don't, add them to the Map of players that currently exist
         else {
             Server.addUserPass(uName, pWord);
+            CommandManager.getInstance().addAllCommandsNewUser(username);
             return new LoginRegisterResult(true);
         }
     }
@@ -44,6 +45,7 @@ public class TicketToRideFacade implements ITicketToRide {
         }
         //Otherwise return true and log them into the App
         else {
+            CommandManager.getInstance().addAllCommandsNewUser(username);
             return new LoginRegisterResult(true);
         }
     }

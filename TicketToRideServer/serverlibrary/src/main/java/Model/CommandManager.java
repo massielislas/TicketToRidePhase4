@@ -16,8 +16,10 @@ public class CommandManager {
 
     private final static CommandManager instance = new CommandManager();
     private Map<UserPass,Command[]> commandMap;
+    private List<Command> allCommands;
     private CommandManager(){
         commandMap = new HashMap<>();
+        allCommands = new ArrayList<>();
     }
     public static CommandManager getInstance() {
         return instance;
@@ -28,6 +30,7 @@ public class CommandManager {
             Command[] commands = commandMap.get(username);
             ArrayList<Command> commandList = new ArrayList<>(Arrays.asList(commands));
             commandList.add(command);
+            allCommands.add(command);
             commandMap.put(username, (Command[]) commandList.toArray(new Command[commandList.size()]));
         }
         else
@@ -63,5 +66,8 @@ public class CommandManager {
         {
             addCommand(key, command);
         }
+    }
+    public void addAllCommandsNewUser(String username){
+        commandMap.put(new UserPass(username),allCommands.toArray(new Command[allCommands.size()]));
     }
 }
