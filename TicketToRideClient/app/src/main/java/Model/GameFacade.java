@@ -32,7 +32,7 @@ public class GameFacade
     }
     public void addGame(Double playerCount, String ID) //called from ClientFacade
     {
-        int gameNumber = gameList.getGameItems().size()+1;
+        int gameNumber = gameList.getGameList().size()+1;
         Game game = new Game(playerCount.intValue(), 0, gameNumber, ID);
         gameList.addGame(game);
     }
@@ -58,7 +58,7 @@ public class GameFacade
     }
 
     public ArrayList<GameListItem> getGames () {
-        return Games.games.getGameItems();
+        return Games.games.makeArray();
     }
 }
 
