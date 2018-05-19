@@ -28,7 +28,7 @@ public class CommandManager {
             Command[] commands = commandMap.get(username);
             ArrayList<Command> commandList = new ArrayList<>(Arrays.asList(commands));
             commandList.add(command);
-            commandMap.put(username, (Command[]) commandList.toArray());
+            commandMap.put(username, (Command[]) commandList.toArray(new Command[commandList.size()]));
         }
         else
         {
