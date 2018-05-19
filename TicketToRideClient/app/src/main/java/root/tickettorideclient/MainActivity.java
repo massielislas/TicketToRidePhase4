@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements ILoginCallback, I
     public void onGameCreated(Bundle bundleFromGames) {
         Fragment waitingFragment = new WaitingView();
         waitingFragment.setArguments(bundleFromGames);
-        fragmentManager.beginTransaction().replace(R.id.main_acttivity_container, waitingFragment);
+        fragmentManager.beginTransaction().replace(R.id.main_acttivity_container, waitingFragment).addToBackStack(null).commit();
     }
 
     @Override

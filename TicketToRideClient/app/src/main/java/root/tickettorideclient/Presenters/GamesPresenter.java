@@ -45,21 +45,19 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         return;
     }
 
-    public void joinGame(Integer gameID) {
-        //TODO: write me
+    public void joinGame(String gameID) {
 
         Result result = facade.joinGame(gameID);
 
         //if unsuccessful,
         //pop error toast
-        if (result.isSuccess()) {
+        if (!result.isSuccess()) {
             view.popErrorToast(result.getMessage());
         }
 
         //if successful,
         //switchViews
         if (result.isSuccess()) {
-
             view.switchToWaitingView();
         }
 
@@ -72,5 +70,9 @@ public class GamesPresenter implements IGamesPresenter, Observer {
 
         ArrayList<GameListItem> gameListItems = (ArrayList<GameListItem>) o;
         view.updateGamesList(gameListItems);
+    }
+
+    public ArrayList<GameListItem> getGames () {
+        return facade.getGames();
     }
 }
