@@ -48,7 +48,11 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
-    public Result addPlayerToGame(String userPass, int playerCount, int currentPlayers, int gameNumber, String ID) {
+    public Result addPlayerToGame(String userPass, Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
+        return addPlayerToGame(userPass, (Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
+    }
+
+    public Result addPlayerToGame(String userPass, Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
         //Check if the game with the corresponding ID exists
         Game game = new Game(playerCount, currentPlayers, gameNumber, ID);
         UserPass uName = new UserPass(userPass);
@@ -67,7 +71,11 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
-    public GameResult createNewGame(int playerCount, int currentPlayers, int gameNumber, String ID) {
+    public GameResult createNewGame(Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
+        return createNewGame((Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
+    }
+
+    public GameResult createNewGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
 
         Game newGame = new Game(playerCount, currentPlayers, gameNumber, ID);
 
@@ -88,7 +96,11 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
-    public GameStartResult startGame(int playerCount, int currentPlayers, int gameNumber, String ID) {
+    public GameStartResult startGame (Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
+        return startGame((Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
+    }
+
+    public GameStartResult startGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
 
         Game game = new Game(playerCount, currentPlayers, gameNumber, ID);
 

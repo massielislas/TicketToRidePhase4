@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,10 @@ public class CommandManager {
     private Map<UserPass,Command[]> commandMap;
     public static CommandManager getInstance() {
         return instance;
+    }
+
+    public CommandManager () {
+        commandMap = new HashMap<UserPass, Command[]>();
     }
 
     public void addCommand(UserPass username, Command command) {

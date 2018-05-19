@@ -33,7 +33,7 @@ public class GamesView extends Fragment implements IGamesView {
     private ArrayList<GameListItem>gameListItems = new ArrayList<>();
     private GamesListAdapter gamesListAdapter;
     View view;
-    private int numberOfPlayersSelected = 5;
+    private int numberOfPlayersSelected = 2;
     final String MAX_PLAYERS_KEY = "MaxPlayers";
     final String PLAYERS_JOINED_KEY = "PlayersJoined";
 
@@ -48,14 +48,13 @@ public class GamesView extends Fragment implements IGamesView {
 
     public void setGameListItems(ArrayList<GameListItem> gameListItems) {
         this.gameListItems = gameListItems;
-
-        this.presenter = new GamesPresenter(this);
     }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.presenter = new GamesPresenter(this);
     }
 
     @Nullable
