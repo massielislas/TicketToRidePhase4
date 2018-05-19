@@ -35,15 +35,15 @@ public class WaitingView extends Fragment implements IWaitingView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_waiting, container, false);
-        setUpTextViews(v);
         numPlayersInGame = getArguments().getInt(PLAYERS_JOINED_KEY);
         maxNumPlayers = getArguments().getInt(MAX_PLAYERS_KEY);
+        View v = inflater.inflate(R.layout.fragment_waiting, container, false);
+        setUpTextViews(v);
         return v;
     }
 
     public void setUpTextViews(View v){
-        playerNumber = (TextView) getView().findViewById(R.id.playerCounter);
+        playerNumber = (TextView) v.findViewById(R.id.playerCounter);
         playerNumber.setText(numPlayersInGame.toString() + "/" + maxNumPlayers.toString());
     }
 

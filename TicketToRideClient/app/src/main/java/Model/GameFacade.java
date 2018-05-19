@@ -24,6 +24,7 @@ public class GameFacade
         GameResult result =  proxy.createNewGame(game.getPlayerCount(), game.getCurrentPlayers(), game.getGameNumber(), game.getID());
         if (result.isSuccess())
         {
+            UserData.getUserData().setCurrentGame(game);
            // gameList.getGameList().put(result.getToReturn().getGameNumber(), result.getToReturn());
         }
         return result;

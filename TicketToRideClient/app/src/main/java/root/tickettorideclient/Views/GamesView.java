@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import Model.Game;
 import root.tickettorideclient.IGameJoinedCallback;
 import root.tickettorideclient.Presenters.GamesPresenter;
 import root.tickettorideclient.Presenters.IGamesView;
@@ -105,9 +106,9 @@ public class GamesView extends Fragment implements IGamesView {
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.createGame(numberOfPlayersSelected);
                 joinedGameMaxPlayers = numberOfPlayersSelected;
-                joinedGameJoinedPlayers = 0;
+                joinedGameJoinedPlayers = 1;
+                presenter.createGame(numberOfPlayersSelected);
             }
         });
     }
@@ -160,7 +161,7 @@ public class GamesView extends Fragment implements IGamesView {
 
         public void bind(final GameListItem gameListItem){
             final String textToSet = "Game " + gameListItem.getGameId() + "\n" +
-                    "Players joined" + gameListItem.getPlayersJoined() + "/" + gameListItem.getMaxPlayers();
+                    "Players joined " + gameListItem.getPlayersJoined() + "/" + gameListItem.getMaxPlayers();
             gameDescription.setText(textToSet);
             gameDescription.setOnClickListener(new View.OnClickListener(){
                 @Override
