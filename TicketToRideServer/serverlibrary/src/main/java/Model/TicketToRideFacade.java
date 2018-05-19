@@ -66,7 +66,14 @@ public class TicketToRideFacade implements ITicketToRide {
         }
         //Then attempt to add the player to the game, if the game is full, respond accordingly
         else {
-
+            String[] instanceParamTypeNames = new String[0];
+            Object[] instanceMethodArgs = new Object[0];
+            String[] methodParamTypeNames = {"java.lang.String"};
+            Object[] methodArguments = {ID};
+            Command command = new Command("Model.GameFacade", "getInstance",
+                    "addPlayer", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                    methodArguments);
+            CommandManager.getInstance().addCommandAllUsers(command);
             return Server.addPlayerToGame(game, uName);
         }
     }
@@ -113,6 +120,14 @@ public class TicketToRideFacade implements ITicketToRide {
                         " enough players");
             }
             else {
+                String[] instanceParamTypeNames = new String[0];
+                Object[] instanceMethodArgs = new Object[0];
+                String[] methodParamTypeNames = {"java.lang.String"};
+                Object[] methodArguments = {ID};
+                Command command = new Command("Model.GameFacade", "getInstance",
+                        "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                        methodArguments);
+                CommandManager.getInstance().addCommandAllUsers(command);
                 return new GameStartResult(game);
             }
         }
