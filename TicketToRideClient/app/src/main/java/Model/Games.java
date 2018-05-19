@@ -35,18 +35,20 @@ class Games extends Observable
         return gameList;
     }
 
-    private ArrayList<GameListItem> makeArray()
+    ArrayList<GameListItem> makeArray()
     {
         ArrayList<GameListItem> array = new ArrayList<GameListItem>();
         for (Map.Entry<String, Game> entry : gameList.entrySet()) {
-            GameListItem item = new GameListItem(entry.getValue().getID(), Integer.toString(entry.getValue().getCurrentPlayers()), Integer.toString(entry.getValue().getPlayerCount()),
+            GameListItem item = new GameListItem(Integer.toString(entry.getValue().getGameNumber()), Integer.toString(entry.getValue().getCurrentPlayers()), Integer.toString(entry.getValue().getPlayerCount()),
                     entry.getValue().getGameNumber() + "");
             array.add(item);
+           // System.out.println("Key: " + entry.getValue().getID() + "\n : " +  )
         }
+
         return array;
     }
 
-    public ArrayList<GameListItem> getGameItems () {
+    /*public ArrayList<GameListItem> getGameItems () {
 
         //TODO: REMOVE ME
         //for TESTING purposes only
@@ -55,7 +57,7 @@ class Games extends Observable
             games.gameList.put("testGame", game);
         }
         return makeArray();
-    }
+    }*/
 
     //TESTING
     //public Games(){
