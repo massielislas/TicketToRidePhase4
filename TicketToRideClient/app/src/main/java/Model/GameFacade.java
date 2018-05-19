@@ -43,7 +43,9 @@ public class GameFacade
     }
     public Result joinGame(String gameID)
     {
+        System.out.println("Game: " + gameID);
         Game game = gameList.getGameList().get(gameID);
+        if (game == null) System.out.println("uh oh!");
         Result result = proxy.addPlayerToGame(userData.getUsername().getNameOrPassword(), game.getPlayerCount(), game.getCurrentPlayers(), game.getGameNumber(), game.getID());
         if (result.isSuccess())
         {
