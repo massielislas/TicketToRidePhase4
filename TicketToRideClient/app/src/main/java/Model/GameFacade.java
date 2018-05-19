@@ -32,12 +32,15 @@ public class GameFacade
         return result;
     }
 
-    public void addGame(Game game) //called from ClientFacade
+    public void addGame(Double playerCount, String ID) //called from ClientFacade
     {
-        gameList.getGameList().put(game.getID(), game);
+        int gameNumber = gameList.getGameItems().size()+1;
+        Game game = new Game(playerCount.intValue(), 0, gameNumber, ID);
+        gameList.getGameList().put(ID, game);
     }
-    public void addPlayer(Game game) //called from ClientFacade
+    public void addPlayer(String ID) //called from ClientFacade
     {
+        Game game = gameList.getGameList().get(ID);
         game.addPlayer();
     }
     public Result joinGame(String gameID)
