@@ -46,20 +46,18 @@ public class GamesPresenter implements IGamesPresenter, Observer {
     }
 
     public void joinGame(String gameID) {
-        //TODO: write me
 
         Result result = facade.joinGame(gameID);
 
         //if unsuccessful,
         //pop error toast
-        if (result.isSuccess()) {
+        if (!result.isSuccess()) {
             view.popErrorToast(result.getMessage());
         }
 
         //if successful,
         //switchViews
         if (result.isSuccess()) {
-
             view.switchToWaitingView();
         }
 
