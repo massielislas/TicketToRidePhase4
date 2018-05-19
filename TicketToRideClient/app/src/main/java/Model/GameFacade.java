@@ -22,7 +22,7 @@ public class GameFacade
     public GameResult createGame(int playerCount)
     {
         int gameNumber = gameList.getGameList().size() + 1;
-        Game game = new Game(playerCount, 1, gameNumber);
+        Game game = new Game(playerCount, 0, gameNumber);
         GameResult result =  proxy.createNewGame(game.getPlayerCount(), game.getCurrentPlayers(), game.getGameNumber(), game.getID());
         if (result.isSuccess())
         {
