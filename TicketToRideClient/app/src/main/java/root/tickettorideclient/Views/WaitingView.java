@@ -29,7 +29,7 @@ public class WaitingView extends Fragment implements IWaitingView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new WaitingPresenter(this);
+        presenter = new WaitingPresenter(this, getActivity());
     }
 
     @Nullable
