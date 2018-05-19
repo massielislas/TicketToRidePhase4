@@ -30,7 +30,6 @@ public class CommandHandler implements HttpHandler {
             Encoder encode = new Encoder();
 
             String JSON = readString(IS);
-
             Gson gs = new Gson();
             Command toExecute = (Command) gs.fromJson(JSON, Command.class);
 

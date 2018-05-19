@@ -26,13 +26,14 @@ public class Poller {
     private Poller(){}
     public static Poller getInstance()
     {
-        return getInstance();
+        return instance;
     }
     public void run()
     {
         username = UserData.getUserData().getUsername();
         port = UserData.getUserData().getPort();
         host = UserData.getUserData().getHost();
+        lastCommand = 0;
         running = true;
         mTimer = new Timer();
         mTimer.schedule(new TimerTask() {
@@ -47,7 +48,7 @@ public class Poller {
         if(running) {
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
-            String[] methodParamTypeNames = {"java.lang.String","java.lang.Integer"};
+            String[] methodParamTypeNames = {"java.lang.String","java.lang.Double"};
             Object[] methodArguments = {username.getNameOrPassword(),lastCommand};
 
             Command command = new Command("Model.CommandManager", "getInstance",
@@ -56,14 +57,15 @@ public class Poller {
             String jsonStr = Encoder.Encode(command);
             try
             {
-                URL url = new URL("http://" + host + ":" + port + "/command");
+                URL url = new URL("http://" + host.data + ":" + port.data + "/command");
                 Object[] objects = new Object[3];
                 objects[0] = url;
                 objects[1] = jsonStr;
                 objects[2] = "";
                 String json = ClientCommunicator.getClient().post(objects);
                 if (json == null) return;
-                Object result = Encoder.Decode(json, PollResult.class);
+                PollResult result =(PollResult) Encoder.Decode(json, PollResult.class);
+                ClientFacade.getInstance().executeCommands(result.getCommands());
             }
             catch (MalformedURLException exception)
             {
