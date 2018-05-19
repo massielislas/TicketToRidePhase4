@@ -15,11 +15,11 @@ class Games extends Observable
         return games;
     }
 
-    TreeMap<Integer, Game> gameList = new TreeMap<>();
+    TreeMap<String, Game> gameList = new TreeMap<>();
 
     void addGame(Game game)
     {
-        gameList.put(game.getGameNumber(), game);
+        gameList.put(game.getID(), game);
         setChanged(); //set change has occurred
         notifyObservers(makeArray()); //notify observers we have a change and give them new gameList
         clearChanged(); //no longer have a change!
@@ -30,7 +30,7 @@ class Games extends Observable
         addObserver(o);
     }
 
-    TreeMap<Integer, Game> getGameList()
+    TreeMap<String, Game> getGameList()
     {
         return gameList;
     }
@@ -38,11 +38,30 @@ class Games extends Observable
     private ArrayList<GameListItem> makeArray()
     {
         ArrayList<GameListItem> array = new ArrayList<GameListItem>();
-        for (Map.Entry<Integer, Game> entry : gameList.entrySet()) {
-            GameListItem item = new GameListItem(entry.getKey().toString(), Integer.toString(entry.getValue().getCurrentPlayers()),
-                    Integer.toString(entry.getValue().getPlayerCount()));
+        for (Map.Entry<String, Game> entry : gameList.entrySet()) {
+            GameListItem item = new GameListItem(entry.getValue().getID(), Integer.toString(entry.getValue().getCurrentPlayers()), Integer.toString(entry.getValue().getPlayerCount()),
+                    entry.getValue().getGameNumber() + "");
+            array.add(item);
         }
         return array;
     }
+
+    public ArrayList<GameListItem> getGameItems () {
+
+        //TODO: REMOVE ME
+        //for TESTING purposes only
+        if (gameList.size() == 0) {
+            Game game = new Game(5,3,1,"testGame");
+            games.gameList.put("testGame", game);
+        }
+        return makeArray();
+    }
+
+    //TESTING
+    //public Games(){
+    //   gameList = new TreeMap<>();
+    //    Game game = new Game(5,3,1,"testGame");
+    //    games.addGame(game);
+   // }
 }
 

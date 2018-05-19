@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import Model.Game;
 import root.tickettorideclient.IGameJoinedCallback;
 import root.tickettorideclient.Presenters.GamesPresenter;
 import root.tickettorideclient.Presenters.IGamesView;
@@ -33,7 +34,7 @@ public class GamesView extends Fragment implements IGamesView {
     private ArrayList<GameListItem>gameListItems = new ArrayList<>();
     private GamesListAdapter gamesListAdapter;
     View view;
-    private int numberOfPlayersSelected = 5;
+    private int numberOfPlayersSelected = 2;
     final String MAX_PLAYERS_KEY = "MaxPlayers";
     final String PLAYERS_JOINED_KEY = "PlayersJoined";
 
@@ -48,14 +49,14 @@ public class GamesView extends Fragment implements IGamesView {
 
     public void setGameListItems(ArrayList<GameListItem> gameListItems) {
         this.gameListItems = gameListItems;
-
-        this.presenter = new GamesPresenter(this);
     }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.presenter = new GamesPresenter(this);
+        gameListItems = presenter.getGames();
     }
 
     @Nullable
@@ -106,9 +107,9 @@ public class GamesView extends Fragment implements IGamesView {
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.createGame(numberOfPlayersSelected);
                 joinedGameMaxPlayers = numberOfPlayersSelected;
-                joinedGameJoinedPlayers = 0;
+                joinedGameJoinedPlayers = 1;
+                presenter.createGame(numberOfPlayersSelected);
             }
         });
     }
@@ -119,16 +120,13 @@ public class GamesView extends Fragment implements IGamesView {
         gamesRecyclerView.setAdapter(gamesListAdapter);
     }
 
-    //Test
+    //TESTING
     public void addFakeGames(){
-        for(int i = 0; i < 5; i++){
-            GameListItem gameListItem = new GameListItem();
-            gameListItem.setGameId(i + "");
-            gameListItem.setPlayersJoined((5 - i) + "");
-            gameListItem.setMaxPlayers(4+"");
-            gameListItems.add(gameListItem);
-        }
-
+        GameListItem gameListItem  = new GameListItem();
+        gameListItem.setGameId("testGame");
+        gameListItem.setPlayersJoined("3");
+        gameListItem.setListNumber("1");
+        gameListItem.setMaxPlayers("5");
     }
 
     @Override
@@ -161,7 +159,7 @@ public class GamesView extends Fragment implements IGamesView {
 
         public void bind(final GameListItem gameListItem){
             final String textToSet = "Game " + gameListItem.getGameId() + "\n" +
-                    "Players joined" + gameListItem.getPlayersJoined() + "/" + gameListItem.getMaxPlayers();
+                    "Players joined " + gameListItem.getPlayersJoined() + "/" + gameListItem.getMaxPlayers();
             gameDescription.setText(textToSet);
             gameDescription.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -169,6 +167,7 @@ public class GamesView extends Fragment implements IGamesView {
                     Toast.makeText(getContext(), textToSet, Toast.LENGTH_LONG).show();
                     joinedGameJoinedPlayers = Integer.valueOf(gameListItem.getPlayersJoined());
                     joinedGameMaxPlayers = Integer.valueOf(gameListItem.getMaxPlayers());
+                    presenter.joinGame(gameListItem.getGameId());
                 }
             });
         }

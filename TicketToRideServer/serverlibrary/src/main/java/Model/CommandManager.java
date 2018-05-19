@@ -23,6 +23,10 @@ public class CommandManager {
         return instance;
     }
 
+    public CommandManager () {
+        commandMap = new HashMap<UserPass, Command[]>();
+    }
+
     public void addCommand(UserPass username, Command command) {
         if(commandMap.containsKey(username)) {
             Command[] commands = commandMap.get(username);

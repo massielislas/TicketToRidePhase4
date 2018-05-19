@@ -1,9 +1,11 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Observer;
 
 import Results.GameResult;
 import Results.Result;
+import root.tickettorideclient.Views.GameListItem;
 
 /**
  * Created by zachgormley on 5/13/18.
@@ -24,6 +26,7 @@ public class GameFacade
         GameResult result =  proxy.createNewGame(game.getPlayerCount(), game.getCurrentPlayers(), game.getGameNumber(), game.getID());
         if (result.isSuccess())
         {
+            UserData.getUserData().setCurrentGame(game);
            // gameList.getGameList().put(result.getToReturn().getGameNumber(), result.getToReturn());
         }
         return result;
@@ -31,15 +34,15 @@ public class GameFacade
 
     public void addGame(Game game) //called from ClientFacade
     {
-        gameList.getGameList().put(game.getGameNumber(), game);
+        gameList.getGameList().put(game.getID(), game);
     }
     public void addPlayer(Game game) //called from ClientFacade
     {
         game.addPlayer();
     }
-    public Result joinGame(int gameNumber)
+    public Result joinGame(String gameID)
     {
-        Game game = gameList.getGameList().get(gameNumber);
+        Game game = gameList.getGameList().get(gameID);
         Result result = proxy.addPlayerToGame(userData.getUsername().getNameOrPassword(), game.getPlayerCount(), game.getCurrentPlayers(), game.getGameNumber(), game.getID());
         if (result.isSuccess())
         {
@@ -51,6 +54,10 @@ public class GameFacade
     public void addObserver(Observer o)
     {
         gameList.addAnObserver(o);
+    }
+
+    public ArrayList<GameListItem> getGames () {
+        return Games.games.getGameItems();
     }
 }
 
