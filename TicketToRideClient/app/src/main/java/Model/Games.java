@@ -32,6 +32,10 @@ class Games extends Observable
 
     TreeMap<String, Game> getGameList()
     {
+        if (gameList.size() == 0) {
+            Game game = new Game(5,3,1,"testGame");
+            games.addGame(game);
+        }
         return gameList;
     }
 
@@ -47,9 +51,10 @@ class Games extends Observable
     }
 
     //TESTING
-    public Games(){
-//        Game game = new Game(5,3,1,"testGame");
-//        games.addGame(game);
-    }
+    //public Games(){
+    //   gameList = new TreeMap<>();
+    //    Game game = new Game(5,3,1,"testGame");
+    //    games.addGame(game);
+   // }
 }
 
