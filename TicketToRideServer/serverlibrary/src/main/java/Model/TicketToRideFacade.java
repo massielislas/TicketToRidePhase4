@@ -71,6 +71,7 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
+    //do we need this?!?!
     public GameResult createNewGame(Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
         return createNewGame((Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
     }
