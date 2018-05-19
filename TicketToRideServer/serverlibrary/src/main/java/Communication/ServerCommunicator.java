@@ -35,7 +35,7 @@ public class ServerCommunicator {
     public static void main(String[] portNum) {
         String port = "";
         if (portNum.length == 0) {
-            port = "8080";
+            port = "8081";
         }
         else {
             port = portNum[0];
