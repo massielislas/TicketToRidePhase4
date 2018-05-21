@@ -22,4 +22,8 @@
     <!--Waiting Fragment-->
     <string name="waiting">Waiting...</string>
     <string name="players">Players</string>
+
+    <!--Setup View-->
+    <string name="YouArePlayer">You are player</string>
+    <string name="StartingHand">Starting Hand:</string>
 </resources>
