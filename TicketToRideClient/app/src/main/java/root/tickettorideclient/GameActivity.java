@@ -21,7 +21,7 @@ public class GameActivity extends AppCompatActivity {
 
         if(fragment == null){
             fragment = new SetupView();
-            fragmentManager.beginTransaction().add(R.id.game_activity_container, fragment);
+            fragmentManager.beginTransaction().add(R.id.game_activity_container, fragment).commit();
         }
     }
 }
