@@ -24,6 +24,10 @@
     <string name="players">Players</string>
 
     <!--Setup View-->
-    <string name="YouArePlayer">You are player</string>
-    <string name="StartingHand">Starting Hand:</string>
+    <string name="youArePlayer">You are player</string>
+    <string name="startingHand">Starting Hand:</string>
+    <string name="destinationCards">Destination Cards</string>
+    <string name="pickAtLeast2">Pick at least 2</string>
+    <string name="ready">Ready!</string>
+    <string name="yourColor">Your Color:</string>
 </resources>
