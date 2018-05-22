@@ -70,7 +70,8 @@ public class SetupView extends Fragment implements ISetUpView {
         readyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //presenter.keepDestinationCards();
+                switchToBoardView();
             }
         });
 
