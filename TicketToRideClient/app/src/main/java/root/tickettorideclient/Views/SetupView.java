@@ -23,7 +23,7 @@ public class SetupView extends Fragment {
     View firstDestinationCard;
     View secondDestinationCard;
     View thirdDestinationCard;
-    
+
     Button readyButton;
 
     ArrayList<Boolean>destinationCardsSelected = new ArrayList<>();
@@ -71,7 +71,7 @@ public class SetupView extends Fragment {
 
 
     private void setDestinationCardInputs(){
-        firstDestinationCard.findViewById(R.id.firstDestinationCard);
+        firstDestinationCard = (View) v.findViewById(R.id.firstDestinationCard);
         firstDestinationCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +87,7 @@ public class SetupView extends Fragment {
             }
         });
 
-        secondDestinationCard.findViewById(R.id.secondDestinationCard);
+        secondDestinationCard = (View) v.findViewById(R.id.secondDestinationCard);
         secondDestinationCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +104,7 @@ public class SetupView extends Fragment {
         });
 
 
-        thirdDestinationCard.findViewById(R.id.thirdDestinationCard);
+        thirdDestinationCard = (View) v.findViewById(R.id.thirdDestinationCard);
         thirdDestinationCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
