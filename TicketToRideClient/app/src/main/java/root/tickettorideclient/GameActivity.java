@@ -30,6 +30,6 @@ public class GameActivity extends AppCompatActivity implements IGoToBoardCallbac
     @Override
     public void goToBoard() {
         Fragment boardFragment = new BoardView();
-        fragmentManager.beginTransaction().replace(R.id.main_acttivity_container, boardFragment);
+        fragmentManager.beginTransaction().replace(R.id.main_acttivity_container, boardFragment).commit();
     }
 }
