@@ -8,16 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import root.tickettorideclient.Callbacks.IGameJoinedCallback;
+import root.tickettorideclient.Presenters.ISetUpView;
+import root.tickettorideclient.Presenters.SetUpPresenter;
 import root.tickettorideclient.R;
 
 /**
  * Created by Massiel on 5/21/2018.
  */
 
-public class SetupView extends Fragment {
+public class SetupView extends Fragment implements ISetUpView {
     View v;
 
     View firstDestinationCard;
@@ -32,10 +36,13 @@ public class SetupView extends Fragment {
     String selectedColor = "#b5b5b5";
     String nonSelectedColor = "#f4d76e";
 
+    ISetUpPresenter presenter;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setUpSelections();
+        presenter = new SetUpPresenter(this, getActivity());
     }
 
     @Nullable
@@ -142,6 +149,27 @@ public class SetupView extends Fragment {
 
     public boolean isDestinationCardSelected(int i){
         return destinationCardsSelected.get(i);
+    }
+
+    @Override
+    public void setPlayerNumber(Integer num) {
+        //TODO
+    }
+
+    @Override
+    public void setPlayerColor(Color color) {
+        //TODO
+    }
+
+    @Override
+    public void popToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void switchToBoardView() {
+        Bundle bundle = new Bundle();
+        ((IGameJoinedCallback) getActivity()).onGameCreated(bundle);
     }
 
 }
