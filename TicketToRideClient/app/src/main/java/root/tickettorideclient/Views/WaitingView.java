@@ -66,7 +66,6 @@ public class WaitingView extends Fragment implements IWaitingView {
 
     @Override
     public void switchView() {
-        //TO BE IMPLEMENTED for real, later
         Toast.makeText(getContext(), "Game is now full- switch to game setup", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getActivity(), GameActivity.class);
         startActivity(intent);
