@@ -168,8 +168,7 @@ public class SetupView extends Fragment implements ISetUpView {
 
     @Override
     public void switchToBoardView() {
-        Bundle bundle = new Bundle();
-        ((IGameJoinedCallback) getActivity()).onGameCreated(bundle);
+        ((IGameJoinedCallback) getActivity()).onGameCreated();
     }
 
 }
