@@ -8,7 +8,7 @@ import android.graphics.Color;
 
 public interface ISetUpView {
     public void setPlayerNumber(Integer num);
-    public void setPlayerColor(Color color);
+    public void setPlayerColor(Integer color);
   //  public void setHand(TrainCard[] cards);
 
     public void popToast(String message);
