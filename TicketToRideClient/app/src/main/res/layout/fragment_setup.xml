@@ -177,6 +177,7 @@
         android:layout_height="wrap_content"
         android:text="@string/ready"
         android:layout_gravity="center"
-        android:layout_margin="30dp"/>
+        android:layout_margin="30dp"
+        android:id="@+id/readyButton"/>
 
 </LinearLayout>
