@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import root.tickettorideclient.Callbacks.IGameJoinedCallback;
+import root.tickettorideclient.Callbacks.IGoToBoardCallback;
 import root.tickettorideclient.Presenters.ISetUpView;
 import root.tickettorideclient.Presenters.SetUpPresenter;
 import root.tickettorideclient.R;
@@ -168,7 +169,7 @@ public class SetupView extends Fragment implements ISetUpView {
 
     @Override
     public void switchToBoardView() {
-        ((IGameJoinedCallback) getActivity()).onGameCreated();
+        ((IGoToBoardCallback) getActivity()).goToBoard();
     }
 
 }
