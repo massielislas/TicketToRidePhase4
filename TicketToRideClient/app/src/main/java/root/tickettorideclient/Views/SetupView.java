@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import root.tickettorideclient.Callbacks.IGameJoinedCallback;
+import root.tickettorideclient.Callbacks.IGoToBoardCallback;
 import root.tickettorideclient.Presenters.ISetUpView;
 import root.tickettorideclient.Presenters.SetUpPresenter;
 import root.tickettorideclient.R;
@@ -69,7 +70,8 @@ public class SetupView extends Fragment implements ISetUpView {
         readyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //presenter.keepDestinationCards();
+                switchToBoardView();
             }
         });
 
@@ -168,8 +170,7 @@ public class SetupView extends Fragment implements ISetUpView {
 
     @Override
     public void switchToBoardView() {
-        Bundle bundle = new Bundle();
-        ((IGameJoinedCallback) getActivity()).onGameCreated(bundle);
+        ((IGoToBoardCallback) getActivity()).goToBoard();
     }
 
 }

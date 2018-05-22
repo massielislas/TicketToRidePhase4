@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import root.tickettorideclient.Callbacks.IGoToBoardCallback;
+import root.tickettorideclient.Views.BoardView;
 import root.tickettorideclient.Views.SetupView;
 
 public class GameActivity extends AppCompatActivity implements IGoToBoardCallback {
@@ -28,6 +29,7 @@ public class GameActivity extends AppCompatActivity implements IGoToBoardCallbac
 
     @Override
     public void goToBoard() {
-
+        Fragment boardFragment = new BoardView();
+        fragmentManager.beginTransaction().replace(R.id.game_activity_container, boardFragment).commit();
     }
 }
