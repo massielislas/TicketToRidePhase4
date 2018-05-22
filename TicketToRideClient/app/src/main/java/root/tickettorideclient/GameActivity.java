@@ -5,9 +5,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import root.tickettorideclient.Callbacks.IGoToBoardCallback;
 import root.tickettorideclient.Views.SetupView;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements IGoToBoardCallback {
 
     FragmentManager fragmentManager;
 
@@ -23,5 +24,10 @@ public class GameActivity extends AppCompatActivity {
             fragment = new SetupView();
             fragmentManager.beginTransaction().add(R.id.game_activity_container, fragment);
         }
+    }
+
+    @Override
+    public void goToBoard() {
+
     }
 }

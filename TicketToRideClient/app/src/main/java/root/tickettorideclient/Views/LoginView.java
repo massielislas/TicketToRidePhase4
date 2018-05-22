@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import root.tickettorideclient.ILoginCallback;
+import root.tickettorideclient.Callbacks.ILoginCallback;
 import root.tickettorideclient.Presenters.ILoginView;
 import root.tickettorideclient.Presenters.LoginPresenter;
 import root.tickettorideclient.R;
