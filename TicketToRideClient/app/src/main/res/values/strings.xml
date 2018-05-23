@@ -52,4 +52,7 @@
     <string name="viewDestinations">VIEW YOUR DESTINATION CARDS</string>
 
     <string name="chatAndHistory">CHAT BOX/GAME HISTORY</string>
+
+    <string name="points">POINTS:</string>
+    <string name="trains">TRAINS:</string>
 </resources>

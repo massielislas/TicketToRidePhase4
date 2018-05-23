@@ -5,29 +5,81 @@
     android:layout_height="match_parent"
     android:id="@+id/mapContainer">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/map"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:clickable="true"
-        android:enabled="true" />
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="top">
 
-        <TextView
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/yourHand"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:padding="8dp"
-            android:textColor="#000000"
-            android:background="#ffe3af"
-            android:textSize="14dp"/>
+            android:orientation="vertical"
+            android:layout_weight="3">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/points"
+                android:textAlignment="center"
+                android:padding="8dp"
+                android:textColor="#ffe8ce"
+                android:background="#383838"
+                android:textSize="14dp"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#000000" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/trains"
+                android:textAlignment="center"
+                android:padding="8dp"
+                android:textColor="#ffe8ce"
+                android:background="#383838"
+                android:textSize="14dp"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#000000"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/yourHand"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:background="#ffe3af"
+                android:padding="8dp"
+                android:textSize="14dp"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#000000"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#ffffff"
+                android:text="YOUR HAND GOES HERE"
+                android:padding="8dp"
+                android:textColor="#000000"
+                android:textSize="14dp"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#000000"/>
+
+
+        </LinearLayout>
+
 
         <View
             android:layout_width="1dp"
@@ -38,7 +90,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/availableCards"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:textAlignment="center"
             android:padding="8dp"
             android:textColor="#000000"
@@ -49,19 +101,46 @@
 
 
 
-    <TextView
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/chatAndHistory"
-        android:layout_gravity="bottom"
-        android:textAlignment="center"
-        android:padding="13dp"
-        android:textColor="#000000"
-        android:background="#ffe3af"
-        android:textSize="14dp"/>
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <View
+            android:layout_height="1dp"
+            android:layout_width="fill_parent"
+            android:background="#000000"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/chatAndHistory"
+            android:layout_gravity="bottom"
+            android:textAlignment="center"
+            android:padding="13dp"
+            android:textColor="#000000"
+            android:background="#ffe3af"
+            android:textSize="14dp"/>
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="fill_parent"
+            android:background="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#ffffff"/>
+    </LinearLayout>
+
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:enabled="true" />
 
 </FrameLayout>
