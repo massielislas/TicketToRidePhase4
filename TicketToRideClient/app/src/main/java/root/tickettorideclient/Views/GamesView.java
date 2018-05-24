@@ -16,9 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import Model.Game;
-import root.tickettorideclient.IGameJoinedCallback;
-import root.tickettorideclient.MainActivity;
+import root.tickettorideclient.Callbacks.IGameJoinedCallback;
 import root.tickettorideclient.Presenters.GamesPresenter;
 import root.tickettorideclient.Presenters.IGamesView;
 import root.tickettorideclient.R;

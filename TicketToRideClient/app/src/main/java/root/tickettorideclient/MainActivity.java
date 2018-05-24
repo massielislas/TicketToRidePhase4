@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import root.tickettorideclient.Callbacks.IGameJoinedCallback;
+import root.tickettorideclient.Callbacks.ILoginCallback;
 import root.tickettorideclient.Views.GamesView;
 import root.tickettorideclient.Views.LoginView;
 import root.tickettorideclient.Views.WaitingView;
