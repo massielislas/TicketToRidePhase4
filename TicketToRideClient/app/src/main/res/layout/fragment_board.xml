@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     android:id="@+id/mapContainer">
 
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:enabled="true" />
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -111,7 +118,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/availableCardsBox">
+                android:id="@+id/availableCardsBox"
+                android:background="#ffffff">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -245,7 +253,7 @@
             android:background="#000000"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_gravity="bottom"
             android:background="#ffffff"
@@ -255,11 +263,6 @@
     </LinearLayout>
 
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/map"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:clickable="true"
-        android:enabled="true" />
+
 
 </FrameLayout>
