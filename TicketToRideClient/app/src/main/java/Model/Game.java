@@ -2,6 +2,7 @@ package Model;
 
 import android.annotation.TargetApi;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
@@ -16,6 +17,13 @@ public class Game extends Observable
     int playerCount; //player count set for game
 
     int currentPlayers; //current in game
+
+    ArrayList<DestinationCard> destinationDeck;
+    ArrayList<Player> players;
+    ArrayList<Route> routes;
+    ArrayList<TrainCard> faceUpTrainDeck;
+    ArrayList<TrainCard> faceDownTrainDeck;
+    Chat chat;
 
     Game(int playerCount, int currentPlayers, int gameNumber) {
         this.playerCount = playerCount;
@@ -34,6 +42,27 @@ public class Game extends Observable
     void addAnObserver(Observer o)
     {
         addObserver(o);
+    }
+
+    public ArrayList<DestinationCard> getSelectedDestinationCards(ArrayList<Double> toGet)
+    {
+        ArrayList<DestinationCard> selectedCards = new ArrayList<DestinationCard>();
+        for (Double cardID: toGet)
+        {
+            selectedCards.add(findSelectedDestinationCard(cardID));
+        }
+        return selectedCards;
+    }
+
+    public DestinationCard findSelectedDestinationCard(Double cardID)
+    {
+        for (DestinationCard currentCard: destinationDeck)
+        {
+            if (cardID == currentCard.getCardNo()) return currentCard;
+        }
+        return null; //we should never get here!
+        //TODO
+        //decide to make decks observable or just change how game implements observable?
     }
 
     public int getCurrentPlayers() {

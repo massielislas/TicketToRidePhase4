@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 import Results.GameResult;
 import Results.GameStartResult;
 import Results.LoginRegisterResult;
@@ -15,6 +17,8 @@ public interface ITicketToRide {
     Result addPlayerToGame(String userName, Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID);
     GameResult createNewGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID);
     GameStartResult startGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID);
+    Result sendChat(String username, String message, String gameID);
+    Result selectCards(String username, String gameID, ArrayList<Integer> destinationCards);
 
 }
 

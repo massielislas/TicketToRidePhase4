@@ -8,9 +8,23 @@ public class UserData
 
     Game currentGame;
 
+    Player currentPlayer;
+
     Host host;
 
     Port port;
+
+    public static void setUserData(UserData userData) {
+        UserData.userData = userData;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
 
     public Host getHost() {
         return host;
