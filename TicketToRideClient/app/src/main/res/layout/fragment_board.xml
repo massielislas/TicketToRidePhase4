@@ -86,19 +86,135 @@
             android:layout_height="fill_parent"
             android:background="#000000" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/availableCards"
-            android:layout_weight="2"
-            android:textAlignment="center"
-            android:padding="8dp"
-            android:textColor="#000000"
-            android:background="#ffe3af"
-            android:textSize="14dp"/>
+            android:orientation="vertical"
+            android:layout_weight="2">
 
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/availableCards"
+                android:textAlignment="center"
+                android:padding="8dp"
+                android:textColor="#000000"
+                android:background="#ffe3af"
+                android:textSize="14dp"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#000000"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/availableCardsBox">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#2f6fd6"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:text="Train Cards: #"
+                        android:textColor="#000000"
+                        android:padding="5dp"/>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#dbb930"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:text="Destination Cards: #"
+                        android:textColor="#000000"
+                        android:padding="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:background="#8c26bf"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_weight="1">
+                    </View>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:background="#8c26bf"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_weight="1">
+                    </View>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:background="#8c26bf"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_weight="1">
+                    </View>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:background="#8c26bf"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_weight="1">
+                    </View>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:background="#8c26bf"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_weight="1">
+                    </View>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Train Cards left in deck: #"
+                    android:textAlignment="center"
+                    android:layout_marginVertical="10dp"/>
+
+                <View
+                    android:layout_height="1dp"
+                    android:layout_width="fill_parent"
+                    android:background="#000000"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/viewDestinations"
+                    android:padding="10dp"
+                    android:textColor="#000000"
+                    android:textSize="14dp"
+                    android:background="#ffe3af"/>
+
+                <View
+                    android:layout_height="1dp"
+                    android:layout_width="fill_parent"
+                    android:background="#000000"/>
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
-
 
 
     <LinearLayout
@@ -130,9 +246,12 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_gravity="bottom"
-            android:background="#ffffff"/>
+            android:background="#ffffff"
+            android:text="Oh hey, this is really cool"
+            android:padding="10dp"
+            android:textColor="#000000"/>
     </LinearLayout>
 
 
