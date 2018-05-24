@@ -55,4 +55,6 @@
 
     <string name="points">POINTS:</string>
     <string name="trains">TRAINS:</string>
+
+    <string name="send">SEND</string>
 </resources>
