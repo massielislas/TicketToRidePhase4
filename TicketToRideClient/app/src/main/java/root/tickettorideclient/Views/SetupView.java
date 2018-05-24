@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,6 +29,9 @@ public class SetupView extends Fragment implements ISetUpView {
     View firstDestinationCard;
     View secondDestinationCard;
     View thirdDestinationCard;
+
+    TextView playerNumber;
+    View playerColor;
 
     Button readyButton;
 
@@ -74,6 +78,10 @@ public class SetupView extends Fragment implements ISetUpView {
                 switchToBoardView();
             }
         });
+
+        playerNumber = (TextView) v.findViewById(R.id.playerNum);
+
+        playerColor = (View) v.findViewById(R.id.playerColor);
 
         setDestinationCardInputs();
     }
@@ -155,12 +163,12 @@ public class SetupView extends Fragment implements ISetUpView {
 
     @Override
     public void setPlayerNumber(Integer num) {
-        //TODO
+        playerNumber.setText("You are Player " + num);
     }
 
     @Override
-    public void setPlayerColor(Color color) {
-        //TODO
+    public void setPlayerColor(Integer color) {
+        playerColor.setBackgroundColor(color);
     }
 
     @Override
