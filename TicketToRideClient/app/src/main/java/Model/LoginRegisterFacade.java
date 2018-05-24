@@ -1,6 +1,9 @@
 package Model;
 
+import java.util.ArrayList;
+
 import Results.LoginRegisterResult;
+import root.tickettorideclient.Views.GameListItem;
 
 /**
  * Created by zachgormley on 5/13/18.
@@ -23,7 +26,10 @@ public class LoginRegisterFacade
         Port port = new Port(strPort);
 
         boolean valid = username.verify() && password.verify() && host.verify() && port.verify();
-        if (valid) return login(username, password, host, port);
+        if (valid) {
+            Games.getGames();
+            return login(username, password, host, port);
+        }
         else
         {
             LoginRegisterResult result = new LoginRegisterResult(false);
@@ -44,6 +50,7 @@ public class LoginRegisterFacade
             userData.setUsername(username);
             userData.setHost(host);
             userData.setPort(port);
+            Poller.getInstance().run();
         }
         System.out.println("Msg: " + result.getMessage());
         return result;
@@ -57,7 +64,10 @@ public class LoginRegisterFacade
         Port port = new Port(strPort);
 
         boolean valid = username.verify() && password.verify() && host.verify() && port.verify();
-        if (valid) return register(username, password, host, port);
+        if (valid) {
+            Games.getGames();
+            return register(username, password, host, port);
+        }
         else
         {
             LoginRegisterResult result = new LoginRegisterResult(false);
@@ -75,6 +85,7 @@ public class LoginRegisterFacade
             userData.setUsername(username);
             userData.setHost(host);
             userData.setPort(port);
+            Poller.getInstance().run();
         }
         System.out.println("Msg: " + result.getMessage());
         return result;

@@ -28,7 +28,7 @@ public class LoginPresenter implements ILoginPresenter {
         //if unsuccessful,
         //pop toast with error message
         if (!result.isSuccess()) {
-            view.popErrorToast(result.getMessage());
+            view.popToast(result.getMessage());
         }
 
         //if successful,
@@ -50,7 +50,7 @@ public class LoginPresenter implements ILoginPresenter {
         //if unsuccessful,
         //pop toast with error message
         if (!result.isSuccess()) {
-            view.popErrorToast(result.getMessage());
+            view.popToast(result.getMessage());
         }
 
 

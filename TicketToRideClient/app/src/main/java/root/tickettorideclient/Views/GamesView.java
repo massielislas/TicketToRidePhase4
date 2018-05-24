@@ -16,8 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import root.tickettorideclient.IGameJoinedCallback;
-import root.tickettorideclient.ILoginCallback;
+import root.tickettorideclient.Callbacks.IGameJoinedCallback;
 import root.tickettorideclient.Presenters.GamesPresenter;
 import root.tickettorideclient.Presenters.IGamesView;
 import root.tickettorideclient.R;
@@ -33,9 +32,13 @@ public class GamesView extends Fragment implements IGamesView {
     private RecyclerView gamesRecyclerView;
     private ArrayList<GameListItem>gameListItems = new ArrayList<>();
     private GamesListAdapter gamesListAdapter;
-    private int numberOfPlayersSelected = 5;
+    View view;
+    private int numberOfPlayersSelected = 2;
     final String MAX_PLAYERS_KEY = "MaxPlayers";
     final String PLAYERS_JOINED_KEY = "PlayersJoined";
+
+    int joinedGameMaxPlayers = 0;
+    int joinedGameJoinedPlayers = 0;
 
     public ArrayList<GameListItem> getGameListItems() {
         return gameListItems;
@@ -45,34 +48,33 @@ public class GamesView extends Fragment implements IGamesView {
 
     public void setGameListItems(ArrayList<GameListItem> gameListItems) {
         this.gameListItems = gameListItems;
-
-        this.presenter = new GamesPresenter(this);
     }
 
-    public void onGameJoined(int playersJoined, int maximumPlayers) {
-        Bundle bundle = new Bundle();
-        bundle.putInt(MAX_PLAYERS_KEY, 0);
-        bundle.putInt(PLAYERS_JOINED_KEY, 0);
-        switchToWaitingView(bundle);
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.presenter = new GamesPresenter(this, getActivity());
+        gameListItems = presenter.getGames();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_games, container, false);
         setUpInputs();
-        View view = inflater.inflate(R.layout.fragment_games, container, false);
-        gamesRecyclerView = (RecyclerView) view.findViewById(R.id.gamesRecyclerView);
-        gamesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        updateUI();
+        createList();
         return view;
     }
 
+    public void createList(){
+        gamesRecyclerView = (RecyclerView) view.findViewById(R.id.gamesRecyclerView);
+        gamesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        updateUI();
+    }
+
     public void setUpInputs(){
+        playerNumberSpinner = (Spinner) view.findViewById(R.id.maxPlayersSpinner);
         playerNumberSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -100,12 +102,13 @@ public class GamesView extends Fragment implements IGamesView {
             }
         });
 
-        createGameButton = (Button) gamesRecyclerView.findViewById(R.id.createGameButton);
+        createGameButton = (Button) view.findViewById(R.id.createGameButton);
         createGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                joinedGameMaxPlayers = numberOfPlayersSelected;
+//                joinedGameJoinedPlayers = 1;
                 presenter.createGame(numberOfPlayersSelected);
-                onGameJoined(1, numberOfPlayersSelected);
             }
         });
     }
@@ -116,29 +119,32 @@ public class GamesView extends Fragment implements IGamesView {
         gamesRecyclerView.setAdapter(gamesListAdapter);
     }
 
-    //Test
+    //TESTING
     public void addFakeGames(){
-        for(int i = 0; i < 5; i++){
-            GameListItem gameListItem = new GameListItem();
-            gameListItem.setGameId(i + "");
-            gameListItem.setPlayersJoined((5 - i) + "");
-            gameListItems.add(gameListItem);
-        }
-
+        GameListItem gameListItem  = new GameListItem();
+        gameListItem.setGameId("testGame");
+        gameListItem.setPlayersJoined("3");
+        gameListItem.setListNumber("1");
+        gameListItem.setMaxPlayers("5");
     }
 
     @Override
     public void updateGamesList(ArrayList<GameListItem> gameList) {
         this.gameListItems = gameList;
+        createList();
     }
 
     @Override
-    public void switchToWaitingView(Bundle bundle) {
-       ((IGameJoinedCallback) getActivity()).onGameCreated(bundle);
+    public void switchToWaitingView() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(MAX_PLAYERS_KEY, joinedGameMaxPlayers);
+        bundle.putInt(PLAYERS_JOINED_KEY, joinedGameJoinedPlayers);
+        ((IGameJoinedCallback) getActivity()).onGameCreated(bundle);
     }
 
+
     @Override
-    public void popErrorToast(String message) {
+    public void popToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
@@ -151,14 +157,16 @@ public class GamesView extends Fragment implements IGamesView {
         }
 
         public void bind(final GameListItem gameListItem){
-            final String textToSet = "Game " + gameListItem.getGameId() + "\n" +
-                    "Players joined" + gameListItem.getPlayersJoined() + "/" + gameListItem.getMaxPlayers();
+            final String textToSet = "Game " + gameListItem.getListNumber() + "\n" +
+                    "Players joined " + gameListItem.getPlayersJoined() + "/" + gameListItem.getMaxPlayers();
             gameDescription.setText(textToSet);
             gameDescription.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(getContext(), textToSet, Toast.LENGTH_LONG).show();
-                    onGameJoined(Integer.valueOf(gameListItem.getPlayersJoined()), Integer.valueOf(gameListItem.getPlayersJoined()));
+                    joinedGameJoinedPlayers = Integer.valueOf(gameListItem.getPlayersJoined());
+                    joinedGameMaxPlayers = Integer.valueOf(gameListItem.getMaxPlayers());
+                    presenter.joinGame(gameListItem.getGameId());
                 }
             });
         }

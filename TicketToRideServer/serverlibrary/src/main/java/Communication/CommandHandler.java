@@ -30,7 +30,6 @@ public class CommandHandler implements HttpHandler {
             Encoder encode = new Encoder();
 
             String JSON = readString(IS);
-
             Gson gs = new Gson();
             Command toExecute = (Command) gs.fromJson(JSON, Command.class);
 
@@ -38,16 +37,19 @@ public class CommandHandler implements HttpHandler {
             Object o = toExecute.Execute();
             IResult resultO = (IResult) o;
 
-            if (resultO.isSuccess()) {
-                exchange.sendResponseHeaders(HTTP_OK, 0);
+            exchange.sendResponseHeaders(HTTP_OK, 0);
+            /*{
+                System.out.println("Success");
+
                 resultO.setSuccess(true);
                 resultO.setMessage("yay");
             }
             else {
-                exchange.sendResponseHeaders(HTTP_BAD_REQUEST, 0);
-                resultO.setSuccess(false);
-                resultO.setMessage("nay");
-            }
+                System.out.println("no success");
+                exchange.sendResponseHeaders(HTTP_OK, 0);
+                //resultO.setSuccess(false);
+                //resultO.setMessage("nay");
+            }*/
 
             String jsonStr = encode.Encode(resultO);
             PrintWriter out = new PrintWriter(exchange.getResponseBody());

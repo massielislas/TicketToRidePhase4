@@ -1,5 +1,7 @@
 package root.tickettorideclient.Presenters;
 
+import android.support.v4.app.FragmentActivity;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,18 +16,26 @@ public class WaitingPresenter implements IWaitingPresenter, Observer {
 
     private IWaitingView view = null;
     private WaitingFacade facade;
+    private FragmentActivity mn;
 
-    public WaitingPresenter (IWaitingView view) {
+    public WaitingPresenter (IWaitingView view, FragmentActivity mn) {
 
         this.view = view;
         this.facade = new WaitingFacade();
         this.facade.addObserver(this);
+        this.mn = mn;
     }
 
     @Override
     public void update(Observable observable, Object o) {
         //update player count
-        int numPlayers = (int) o;
-        view.updatePlayerCount(numPlayers);
+        final int numPlayers = (int) o;
+        mn.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                view.updatePlayerCount(numPlayers);
+            }
+        });
     }
 }

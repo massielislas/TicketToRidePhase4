@@ -26,6 +26,7 @@ public class TicketToRideFacade implements ITicketToRide {
         //If they don't, add them to the Map of players that currently exist
         else {
             Server.addUserPass(uName, pWord);
+            CommandManager.getInstance().addAllCommandsNewUser(username);
             return new LoginRegisterResult(true);
         }
     }
@@ -44,11 +45,16 @@ public class TicketToRideFacade implements ITicketToRide {
         }
         //Otherwise return true and log them into the App
         else {
+            CommandManager.getInstance().addAllCommandsNewUser(username);
             return new LoginRegisterResult(true);
         }
     }
 
-    public Result addPlayerToGame(String userPass, int playerCount, int currentPlayers, int gameNumber, String ID) {
+    public Result addPlayerToGame(String userPass, Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
+        return addPlayerToGame(userPass, (Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
+    }
+
+    public Result addPlayerToGame(String userPass, Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
         //Check if the game with the corresponding ID exists
         Game game = new Game(playerCount, currentPlayers, gameNumber, ID);
         UserPass uName = new UserPass(userPass);
@@ -62,12 +68,27 @@ public class TicketToRideFacade implements ITicketToRide {
         }
         //Then attempt to add the player to the game, if the game is full, respond accordingly
         else {
-
-            return Server.addPlayerToGame(game, uName);
+            Result check = Server.addPlayerToGame(game, uName);
+            if(check.isSuccess())
+            {
+                String[] instanceParamTypeNames = new String[0];
+                Object[] instanceMethodArgs = new Object[0];
+                String[] methodParamTypeNames = {"java.lang.String"};
+                Object[] methodArguments = {ID};
+                Command command = new Command("Model.GameFacade", "getInstance",
+                        "addPlayer", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                        methodArguments);
+                CommandManager.getInstance().addCommandAllUsers(command);
+            }
+            return check;
         }
     }
+    //do we need this?!?!
+    public GameResult createNewGame(Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
+        return createNewGame((Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
+    }
 
-    public GameResult createNewGame(int playerCount, int currentPlayers, int gameNumber, String ID) {
+    public GameResult createNewGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
 
         Game newGame = new Game(playerCount, currentPlayers, gameNumber, ID);
 
@@ -77,10 +98,10 @@ public class TicketToRideFacade implements ITicketToRide {
         else {
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
-            String[] methodParamTypeNames = {Integer.class.toString(), Integer.class.toString(), Integer.class.toString(), "java.lang.String"};
-            Object[] methodArguments = {playerCount, currentPlayers, gameNumber, ID};
-            Command command = new Command("Model.ClientFacade", "getInstance",
-                    "createNewGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+            String[] methodParamTypeNames = {"java.lang.Double", "java.lang.String"};
+            Object[] methodArguments = {playerCount, ID};
+            Command command = new Command("Model.GameFacade", "getInstance",
+                    "addGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommandAllUsers(command);
             Server.addGameToQueue(newGame);
@@ -88,7 +109,11 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
-    public GameStartResult startGame(int playerCount, int currentPlayers, int gameNumber, String ID) {
+    public GameStartResult startGame (Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
+        return startGame((Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
+    }
+
+    public GameStartResult startGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
 
         Game game = new Game(playerCount, currentPlayers, gameNumber, ID);
 
@@ -101,6 +126,14 @@ public class TicketToRideFacade implements ITicketToRide {
                         " enough players");
             }
             else {
+                String[] instanceParamTypeNames = new String[0];
+                Object[] instanceMethodArgs = new Object[0];
+                String[] methodParamTypeNames = {"java.lang.String"};
+                Object[] methodArguments = {ID};
+                Command command = new Command("Model.GameFacade", "getInstance",
+                        "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                        methodArguments);
+                CommandManager.getInstance().addCommandAllUsers(command);
                 return new GameStartResult(game);
             }
         }

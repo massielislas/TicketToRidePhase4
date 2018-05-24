@@ -18,6 +18,7 @@ public class GameResult extends Result {
     public GameResult(Game game)
     {
         this.toReturn = game;
+        super.setSuccess(true);
     }
 
     public GameResult(boolean success, String Error)

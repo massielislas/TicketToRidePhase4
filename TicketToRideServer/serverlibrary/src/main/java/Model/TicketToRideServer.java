@@ -86,7 +86,7 @@ class TicketToRideServer {
                     return new Result(true, "Successfully joined game");
                 }
                 else {
-                    return new Result(false, "Game was full");
+                    return new Result(false, "Game is full");
                 }
             }
         }

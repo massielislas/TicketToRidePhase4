@@ -12,7 +12,7 @@ public class ClientFacade
 
     public static ClientFacade getInstance() {return instance;}
 
-    public void executeCommands(ArrayList<Command> commands)
+    public void executeCommands(Command[] commands)
     {
         for(Command c: commands){
             c.Execute();

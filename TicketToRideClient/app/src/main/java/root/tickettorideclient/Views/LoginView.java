@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import root.tickettorideclient.ILoginCallback;
+import root.tickettorideclient.Callbacks.ILoginCallback;
 import root.tickettorideclient.Presenters.ILoginView;
 import root.tickettorideclient.Presenters.LoginPresenter;
 import root.tickettorideclient.R;
@@ -199,7 +199,7 @@ public class LoginView extends Fragment implements ILoginView {
     }
 
     @Override
-    public void popErrorToast(String message) {
+    public void popToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 

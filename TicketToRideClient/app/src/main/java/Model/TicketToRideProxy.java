@@ -24,7 +24,7 @@ public class TicketToRideProxy implements ITicketToRide {
         Object[] methodArguments = {username, password, host, port};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
-                "loginUser", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                "registerUser", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                 methodArguments);
         String jsonStr = Encoder.Encode(command);
         try
@@ -60,7 +60,7 @@ public class TicketToRideProxy implements ITicketToRide {
         Object[] methodArguments = {username, password, host, port};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
-                "registerUser", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                "loginUser", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                 methodArguments);
         String jsonStr = Encoder.Encode(command);
         try
@@ -71,7 +71,10 @@ public class TicketToRideProxy implements ITicketToRide {
             objects[1] = jsonStr;
             objects[2] = "";
             String json = client.post(objects);
-            if (json == null) return null;
+            if (json == null) {
+                System.out.println("json is null");
+                return null;
+            }
             Object result = Encoder.Decode(json, LoginRegisterResult.class);
             return (LoginRegisterResult)result;
         }
@@ -83,10 +86,10 @@ public class TicketToRideProxy implements ITicketToRide {
     }
 
     @Override
-    public Result addPlayerToGame(String username, int playerCount, int currentPlayers, int gameNumber, String ID) {
+    public Result addPlayerToGame(String username, Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"java.lang.String", Integer.class.toString(), Integer.class.toString(), Integer.class.toString(), "java.lang.String"};
+        String[] methodParamTypeNames = {"java.lang.String", "java.lang.Double", "java.lang.Double", "java.lang.Double", "java.lang.String"};
         Object[] methodArguments = {username, playerCount, currentPlayers, gameNumber, ID};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
@@ -101,7 +104,10 @@ public class TicketToRideProxy implements ITicketToRide {
             objects[1] = jsonStr;
             objects[2] = "";
             String json = client.post(objects);
-            if (json == null) return null;
+            if (json == null) {
+                System.out.println("json is null");
+                return null;
+            }
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
         }
@@ -113,11 +119,11 @@ public class TicketToRideProxy implements ITicketToRide {
     }
 
     @Override
-    public GameResult createNewGame(int playerCount, int currentPlayers, int gameNumber, String ID) {
+    public GameResult createNewGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
 
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {Integer.class.toString(), Integer.class.toString(), Integer.class.toString(), "java.lang.String"};
+        String[] methodParamTypeNames = {"java.lang.Double", "java.lang.Double", "java.lang.Double", "java.lang.String"};
         Object[] methodArguments = {playerCount, currentPlayers, gameNumber, ID};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
@@ -132,8 +138,12 @@ public class TicketToRideProxy implements ITicketToRide {
             objects[1] = jsonStr;
             objects[2] = "";
             String json = client.post(objects);
-            if (json == null) return null;
+            if (json == null) {
+                System.out.println("json is null");
+                return null;
+            }
             Object result = Encoder.Decode(json, GameResult.class);
+
             return (GameResult)result;
         }
         catch (MalformedURLException exception)
@@ -144,10 +154,10 @@ public class TicketToRideProxy implements ITicketToRide {
     }
 
     @Override
-    public GameStartResult startGame(int playerCount, int currentPlayers, int gameNumber, String ID) {
+    public GameStartResult startGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {Integer.class.toString(), Integer.class.toString(), Integer.class.toString(), "java.lang.String"};
+        String[] methodParamTypeNames = {"java.lang.Double", "java.lang.Double", "java.lang.Double", "java.lang.String"};
         Object[] methodArguments = {playerCount, currentPlayers, gameNumber, ID};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
@@ -163,7 +173,10 @@ public class TicketToRideProxy implements ITicketToRide {
             objects[1] = jsonStr;
             objects[2] = "";
             String json = client.post(objects);
-            if (json == null) return null;
+            if (json == null) {
+                System.out.println("json is null");
+                return null;
+            }
             Object result = Encoder.Decode(json, GameStartResult.class);
             return (GameStartResult)result;
         }
