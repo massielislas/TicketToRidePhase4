@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Results.Result;
 
 public class PlayFacade {
-    Command command;
+
     TicketToRideProxy proxy = new TicketToRideProxy();
     Chat chat = Chat.getInstance();
     UserData userData = UserData.getUserData();
@@ -34,6 +34,6 @@ public class PlayFacade {
 
     public void addChat(String message)
     {
-        chat.addObserver(message);
+        chat.addChatMessage(message);
     }
 }
