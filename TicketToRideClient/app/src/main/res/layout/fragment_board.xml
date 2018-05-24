@@ -81,7 +81,7 @@
                 android:padding="8dp"
                 android:textColor="#000000"
                 android:textSize="14dp"
-                android:id="@+id/handDisplay"/>
+                android:id="@+id/yourHandDisplay"/>
 
             <View
                 android:layout_height="1dp"
@@ -140,7 +140,7 @@
                         android:text="Train Cards: #"
                         android:textColor="#000000"
                         android:padding="5dp"
-                        android:id="@+id/trainCardsDisplay"/>
+                        android:id="@+id/trainCardsDeck"/>
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -151,7 +151,7 @@
                         android:text="Destination Cards: #"
                         android:textColor="#000000"
                         android:padding="5dp"
-                        android:id="@+id/destinationCardsDisplay"/>
+                        android:id="@+id/destinationCardsDeck"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -267,7 +267,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/chatInputBox">
+            android:id="@+id/chatboxContainer">
             <View
                 android:layout_height="1dp"
                 android:layout_width="fill_parent"
