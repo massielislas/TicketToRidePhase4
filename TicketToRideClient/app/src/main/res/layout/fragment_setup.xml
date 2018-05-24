@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp">
+
+        <TextView
+            android:id="@+id/playerNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You are Player -1"
+            android:layout_gravity="center"
+            android:layout_marginRight="50dp"
+            android:textColor="#000000"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yourColor"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:textColor="#000000"
+            android:textSize="20dp"/>
+
+
+        <View android:id="@+id/playerColor"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#0116a0"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/startingHand"
+            android:layout_gravity="center"
+            android:textColor="#000000"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="40dp">
+
+        <View android:id="@+id/firstCard"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:background="#00ced6"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+
+        <View android:id="@+id/secondCard"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="#82000a"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+
+        <View android:id="@+id/thirdCard"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:background="#d6d600"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+
+        <View android:id="@+id/fourthCard"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:background="#9100a8"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+
+        <View android:id="@+id/fifthCard"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="#6acc6d"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/destinationCards"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pickAtLeast2"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:textSize="15dp"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="10dp">
+
+        <TextView android:id="@+id/firstDestinationCard"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:background="#f4d76e"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Provo to Amsterdam"
+            android:padding="10dp"
+            android:textColor="#000000"/>
+
+        <TextView android:id="@+id/secondDestinationCard"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="#f4d76e"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Cedar City to Marrakesh"
+            android:padding="10dp"
+            android:textColor="#000000"/>
+
+        <TextView android:id="@+id/thirdDestinationCard"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:background="#f4d76e"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Salt Lake to Beirut"
+            android:padding="10dp"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ready"
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        android:id="@+id/readyButton"/>
+
+</LinearLayout>
