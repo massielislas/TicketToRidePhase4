@@ -108,6 +108,7 @@ class TicketToRideServer {
         }
     }
 
+<<<<<<< HEAD
     List<UserPass> getPlayers(String gameID)
     {
         for(Game g:activeGames)
@@ -116,6 +117,12 @@ class TicketToRideServer {
             {
 
                 return g.getPlayers();
+=======
+    public Game getSpecificGame(String ID) {
+        for (Game g : activeGames) {
+            if (g.getID() == ID) {
+                return g;
+>>>>>>> 7f034324e682162cd334658602a51b9fc2a017df
             }
         }
         return null;

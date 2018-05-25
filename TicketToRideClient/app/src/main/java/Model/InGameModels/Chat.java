@@ -1,7 +1,8 @@
-package Model;
+package Model.InGameModels;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Observer;
 
 public class Chat extends Observable
 {
@@ -21,7 +22,7 @@ public class Chat extends Observable
                                 // replace chat with necessary view list
         clearChanged(); //no longer have a change!
     }
-    public void addObserver(Object o)
+    public void addAnObserver(Observer o)
     {
         addObserver(o);
     }

@@ -1,5 +1,7 @@
 package Model;
 
+import Model.InGameModels.Player;
+
 public class UserData
 {
     static public UserData userData = new UserData();

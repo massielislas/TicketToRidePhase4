@@ -1,8 +1,13 @@
 package Model;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.List;
 
+=======
+
+import Model.InGameModels.Player;
+>>>>>>> 7f034324e682162cd334658602a51b9fc2a017df
 import Results.GameResult;
 import Results.GameStartResult;
 import Results.LoginRegisterResult;
@@ -137,11 +142,13 @@ public class TicketToRideFacade implements ITicketToRide {
                         "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                         methodArguments);
                 CommandManager.getInstance().addCommandAllUsers(command);
+                initializeHands(game);
                 return new GameStartResult(game);
             }
         }
     }
 
+<<<<<<< HEAD
     @Override
     public Result sendChat(String username, String message, String gameID) {
         String totalMessage = username + ": " + message;
@@ -162,4 +169,33 @@ public class TicketToRideFacade implements ITicketToRide {
         return null;
     }
 
+=======
+    private void initializeHands(Game game) {
+        for (Player p : game.getPlayerList()) {
+            SinglePlayerStartInfo initPack = game.dealStartingHand(p);
+        }
+    }
+
+    public Result sendChat(String userName, String msg, String gameID) {
+        Game toChat = Server.getSpecificGame(gameID);
+        if (toChat != null) {
+            toChat.addChat(msg, userName);
+            return new Result(true, "");
+        }
+        else {
+            return new Result(false, "Invalid GameID in sendChat, ServerSide");
+        }
+    }
+
+    public Result discardDestCards(String username, String gameID, ArrayList<Integer> cardIDs) {
+        Game game = Server.getSpecificGame(gameID);
+        if (game != null) {
+            return new Result(true, "removed " + cardIDs.size() + " destination cards from " +
+                    username + "'s hand");
+        }
+        else {
+            return new Result(false, "Something failed in discardDestCards in TicketToRideFacade");
+        }
+    }
+>>>>>>> 7f034324e682162cd334658602a51b9fc2a017df
 }
