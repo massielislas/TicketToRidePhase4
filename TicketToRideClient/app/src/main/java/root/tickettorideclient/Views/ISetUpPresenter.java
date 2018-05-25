@@ -1,9 +1,14 @@
 package root.tickettorideclient.Views;
 
+import java.util.ArrayList;
+
+import Model.InGameModels.DestinationCard;
+
 /**
  * Created by madeleineaydelotte on 5/21/18.
  */
 
 public interface ISetUpPresenter {
-    public void keepDestinationCards(/*DestinationCard[] cards*/);
+    public ArrayList<DestinationCard> getDestinationCards();
+    public void keepDestinationCards(ArrayList<Integer> cardIDs);
 }

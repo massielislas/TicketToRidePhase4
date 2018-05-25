@@ -144,7 +144,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="Provo to Amsterdam"
+            android:text="14 points: Provo to Amsterdam"
             android:padding="10dp"
             android:textColor="#000000"/>
 
@@ -156,7 +156,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="Cedar City to Marrakesh"
+            android:text="14 points: Cedar City to Marrakesh"
             android:padding="10dp"
             android:textColor="#000000"/>
 
@@ -168,7 +168,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="Salt Lake to Beirut"
+            android:text="14 points: Salt Lake to Beirut"
             android:padding="10dp"
             android:textColor="#000000" />
     </LinearLayout>

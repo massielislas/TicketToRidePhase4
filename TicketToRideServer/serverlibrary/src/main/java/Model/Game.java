@@ -36,6 +36,7 @@ public class Game {
     private TrainCard[] trainCardFaceupDeck;
     private List<TrainCard> discardedTrainCards;
     private List<DestinationCard> destinationCardDeck;
+    private List<String> chat;
 
     public Game(int playerCount, int currentPlayers) {
         this.playerCount = playerCount;
@@ -46,6 +47,7 @@ public class Game {
         trainCardFaceupDeck = new TrainCard[faceupSize];
         discardedTrainCards = new ArrayList<>();
         destinationCardDeck = new ArrayList<>();
+        chat = new ArrayList<>();
     }
 
     public Game(int playerCount, int currentPlayers, int gameNumber, String ID) {
@@ -177,6 +179,10 @@ public class Game {
             }
         }
         return startingHand;
+    }
+
+    public void addChat(String msg, String userName) {
+        chat.add(userName + ": " + msg);
     }
 
     public int getPlayerCount()

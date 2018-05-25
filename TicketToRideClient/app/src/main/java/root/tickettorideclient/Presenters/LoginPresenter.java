@@ -20,8 +20,6 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     public void register(String username, String password, String host, String port) {
-        //TODO: verify
-
         //call register method
         LoginRegisterResult result = facade.verifyRegister(username, password, host, port);
 
@@ -41,8 +39,6 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     public void login(String username, String password, String host, String port) {
-        //TODO: verify
-
         //call login method
         LoginRegisterResult result = facade.verifyLogin(username, password, host, port);
 
