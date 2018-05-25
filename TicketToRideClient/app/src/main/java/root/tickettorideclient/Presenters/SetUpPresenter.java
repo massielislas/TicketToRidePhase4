@@ -2,6 +2,10 @@ package root.tickettorideclient.Presenters;
 
 import android.support.v4.app.FragmentActivity;
 
+import java.util.ArrayList;
+
+import Model.DestinationCard;
+import Model.PlayFacade;
 import Model.WaitingFacade;
 import Results.Result;
 import root.tickettorideclient.Views.ISetUpPresenter;
@@ -13,19 +17,24 @@ import root.tickettorideclient.Views.ISetUpPresenter;
 public class SetUpPresenter implements ISetUpPresenter {
 
     private ISetUpView view;
-    //private PlayFacade facade;
+    private PlayFacade facade;
     private FragmentActivity mn;
 
     public SetUpPresenter (ISetUpView view, FragmentActivity mn) {
         this.view = view;
-    //    this.facade = new PlayFacade();
-    //    this.facade.addObserver(this);
+        this.facade = new PlayFacade();
+        this.facade.addObserver(this);
         this.mn = mn;
     }
 
-    public void keepDestinationCards(/*DestinationCard[] cards*/) {
-        Result result = new Result();
-        //Result result = facade.keep . . .
+    public ArrayList<DestinationCard> getDestinationCards () {
+        //return facade.getDestinationCards();
+        return null;
+    }
+
+    public void keepDestinationCards(ArrayList<Integer> cardIDs) {
+
+        Result result = facade.selectCards(cardIDs);
 
         //if result is unsuccessful
         //pop error toast
