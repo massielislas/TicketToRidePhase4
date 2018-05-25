@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import Model.DestinationCard;
-import root.tickettorideclient.Callbacks.IGameJoinedCallback;
+
+import Model.InGameModels.DestinationCard;
 import root.tickettorideclient.Callbacks.IGoToBoardCallback;
 import root.tickettorideclient.Presenters.ISetUpView;
 import root.tickettorideclient.Presenters.SetUpPresenter;
@@ -39,14 +39,16 @@ public class SetupView extends Fragment implements ISetUpView {
 
     ArrayList<Boolean>destinationCardsSelected = new ArrayList<>();
     ArrayList<DestinationCard> destinationCards = new ArrayList<>();
-    int selectedColor = ContextCompat.getColor(getContext(), R.color.selectedCardColor);
-    int nonSelectedColor = ContextCompat.getColor(getContext(), R.color.unselectedCardColor);
+    int selectedColor;
+    int nonSelectedColor;
 
     ISetUpPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        selectedColor = ContextCompat.getColor(getContext(), R.color.selectedCardColor);
+        nonSelectedColor = ContextCompat.getColor(getContext(), R.color.unselectedCardColor);
 
         presenter = new SetUpPresenter(this, getActivity());
 
@@ -68,16 +70,18 @@ public class SetupView extends Fragment implements ISetUpView {
             @Override
             public void onClick(View view) {
 
-                ArrayList<Integer> keepCards = new ArrayList<>();
-                if ((destinationCardsSelected.size() == 3) && (destinationCards.size() == 3)) {
-                    for (int i = 0; i < 3; ++i) {
-                        if (destinationCardsSelected.get(i) == true) {
-                            keepCards.add(destinationCards.get(i).getCardNo());
+                if ((destinationCards != null) && (destinationCards.size() == 3)) {
+                    ArrayList<Integer> keepCards = new ArrayList<>();
+                    if ((destinationCardsSelected.size() == 3) && (destinationCards.size() == 3)) {
+                        for (int i = 0; i < 3; ++i) {
+                            if (destinationCardsSelected.get(i) == true) {
+                                keepCards.add(destinationCards.get(i).getID());
+                            }
                         }
                     }
-                }
 
-                presenter.keepDestinationCards(keepCards);
+                    presenter.keepDestinationCards(keepCards);
+                }
                 switchToBoardView();
             }
         });
@@ -162,26 +166,26 @@ public class SetupView extends Fragment implements ISetUpView {
 
     private void setUpSelections(){
 
+        for(int i = 0; i < 3; i++){
+            destinationCardsSelected.add(false);
+        }
+
         ArrayList<DestinationCard> destinationCards = presenter.getDestinationCards();
-        if (destinationCards.size() == 3) {
+        if ((destinationCards != null) && (destinationCards.size() == 3)) {
 
             this.destinationCards = destinationCards;
 
             DestinationCard firstCard = destinationCards.get(0);
-            String firstMessage = firstCard.getPointvalue() + " points: " + firstCard.getFirstcity() + " to " + firstCard.getSecondCity();
+            String firstMessage = firstCard.getPointValue() + " points: " + firstCard.getCity1() + " to " + firstCard.getCity2();
             firstDestinationCard.setText(firstMessage);
 
             DestinationCard secondCard = destinationCards.get(1);
-            String secondMessage = secondCard.getPointvalue() + " points: " + secondCard.getFirstcity() + " to " + secondCard.getSecondCity();
+            String secondMessage = secondCard.getPointValue() + " points: " + secondCard.getCity1() + " to " + secondCard.getCity2();
             firstDestinationCard.setText(secondMessage);
 
             DestinationCard thirdCard = destinationCards.get(2);
-            String thirdMessage = thirdCard.getPointvalue() + " points: " + thirdCard.getFirstcity() + " to " + thirdCard.getSecondCity();
+            String thirdMessage = thirdCard.getPointValue() + " points: " + thirdCard.getCity1() + " to " + thirdCard.getCity2();
             firstDestinationCard.setText(thirdMessage);
-
-            for(int i = 0; i < 3; i++){
-                destinationCardsSelected.add(false);
-            }
         }
 
     }
