@@ -3,56 +3,111 @@ package Model.InGameModels;
 import android.graphics.Color;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Observable;
+import java.util.Set;
 import java.util.TreeSet;
+
+import Model.UserPass;
 
 public class Player extends Observable {
 
-    ArrayList<DestinationCard> destinationHand;
-    ArrayList<TrainCard> traincardHand;
-    TreeSet<Route> routes;
-    Color color;
-    int piecesCount;
-    int score;
+    private List<DestinationCard> destCards;
+    private List<TrainCard> trainCards;
+    private Set<Route> routesClaimed;
+    private Color color;
+    private int trainPiecesLeft;
+    private int currentScore;
+    private UserPass userName;
+    private int turnNumber;
 
-    public Player(ArrayList<TrainCard> traincardHand, TreeSet<Route> routes, Color color) {
-        this.traincardHand = traincardHand;
-        this.routes = routes;
+    public Player(UserPass name, List<TrainCard> traincardHand, TreeSet<Route> routes, Color color) {
+        this.trainCards = traincardHand;
+        this.routesClaimed = routes;
         this.color = color;
-        piecesCount = 240;
-        score = 0;
+        trainPiecesLeft = 240;
+        currentScore = 0;
+    }
+
+    public Player(UserPass name, int queuePosition) {
+        userName = name;
+        trainCards = new ArrayList<>();
+        destCards = new ArrayList<>();
+        routesClaimed = new HashSet<>();
+        turnNumber = queuePosition;
+        trainPiecesLeft = 45;
+        currentScore = 0;
     }
 
     public void addToDestinationHand(ArrayList<DestinationCard> toAdd)
     {
         for (DestinationCard card: toAdd)
         {
-            destinationHand.add(card);
+            destCards.add(card);
         }
 
     }
 
-    public ArrayList<DestinationCard> getDestinationHand() {
-        return destinationHand;
+    public UserPass getUserName() {
+        return userName;
     }
 
-    public ArrayList<TrainCard> getTraincardHand() {
-        return traincardHand;
+    public void setUserName(UserPass userName) {
+        this.userName = userName;
     }
 
-    public TreeSet<Route> getRoutes() {
-        return routes;
+    public List<TrainCard> getTrainCards() {
+        return trainCards;
     }
 
-    public Color getColor() {
-        return color;
+    public void setTrainCards(List<TrainCard> trainCards) {
+        this.trainCards = trainCards;
     }
 
-    public int getPiecesCount() {
-        return piecesCount;
+    public List<DestinationCard> getDestCards() {
+        return destCards;
     }
 
-    public int getScore() {
-        return score;
+    public void setDestCards(List<DestinationCard> destCards) {
+        this.destCards = destCards;
     }
+
+    public Set<Route> getRoutesClaimed() {
+        return routesClaimed;
+    }
+
+    public void setRoutesClaimed(Set<Route> routesClaimed) {
+        this.routesClaimed = routesClaimed;
+    }
+
+    public int getTurnNumber() {
+        return turnNumber;
+    }
+
+    public void setTurnNumber(int turnNumber) {
+        this.turnNumber = turnNumber;
+    }
+
+    public int getTrainPiecesLeft() {
+        return trainPiecesLeft;
+    }
+
+    public void setTrainPiecesLeft(int trainPiecesLeft) {
+        this.trainPiecesLeft = trainPiecesLeft;
+    }
+
+    public int getCurrentScore()
+    {
+        return currentScore;
+    }
+
+    public void setCurrentScore(int currentScore)
+    {
+        this.currentScore = currentScore;
+    }
+
+
+
+
 }

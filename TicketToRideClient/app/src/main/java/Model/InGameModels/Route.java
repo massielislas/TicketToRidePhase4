@@ -9,55 +9,86 @@ import Model.UserPass;
 
 public class Route extends Observable {
 
-    int length;
-    Color color;
-    boolean isClaimed;
-    UserPass claimedBy;
-    int score;
-    int ID;
-    City cityOne;
-    City cityTwo;
+    private int length;
+    private Color color;
+    private boolean isClaimed;
+    private UserPass claimant;
+    private int scoreValue;
+    private int ID;
+    private City city1;
+    private City city2;
 
-    public Route(int length, Color color, int score, int ID, City cityOne, City cityTwo) {
+    public Route(int length, Color color, int scoreValue, int ID, City city1, City city2) {
         this.length = length;
         this.color = color;
-        this.score = score;
+        this.scoreValue = scoreValue;
         this.ID = ID;
-        this.cityOne = cityOne;
-        this.cityTwo = cityTwo;
+        this.city1 = city1;
+        this.city2 = city2;
         isClaimed = false;
-        claimedBy = null;
+        claimant = null;
+    }
+
+    public City getCity1() {
+        return city1;
+    }
+
+    public void setCity1(City city1) {
+        this.city1 = city1;
+    }
+
+    public City getCity2() {
+        return city2;
+    }
+
+    public void setCity2(City city2) {
+        this.city2 = city2;
     }
 
     public int getLength() {
         return length;
     }
 
-    public Color getColor() {
-        return color;
+    public void setLength(int length) {
+        this.length = length;
     }
 
     public boolean isClaimed() {
         return isClaimed;
     }
 
-    public UserPass getClaimedBy() {
-        return claimedBy;
+    public void setClaimed(boolean claimed) {
+        isClaimed = claimed;
     }
 
-    public int getScore() {
-        return score;
+    public UserPass getClaimant() {
+        return claimant;
+    }
+
+    public void setClaimant(UserPass claimant) {
+        this.claimant = claimant;
+    }
+
+    public int getScoreValue() {
+        return scoreValue;
+    }
+
+    public void setScoreValue(int scoreValue) {
+        this.scoreValue = scoreValue;
     }
 
     public int getID() {
         return ID;
     }
 
-    public City getCityOne() {
-        return cityOne;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
-    public City getCityTwo() {
-        return cityTwo;
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) { this.color = color;
     }
 }

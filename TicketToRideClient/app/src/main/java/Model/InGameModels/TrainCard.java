@@ -3,25 +3,37 @@ package Model.InGameModels;
 import android.graphics.Color;
 
 public class TrainCard {
-    Color color;
-    String name;
-    int cardNo;
+    private Color color;
+    private String type;
+    private int ID;
 
-    public TrainCard(Color color, String name, int cardNo) {
+    public TrainCard(int ID, Color color, String type) {
+        this.ID = ID;
         this.color = color;
-        this.name = name;
-        this.cardNo = cardNo;
+        this.type = type;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public Color getColor() {
         return color;
     }
 
-    public String getName() {
-        return name;
+    public void setColor(Color color) {
+        this.color = color;
     }
 
-    public int getCardNo() {
-        return cardNo;
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
