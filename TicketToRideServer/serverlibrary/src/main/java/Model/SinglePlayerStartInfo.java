@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.InGameModels.DestinationCard;
+import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.TrainCard;
 
 /**
@@ -61,4 +62,5 @@ public class SinglePlayerStartInfo {
     public void setStartingTrainCards(List<TrainCard> startingTrainCards) {
         this.startingTrainCards = startingTrainCards;
     }
+
 }

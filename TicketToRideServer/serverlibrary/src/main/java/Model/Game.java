@@ -179,15 +179,16 @@ public class Game {
                 destinationCardDeck.remove(i);
             }
         }
-
+        List<PlayerShallow> list = new ArrayList<>();
         for (Player other : playerList) {
             if (!other.getUserName().equals(p.getUserName())) {
                 PlayerShallow copy = new PlayerShallow(other.getnameString(),
                         other.getTrainHandSize(), other.getDestHandSize(),
                         other.getTrainPiecesLeft(),other.getTurnNumber());
+                list.add(copy);
             }
         }
-
+        startingHand.setPlayerInfo(list);
         return startingHand;
     }
 
