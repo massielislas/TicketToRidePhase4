@@ -43,7 +43,16 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     TextView userTrainsBanner;
 
     TextView yourHandBanner;
-    TextView yourHandDisplay;
+    LinearLayout yourHandDisplay;
+    TextView playerPurpleCards;
+    TextView playerWhiteCards;
+    TextView playerBlueCards;
+    TextView playerYellowCards;
+    TextView playerOrangeCards;
+    TextView playerBlackCards;
+    TextView playerRedCards;
+    TextView playerGreenCards;
+    TextView playerWildCards;
 
     TextView availableCardsBanner;
     LinearLayout availableCardsDisplay;
@@ -115,7 +124,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         userPointsBanner = (TextView) myView.findViewById(R.id.pointsDisplay);
         userTrainsBanner = (TextView) myView.findViewById(R.id.trainDisplay);
 
-        yourHandDisplay = (TextView)myView.findViewById(R.id.yourHandDisplay);
+        yourHandDisplay = (LinearLayout) myView.findViewById(R.id.yourHandDisplay);
         yourHandBanner = (TextView)myView.findViewById(R.id.yourHandBanner);
         yourHandBanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +136,15 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                     yourHandDisplay.setVisibility(View.VISIBLE);
             }
         });
+
+        playerPurpleCards = (TextView) myView.findViewById(R.id.playerPurpleCards);
+        playerWhiteCards = (TextView) myView.findViewById(R.id.playerWhiteCards);
+        playerBlueCards = (TextView) myView.findViewById(R.id.playerBlueCards);
+        playerYellowCards = (TextView) myView.findViewById(R.id.playerYellowCards);
+        playerOrangeCards = (TextView) myView.findViewById(R.id.playerOrangeCards);
+        playerBlackCards = (TextView) myView.findViewById(R.id.playerBlackCards);
+        playerRedCards = (TextView) myView.findViewById(R.id.playerRedCards);
+        playerWildCards = (TextView) myView.findViewById(R.id.playerWildCards);
 
         availableCardsDisplay = (LinearLayout) myView.findViewById(R.id.availableCardsDisplay);
         availableCardsBanner = (TextView)myView.findViewById(R.id.availableCardsBanner);
