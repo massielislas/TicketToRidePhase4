@@ -1,12 +1,12 @@
 package root.tickettorideclient.Views;
 
-import android.graphics.Color;
-import android.graphics.ColorSpace;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +23,9 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 
-import Model.TrainCard;
+import java.util.ArrayList;
+
+import Model.InGameModels.TrainCard;
 import root.tickettorideclient.Presenters.IBoardView;
 import root.tickettorideclient.R;
 
@@ -62,6 +64,12 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     EditText typedMessage;
     Button sendMessageButton;
 
+    RecyclerView playerRecyclerView;
+
+    ArrayList<PlayerStats>otherPlayers = new ArrayList<>();
+
+    private OtherPlayerAdapter playerAdapter;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,7 +83,30 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         myView = inflater.inflate(R.layout.fragment_board, container, false);
         setUpTopInputs();
         setUpBottomInputs();
+        createRecyclerView();
         return myView;
+    }
+
+    public void createRecyclerView(){
+        playerRecyclerView = (RecyclerView) myView.findViewById(R.id.otherPlayersRecyclerView);
+        playerRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        updateUI();
+    }
+
+    public void updateUI(){
+        addFakePlayers();
+        playerAdapter = new OtherPlayerAdapter(otherPlayers);
+        playerRecyclerView.setAdapter(playerAdapter);
+    }
+
+    public void addFakePlayers(){
+        for(int i = 0; i < 4; i++){
+            PlayerStats playerStats = new PlayerStats();
+            playerStats.setDestinationCards(i);
+            playerStats.setTrainCards(i);
+            playerStats.setTrainPieces(i);
+            otherPlayers.add(playerStats);
+        }
     }
 
     public void setUpTopInputs(){
@@ -218,5 +249,49 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     public void switchToEndView() {
         //TODO: implement in next phase
         popToast("Game ended: switch to end view");
+    }
+
+    public class OtherPlayerHolder extends RecyclerView.ViewHolder{
+        TextView trainPieces;
+        TextView trainCards;
+        TextView destinationCards;
+        public OtherPlayerHolder(LayoutInflater inflater, ViewGroup parent){
+            super(inflater.inflate(R.layout.other_player_stats_item, parent, false));
+            trainPieces = (TextView) itemView.findViewById(R.id.otherPlayerTrainPieces);
+            trainCards = (TextView) itemView.findViewById(R.id.otherPlayerTrainCards);
+            destinationCards = (TextView) itemView.findViewById(R.id.otherPlayerDestinationCards);
+
+
+        }
+
+        public void bind(final PlayerStats playerStats){
+            trainPieces.setText("T:" + playerStats.getTrainPieces());
+            trainCards.setText("C:" + playerStats.getTrainCards());
+            destinationCards.setText("D:" + playerStats.getDestinationCards());
+        }
+    }
+
+    public class OtherPlayerAdapter extends RecyclerView.Adapter<OtherPlayerHolder>{
+        private ArrayList<PlayerStats>playerStats;
+
+        public OtherPlayerAdapter(ArrayList<PlayerStats> playerStats){
+            this.playerStats = playerStats;
+        }
+
+        @Override
+        public OtherPlayerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            return new OtherPlayerHolder(layoutInflater, parent);
+        }
+
+        @Override
+        public void onBindViewHolder(OtherPlayerHolder holder, int position) {
+            PlayerStats playerStats = this.playerStats.get(position);
+            holder.bind(playerStats);
+        }
+
+        public int getItemCount(){
+            return playerStats.size();
+        }
     }
 }

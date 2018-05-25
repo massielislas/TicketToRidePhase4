@@ -114,7 +114,7 @@ public class GamesView extends Fragment implements IGamesView {
     }
 
     public void updateUI(){
-        addFakeGames();
+//        addFakeGames();
         gamesListAdapter = new GamesListAdapter(gameListItems);
         gamesRecyclerView.setAdapter(gamesListAdapter);
     }
