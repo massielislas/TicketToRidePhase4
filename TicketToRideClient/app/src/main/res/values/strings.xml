@@ -30,4 +30,31 @@
     <string name="pickAtLeast2">Pick at least 2</string>
     <string name="ready">Ready!</string>
     <string name="yourColor">Your Color:</string>
+
+    <!--Board Fragment-->
+    <string name="yourHand">YOUR HAND</string>
+    <string name="blueInHand">BLUE</string>
+    <string name="redInHand">RED</string>
+    <string name="blackInHand">BLACK</string>
+    <string name="whiteInHand">WHITE</string>
+    <string name="yelloInHand">YELLOW</string>
+    <string name="orangeInHand">ORANGE</string>
+    <string name="greenInHand">GREEN</string>
+    <string name="wildInHand">WILD</string>
+
+    <string name="otherPlayers">OTHER PLAYERS</string>
+
+    <string name="availableCards">AVAILABLE CARDS</string>
+    <string name="destinationsLeft">Destination Cards Left: </string>
+
+    <string name="trainCardsLeft">Train Cards left in Deck</string>
+
+    <string name="viewDestinations">VIEW YOUR DESTINATION CARDS</string>
+
+    <string name="chatAndHistory">CHAT BOX/GAME HISTORY</string>
+
+    <string name="points">POINTS:</string>
+    <string name="trains">TRAINS:</string>
+
+    <string name="send">SEND</string>
 </resources>

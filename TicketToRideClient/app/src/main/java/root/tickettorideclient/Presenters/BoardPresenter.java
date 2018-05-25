@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import java.util.Observable;
 import java.util.Observer;
 
+import Model.PlayFacade;
 import Results.Result;
 import root.tickettorideclient.Views.IBoardPresenter;
 
@@ -15,19 +16,18 @@ import root.tickettorideclient.Views.IBoardPresenter;
 public class BoardPresenter implements IBoardPresenter, Observer {
 
     private IBoardView view;
-   // private PlayFacade facade;
-   private FragmentActivity mn;
+    private PlayFacade facade;
+    private FragmentActivity mn;
 
     public BoardPresenter (IBoardView view, FragmentActivity mn) {
         this.view = view;
-       // facade = new PlayFacade();
-       // this.facade.addObserver(this);
+        facade = new PlayFacade();
+        this.facade.addObserver(this);
         this.mn = mn;
     }
 
     public void sendChat (String message) {
-        Result result = new Result();
-        //Result result = facade.sendChat(String message);
+        Result result = facade.sendChat(message);
 
         //if result unsucessful,
         //pop toast with error

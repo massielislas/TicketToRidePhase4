@@ -2,6 +2,7 @@ package Model;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import Results.GameResult;
 import Results.GameStartResult;
@@ -185,5 +186,46 @@ public class TicketToRideProxy implements ITicketToRide {
             System.out.println("Invalid URL!");
             return null;
         }
+    }
+
+    public Result sendChat(String username, String message, String gameID)
+    {
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.String", "java.lang.String", "java.lang.String"};
+        Object[] methodArguments = {username, message, gameID};
+
+        Command command = new Command("Model.TicketToRideFacade", "getInstance",
+                "sendChat", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+
+        String jsonStr = Encoder.Encode(command);
+        try
+        {
+            URL url = new URL("http://" + userData.getHost().data + ":" + userData.getPort().data + "/command");
+            Object[] objects = new Object[3];
+            objects[0] = url;
+            objects[1] = jsonStr;
+            objects[2] = "";
+            String json = client.post(objects);
+            if (json == null) {
+                System.out.println("json is null");
+                return null;
+            }
+            Object result = Encoder.Decode(json, Result.class);
+            return (Result)result;
+        }
+        catch (MalformedURLException exception)
+        {
+            System.out.println("Invalid URL!");
+            return null;
+        }
+    }
+
+    public Result selectCards(String username, String gameID, ArrayList<Integer> destinationCards)
+    {
+       //TODO
+        //figure out how to form arraylist of Integer
+        return null;
     }
 }
