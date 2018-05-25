@@ -16,8 +16,9 @@ public class Player {
     private List<TrainCard> trainCards;
     private List<DestinationCard> destCards;
     private Set<Route> routesClaimed;
-    int turnNumber;
-    int trainPiecesLeft;
+    private int turnNumber;
+    private int trainPiecesLeft;
+    private int currentScore;
 
     public Player(UserPass name, int queuePosition) {
         userName = name;
@@ -26,6 +27,7 @@ public class Player {
         routesClaimed = new HashSet<>();
         turnNumber = queuePosition;
         trainPiecesLeft = 45;
+        currentScore = 0;
     }
 
     public UserPass getUserName() {
@@ -74,5 +76,15 @@ public class Player {
 
     public void setTrainPiecesLeft(int trainPiecesLeft) {
         this.trainPiecesLeft = trainPiecesLeft;
+    }
+
+    public int getCurrentScore()
+    {
+        return currentScore;
+    }
+
+    public void setCurrentScore(int currentScore)
+    {
+        this.currentScore = currentScore;
     }
 }

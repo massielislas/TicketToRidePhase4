@@ -16,15 +16,21 @@ import Model.InGameModels.TrainCard;
  */
 
 public class Game {
+    //Static variables for use in intializing the deck of TrainCards
     private final int numberOfEachType = 12;
     private final int locomotiveCount = 14;
     private final int countOfCardTypes = 8;
     private final int totalNormalCards = numberOfEachType * countOfCardTypes;
     private final int faceupSize = 5;
+    private final int startingTrainHandSize = 4;
+    //Number of the game in the queue
     private int gameNumber;
+    //Max number of players
     private int playerCount;
     private int currentPlayers;
+    //UUID for this specific game
     private String ID;
+    //List of players in the game
     private List<Player> playerList;
     private List<TrainCard> trainCardFacedownDeck;
     private TrainCard[] trainCardFaceupDeck;
@@ -47,6 +53,10 @@ public class Game {
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
         this.ID = ID;
+        initializeTrainCards();
+        for (Player p: playerList) {
+
+        }
     }
 
     public boolean addPlayerToGame(UserPass user) {
@@ -147,6 +157,26 @@ public class Game {
         for (int i = 0; i < faceupSize; i ++) {
             trainCardFacedownDeck.remove(i);
         }
+    }
+
+    public SinglePlayerStartInfo dealStartingHand(Player p) {
+
+        SinglePlayerStartInfo startingHand = new SinglePlayerStartInfo(p.getUserName());
+        //Put the first 4 and 3 Train and Destination Cards to the starting hand package
+        for (int i = 0; i < startingTrainHandSize; i ++) {
+            startingHand.addTrainCard(trainCardFacedownDeck.get(i));
+            if (i < 3) {
+                startingHand.addDestCard(destinationCardDeck.get(i));
+            }
+        }
+        //Then remove the corresponding cards from the corresponding decks
+        for (int i = 0; i < startingTrainHandSize; i++) {
+            trainCardFacedownDeck.remove(i);
+            if (i < 3) {
+                destinationCardDeck.remove(i);
+            }
+        }
+        return startingHand;
     }
 
     public int getPlayerCount()
