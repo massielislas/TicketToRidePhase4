@@ -46,23 +46,28 @@ public class PlayFacade {
     public void setStartInfo(SinglePlayerStartInfo info)
     {
         this.info = info;
+        String color = "-1"; //it will get changed
         switch(info.getTurnNumber()) //set color
         {
-            String color;
             case 1:{
-
+                color = "Blue";
+                break;
             }
             case 2:{
-
+                color = "Yellow";
+                break;
             }
             case 3:{
-
+                color = "Green";
+                break;
             }
             case 4:{
-
+                color = "Red";
+                break;
             }
             case 5:{
-
+                color = "Purple";
+                break;
             }
         }
 

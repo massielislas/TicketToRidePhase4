@@ -17,13 +17,13 @@ public class Player extends Observable {
     private List<DestinationCard> destCards;
     private List<TrainCard> trainCards;
     private Set<Route> routesClaimed;
-    private Color color;
+    private String color;
     private int trainPiecesLeft;
     private int currentScore;
     private UserPass userName;
     private int turnNumber;
 
-    public Player(UserPass name, int queuePosition, Color color) {
+    public Player(UserPass name, int queuePosition, String color) {
         this.userName = name;
         this.color = color;
         this.turnNumber = queuePosition;
