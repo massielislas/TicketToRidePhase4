@@ -4,6 +4,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
+import Model.InGameModels.City;
+
 /**
  * Created by Topper on 5/25/2018.
  */
@@ -33,7 +35,7 @@ public class Cities {
                 "San Francisco", "Santa Fe", "Seattle", "Toronto", "Vancouver", "Washington DC",
                 "Winnipeg", "Sault St. Marie"};
        for(int i = 0; i < NUM_CITIES; i++){
-           cityList.add(new City(cityNames[i],new LatLng(lats[i],longs[i])));
+           cityList.add(new City(cityNames[i],lats[i],longs[i]));
        }
     }
     public City findCity(String cityName){
