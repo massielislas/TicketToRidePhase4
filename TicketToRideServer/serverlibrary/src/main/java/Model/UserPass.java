@@ -16,6 +16,16 @@ public class UserPass {
         this.nameOrPassword = nameOrPassword;
     }
 
+    public String getNameOrPassword()
+    {
+        return nameOrPassword;
+    }
+
+    public void setNameOrPassword(String nameOrPassword)
+    {
+        this.nameOrPassword = nameOrPassword;
+    }
+
     public boolean verify() {
         if (nameOrPassword == null) {
             return false;
