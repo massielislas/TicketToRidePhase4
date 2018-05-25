@@ -1,8 +1,13 @@
 package Model;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
+import java.util.List;
+
+=======
 
 import Model.InGameModels.Player;
+>>>>>>> 7f034324e682162cd334658602a51b9fc2a017df
 import Results.GameResult;
 import Results.GameStartResult;
 import Results.LoginRegisterResult;
@@ -86,6 +91,7 @@ public class TicketToRideFacade implements ITicketToRide {
             return check;
         }
     }
+
     //do we need this?!?!
     public GameResult createNewGame(Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
         return createNewGame((Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
@@ -143,6 +149,29 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
+<<<<<<< HEAD
+    @Override
+    public Result sendChat(String username, String message, String gameID) {
+        String totalMessage = username + ": " + message;
+        List<UserPass> usersInGame = TicketToRideServer.getInstance().getPlayers(gameID);
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.String"};
+        Object[] methodArguments = {totalMessage};
+        Command command = new Command("Model.Chat", "getInstance",
+                "addChatMessage", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+        CommandManager.getInstance().addCommandMultipleUsers(usersInGame,command);
+        return new Result(true,"good");
+    }
+
+    @Override
+    public Result selectCards(String username, String gameID, ArrayList<Integer> destinationCards) {
+        return null;
+    }
+>>>>>>> integration
+
+=======
     private void initializeHands(Game game) {
         for (Player p : game.getPlayerList()) {
             SinglePlayerStartInfo initPack = game.dealStartingHand(p);
@@ -170,4 +199,5 @@ public class TicketToRideFacade implements ITicketToRide {
             return new Result(false, "Something failed in discardDestCards in TicketToRideFacade");
         }
     }
+>>>>>>> 7f034324e682162cd334658602a51b9fc2a017df
 }

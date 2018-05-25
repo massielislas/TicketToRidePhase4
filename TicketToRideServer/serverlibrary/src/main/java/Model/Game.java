@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Player;
+import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.TrainCard;
 
 
@@ -69,7 +70,7 @@ public class Game {
         else {
             //otherwise, Add the player to the playerList and set their turn position to the spot
             //they will be the list. So we can access it later
-            playerList.add(new Player(user, playerList.size()));
+            playerList.add(new Player(user, playerList.size() + 1));
             currentPlayers++;
             return true;
         }
@@ -77,7 +78,7 @@ public class Game {
 
     private void initializeTrainCards() {
         String type = "TrainCar";
-        Color color = Color.BLUE;
+        String color = "Blue";
         //If the discard pile doesn't have any cards in it, then we're doing the initial deck creation
         //Otherwise we're doing the reshuffle of the discard pile
         if (discardedTrainCards.size() == 0) {
@@ -87,42 +88,42 @@ public class Game {
                 switch (j) {
                     case 0: {
                         type = "Box";
-                        color = Color.pink;
+                        color = "pink";
                         break;
                     }
                     case 1: {
                         type = "Passenger";
-                        color = Color.white;
+                        color = "white";
                         break;
                     }
                     case 2: {
                         type = "Tanker";
-                        color = Color.blue;
+                        color = "blue";
                         break;
                     }
                     case 3: {
                         type = "Reefer";
-                        color = Color.yellow;
+                        color = "yellow";
                         break;
                     }
                     case 4: {
                         type = "Freight";
-                        color = Color.orange;
+                        color = "orange";
                         break;
                     }
                     case 5: {
                         type = "Hopper";
-                        color = Color.black;
+                        color = "black";
                         break;
                     }
                     case 6: {
                         type = "Coal";
-                        color = Color.red;
+                        color = "red";
                         break;
                     }
                     case 7: {
                         type = "Caboose";
-                        color = Color.green;
+                        color = "green";
                         break;
                     }
                 }
@@ -133,7 +134,7 @@ public class Game {
             }
             //then add the locomotive cards
             for (int i = 0; i < locomotiveCount; i++) {
-                trainCardFacedownDeck.add(new TrainCard(totalNormalCards + i, Color.gray, "Locomotive"));
+                trainCardFacedownDeck.add(new TrainCard(totalNormalCards + i, "silver", "Locomotive"));
             }
             //shuffle the deck
             Collections.shuffle(trainCardFacedownDeck);
@@ -163,7 +164,7 @@ public class Game {
 
     public SinglePlayerStartInfo dealStartingHand(Player p) {
 
-        SinglePlayerStartInfo startingHand = new SinglePlayerStartInfo(p.getUserName());
+        SinglePlayerStartInfo startingHand = new SinglePlayerStartInfo(p.getUserName(), p.getTurnNumber());
         //Put the first 4 and 3 Train and Destination Cards to the starting hand package
         for (int i = 0; i < startingTrainHandSize; i ++) {
             startingHand.addTrainCard(trainCardFacedownDeck.get(i));
@@ -178,6 +179,19 @@ public class Game {
                 destinationCardDeck.remove(i);
             }
         }
+        //Then create a list with all the information about other players that they are allowed to
+        //see. Allowing us to display the relevant info for them without actually telling them
+        //anything they aren't supposed to know.
+        List<PlayerShallow> list = new ArrayList<>();
+        for (Player other : playerList) {
+            if (!other.getUserName().equals(p.getUserName())) {
+                PlayerShallow copy = new PlayerShallow(other.getnameString(),
+                        other.getTrainHandSize(), other.getDestHandSize(),
+                        other.getTrainPiecesLeft(),other.getTurnNumber());
+                list.add(copy);
+            }
+        }
+        startingHand.setPlayerInfo(list);
         return startingHand;
     }
 

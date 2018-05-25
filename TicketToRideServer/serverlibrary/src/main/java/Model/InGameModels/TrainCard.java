@@ -8,10 +8,10 @@ import java.awt.Color;
 
 public class TrainCard {
     private int ID;
-    private Color color;
+    private String color;
     private String type;
 
-    public TrainCard(int ID, Color color, String type) {
+    public TrainCard(int ID, String color, String type) {
         this.ID = ID;
         this.color = color;
         this.type = type;
@@ -25,11 +25,11 @@ public class TrainCard {
         this.ID = ID;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor(String color) {
         this.color = color;
     }
 

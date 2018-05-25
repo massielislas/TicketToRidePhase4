@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -16,26 +17,19 @@ public class Player extends Observable {
     private List<DestinationCard> destCards;
     private List<TrainCard> trainCards;
     private Set<Route> routesClaimed;
-    private Color color;
+    private String color;
     private int trainPiecesLeft;
     private int currentScore;
     private UserPass userName;
     private int turnNumber;
 
-    public Player(UserPass name, List<TrainCard> traincardHand, TreeSet<Route> routes, Color color) {
-        this.trainCards = traincardHand;
-        this.routesClaimed = routes;
+    public Player(UserPass name, int queuePosition, String color) {
+        this.userName = name;
         this.color = color;
-        trainPiecesLeft = 240;
-        currentScore = 0;
-    }
-
-    public Player(UserPass name, int queuePosition) {
-        userName = name;
+        this.turnNumber = queuePosition;
         trainCards = new ArrayList<>();
         destCards = new ArrayList<>();
         routesClaimed = new HashSet<>();
-        turnNumber = queuePosition;
         trainPiecesLeft = 45;
         currentScore = 0;
     }
@@ -47,6 +41,11 @@ public class Player extends Observable {
             destCards.add(card);
         }
 
+    }
+
+    public void addAnObserver(Observer o)
+    {
+        addObserver(o);
     }
 
     public UserPass getUserName() {
