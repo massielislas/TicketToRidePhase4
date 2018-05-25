@@ -107,4 +107,17 @@ class TicketToRideServer {
             return false;
         }
     }
+
+    List<UserPass> getPlayers(String gameID)
+    {
+        for(Game g:activeGames)
+        {
+            if(g.getID() == gameID)
+            {
+
+                return g.getPlayers();
+            }
+        }
+        return null;
+    }
 }

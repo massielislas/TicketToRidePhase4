@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -12,6 +14,7 @@ public class Game {
     private int playerCount;
     private int currentPlayers;
     private String ID;
+    private List<UserPass> players;
 
     public Game(int playerCount, int currentPlayers) {
         this.playerCount = playerCount;
@@ -24,6 +27,7 @@ public class Game {
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
         this.ID = ID;
+        this.players = new ArrayList<>();
     }
 
     public boolean addPlayerToGame(UserPass user) {
@@ -32,6 +36,7 @@ public class Game {
         }
         else {
             currentPlayers++;
+            players.add(user);
             return true;
         }
     }
@@ -77,5 +82,9 @@ public class Game {
             return false;
         }
         return true;
+    }
+
+    public List<UserPass> getPlayers() {
+        return players;
     }
 }
