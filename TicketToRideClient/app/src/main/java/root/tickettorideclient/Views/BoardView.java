@@ -25,7 +25,7 @@ import com.google.android.gms.maps.UiSettings;
 
 import java.util.ArrayList;
 
-import Model.TrainCard;
+import Model.InGameModels.TrainCard;
 import root.tickettorideclient.Presenters.IBoardView;
 import root.tickettorideclient.R;
 

@@ -30,6 +30,17 @@ public class Player {
         currentScore = 0;
     }
 
+    public int getTrainHandSize() {
+        return trainCards.size();
+    }
+
+    public int getDestHandSize() {
+        return destCards.size();
+    }
+
+    public String getnameString() {
+        return userName.getNameOrPassword();
+    }
     public UserPass getUserName() {
         return userName;
     }
