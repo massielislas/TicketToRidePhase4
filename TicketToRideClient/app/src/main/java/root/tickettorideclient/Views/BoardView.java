@@ -43,7 +43,16 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     TextView userTrainsBanner;
 
     TextView yourHandBanner;
-    TextView yourHandDisplay;
+    LinearLayout yourHandDisplay;
+    TextView playerPurpleCards;
+    TextView playerWhiteCards;
+    TextView playerBlueCards;
+    TextView playerYellowCards;
+    TextView playerOrangeCards;
+    TextView playerBlackCards;
+    TextView playerRedCards;
+    TextView playerGreenCards;
+    TextView playerWildCards;
 
     TextView availableCardsBanner;
     LinearLayout availableCardsDisplay;
@@ -64,7 +73,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     EditText typedMessage;
     Button sendMessageButton;
 
-    RecyclerView playerRecyclerView;
+    TextView otherPlayerBanner;
+    RecyclerView otherPlayerRecyclerView;
 
     ArrayList<PlayerStats>otherPlayers = new ArrayList<>();
 
@@ -88,20 +98,21 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     public void createRecyclerView(){
-        playerRecyclerView = (RecyclerView) myView.findViewById(R.id.otherPlayersRecyclerView);
-        playerRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        otherPlayerRecyclerView = (RecyclerView) myView.findViewById(R.id.otherPlayersRecyclerView);
+        otherPlayerRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
     }
 
     public void updateUI(){
         addFakePlayers();
         playerAdapter = new OtherPlayerAdapter(otherPlayers);
-        playerRecyclerView.setAdapter(playerAdapter);
+        otherPlayerRecyclerView.setAdapter(playerAdapter);
     }
 
     public void addFakePlayers(){
         for(int i = 0; i < 4; i++){
             PlayerStats playerStats = new PlayerStats();
+            playerStats.setUsername("User" + i);
             playerStats.setDestinationCards(i);
             playerStats.setTrainCards(i);
             playerStats.setTrainPieces(i);
@@ -113,7 +124,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         userPointsBanner = (TextView) myView.findViewById(R.id.pointsDisplay);
         userTrainsBanner = (TextView) myView.findViewById(R.id.trainDisplay);
 
-        yourHandDisplay = (TextView)myView.findViewById(R.id.yourHandDisplay);
+        yourHandDisplay = (LinearLayout) myView.findViewById(R.id.yourHandDisplay);
         yourHandBanner = (TextView)myView.findViewById(R.id.yourHandBanner);
         yourHandBanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +136,15 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                     yourHandDisplay.setVisibility(View.VISIBLE);
             }
         });
+
+        playerPurpleCards = (TextView) myView.findViewById(R.id.playerPurpleCards);
+        playerWhiteCards = (TextView) myView.findViewById(R.id.playerWhiteCards);
+        playerBlueCards = (TextView) myView.findViewById(R.id.playerBlueCards);
+        playerYellowCards = (TextView) myView.findViewById(R.id.playerYellowCards);
+        playerOrangeCards = (TextView) myView.findViewById(R.id.playerOrangeCards);
+        playerBlackCards = (TextView) myView.findViewById(R.id.playerBlackCards);
+        playerRedCards = (TextView) myView.findViewById(R.id.playerRedCards);
+        playerWildCards = (TextView) myView.findViewById(R.id.playerWildCards);
 
         availableCardsDisplay = (LinearLayout) myView.findViewById(R.id.availableCardsDisplay);
         availableCardsBanner = (TextView)myView.findViewById(R.id.availableCardsBanner);
@@ -147,6 +167,17 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         faceUpCard4 =  (View) myView.findViewById(R.id.faceUpCard4);
         faceUpCard5 = (View) myView.findViewById(R.id.faceUpCard5);
         trainCardsLeftInDeck = (View) myView.findViewById(R.id.trainCardsLeftInDeck);
+
+        otherPlayerBanner = (TextView) myView.findViewById(R.id.otherPlayersBanner);
+        otherPlayerBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(otherPlayerRecyclerView.getVisibility() == View.VISIBLE)
+                    otherPlayerRecyclerView.setVisibility(View.GONE);
+                else
+                    otherPlayerRecyclerView.setVisibility(View.VISIBLE);
+            }
+        });
 
         viewYourDestinationCardsBanner = (TextView) myView.findViewById(R.id.viewYourDestinationCardsBanner);
     }
@@ -255,16 +286,19 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         TextView trainPieces;
         TextView trainCards;
         TextView destinationCards;
+        TextView username;
         public OtherPlayerHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.other_player_stats_item, parent, false));
             trainPieces = (TextView) itemView.findViewById(R.id.otherPlayerTrainPieces);
             trainCards = (TextView) itemView.findViewById(R.id.otherPlayerTrainCards);
             destinationCards = (TextView) itemView.findViewById(R.id.otherPlayerDestinationCards);
+            username = (TextView) itemView.findViewById(R.id.otherPlayerUsername);
 
 
         }
 
         public void bind(final PlayerStats playerStats){
+            username.setText(playerStats.getUsername());
             trainPieces.setText("T:" + playerStats.getTrainPieces());
             trainCards.setText("C:" + playerStats.getTrainCards());
             destinationCards.setText("D:" + playerStats.getDestinationCards());
