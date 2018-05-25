@@ -13,14 +13,20 @@ import Model.InGameModels.TrainCard;
 
 public class SinglePlayerStartInfo {
     private UserPass username;
+    private int turnNumber;
     private List<DestinationCard> startingDestCards;
     private List<TrainCard> startingTrainCards;
     private List<PlayerShallow> playerInfo;
 
-    public SinglePlayerStartInfo(UserPass username) {
+    public SinglePlayerStartInfo(UserPass username, int turnNumber) {
         this.username = username;
+        this.turnNumber = turnNumber;
         startingDestCards = new ArrayList<>();
         startingTrainCards = new ArrayList<>();
+    }
+
+    public int getTurnNumber() {
+        return turnNumber;
     }
 
     public List<PlayerShallow> getPlayerInfo() {

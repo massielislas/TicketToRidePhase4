@@ -13,7 +13,7 @@ public class PlayFacade {
     TicketToRideProxy proxy = new TicketToRideProxy();
     Chat chat = Chat.getInstance();
     UserData userData = UserData.getUserData();
-    SinglePlayerStartInfo info = new SinglePlayerStartInfo(userData.getUsername());
+    SinglePlayerStartInfo info;
 
     public void addObserver(Observer o)
     {
@@ -46,7 +46,27 @@ public class PlayFacade {
     public void setStartInfo(SinglePlayerStartInfo info)
     {
         this.info = info;
-        Player player = new Player(userData.getUsername(), );
+        switch(info.getTurnNumber()) //set color
+        {
+            String color;
+            case 1:{
+
+            }
+            case 2:{
+
+            }
+            case 3:{
+
+            }
+            case 4:{
+
+            }
+            case 5:{
+
+            }
+        }
+
+        Player player = new Player(userData.getUsername(), info.getTurnNumber(), color);
         player.setTrainCards(info.getStartingTrainCards());
         userData.setCurrentPlayer(player);
     }
