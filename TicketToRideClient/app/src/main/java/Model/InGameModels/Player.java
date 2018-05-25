@@ -32,6 +32,9 @@ public class Player extends Observable {
         routesClaimed = new HashSet<>();
         trainPiecesLeft = 45;
         currentScore = 0;
+        setChanged(); //set change has occurred
+        notifyObservers(); //notify observers we have a change and give them new playercount
+        clearChanged(); //no longer have a change!
     }
 
     public void addToDestinationHand(ArrayList<DestinationCard> toAdd)

@@ -1,4 +1,4 @@
-package Model;
+package Model.InGameModels;
 
 import com.google.android.gms.maps.model.LatLng;
 

@@ -1,4 +1,4 @@
-package Model;
+package Model.InGameModels;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +58,7 @@ public class Routes {
                 "Grey", "White", "Orange", "Black", "Grey", "Black", "Yellow", "Blue", "Grey", "Grey",
                 "Grey", "Grey", "Grey", "Green", "White", "Grey", "Grey", "Grey", "Grey", "Pink",
                 "Orange", "Black", "Yellow", "Red", "Blue", "Grey", "Grey"};
-        Map<String,Color> colorMap= new HashMap<>();
-        colorMap.put("Grey",new Color() );
+        Map<String,String> colorMap= new HashMap<>();
+        colorMap.put("Grey",new String() );
     }
 }
