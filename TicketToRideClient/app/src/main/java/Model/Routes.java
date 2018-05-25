@@ -1,10 +1,11 @@
 package Model;
 
-import android.graphics.Color;
-
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import Model.InGameModels.Route;
 
 /**
  * Created by Topper on 5/25/2018.
@@ -59,6 +60,6 @@ public class Routes {
                 "Grey", "Grey", "Grey", "Green", "White", "Grey", "Grey", "Grey", "Grey", "Pink",
                 "Orange", "Black", "Yellow", "Red", "Blue", "Grey", "Grey"};
         Map<String,Color> colorMap= new HashMap<>();
-        colorMap.put("Grey", );
+        colorMap.put("Grey",new Color() );
     }
 }

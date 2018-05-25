@@ -1,12 +1,7 @@
 package Model;
-
-<<<<<<< HEAD
-import java.util.ArrayList;
-=======
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
->>>>>>> 7f034324e682162cd334658602a51b9fc2a017df
 import java.util.List;
 import java.util.UUID;
 
@@ -34,9 +29,6 @@ public class Game {
     private int currentPlayers;
     //UUID for this specific game
     private String ID;
-<<<<<<< HEAD
-    private List<UserPass> players;
-=======
     //List of players in the game
     private List<Player> playerList;
     private List<TrainCard> trainCardFacedownDeck;
@@ -44,7 +36,6 @@ public class Game {
     private List<TrainCard> discardedTrainCards;
     private List<DestinationCard> destinationCardDeck;
     private List<String> chat;
->>>>>>> 7f034324e682162cd334658602a51b9fc2a017df
 
     public Game(int playerCount, int currentPlayers) {
         this.playerCount = playerCount;
@@ -63,14 +54,10 @@ public class Game {
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
         this.ID = ID;
-<<<<<<< HEAD
-        this.players = new ArrayList<>();
-=======
         initializeTrainCards();
         for (Player p: playerList) {
 
         }
->>>>>>> 7f034324e682162cd334658602a51b9fc2a017df
     }
 
     public boolean addPlayerToGame(UserPass user) {
@@ -83,7 +70,6 @@ public class Game {
             //they will be the list. So we can access it later
             playerList.add(new Player(user, playerList.size()));
             currentPlayers++;
-            players.add(user);
             return true;
         }
     }
@@ -281,11 +267,4 @@ public class Game {
         return true;
     }
 
-<<<<<<< HEAD
-    public List<UserPass> getPlayers() {
-        return players;
-    }
-=======
-
->>>>>>> 7f034324e682162cd334658602a51b9fc2a017df
 }
