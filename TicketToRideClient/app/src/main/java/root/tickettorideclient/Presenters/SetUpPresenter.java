@@ -53,6 +53,13 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+        //update whatever
+        mn.runOnUiThread(new Runnable() {
 
+            @Override
+            public void run() {
+                // view.update whatever
+            }
+        });
     }
 }
