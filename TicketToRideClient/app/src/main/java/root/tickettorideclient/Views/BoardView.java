@@ -1,5 +1,6 @@
 package root.tickettorideclient.Views;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -249,13 +250,11 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @Override
     public void updateFaceUp(TrainCard[] cards) {
         if (cards.length == 5) {
-            faceUpCard1.setBackgroundColor(cards[0].getColor().getComponentCount());
-           // faceUpCard1.setText??
-
-            faceUpCard2.setBackgroundColor(cards[1].getColor().getComponentCount());
-            faceUpCard3.setBackgroundColor(cards[2].getColor().getComponentCount());
-            faceUpCard4.setBackgroundColor(cards[3].getColor().getComponentCount());
-            faceUpCard5.setBackgroundColor(cards[4].getColor().getComponentCount());
+            faceUpCard1.setBackgroundColor(Color.parseColor(cards[0].getColor()));
+            faceUpCard2.setBackgroundColor(Color.parseColor(cards[1].getColor()));
+            faceUpCard3.setBackgroundColor(Color.parseColor(cards[2].getColor()));
+            faceUpCard4.setBackgroundColor(Color.parseColor(cards[3].getColor()));
+            faceUpCard5.setBackgroundColor(Color.parseColor(cards[4].getColor()));
 
         }
     }

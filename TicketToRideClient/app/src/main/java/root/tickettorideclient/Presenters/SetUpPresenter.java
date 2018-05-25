@@ -8,6 +8,7 @@ import java.util.Observer;
 
 import Model.InGameModels.DestinationCard;
 import Model.PlayFacade;
+import Model.SinglePlayerStartInfo;
 import Model.WaitingFacade;
 import Results.Result;
 import root.tickettorideclient.Views.ISetUpPresenter;
@@ -53,12 +54,16 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+        final SinglePlayerStartInfo info = (SinglePlayerStartInfo) o;
+
         //update whatever
         mn.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
-                // view.update whatever
+                view.setPlayerNumber(info.getTurnNumber());
+               // view.setPlayerColor();
+
             }
         });
     }

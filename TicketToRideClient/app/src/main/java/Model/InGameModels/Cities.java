@@ -1,8 +1,10 @@
-package Model;
+package Model.InGameModels;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
+
+import Model.InGameModels.City;
 
 /**
  * Created by Topper on 5/25/2018.
