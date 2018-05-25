@@ -1,4 +1,6 @@
-package Model;
+package Model.InGameModels;
+
+import Model.InGameModels.City;
 
 public class DestinationCard {
 

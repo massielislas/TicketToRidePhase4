@@ -1,4 +1,4 @@
-package Model;
+package Model.InGameModels;
 
 import android.graphics.Color;
 

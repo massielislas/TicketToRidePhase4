@@ -1,8 +1,11 @@
-package Model;
+package Model.InGameModels;
 
 import android.graphics.Color;
 
 import java.util.Observable;
+
+import Model.InGameModels.City;
+import Model.UserPass;
 
 public class Route extends Observable {
 

@@ -1,7 +1,10 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Observer;
 
+import Model.InGameModels.Chat;
+import Model.InGameModels.DestinationCard;
 import Results.Result;
 
 public class PlayFacade {
@@ -9,10 +12,11 @@ public class PlayFacade {
     TicketToRideProxy proxy = new TicketToRideProxy();
     Chat chat = Chat.getInstance();
     UserData userData = UserData.getUserData();
+    SinglePlayerStartInfo info = new SinglePlayerStartInfo(userData.getUsername());
 
-    public void addObserver(Object o)
+    public void addObserver(Observer o)
     {
-        chat.addObserver(o);
+        chat.addAnObserver(o);
     }
 
     public Result sendChat(String message)
@@ -36,4 +40,15 @@ public class PlayFacade {
     {
         chat.addChatMessage(message);
     }
+
+    public void setStartInfo(SinglePlayerStartInfo info)
+    {
+        this.info = info;
+    }
+
+    public SinglePlayerStartInfo getStartInfo ()
+    {
+        return info;
+    }
+
 }
