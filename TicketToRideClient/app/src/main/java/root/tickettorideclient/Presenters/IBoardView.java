@@ -1,6 +1,6 @@
 package root.tickettorideclient.Presenters;
 
-import Model.TrainCard;
+import Model.InGameModels.TrainCard;
 
 /**
  * Created by madeleineaydelotte on 5/21/18.

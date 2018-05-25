@@ -3,8 +3,10 @@ package root.tickettorideclient.Presenters;
 import android.support.v4.app.FragmentActivity;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-import Model.DestinationCard;
+import Model.InGameModels.DestinationCard;
 import Model.PlayFacade;
 import Model.WaitingFacade;
 import Results.Result;
@@ -14,7 +16,7 @@ import root.tickettorideclient.Views.ISetUpPresenter;
  * Created by madeleineaydelotte on 5/21/18.
  */
 
-public class SetUpPresenter implements ISetUpPresenter {
+public class SetUpPresenter implements ISetUpPresenter, Observer {
 
     private ISetUpView view;
     private PlayFacade facade;
@@ -47,5 +49,10 @@ public class SetUpPresenter implements ISetUpPresenter {
         if (result.isSuccess()) {
             view.switchToBoardView();
         }
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+
     }
 }
