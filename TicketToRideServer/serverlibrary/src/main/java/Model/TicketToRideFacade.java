@@ -1,5 +1,6 @@
 package Model;
 
+import Model.InGameModels.Player;
 import Results.GameResult;
 import Results.GameStartResult;
 import Results.LoginRegisterResult;
@@ -134,8 +135,15 @@ public class TicketToRideFacade implements ITicketToRide {
                         "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                         methodArguments);
                 CommandManager.getInstance().addCommandAllUsers(command);
+                initializeHands(game);
                 return new GameStartResult(game);
             }
+        }
+    }
+
+    private void initializeHands(Game game) {
+        for (Player p : game.getPlayerList()) {
+            SinglePlayerStartInfo initPack = game.dealStartingHand(p);
         }
     }
 }

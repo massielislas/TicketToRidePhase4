@@ -1,8 +1,13 @@
 package root.tickettorideclient.Views;
 
+import android.graphics.Color;
+import android.graphics.ColorSpace;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -17,13 +23,15 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 
+import Model.TrainCard;
+import root.tickettorideclient.Presenters.IBoardView;
 import root.tickettorideclient.R;
 
 /**
  * Created by Massiel on 5/21/2018.
  */
 
-public class BoardView extends Fragment implements OnMapReadyCallback{
+public class BoardView extends Fragment implements OnMapReadyCallback, IBoardView {
 
     GoogleMap myGoogleMap;
     MapView myMapView;
@@ -37,8 +45,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback{
 
     TextView availableCardsBanner;
     LinearLayout availableCardsDisplay;
-    View trainCardsDeck;
-    View destinationCardsDeck;
+    TextView trainCardsDeck;
+    TextView destinationCardsDeck;
     View faceUpCard1;
     View faceUpCard2;
     View faceUpCard3;
@@ -150,5 +158,65 @@ public class BoardView extends Fragment implements OnMapReadyCallback{
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         UiSettings uiSettings = myGoogleMap.getUiSettings();
         uiSettings.setZoomGesturesEnabled(true);
+    }
+
+    @Override
+    public void addHistory(String[] messages) {
+        for (int i = 0; i < messages.length; ++i) {
+            String text = chatBox.getText() + "\n" + messages[i];
+            chatBox.setText(text);
+        }
+    }
+
+    @Override
+    public void addToHand(TrainCard card) {
+        //TODO
+    }
+
+    @Override
+    public void updatePlayerPoints(String playerID, Integer points) {
+        userPointsBanner.setText("POINTS: " + points);
+    }
+
+    @Override
+    public void updateTrainPieces(String playerID, Integer pieces) {
+        userPointsBanner.setText("TRAINS: " + pieces + "/45");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void updateFaceUp(TrainCard[] cards) {
+        if (cards.length == 5) {
+            faceUpCard1.setBackgroundColor(cards[0].getColor().getComponentCount());
+           // faceUpCard1.setText??
+
+            faceUpCard2.setBackgroundColor(cards[1].getColor().getComponentCount());
+            faceUpCard3.setBackgroundColor(cards[2].getColor().getComponentCount());
+            faceUpCard4.setBackgroundColor(cards[3].getColor().getComponentCount());
+            faceUpCard5.setBackgroundColor(cards[4].getColor().getComponentCount());
+
+        }
+    }
+
+    @Override
+    public void updateDestinationDeck(Integer cardCount) {
+        destinationCardsDeck.setText(cardCount + " Destination Cards");
+    }
+
+    @Override
+    public void updateTrainDeck(Integer cardCount) {
+        trainCardsDeck.setText(cardCount + " Train Cards");
+    }
+
+    @Override
+    public void popToast(String message) {
+        Toast toast = Toast.makeText(getContext(),message, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
+    public void switchToEndView() {
+        //TODO: implement in next phase
+        popToast("Game ended: switch to end view");
     }
 }
