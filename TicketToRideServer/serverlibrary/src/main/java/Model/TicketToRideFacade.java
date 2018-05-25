@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 import Model.InGameModels.Player;
 import Results.GameResult;
 import Results.GameStartResult;
@@ -144,6 +146,28 @@ public class TicketToRideFacade implements ITicketToRide {
     private void initializeHands(Game game) {
         for (Player p : game.getPlayerList()) {
             SinglePlayerStartInfo initPack = game.dealStartingHand(p);
+        }
+    }
+
+    public Result sendChat(String userName, String msg, String gameID) {
+        Game toChat = Server.getSpecificGame(gameID);
+        if (toChat != null) {
+            toChat.addChat(msg, userName);
+            return new Result(true, "");
+        }
+        else {
+            return new Result(false, "Invalid GameID in sendChat, ServerSide");
+        }
+    }
+
+    public Result discardDestCards(String username, String gameID, ArrayList<Integer> cardIDs) {
+        Game game = Server.getSpecificGame(gameID);
+        if (game != null) {
+            return new Result(true, "removed " + cardIDs.size() + " destination cards from " +
+                    username + "'s hand");
+        }
+        else {
+            return new Result(false, "Something failed in discardDestCards in TicketToRideFacade");
         }
     }
 }

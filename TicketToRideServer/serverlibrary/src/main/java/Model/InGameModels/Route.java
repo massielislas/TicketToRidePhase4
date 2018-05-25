@@ -1,5 +1,7 @@
 package Model.InGameModels;
 
+import java.awt.Color;
+
 import Model.UserPass;
 
 /**
@@ -14,7 +16,7 @@ public class Route {
     private UserPass claimant;
     private int scoreValue;
     private int ID;
-    private double Color;
+    private Color color;
 
     public City getCity1() {
         return city1;
@@ -72,11 +74,11 @@ public class Route {
         this.ID = ID;
     }
 
-    public double getColor() {
-        return Color;
+    public Color getColor() {
+        return color;
     }
 
-    public void setColor(double color) {
-        Color = color;
+    public void setColor(Color color) {
+        this.color = color;
     }
 }
