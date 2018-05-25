@@ -14,11 +14,20 @@ public class SinglePlayerStartInfo {
     private UserPass username;
     private List<DestinationCard> startingDestCards;
     private List<TrainCard> startingTrainCards;
+    private List<PlayerShallow> playerInfo;
 
     public SinglePlayerStartInfo(UserPass username) {
         this.username = username;
         startingDestCards = new ArrayList<>();
         startingTrainCards = new ArrayList<>();
+    }
+
+    public List<PlayerShallow> getPlayerInfo() {
+        return playerInfo;
+    }
+
+    public void setPlayerInfo(List<PlayerShallow> playerInfo) {
+        this.playerInfo = playerInfo;
     }
 
     public void addTrainCard(TrainCard toAdd) {

@@ -9,6 +9,22 @@ public class DestinationCard {
     private int pointValue;
     private City city1;
     private City city2;
+    private boolean complete;
+
+    public DestinationCard(City city1, City city2, int pointValue, int ID) {
+        this.city1 = city1;
+        this.city2 = city2;
+        this.pointValue = pointValue;
+        this.ID = ID;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
 
     public int getID() {
         return ID;

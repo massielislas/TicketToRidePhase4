@@ -18,6 +18,7 @@ public class PlayFacade {
     public void addObserver(Observer o)
     {
         chat.addAnObserver(o);
+        userData.getCurrentPlayer().addAnObserver(o);
     }
 
     public Result sendChat(String message)
@@ -45,7 +46,8 @@ public class PlayFacade {
     public void setStartInfo(SinglePlayerStartInfo info)
     {
         this.info = info;
-        Player player = new Player(userData.getUsername(), this.info.getStartingTrainCards(), null, null);
+        Player player = new Player(userData.getUsername(), );
+        player.setTrainCards(info.getStartingTrainCards());
         userData.setCurrentPlayer(player);
     }
 
