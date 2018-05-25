@@ -55,6 +55,7 @@ public class GameFacade
         }
         return result;
     }
+
     public void addObserver(Observer o)
     {
         gameList.addAnObserver(o);

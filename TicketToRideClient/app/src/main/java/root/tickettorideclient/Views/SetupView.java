@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import Model.DestinationCard;
 import root.tickettorideclient.Callbacks.IGameJoinedCallback;
 import root.tickettorideclient.Callbacks.IGoToBoardCallback;
 import root.tickettorideclient.Presenters.ISetUpView;
@@ -26,9 +28,9 @@ import root.tickettorideclient.R;
 public class SetupView extends Fragment implements ISetUpView {
     View v;
 
-    View firstDestinationCard;
-    View secondDestinationCard;
-    View thirdDestinationCard;
+    TextView firstDestinationCard;
+    TextView secondDestinationCard;
+    TextView thirdDestinationCard;
 
     TextView playerNumber;
     View playerColor;
@@ -36,18 +38,18 @@ public class SetupView extends Fragment implements ISetUpView {
     Button readyButton;
 
     ArrayList<Boolean>destinationCardsSelected = new ArrayList<>();
-    ArrayList<Boolean>trainCardsSelected = new ArrayList<>();
-
-    String selectedColor = "#b5b5b5";
-    String nonSelectedColor = "#f4d76e";
+    ArrayList<DestinationCard> destinationCards = new ArrayList<>();
+    int selectedColor = ContextCompat.getColor(getContext(), R.color.selectedCardColor);
+    int nonSelectedColor = ContextCompat.getColor(getContext(), R.color.unselectedCardColor);
 
     ISetUpPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setUpSelections();
+
         presenter = new SetUpPresenter(this, getActivity());
+
     }
 
     @Nullable
@@ -55,17 +57,8 @@ public class SetupView extends Fragment implements ISetUpView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_setup, container, false);
         setUpInputs();
+        setUpSelections();
         return v;
-    }
-
-    private void setUpSelections(){
-        for(int i = 0; i < 3; i++){
-            destinationCardsSelected.add(false);
-        }
-
-        for(int i = 0; i < 5; i++){
-            trainCardsSelected.add(false);
-        }
     }
 
     private void setUpInputs(){
@@ -74,7 +67,17 @@ public class SetupView extends Fragment implements ISetUpView {
         readyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //presenter.keepDestinationCards();
+
+                ArrayList<Integer> keepCards = new ArrayList<>();
+                if ((destinationCardsSelected.size() == 3) && (destinationCards.size() == 3)) {
+                    for (int i = 0; i < 3; ++i) {
+                        if (destinationCardsSelected.get(i) == true) {
+                            keepCards.add(destinationCards.get(i).getCardNo());
+                        }
+                    }
+                }
+
+                presenter.keepDestinationCards(keepCards);
                 switchToBoardView();
             }
         });
@@ -88,50 +91,50 @@ public class SetupView extends Fragment implements ISetUpView {
 
 
     private void setDestinationCardInputs(){
-        firstDestinationCard = (View) v.findViewById(R.id.firstDestinationCard);
+        firstDestinationCard = (TextView) v.findViewById(R.id.firstDestinationCard);
         firstDestinationCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 destinationCardsSelected.set(0, !destinationCardsSelected.get(0));
 
                 if(destinationCardsSelected.get(0))
-                    firstDestinationCard.setBackgroundColor(Color.parseColor(selectedColor));
+                    firstDestinationCard.setBackgroundColor(selectedColor);
 
                 else
-                    firstDestinationCard.setBackgroundColor(Color.parseColor(nonSelectedColor));
+                    firstDestinationCard.setBackgroundColor(nonSelectedColor);
 
                 checkDestinationSelections();
             }
         });
 
-        secondDestinationCard = (View) v.findViewById(R.id.secondDestinationCard);
+        secondDestinationCard = (TextView) v.findViewById(R.id.secondDestinationCard);
         secondDestinationCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 destinationCardsSelected.set(1, !destinationCardsSelected.get(1));
 
                 if(destinationCardsSelected.get(1))
-                    secondDestinationCard.setBackgroundColor(Color.parseColor(selectedColor));
+                    secondDestinationCard.setBackgroundColor(selectedColor);
 
                 else
-                    secondDestinationCard.setBackgroundColor(Color.parseColor(nonSelectedColor));
+                    secondDestinationCard.setBackgroundColor(nonSelectedColor);
 
                 checkDestinationSelections();
             }
         });
 
 
-        thirdDestinationCard = (View) v.findViewById(R.id.thirdDestinationCard);
+        thirdDestinationCard = (TextView) v.findViewById(R.id.thirdDestinationCard);
         thirdDestinationCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 destinationCardsSelected.set(2, !destinationCardsSelected.get(2));
 
                 if(destinationCardsSelected.get(2))
-                    thirdDestinationCard.setBackgroundColor(Color.parseColor(selectedColor));
+                    thirdDestinationCard.setBackgroundColor(selectedColor);
 
                 else
-                    thirdDestinationCard.setBackgroundColor(Color.parseColor(nonSelectedColor));
+                    thirdDestinationCard.setBackgroundColor(nonSelectedColor);
 
                 checkDestinationSelections();
             }
@@ -155,6 +158,32 @@ public class SetupView extends Fragment implements ISetUpView {
 
         else
             readyButton.setEnabled(false);
+    }
+
+    private void setUpSelections(){
+
+        ArrayList<DestinationCard> destinationCards = presenter.getDestinationCards();
+        if (destinationCards.size() == 3) {
+
+            this.destinationCards = destinationCards;
+
+            DestinationCard firstCard = destinationCards.get(0);
+            String firstMessage = firstCard.getPointvalue() + " points: " + firstCard.getFirstcity() + " to " + firstCard.getSecondCity();
+            firstDestinationCard.setText(firstMessage);
+
+            DestinationCard secondCard = destinationCards.get(1);
+            String secondMessage = secondCard.getPointvalue() + " points: " + secondCard.getFirstcity() + " to " + secondCard.getSecondCity();
+            firstDestinationCard.setText(secondMessage);
+
+            DestinationCard thirdCard = destinationCards.get(2);
+            String thirdMessage = thirdCard.getPointvalue() + " points: " + thirdCard.getFirstcity() + " to " + thirdCard.getSecondCity();
+            firstDestinationCard.setText(thirdMessage);
+
+            for(int i = 0; i < 3; i++){
+                destinationCardsSelected.add(false);
+            }
+        }
+
     }
 
     public boolean isDestinationCardSelected(int i){

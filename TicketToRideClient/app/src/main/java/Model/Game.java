@@ -8,6 +8,12 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
 
+import Model.InGameModels.Chat;
+import Model.InGameModels.DestinationCard;
+import Model.InGameModels.Player;
+import Model.InGameModels.Route;
+import Model.InGameModels.TrainCard;
+
 public class Game extends Observable
 {
     int gameNumber;
@@ -58,7 +64,7 @@ public class Game extends Observable
     {
         for (DestinationCard currentCard: destinationDeck)
         {
-            if (cardID == currentCard.getCardNo()) return currentCard;
+            if (cardID == currentCard.getID()) return currentCard;
         }
         return null; //we should never get here!
         //TODO
