@@ -226,5 +226,6 @@ public class TicketToRideProxy implements ITicketToRide {
     {
        //TODO
         //figure out how to form arraylist of Integer
+        return null;
     }
 }

@@ -1,5 +1,7 @@
 package Model;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class City {
 
     String name;
