@@ -10,7 +10,7 @@ import Model.UserPass;
 public class Route extends Observable {
 
     private int length;
-    private Color color;
+    private String color;
     private boolean isClaimed;
     private UserPass claimant;
     private int scoreValue;
@@ -18,7 +18,7 @@ public class Route extends Observable {
     private City city1;
     private City city2;
 
-    public Route(int length, Color color, int scoreValue, int ID, City city1, City city2) {
+    public Route(int length, String color, int scoreValue, int ID, City city1, City city2) {
         this.length = length;
         this.color = color;
         this.scoreValue = scoreValue;
@@ -85,10 +85,10 @@ public class Route extends Observable {
         this.ID = ID;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(Color color) { this.color = color;
+    public void setColor(String color) { this.color = color;
     }
 }

@@ -17,13 +17,13 @@ public class Player extends Observable {
     private List<DestinationCard> destCards;
     private List<TrainCard> trainCards;
     private Set<Route> routesClaimed;
-    private Color color;
+    private String color;
     private int trainPiecesLeft;
     private int currentScore;
     private UserPass userName;
     private int turnNumber;
 
-    public Player(UserPass name, int queuePosition, Color color) {
+    public Player(UserPass name, int queuePosition, String color) {
         this.userName = name;
         this.color = color;
         this.turnNumber = queuePosition;
@@ -32,6 +32,9 @@ public class Player extends Observable {
         routesClaimed = new HashSet<>();
         trainPiecesLeft = 45;
         currentScore = 0;
+        setChanged(); //set change has occurred
+        notifyObservers(); //notify observers we have a change and give them new playercount
+        clearChanged(); //no longer have a change!
     }
 
     public void addToDestinationHand(ArrayList<DestinationCard> toAdd)

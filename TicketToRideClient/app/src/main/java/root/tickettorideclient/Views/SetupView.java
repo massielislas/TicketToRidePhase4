@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 
 import Model.InGameModels.DestinationCard;
+import Model.InGameModels.TrainCard;
 import root.tickettorideclient.Callbacks.IGoToBoardCallback;
 import root.tickettorideclient.Presenters.ISetUpView;
 import root.tickettorideclient.Presenters.SetUpPresenter;
@@ -31,6 +32,12 @@ public class SetupView extends Fragment implements ISetUpView {
     TextView firstDestinationCard;
     TextView secondDestinationCard;
     TextView thirdDestinationCard;
+
+    View firstTrainCard;
+    View secondTrainCard;
+    View thirdTrainCard;
+    View fourthTrainCard;
+    View fifthTrainCard;
 
     TextView playerNumber;
     View playerColor;
@@ -49,9 +56,6 @@ public class SetupView extends Fragment implements ISetUpView {
         super.onCreate(savedInstanceState);
         selectedColor = ContextCompat.getColor(getContext(), R.color.selectedCardColor);
         nonSelectedColor = ContextCompat.getColor(getContext(), R.color.unselectedCardColor);
-
-        presenter = new SetUpPresenter(this, getActivity());
-
     }
 
     @Nullable
@@ -60,6 +64,8 @@ public class SetupView extends Fragment implements ISetUpView {
         v = inflater.inflate(R.layout.fragment_setup, container, false);
         setUpInputs();
         setUpSelections();
+
+        presenter = new SetUpPresenter(this, getActivity());
         return v;
     }
 
@@ -143,6 +149,12 @@ public class SetupView extends Fragment implements ISetUpView {
                 checkDestinationSelections();
             }
         });
+
+        firstTrainCard = (TextView) v.findViewById(R.id.firstCard);
+        secondTrainCard = (TextView) v.findViewById(R.id.secondCard);
+        thirdTrainCard = (TextView) v.findViewById(R.id.thirdCard);
+        fourthTrainCard = (TextView) v.findViewById(R.id.fourthCard);
+        fifthTrainCard = (TextView) v.findViewById(R.id.fifthCard);
     }
 
     private void checkDestinationSelections(){
@@ -165,29 +177,9 @@ public class SetupView extends Fragment implements ISetUpView {
     }
 
     private void setUpSelections(){
-
         for(int i = 0; i < 3; i++){
             destinationCardsSelected.add(false);
         }
-
-        ArrayList<DestinationCard> destinationCards = presenter.getDestinationCards();
-        if ((destinationCards != null) && (destinationCards.size() == 3)) {
-
-            this.destinationCards = destinationCards;
-
-            DestinationCard firstCard = destinationCards.get(0);
-            String firstMessage = firstCard.getPointValue() + " points: " + firstCard.getCity1() + " to " + firstCard.getCity2();
-            firstDestinationCard.setText(firstMessage);
-
-            DestinationCard secondCard = destinationCards.get(1);
-            String secondMessage = secondCard.getPointValue() + " points: " + secondCard.getCity1() + " to " + secondCard.getCity2();
-            firstDestinationCard.setText(secondMessage);
-
-            DestinationCard thirdCard = destinationCards.get(2);
-            String thirdMessage = thirdCard.getPointValue() + " points: " + thirdCard.getCity1() + " to " + thirdCard.getCity2();
-            firstDestinationCard.setText(thirdMessage);
-        }
-
     }
 
     public boolean isDestinationCardSelected(int i){
@@ -202,6 +194,40 @@ public class SetupView extends Fragment implements ISetUpView {
     @Override
     public void setPlayerColor(Integer color) {
         playerColor.setBackgroundColor(color);
+    }
+
+    @Override
+    public void setHand(TrainCard[] cards) {
+        if ((cards != null) && (cards.length == 3)) {
+            firstTrainCard.setBackgroundColor(Color.parseColor(cards[0].getColor()));
+            secondTrainCard.setBackgroundColor(Color.parseColor(cards[1].getColor()));
+            thirdTrainCard.setBackgroundColor(Color.parseColor(cards[2].getColor()));
+            fourthTrainCard.setBackgroundColor(Color.parseColor(cards[3].getColor()));
+            fifthTrainCard.setBackgroundColor(Color.parseColor(cards[4].getColor()));
+        }
+    }
+
+    @Override
+    public void setDestCards (DestinationCard[] cards) {
+        if ((cards != null) && (cards.length == 3)) {
+
+            destinationCards = new ArrayList<>();
+            destinationCards.add(cards[0]);
+            destinationCards.add(cards[1]);
+            destinationCards.add(cards[2]);
+
+            DestinationCard firstCard = destinationCards.get(0);
+            String firstMessage = firstCard.getPointValue() + " points: " + firstCard.getCity1() + " to " + firstCard.getCity2();
+            firstDestinationCard.setText(firstMessage);
+
+            DestinationCard secondCard = destinationCards.get(1);
+            String secondMessage = secondCard.getPointValue() + " points: " + secondCard.getCity1() + " to " + secondCard.getCity2();
+            firstDestinationCard.setText(secondMessage);
+
+            DestinationCard thirdCard = destinationCards.get(2);
+            String thirdMessage = thirdCard.getPointValue() + " points: " + thirdCard.getCity1() + " to " + thirdCard.getCity2();
+            firstDestinationCard.setText(thirdMessage);
+        }
     }
 
     @Override
