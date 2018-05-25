@@ -4,32 +4,48 @@ import Model.InGameModels.City;
 
 public class DestinationCard {
 
-    City firstcity;
-    City secondCity;
-    int pointvalue;
-    int cardNo;
+    private City city1;
+    private City city2;
+    private int pointValue;
+    private int ID;
 
-    public DestinationCard(City firstcity, City secondCity, int pointvalue, int cardNo) {
-        this.firstcity = firstcity;
-        this.secondCity = secondCity;
-        this.pointvalue = pointvalue;
-        this.cardNo = cardNo;
+    public DestinationCard(City city1, City city2, int pointValue, int ID) {
+        this.city1 = city1;
+        this.city2 = city2;
+        this.pointValue = pointValue;
+        this.ID = ID;
     }
 
-    public City getFirstcity() {
-        return firstcity;
+    public int getID() {
+        return ID;
     }
 
-    public City getSecondCity() {
-        return secondCity;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
-    public int getPointvalue() {
-        return pointvalue;
+    public int getPointValue() {
+        return pointValue;
     }
 
-    public int getCardNo() {
-        return cardNo;
+    public void setPointValue(int pointValue) {
+        this.pointValue = pointValue;
+    }
+
+    public City getCity1() {
+        return city1;
+    }
+
+    public void setCity1(City city1) {
+        this.city1 = city1;
+    }
+
+    public City getCity2() {
+        return city2;
+    }
+
+    public void setCity2(City city2) {
+        this.city2 = city2;
     }
 
 

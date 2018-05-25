@@ -64,7 +64,7 @@ public class Game extends Observable
     {
         for (DestinationCard currentCard: destinationDeck)
         {
-            if (cardID == currentCard.getCardNo()) return currentCard;
+            if (cardID == currentCard.getID()) return currentCard;
         }
         return null; //we should never get here!
         //TODO

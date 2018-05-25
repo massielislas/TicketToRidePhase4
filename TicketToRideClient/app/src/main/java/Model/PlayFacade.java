@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import Model.InGameModels.Chat;
 import Model.InGameModels.DestinationCard;
+import Model.InGameModels.Player;
 import Results.Result;
 
 public class PlayFacade {
@@ -44,6 +45,8 @@ public class PlayFacade {
     public void setStartInfo(SinglePlayerStartInfo info)
     {
         this.info = info;
+        Player player = new Player(userData.getUsername(), this.info.getStartingTrainCards(), null, null);
+        userData.setCurrentPlayer(player);
     }
 
     public SinglePlayerStartInfo getStartInfo ()
