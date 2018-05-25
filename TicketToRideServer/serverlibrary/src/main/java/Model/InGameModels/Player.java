@@ -1,5 +1,7 @@
 package Model.InGameModels;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +18,15 @@ public class Player {
     private Set<Route> routesClaimed;
     int turnNumber;
     int trainPiecesLeft;
+
+    public Player(UserPass name, int queuePosition) {
+        userName = name;
+        trainCards = new ArrayList<>();
+        destCards = new ArrayList<>();
+        routesClaimed = new HashSet<>();
+        turnNumber = queuePosition;
+        trainPiecesLeft = 45;
+    }
 
     public UserPass getUserName() {
         return userName;

@@ -1,5 +1,6 @@
 package Model;
 
+import Model.InGameModels.Player;
 import Results.GameResult;
 import Results.GameStartResult;
 import Results.LoginRegisterResult;
@@ -137,5 +138,9 @@ public class TicketToRideFacade implements ITicketToRide {
                 return new GameStartResult(game);
             }
         }
+    }
+
+    private void InitializeHands(Game game) {
+
     }
 }
