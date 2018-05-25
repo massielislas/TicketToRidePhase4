@@ -2,8 +2,10 @@ package root.tickettorideclient.Views;
 
 import android.graphics.Color;
 import android.graphics.ColorSpace;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -181,6 +183,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         userPointsBanner.setText("TRAINS: " + pieces + "/45");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void updateFaceUp(TrainCard[] cards) {
         if (cards.length == 5) {
