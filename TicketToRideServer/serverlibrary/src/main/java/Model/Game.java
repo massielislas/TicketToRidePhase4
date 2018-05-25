@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Player;
+import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.TrainCard;
 
 
@@ -69,7 +70,7 @@ public class Game {
         else {
             //otherwise, Add the player to the playerList and set their turn position to the spot
             //they will be the list. So we can access it later
-            playerList.add(new Player(user, playerList.size()));
+            playerList.add(new Player(user, playerList.size() + 1));
             currentPlayers++;
             return true;
         }
@@ -178,6 +179,15 @@ public class Game {
                 destinationCardDeck.remove(i);
             }
         }
+
+        for (Player other : playerList) {
+            if (!other.getUserName().equals(p.getUserName())) {
+                PlayerShallow copy = new PlayerShallow(other.getnameString(),
+                        other.getTrainHandSize(), other.getDestHandSize(),
+                        other.getTrainPiecesLeft(),other.getTurnNumber());
+            }
+        }
+
         return startingHand;
     }
 
