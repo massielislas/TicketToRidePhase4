@@ -88,42 +88,42 @@ public class Game {
                 switch (j) {
                     case 0: {
                         type = "Box";
-                        color = "pink";
+                        color = "Pink";
                         break;
                     }
                     case 1: {
                         type = "Passenger";
-                        color = "white";
+                        color = "White";
                         break;
                     }
                     case 2: {
                         type = "Tanker";
-                        color = "blue";
+                        color = "Blue";
                         break;
                     }
                     case 3: {
                         type = "Reefer";
-                        color = "yellow";
+                        color = "Yellow";
                         break;
                     }
                     case 4: {
                         type = "Freight";
-                        color = "orange";
+                        color = "Orange";
                         break;
                     }
                     case 5: {
                         type = "Hopper";
-                        color = "black";
+                        color = "Black";
                         break;
                     }
                     case 6: {
                         type = "Coal";
-                        color = "red";
+                        color = "Red";
                         break;
                     }
                     case 7: {
                         type = "Caboose";
-                        color = "green";
+                        color = "Green";
                         break;
                     }
                 }
@@ -134,7 +134,7 @@ public class Game {
             }
             //then add the locomotive cards
             for (int i = 0; i < locomotiveCount; i++) {
-                trainCardFacedownDeck.add(new TrainCard(totalNormalCards + i, "silver", "Locomotive"));
+                trainCardFacedownDeck.add(new TrainCard(totalNormalCards + i, "Grey", "Locomotive"));
             }
             //shuffle the deck
             Collections.shuffle(trainCardFacedownDeck);
