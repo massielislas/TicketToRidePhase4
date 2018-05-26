@@ -5,11 +5,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import root.tickettorideclient.Callbacks.IDestinationCardsCallback;
 import root.tickettorideclient.Callbacks.IGoToBoardCallback;
 import root.tickettorideclient.Views.BoardView;
+import root.tickettorideclient.Views.DestinationCardsView;
 import root.tickettorideclient.Views.SetupView;
 
-public class GameActivity extends AppCompatActivity implements IGoToBoardCallback {
+public class GameActivity extends AppCompatActivity implements IGoToBoardCallback, IDestinationCardsCallback{
 
     FragmentManager fragmentManager;
 
@@ -31,5 +33,11 @@ public class GameActivity extends AppCompatActivity implements IGoToBoardCallbac
     public void goToBoard() {
         Fragment boardFragment = new BoardView();
         fragmentManager.beginTransaction().replace(R.id.game_activity_container, boardFragment).commit();
+    }
+
+    @Override
+    public void goToDestinationCards() {
+        Fragment destinationCardsFragment = new DestinationCardsView();
+        fragmentManager.beginTransaction().replace(R.id.game_activity_container, destinationCardsFragment).commit();
     }
 }
