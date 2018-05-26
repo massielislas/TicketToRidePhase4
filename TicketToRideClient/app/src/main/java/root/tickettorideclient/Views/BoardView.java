@@ -27,6 +27,7 @@ import com.google.android.gms.maps.UiSettings;
 import java.util.ArrayList;
 
 import Model.InGameModels.TrainCard;
+import root.tickettorideclient.Callbacks.IDestinationCardsCallback;
 import root.tickettorideclient.Presenters.IBoardView;
 import root.tickettorideclient.R;
 
@@ -146,6 +147,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         playerBlackCards = (TextView) myView.findViewById(R.id.playerBlackCards);
         playerRedCards = (TextView) myView.findViewById(R.id.playerRedCards);
         playerWildCards = (TextView) myView.findViewById(R.id.playerWildCards);
+        playerGreenCards = (TextView) myView.findViewById(R.id.playerGreenCards);
 
         availableCardsDisplay = (LinearLayout) myView.findViewById(R.id.availableCardsDisplay);
         availableCardsBanner = (TextView)myView.findViewById(R.id.availableCardsBanner);
@@ -181,6 +183,12 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         });
 
         viewYourDestinationCardsBanner = (TextView) myView.findViewById(R.id.viewYourDestinationCardsBanner);
+        viewYourDestinationCardsBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((IDestinationCardsCallback) getActivity()).goToDestinationCards();
+            }
+        });
     }
 
     public void setUpBottomInputs(){

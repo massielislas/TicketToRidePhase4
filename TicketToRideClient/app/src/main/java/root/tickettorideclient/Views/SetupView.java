@@ -150,11 +150,11 @@ public class SetupView extends Fragment implements ISetUpView {
             }
         });
 
-        firstTrainCard = (TextView) v.findViewById(R.id.firstCard);
-        secondTrainCard = (TextView) v.findViewById(R.id.secondCard);
-        thirdTrainCard = (TextView) v.findViewById(R.id.thirdCard);
-        fourthTrainCard = (TextView) v.findViewById(R.id.fourthCard);
-        fifthTrainCard = (TextView) v.findViewById(R.id.fifthCard);
+        firstTrainCard = (View) v.findViewById(R.id.firstCard);
+        secondTrainCard = (View) v.findViewById(R.id.secondCard);
+        thirdTrainCard = (View) v.findViewById(R.id.thirdCard);
+        fourthTrainCard = (View) v.findViewById(R.id.fourthCard);
+        fifthTrainCard = (View) v.findViewById(R.id.fifthCard);
     }
 
     private void checkDestinationSelections(){
