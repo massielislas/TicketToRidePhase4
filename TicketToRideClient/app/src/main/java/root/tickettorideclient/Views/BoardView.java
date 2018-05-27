@@ -24,9 +24,15 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import Model.InGameModels.Cities;
 import Model.InGameModels.City;
@@ -92,6 +98,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     ArrayList<PlayerStats> otherPlayers = new ArrayList<>();
     ArrayList<City> cities;
     ArrayList<Route> routes;
+    Map<City, Marker>markers = new HashMap<>();
 
     private OtherPlayerAdapter playerAdapter;
 
@@ -266,6 +273,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         UiSettings uiSettings = myGoogleMap.getUiSettings();
         uiSettings.setZoomGesturesEnabled(true);
+        drawCities();
     }
 
     @Override
@@ -380,6 +388,15 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     public void addAllCities (ArrayList<City> cities) {
         this.cities = cities;
         //drawCities
+    }
+
+    public void drawCities(){
+        float color = BitmapDescriptorFactory.HUE_RED;
+        for(int i = 0; i < cities.size(); i++){
+            LatLng latLng = new LatLng(cities.get(i).getLatitude(), cities.get(i).getLongitude());
+            Marker marker = myGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(color)));
+            markers.put(cities.get(i), marker);
+        }
     }
 
     @Override

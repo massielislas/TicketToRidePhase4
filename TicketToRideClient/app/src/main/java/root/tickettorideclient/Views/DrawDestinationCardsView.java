@@ -1,8 +1,10 @@
 package root.tickettorideclient.Views;
 
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -82,6 +84,7 @@ public class DrawDestinationCardsView extends Fragment{
             route += "Points: "  + destinationCard.getPointValue();
             destinationCardTextView.setText(route);
             destinationCardTextView.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                 @Override
                 public void onClick(View view) {
                     int a = destinationCardTextView.getSolidColor();
