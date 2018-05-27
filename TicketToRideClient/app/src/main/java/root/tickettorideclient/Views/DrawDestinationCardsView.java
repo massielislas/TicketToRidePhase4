@@ -1,5 +1,6 @@
 package root.tickettorideclient.Views;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -80,11 +81,17 @@ public class DrawDestinationCardsView extends Fragment{
             String route = destinationCard.getCity1().getName() + " to " + destinationCard.getCity2().getName() + "\n";
             route += "Points: "  + destinationCard.getPointValue();
             destinationCardTextView.setText(route);
-            final int destinationCardColor = destinationCardTextView.getDrawingCacheBackgroundColor();
             destinationCardTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                     if(destinationCardTextView.getDrawingCacheBackgroundColor() == selectedColor){
+                    int a = destinationCardTextView.getSolidColor();
+                    int b = destinationCardTextView.getDrawingCacheBackgroundColor();
+                    int c = destinationCardTextView.getHighlightColor();
+                    int d = destinationCardTextView.getShadowColor();
+
+                    ColorDrawable cd = (ColorDrawable) destinationCardTextView.getBackground();
+                    int colorCode = cd.getColor();
+                     if(colorCode == selectedColor){
                          destinationCardTextView.setBackgroundColor(nonSelectedColor);
                      }
                      else
