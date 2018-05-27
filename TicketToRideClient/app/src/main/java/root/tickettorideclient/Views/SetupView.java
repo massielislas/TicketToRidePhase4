@@ -192,29 +192,30 @@ public class SetupView extends Fragment implements ISetUpView {
     }
 
     @Override
-    public void setPlayerColor(Integer color) {
-        playerColor.setBackgroundColor(color);
+    public void setPlayerColor(String color) {
+        //TODO: FIXME
+        playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
     }
 
     @Override
-    public void setHand(TrainCard[] cards) {
-        if ((cards != null) && (cards.length == 3)) {
-            firstTrainCard.setBackgroundColor(Color.parseColor(cards[0].getColor()));
-            secondTrainCard.setBackgroundColor(Color.parseColor(cards[1].getColor()));
-            thirdTrainCard.setBackgroundColor(Color.parseColor(cards[2].getColor()));
-            fourthTrainCard.setBackgroundColor(Color.parseColor(cards[3].getColor()));
-            fifthTrainCard.setBackgroundColor(Color.parseColor(cards[4].getColor()));
+    public void setHand(ArrayList<TrainCard> cards) {
+        if ((cards != null) && (cards.size() == 3)) {
+            firstTrainCard.setBackgroundColor(Color.parseColor(cards.get(0).getColor()));
+            secondTrainCard.setBackgroundColor(Color.parseColor(cards.get(1).getColor()));
+            thirdTrainCard.setBackgroundColor(Color.parseColor(cards.get(2).getColor()));
+            fourthTrainCard.setBackgroundColor(Color.parseColor(cards.get(3).getColor()));
+            fifthTrainCard.setBackgroundColor(Color.parseColor(cards.get(4).getColor()));
         }
     }
 
     @Override
-    public void setDestCards (DestinationCard[] cards) {
-        if ((cards != null) && (cards.length == 3)) {
+    public void setDestCards (ArrayList<DestinationCard> cards) {
+        if ((cards != null) && (cards.size() == 3)) {
 
             destinationCards = new ArrayList<>();
-            destinationCards.add(cards[0]);
-            destinationCards.add(cards[1]);
-            destinationCards.add(cards[2]);
+            destinationCards.add(cards.get(0));
+            destinationCards.add(cards.get(1));
+            destinationCards.add(cards.get(2));
 
             DestinationCard firstCard = destinationCards.get(0);
             String firstMessage = firstCard.getPointValue() + " points: " + firstCard.getCity1() + " to " + firstCard.getCity2();

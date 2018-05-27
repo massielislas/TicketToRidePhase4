@@ -90,8 +90,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     RecyclerView otherPlayerRecyclerView;
 
     ArrayList<PlayerStats> otherPlayers = new ArrayList<>();
-    City[] cities;
-    Route[] routes;
+    ArrayList<City> cities;
+    ArrayList<Route> routes;
 
     private OtherPlayerAdapter playerAdapter;
 
@@ -112,9 +112,9 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         createRecyclerView();
 
         //For testing - use update pattern for real thing
-        this.cities = Cities.getInstance().getCities().toArray(cities);
+        this.cities = new ArrayList<>(Cities.getInstance().getCities());
         //draw cities
-        this.routes = (new Routes()).getRouteList().toArray(routes);
+        this.routes = new ArrayList<>(new Routes().getRouteList());
         //draw routes
 
         return myView;
@@ -269,15 +269,22 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     @Override
-    public void addHistory(String[] messages) {
-        for (int i = 0; i < messages.length; ++i) {
-            String text = chatBox.getText() + "\n" + messages[i];
+    public void addAllHistory(ArrayList<String> messages) {
+        chatBox.setText("");
+        for (int i = 0; i < messages.size(); ++i) {
+            String text = chatBox.getText() + "\n" + messages.get(i);
             chatBox.setText(text);
         }
     }
 
     @Override
-    public void updateHand(TrainCard[] cards) {
+    public void addOneHistory(String message) {
+        String text = chatBox.getText() + "\n" + message;
+        chatBox.setText(text);
+    }
+
+    @Override
+    public void updateHand(ArrayList<TrainCard> cards) {
        Integer black = 0;
        Integer blue = 0;
        Integer green = 0;
@@ -288,8 +295,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
        Integer wild = 0;
        Integer yellow = 0;
 
-       for (int i = 0; i < cards.length; ++i ) {
-           TrainCard card = cards[i];
+       for (int i = 0; i < cards.size(); ++i ) {
+           TrainCard card = cards.get(i);
            String cardColor = card.getColor();
 
            switch (cardColor) {
@@ -347,13 +354,14 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void updateFaceUp(TrainCard[] cards) {
-        if (cards.length == 5) {
-            faceUpCard1.setBackgroundColor(Color.parseColor(cards[0].getColor()));
-            faceUpCard2.setBackgroundColor(Color.parseColor(cards[1].getColor()));
-            faceUpCard3.setBackgroundColor(Color.parseColor(cards[2].getColor()));
-            faceUpCard4.setBackgroundColor(Color.parseColor(cards[3].getColor()));
-            faceUpCard5.setBackgroundColor(Color.parseColor(cards[4].getColor()));
+    public void updateFaceUp(ArrayList<TrainCard> cards) {
+        //TODO: FIXME (can have 0 to 5)
+        if (cards.size() == 5) {
+            faceUpCard1.setBackgroundColor(Color.parseColor(cards.get(0).getColor()));
+            faceUpCard2.setBackgroundColor(Color.parseColor(cards.get(1).getColor()));
+            faceUpCard3.setBackgroundColor(Color.parseColor(cards.get(2).getColor()));
+            faceUpCard4.setBackgroundColor(Color.parseColor(cards.get(3).getColor()));
+            faceUpCard5.setBackgroundColor(Color.parseColor(cards.get(4).getColor()));
 
         }
     }
@@ -369,20 +377,20 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     @Override
-    public void addAllCities (City[] cities) {
+    public void addAllCities (ArrayList<City> cities) {
         this.cities = cities;
         //drawCities
     }
 
     @Override
-    public void addAllRoutes (Route[] routes) {
+    public void addAllRoutes (ArrayList<Route> routes) {
         this.routes = routes;
         //drawRoutes
     }
 
     @Override
-    public void addAllPlayers (PlayerStats[] players) {
-        this.otherPlayers = new ArrayList<>(Arrays.asList(players));
+    public void addAllPlayers (ArrayList<PlayerStats> players) {
+        this.otherPlayers = players;
     }
 
     @Override

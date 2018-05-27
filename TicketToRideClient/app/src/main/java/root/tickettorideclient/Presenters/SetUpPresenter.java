@@ -2,12 +2,17 @@ package root.tickettorideclient.Presenters;
 
 import android.support.v4.app.FragmentActivity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
+import Model.InGameModels.Chat;
 import Model.InGameModels.DestinationCard;
+import Model.InGameModels.TrainCard;
 import Model.PlayFacade;
+import Model.SetUpData;
 import Model.SinglePlayerStartInfo;
 import Model.WaitingFacade;
 import Results.Result;
@@ -48,6 +53,7 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
         //if result is successful
         //switch to board
         if (result.isSuccess()) {
+            //unregister??
             view.switchToBoardView();
         }
     }
@@ -55,20 +61,24 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
     @Override
     public void update(Observable observable, Object o) {
 
-      // final SinglePlayerStartInfo startInfo = facade.getStartInfo();
+        //if observable is Chat
+        //don't do anything
+        if (observable.getClass().equals(Chat.class)) {
+            return;
+        }
 
-        //update whatever
+        //if observable is [other]
+        //set up
         mn.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
+                SetUpData data = facade.getSetUpData();
 
-
-                //view.setPlayerNumber(startInfo.getTurnNumber());
-               // view.setPlayerColor();
-               // view.setDestCards();
-               // view.setHand();
-
+                view.setPlayerNumber(data.getTurnNumber());
+                view.setPlayerColor(data.getColor());
+                view.setDestCards(new ArrayList<DestinationCard>(data.getStartingDestCards()));
+                view.setHand(new ArrayList<TrainCard>(data.getStartingTrainCards()));
             }
         });
     }

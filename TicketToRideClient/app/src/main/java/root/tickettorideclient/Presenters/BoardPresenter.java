@@ -5,7 +5,9 @@ import android.support.v4.app.FragmentActivity;
 import java.util.Observable;
 import java.util.Observer;
 
+import Model.InGameModels.Chat;
 import Model.PlayFacade;
+import Model.SetUpData;
 import Results.Result;
 import root.tickettorideclient.Views.IBoardPresenter;
 
@@ -42,6 +44,16 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+
+        //if observable is Chat
+        //add single chat message
+        if (observable.getClass().equals(Chat.class)) {
+
+        }
+
+
+        //if observable is [other]
+        //set up board
 
         /*    public void addHistory(String[] messages);
     public void addToHand(TrainCard card);

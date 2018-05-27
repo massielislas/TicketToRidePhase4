@@ -2,6 +2,8 @@ package root.tickettorideclient.Presenters;
 
 import android.graphics.Color;
 
+import java.util.ArrayList;
+
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.TrainCard;
 
@@ -11,9 +13,9 @@ import Model.InGameModels.TrainCard;
 
 public interface ISetUpView {
     public void setPlayerNumber(Integer num);
-    public void setPlayerColor(Integer color);
-    public void setHand(TrainCard[] cards);
-    public void setDestCards(DestinationCard[] cards);
+    public void setPlayerColor(String color);
+    public void setHand(ArrayList<TrainCard> cards);
+    public void setDestCards(ArrayList<DestinationCard> cards);
 
     public void popToast(String message);
     public void switchToBoardView();

@@ -5,5 +5,5 @@ package root.tickettorideclient.Views;
  */
 
 public interface IWaitingPresenter {
-
+    public void deregister();
 }
