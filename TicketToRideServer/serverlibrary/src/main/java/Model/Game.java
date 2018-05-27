@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +32,7 @@ public class Game {
     private String ID;
     //List of players in the game
     private List<Player> playerList;
+    private List<UserPass> userList;
     private List<TrainCard> trainCardFacedownDeck;
     private TrainCard[] trainCardFaceupDeck;
     private List<TrainCard> discardedTrainCards;
@@ -44,6 +44,7 @@ public class Game {
         this.currentPlayers = currentPlayers;
         this.ID = UUID.randomUUID().toString();
         playerList = new ArrayList<>();
+        userList = new ArrayList<>();
         trainCardFacedownDeck = new ArrayList<>();
         trainCardFaceupDeck = new TrainCard[faceupSize];
         discardedTrainCards = new ArrayList<>();
@@ -56,6 +57,8 @@ public class Game {
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
         this.ID = ID;
+        this.playerList = new ArrayList<>();
+        this.userList = new ArrayList<>();
         initializeTrainCards();
         for (Player p: playerList) {
 
@@ -71,6 +74,7 @@ public class Game {
             //otherwise, Add the player to the playerList and set their turn position to the spot
             //they will be the list. So we can access it later
             playerList.add(new Player(user, playerList.size() + 1));
+            userList.add(user);
             currentPlayers++;
             return true;
         }
@@ -267,6 +271,10 @@ public class Game {
 
     public void setTrainCardFaceupDeck(TrainCard[] faceupDeck) {
         this.trainCardFaceupDeck = trainCardFaceupDeck;
+    }
+
+    public List<UserPass> getUserList(){
+        return userList;
     }
 
     @Override

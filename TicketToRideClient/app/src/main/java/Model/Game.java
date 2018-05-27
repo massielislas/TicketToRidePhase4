@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import Model.InGameModels.Chat;
 import Model.InGameModels.DestinationCard;
+import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
 import Model.InGameModels.Route;
 import Model.InGameModels.TrainCard;
@@ -43,6 +44,7 @@ public class Game extends Observable
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
         this.ID = ID;
+        this.destinationDeck = new DestinationCardDeck().getDestinationCards();
     }
 
     void addAnObserver(Observer o)
