@@ -1,16 +1,15 @@
 package Model.InGameModels;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import Model.InGameModels.Route;
 
 /**
  * Created by Topper on 5/25/2018.
  */
 
-public class Routes {
+public class Routes
+{
+    //private final static Routes instance = new Routes();
     List<Route> routeList;
     public Routes(){
         String[] startCities = {"Vancouver", "Vancouver", "Vancouver", "Seattle", "Seattle", "Seattle",
@@ -48,17 +47,45 @@ public class Routes {
                 4, 2, 5, 4, 4, 4, 4, 3, 3, 2, 3, 6, 4, 5, 6, 4, 2, 2, 3, 6, 3, 1, 1, 4, 2, 2, 2, 2,
                 2, 2, 2, 2, 1, 1, 2, 3, 6, 4, 4, 3, 2, 2, 5, 2, 2, 5, 2, 4, 3, 3, 1, 1, 4, 5, 2, 2,
                 2, 2, 2, 2, 2, 3, 2, 2, 2, 4, 2, 2, 2, 2, 3, 2, 2};
-        String[] colors = {"Grey", "Grey", "Grey", "Grey", "Grey", "Grey", "Yellow", "Blue", "Green",
-                "Pink", "Orange", "White", "Pink", "Yellow", "Grey", "Grey", "Black", "Orange", "Red",
-                "Yellow", "Pink", "Grey", "Green", "Red", "Orange", "Blue", "Grey", "White", "Pink",
-                "Orange", "Black", "Red", "Grey", "Grey", "Grey", "Blue", "Green", "Red", "Yellow",
-                "Grey", "Black", "Grey", "Grey", "Red", "Pink", "Grey", "Grey", "Grey", "Blue", "Grey",
-                "Grey", "Blue", "Green", "Grey", "Grey", "Grey", "Grey", "Grey", "Grey", "Grey", "Green",
-                "Red", "Orange", "Yellow", "White", "Grey", "Grey", "Green", "White", "Green", "Black",
-                "Grey", "White", "Orange", "Black", "Grey", "Black", "Yellow", "Blue", "Grey", "Grey",
-                "Grey", "Grey", "Grey", "Green", "White", "Grey", "Grey", "Grey", "Grey", "Pink",
-                "Orange", "Black", "Yellow", "Red", "Blue", "Grey", "Grey"};
-        Map<String,String> colorMap= new HashMap<>();
-        colorMap.put("Grey",new String() );
+        String[] colors = {"Gray", "Gray", "Gray", "Gray", "Gray", "Gray", "Yellow", "Blue", "Green",
+                "Pink", "Orange", "White", "Pink", "Yellow", "Gray", "Gray", "Black", "Orange", "Red",
+                "Yellow", "Pink", "Gray", "Green", "Red", "Orange", "Blue", "Gray", "White", "Pink",
+                "Orange", "Black", "Red", "Gray", "Gray", "Gray", "Blue", "Green", "Red", "Yellow",
+                "Gray", "Black", "Gray", "Gray", "Red", "Pink", "Gray", "Gray", "Gray", "Blue", "Gray",
+                "Gray", "Blue", "Green", "Gray", "Gray", "Gray", "Gray", "Gray", "Gray", "Gray", "Green",
+                "Red", "Orange", "Yellow", "White", "Gray", "Gray", "Green", "White", "Green", "Black",
+                "Gray", "White", "Orange", "Black", "Gray", "Black", "Yellow", "Blue", "Gray", "Gray",
+                "Gray", "Gray", "Gray", "Green", "White", "Gray", "Gray", "Gray", "Gray", "Pink",
+                "Orange", "Black", "Yellow", "Red", "Blue", "Gray", "Gray"};
+        routeList = new ArrayList<>();
+        int id = 0;
+        for(int i = 0; i < startCities.length; i++){
+            if(i != startCities.length-1){
+                if(startCities[i].equals(startCities[i+1])&&endCities[i].equals(endCities[i+1]))
+                {
+                    routeList.add(new Route(Cities.getInstance().findCity(startCities[i]),
+                            Cities.getInstance().findCity(endCities[i]),lengths[i],colors[i],id++,colors[i+1]));
+                    i++;
+                }
+                else{
+                    routeList.add(new Route(Cities.getInstance().findCity(startCities[i]),
+                            Cities.getInstance().findCity(endCities[i]),lengths[i],colors[i],id++));
+                }
+            }
+            else{
+                routeList.add(new Route(Cities.getInstance().findCity(startCities[i]),
+                        Cities.getInstance().findCity(endCities[i]),lengths[i],colors[i],id++));
+            }
+        }
+
     }
+
+    /*public static Routes getInstance() {
+        return instance;
+    }*/
+
+    public List<Route> getRouteList() {
+        return routeList;
+    }
+
 }

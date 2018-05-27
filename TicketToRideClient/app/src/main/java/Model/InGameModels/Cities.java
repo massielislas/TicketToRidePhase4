@@ -38,6 +38,11 @@ public class Cities {
            cityList.add(new City(cityNames[i],lats[i],longs[i]));
        }
     }
+
+    public List<City> getCityList() {
+        return cityList;
+    }
+
     public City findCity(String cityName){
         for(City c: cityList){
             if(c.getName().equals(cityName))
