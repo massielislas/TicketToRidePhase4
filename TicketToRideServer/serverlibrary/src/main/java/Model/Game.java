@@ -9,6 +9,7 @@ import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Player;
 import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.TrainCard;
+import Model.InGameModels.TrainCardDeck;
 
 
 /**
@@ -79,78 +80,17 @@ public class Game {
     }
 
     private void initializeTrainCards() {
-        String type = "TrainCar";
-        String color = "Blue";
-        //If the discard pile doesn't have any cards in it, then we're doing the initial deck creation
-        //Otherwise we're doing the reshuffle of the discard pile
-        if (discardedTrainCards.size() == 0) {
-            for (int j = 0; j < countOfCardTypes; j ++) {
-                //switch Statement for type and color. This makes it so the entire deck of normal
-                //train cards is initialized. After this we will add the 14 locomotives
-                switch (j) {
-                    case 0: {
-                        type = "Box";
-                        color = "Pink";
-                        break;
-                    }
-                    case 1: {
-                        type = "Passenger";
-                        color = "White";
-                        break;
-                    }
-                    case 2: {
-                        type = "Tanker";
-                        color = "Blue";
-                        break;
-                    }
-                    case 3: {
-                        type = "Reefer";
-                        color = "Yellow";
-                        break;
-                    }
-                    case 4: {
-                        type = "Freight";
-                        color = "Orange";
-                        break;
-                    }
-                    case 5: {
-                        type = "Hopper";
-                        color = "Black";
-                        break;
-                    }
-                    case 6: {
-                        type = "Coal";
-                        color = "Red";
-                        break;
-                    }
-                    case 7: {
-                        type = "Caboose";
-                        color = "Green";
-                        break;
-                    }
-                }
-                //Once we know the type and color, add the corresponding card to the deck
-                for (int i = 0; i < numberOfEachType; i++) {
-                    trainCardFacedownDeck.add(new TrainCard(((i*j) + i), color, type));
-                }
-            }
-            //then add the locomotive cards
-            for (int i = 0; i < locomotiveCount; i++) {
-                trainCardFacedownDeck.add(new TrainCard(totalNormalCards + i, "Grey", "Locomotive"));
-            }
-            //shuffle the deck
-            Collections.shuffle(trainCardFacedownDeck);
-            dealFaceupDeck();
+        trainCardFacedownDeck = new TrainCardDeck().getTrainCards();
+        Collections.shuffle(trainCardFacedownDeck);
+        dealFaceupDeck();
+    }
+
+    public void reshuffleDiscardedTrains() {
+        for (TrainCard card : discardedTrainCards) {
+            trainCardFacedownDeck.add(card);
         }
-        //If the discard pile has a size greater than 0 and we're calling this method it means that
-        //We are reshuffling the cards back into main deck for re-use
-        else {
-            for (TrainCard card : discardedTrainCards) {
-                trainCardFacedownDeck.add(card);
-            }
-            Collections.shuffle(trainCardFacedownDeck);
-            discardedTrainCards.clear();
-        }
+        Collections.shuffle(trainCardFacedownDeck);
+        discardedTrainCards.clear();
     }
 
     private void dealFaceupDeck() {
@@ -163,6 +103,7 @@ public class Game {
             trainCardFacedownDeck.remove(i);
         }
     }
+
 
     public SinglePlayerStartInfo dealStartingHand(Player p) {
 
@@ -189,8 +130,12 @@ public class Game {
             if (!other.getUserName().equals(p.getUserName())) {
                 PlayerShallow copy = new PlayerShallow(other.getnameString(),
                         other.getTrainHandSize(), other.getDestHandSize(),
+<<<<<<< HEAD
                         other.getTrainPiecesLeft(),other.getTurnNumber(),
                         other.getCurrentScore());
+=======
+                        other.getTrainPiecesLeft(),other.getTurnNumber(),other.getCurrentScore());
+>>>>>>> integration
                 list.add(copy);
             }
         }

@@ -9,7 +9,8 @@ import java.util.List;
 
 public class Routes
 {
-    List<Route> routeList;
+    //private final static Routes instance = new Routes();
+    List<Route> routeList = new ArrayList<>();
     public Routes(){
         String[] startCities = {"Vancouver", "Vancouver", "Vancouver", "Seattle", "Seattle", "Seattle",
                 "Seattle", "Portland", "Portland", "Portland", "San Fran", "San Fran", "San Fran",
@@ -76,5 +77,15 @@ public class Routes
                         Cities.getInstance().findCity(endCities[i]),lengths[i],colors[i],id++));
             }
         }
+
     }
+
+    /*public static Routes getInstance() {
+        return instance;
+    }*/
+
+    public List<Route> getRouteList() {
+        return routeList;
+    }
+
 }

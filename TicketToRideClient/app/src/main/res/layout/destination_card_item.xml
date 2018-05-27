@@ -10,7 +10,7 @@
         android:id="@+id/destinationCardItem"
         android:padding="15dp"
         android:layout_weight="1"
-        android:background="#dbb930"
+        android:background="#f4d76e"
         android:layout_margin="20dp"
         android:textColor="#000000"
         android:textSize="18dp"

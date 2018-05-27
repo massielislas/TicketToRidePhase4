@@ -1,11 +1,16 @@
 package Model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Observer;
 
 import Model.InGameModels.Chat;
+import Model.InGameModels.Cities;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Player;
+import Model.InGameModels.Route;
+import Model.InGameModels.Routes;
+import Model.InGameModels.TrainCard;
 import Results.Result;
 
 public class PlayFacade {
@@ -13,6 +18,8 @@ public class PlayFacade {
     TicketToRideProxy proxy = new TicketToRideProxy();
     Chat chat = Chat.getInstance();
     UserData userData = UserData.getUserData();
+    Cities cities = Cities.getInstance();
+    Routes routes = new Routes();
     SinglePlayerStartInfo info;
 
     public void addObserver(Observer o)
@@ -36,6 +43,11 @@ public class PlayFacade {
         Game currentGame = userData.getCurrentGame();
         ArrayList<DestinationCard> toAdd = currentGame.getSelectedDestinationCards(cards);
         userData.getCurrentPlayer().addToDestinationHand(toAdd);
+    }
+
+    public void updateFaceUpCards(ArrayList<TrainCard> cards)
+    {
+        userData.getCurrentGame().setFaceUpTrainDeck(cards);
     }
 
     public void addChat(String message)
@@ -75,6 +87,8 @@ public class PlayFacade {
         player.setTrainCards(info.getStartingTrainCards());
         player.setToChoose(info.getStartingDestCards());
         userData.setCurrentPlayer(player);
+        userData.getCurrentGame().setCities(cities.getCityList());
+        userData.getCurrentGame().setRoutes(routes.getRouteList());
     }
 
     public SetUpData getSetUpData ()
@@ -92,7 +106,10 @@ public class PlayFacade {
         BoardData data = new BoardData();
         data.setDestDeckSize(userData.getCurrentGame().getDestinationDeck().size());
         data.setTrainDeckSize(userData.getCurrentGame().getFaceDownTrainDeck().size());
-        data.setOtherPlayerInfo();
+        data.setOtherPlayerInfo(info.getPlayerInfo());
+        data.setFaceUpCards(userData.getCurrentGame().getFaceUpTrainDeck());
+        data.setRoutes(userData.getCurrentGame().getRoutes());
+        data.setCities(userData.getCurrentGame().getCities());
+        return data;
     }
-
 }

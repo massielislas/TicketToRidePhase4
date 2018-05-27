@@ -28,11 +28,14 @@ import com.google.android.gms.maps.UiSettings;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import Model.InGameModels.Cities;
 import Model.InGameModels.City;
 import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.Route;
+import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
 import root.tickettorideclient.Callbacks.IDestinationCardsCallback;
+import root.tickettorideclient.Callbacks.IDrawDestinationsCallback;
 import root.tickettorideclient.Presenters.BoardPresenter;
 import root.tickettorideclient.Presenters.IBoardView;
 import root.tickettorideclient.R;
@@ -107,6 +110,13 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         setUpTopInputs();
         setUpBottomInputs();
         createRecyclerView();
+
+        //For testing - use update pattern for real thing
+        this.cities = Cities.getInstance().getCities().toArray(cities);
+        //draw cities
+        this.routes = (new Routes()).getRouteList().toArray(routes);
+        //draw routes
+
         return myView;
     }
 
@@ -174,6 +184,12 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
         trainCardsDeck = (TextView)myView.findViewById(R.id.trainCardsDeck);
         destinationCardsDeck = (TextView)myView.findViewById(R.id.destinationCardsDeck);
+        destinationCardsDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((IDrawDestinationsCallback) getActivity()).goToDrawDestinations();
+            }
+        });
 
         faceUpCard1 = (View) myView.findViewById(R.id.faceUpCard1);
         faceUpCard2 = (View) myView.findViewById(R.id.faceUpCard2);
@@ -207,7 +223,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         chatBox = (TextView) myView.findViewById(R.id.chatBox);
         typedMessage = (EditText) myView.findViewById(R.id.typeMessageLine);
 
-        sendMessageButton = (Button) myView.findViewById(R.id.readyButton);
+        sendMessageButton = (Button) myView.findViewById(R.id.submitMessageButton);
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -355,11 +371,13 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @Override
     public void addAllCities (City[] cities) {
         this.cities = cities;
+        //drawCities
     }
 
     @Override
     public void addAllRoutes (Route[] routes) {
         this.routes = routes;
+        //drawRoutes
     }
 
     @Override
