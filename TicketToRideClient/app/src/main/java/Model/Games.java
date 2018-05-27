@@ -37,6 +37,8 @@ class Games extends Observable
         addObserver(o);
     }
 
+    public void removeAnObserver(Observer o) {deleteObserver(o);}
+
     TreeMap<String, Game> getGameList()
     {
         return gameList;

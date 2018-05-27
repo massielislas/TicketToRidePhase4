@@ -7,6 +7,7 @@ import java.util.Observer;
 import Model.InGameModels.Chat;
 import Model.InGameModels.Cities;
 import Model.InGameModels.DestinationCard;
+import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
 import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
@@ -20,12 +21,34 @@ public class PlayFacade {
     UserData userData = UserData.getUserData();
     Cities cities = Cities.getInstance();
     Routes routes = new Routes();
+    DestinationCardDeck destCardDeck = new DestinationCardDeck();
     SinglePlayerStartInfo info;
+    BoardData boardData = new BoardData();
+    SetUpData setUpData = new SetUpData();
 
-    public void addObserver(Observer o)
+    public void addSetUpObserver(Observer o)
+    {
+        //chat.addAnObserver(o);
+        setUpData.addAnObserver(o);
+    }
+
+    public void addBoardObserver(Observer o)
     {
         chat.addAnObserver(o);
-        userData.getCurrentPlayer().addAnObserver(o);
+        boardData.addObserver(o);
+        setBoardData();
+    }
+
+    public void deRegisterSetUpObserver(Observer o)
+    {
+        //chat.removeAnObserver(o);
+        setUpData.removeAnObserver(o);
+    }
+
+    public void deRegisterBoardObserver(Observer o)
+    {
+        chat.removeAnObserver(o);
+        boardData.removeAnObserver(o);
     }
 
     public Result sendChat(String message)
@@ -89,27 +112,27 @@ public class PlayFacade {
         userData.setCurrentPlayer(player);
         userData.getCurrentGame().setCities(cities.getCityList());
         userData.getCurrentGame().setRoutes(routes.getRouteList());
+        userData.getCurrentGame().setDestinationDeck(destCardDeck.getDestinationCards());
+        setSetUpData();
     }
 
-    public SetUpData getSetUpData ()
+    public void setSetUpData ()
     {
-        SetUpData data = new SetUpData();
-        data.setColor(userData.getCurrentPlayer().getColor());
-        data.setTurnNumber(userData.getCurrentPlayer().getTurnNumber());
-        data.setStartingTrainCards(userData.getCurrentPlayer().getTrainCards());
-        data.setStartingDestCards(userData.getCurrentPlayer().getToChoose());
-        return data;
+        setUpData.setColor(userData.getCurrentPlayer().getColor());
+        setUpData.setTurnNumber(userData.getCurrentPlayer().getTurnNumber());
+        setUpData.setStartingTrainCards(userData.getCurrentPlayer().getTrainCards());
+        setUpData.setStartingDestCards(userData.getCurrentPlayer().getToChoose());
+        setUpData.setChange();
     }
 
-    public BoardData getBoardData()
+    public void setBoardData()
     {
-        BoardData data = new BoardData();
-        data.setDestDeckSize(userData.getCurrentGame().getDestinationDeck().size());
-        data.setTrainDeckSize(userData.getCurrentGame().getFaceDownTrainDeck().size());
-        data.setOtherPlayerInfo(info.getPlayerInfo());
-        data.setFaceUpCards(userData.getCurrentGame().getFaceUpTrainDeck());
-        data.setRoutes(userData.getCurrentGame().getRoutes());
-        data.setCities(userData.getCurrentGame().getCities());
-        return data;
+        boardData.setDestDeckSize(userData.getCurrentGame().getDestinationDeck().size());
+        boardData.setTrainDeckSize(userData.getCurrentGame().getFaceDownTrainDeck().size());
+        boardData.setOtherPlayerInfo(info.getPlayerInfo());
+        boardData.setFaceUpCards(userData.getCurrentGame().getFaceUpTrainDeck());
+        boardData.setRoutes(userData.getCurrentGame().getRoutes());
+        boardData.setCities(userData.getCurrentGame().getCities());
+        boardData.setChange();
     }
 }

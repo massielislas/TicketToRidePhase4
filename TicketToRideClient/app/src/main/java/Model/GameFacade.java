@@ -61,6 +61,11 @@ public class GameFacade
         gameList.addAnObserver(o);
     }
 
+    public void deRegisterObserver(Observer o)
+    {
+        gameList.removeAnObserver(o);
+    }
+
     public ArrayList<GameListItem> getGames () {
         return Games.games.makeArray();
     }

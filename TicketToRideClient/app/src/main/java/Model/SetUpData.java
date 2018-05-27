@@ -1,16 +1,32 @@
 package Model;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.TrainCard;
 
-public class SetUpData {
+public class SetUpData extends Observable {
 
     private int turnNumber;
     private String color;
     private List<DestinationCard> startingDestCards;
     private List<TrainCard> startingTrainCards;
+
+    public void setChange()
+    {
+        setChanged(); //set change has occurred
+        notifyObservers(this); //notify observers we have a change and give them new playercount
+        clearChanged(); //no longer have a change!
+    }
+
+    public void addAnObserver(Observer o)
+    {
+        addObserver(o);
+    }
+
+    public void removeAnObserver(Observer o) {deleteObserver(o);}
 
     public int getTurnNumber() {
         return turnNumber;
