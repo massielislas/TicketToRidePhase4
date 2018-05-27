@@ -32,4 +32,9 @@ public class WaitingFacade
     {
         currentGame.addAnObserver(o);
     }
+
+    public void deRegisterObserver(Observer o)
+    {
+        currentGame.removeAnObserver(o);
+    }
 }

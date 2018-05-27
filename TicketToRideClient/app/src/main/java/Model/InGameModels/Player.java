@@ -64,6 +64,8 @@ public class Player extends Observable {
         addObserver(o);
     }
 
+    public void removeAnObserver(Observer o) {deleteObserver(o);}
+
     public UserPass getUserName() {
         return userName;
     }
