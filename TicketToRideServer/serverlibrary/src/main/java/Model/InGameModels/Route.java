@@ -18,6 +18,13 @@ public class Route {
     private int ID;
     private Color color;
 
+    public Route(City newCity1, City newCity2, int newLength){
+        city1 = newCity1;
+        city2 = newCity2;
+        length = newLength;
+        switch (new)
+    }
+
     public City getCity1() {
         return city1;
     }
