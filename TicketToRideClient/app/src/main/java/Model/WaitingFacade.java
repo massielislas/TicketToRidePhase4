@@ -26,7 +26,7 @@ public class WaitingFacade
 
     public GameStartResult startGame()
     {
-        return proxy.startGame(currentGame.getPlayerCount(), currentGame.getCurrentPlayers(), currentGame.getGameNumber(), currentGame.getID());
+        return proxy.startGame(currentGame.getID());
     }
     public void addObserver(Observer o)
     {

@@ -16,7 +16,7 @@ public interface ITicketToRide {
     LoginRegisterResult loginUser(String username, String password, String host, String port);
     Result addPlayerToGame(String userName, Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID);
     GameResult createNewGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID);
-    GameStartResult startGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID);
+    GameStartResult startGame(String ID);
     Result sendChat(String username, String message, String gameID);
     Result discardDestCards(String username, String gameID, ArrayList<Integer> destinationCards);
 
