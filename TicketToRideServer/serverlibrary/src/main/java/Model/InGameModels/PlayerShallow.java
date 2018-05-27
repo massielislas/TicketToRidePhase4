@@ -10,14 +10,24 @@ public class PlayerShallow {
     private int destCardHand;
     private int piecesLeft;
     private int turnNumber;
+    private int currentScore;
 
-    public PlayerShallow(String uName, int trainCardHand, int destCardHand, int piecesLeft, int turnNumber)
+    public PlayerShallow(String uName, int trainCardHand, int destCardHand, int piecesLeft, int turnNumber, int currentScore)
     {
         this.uName = uName;
         this.trainCardHand = trainCardHand;
         this.destCardHand = destCardHand;
         this.piecesLeft = piecesLeft;
         this.turnNumber = turnNumber;
+        this.currentScore = currentScore;
+    }
+
+    public int getCurrentScore() {
+        return currentScore;
+    }
+
+    public void setCurrentScore(int currentScore) {
+        this.currentScore = currentScore;
     }
 
     public String getuName()
