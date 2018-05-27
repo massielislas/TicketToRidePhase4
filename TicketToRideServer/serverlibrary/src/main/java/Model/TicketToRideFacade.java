@@ -1,13 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
-import java.util.List;
-
-=======
-
 import Model.InGameModels.Player;
->>>>>>> 7f034324e682162cd334658602a51b9fc2a017df
 import Results.GameResult;
 import Results.GameStartResult;
 import Results.LoginRegisterResult;
@@ -135,46 +129,23 @@ public class TicketToRideFacade implements ITicketToRide {
                         " enough players");
             }
             else {
-                String[] instanceParamTypeNames = new String[0];
-                Object[] instanceMethodArgs = new Object[0];
-                String[] methodParamTypeNames = {"java.lang.String"};
-                Object[] methodArguments = {ID};
-                Command command = new Command("Model.GameFacade", "getInstance",
-                        "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-                        methodArguments);
-                CommandManager.getInstance().addCommandAllUsers(command);
                 initializeHands(game);
                 return new GameStartResult(game);
             }
         }
     }
 
-<<<<<<< HEAD
-    @Override
-    public Result sendChat(String username, String message, String gameID) {
-        String totalMessage = username + ": " + message;
-        List<UserPass> usersInGame = TicketToRideServer.getInstance().getPlayers(gameID);
-        String[] instanceParamTypeNames = new String[0];
-        Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"java.lang.String"};
-        Object[] methodArguments = {totalMessage};
-        Command command = new Command("Model.Chat", "getInstance",
-                "addChatMessage", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-                methodArguments);
-        CommandManager.getInstance().addCommandMultipleUsers(usersInGame,command);
-        return new Result(true,"good");
-    }
-
-    @Override
-    public Result selectCards(String username, String gameID, ArrayList<Integer> destinationCards) {
-        return null;
-    }
->>>>>>> integration
-
-=======
     private void initializeHands(Game game) {
         for (Player p : game.getPlayerList()) {
             SinglePlayerStartInfo initPack = game.dealStartingHand(p);
+            String[] instanceParamTypeNames = new String[0];
+            Object[] instanceMethodArgs = new Object[0];
+            String[] methodParamTypeNames = {"Model.SinglePlayerStartInfo"};
+            Object[] methodArguments = {initPack};
+            Command command = new Command("Model.GameFacade", "getInstance",
+                    "setStartInfo", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                    methodArguments);
+            CommandManager.getInstance().addCommand(p.getUserName(),command);
         }
     }
 
@@ -182,6 +153,17 @@ public class TicketToRideFacade implements ITicketToRide {
         Game toChat = Server.getSpecificGame(gameID);
         if (toChat != null) {
             toChat.addChat(msg, userName);
+            //Command for Chat
+            String totalMessage = userName + ": " + msg;
+            String[] instanceParamTypeNames = new String[0];
+            Object[] instanceMethodArgs = new Object[0];
+            String[] methodParamTypeNames = {"java.lang.String"};
+            Object[] methodArguments = {totalMessage};
+            Command command = new Command("Model.Chat", "getInstance",
+                    "addChatMessage", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                    methodArguments);
+            CommandManager.getInstance().addCommandMultipleUsers(toChat.getUserList(),command);
+            //
             return new Result(true, "");
         }
         else {
@@ -192,12 +174,22 @@ public class TicketToRideFacade implements ITicketToRide {
     public Result discardDestCards(String username, String gameID, ArrayList<Integer> cardIDs) {
         Game game = Server.getSpecificGame(gameID);
         if (game != null) {
+            //Command for Chat
+            String[] instanceParamTypeNames = new String[0];
+            Object[] instanceMethodArgs = new Object[0];
+            String[] methodParamTypeNames = {"java.lang.String", "java.lang.Double"};
+            Object[] methodArguments = {username, cardIDs.size()};
+            Command command = new Command("Model.Chat", "getInstance",
+                    "discardCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                    methodArguments);
+            CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(), command);
+            //
             return new Result(true, "removed " + cardIDs.size() + " destination cards from " +
                     username + "'s hand");
         }
+        //
         else {
             return new Result(false, "Something failed in discardDestCards in TicketToRideFacade");
         }
     }
->>>>>>> 7f034324e682162cd334658602a51b9fc2a017df
 }
