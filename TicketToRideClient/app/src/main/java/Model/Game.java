@@ -47,6 +47,46 @@ public class Game extends Observable
         this.destinationDeck = new DestinationCardDeck().getDestinationCards();
     }
 
+    public ArrayList<DestinationCard> getDestinationDeck() {
+        return destinationDeck;
+    }
+
+    public void setDestinationDeck(ArrayList<DestinationCard> destinationDeck) {
+        this.destinationDeck = destinationDeck;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
+    public ArrayList<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(ArrayList<Route> routes) {
+        this.routes = routes;
+    }
+
+    public ArrayList<TrainCard> getFaceUpTrainDeck() {
+        return faceUpTrainDeck;
+    }
+
+    public void setFaceUpTrainDeck(ArrayList<TrainCard> faceUpTrainDeck) {
+        this.faceUpTrainDeck = faceUpTrainDeck;
+    }
+
+    public ArrayList<TrainCard> getFaceDownTrainDeck() {
+        return faceDownTrainDeck;
+    }
+
+    public void setFaceDownTrainDeck(ArrayList<TrainCard> faceDownTrainDeck) {
+        this.faceDownTrainDeck = faceDownTrainDeck;
+    }
+
     void addAnObserver(Observer o)
     {
         addObserver(o);

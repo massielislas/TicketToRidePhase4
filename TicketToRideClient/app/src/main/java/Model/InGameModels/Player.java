@@ -16,6 +16,7 @@ public class Player extends Observable {
 
     private List<DestinationCard> destCards;
     private List<TrainCard> trainCards;
+    private List<DestinationCard> toChoose;
     private Set<Route> routesClaimed;
     private String color;
     private int trainPiecesLeft;
@@ -44,6 +45,18 @@ public class Player extends Observable {
             destCards.add(card);
         }
 
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public List<DestinationCard> getToChoose() {
+        return toChoose;
+    }
+
+    public void setToChoose(List<DestinationCard> toChoose) {
+        this.toChoose = toChoose;
     }
 
     public void addAnObserver(Observer o)

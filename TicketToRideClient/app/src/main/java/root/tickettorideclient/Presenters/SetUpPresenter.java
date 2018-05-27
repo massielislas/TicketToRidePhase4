@@ -54,15 +54,20 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        final SinglePlayerStartInfo info = (SinglePlayerStartInfo) o;
+
+      // final SinglePlayerStartInfo startInfo = facade.getStartInfo();
 
         //update whatever
         mn.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
-                view.setPlayerNumber(info.getTurnNumber());
+
+
+                //view.setPlayerNumber(startInfo.getTurnNumber());
                // view.setPlayerColor();
+               // view.setDestCards();
+               // view.setHand();
 
             }
         });

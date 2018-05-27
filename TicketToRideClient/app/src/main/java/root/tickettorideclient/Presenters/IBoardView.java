@@ -1,6 +1,10 @@
 package root.tickettorideclient.Presenters;
 
+import Model.InGameModels.City;
+import Model.InGameModels.PlayerShallow;
+import Model.InGameModels.Route;
 import Model.InGameModels.TrainCard;
+import root.tickettorideclient.Views.PlayerStats;
 
 /**
  * Created by madeleineaydelotte on 5/21/18.
@@ -8,12 +12,15 @@ import Model.InGameModels.TrainCard;
 
 public interface IBoardView {
     public void addHistory(String[] messages);
-    public void addToHand(TrainCard card);
+    public void updateHand(TrainCard[] card);
     public void updatePlayerPoints(String playerID, Integer points);
     public void updateTrainPieces(String playerID, Integer pieces);
     public void updateFaceUp(TrainCard[] cards);
     public void updateDestinationDeck(Integer cardCount);
     public void updateTrainDeck(Integer cardCount);
+    public void addAllCities(City[] cities);
+    public void addAllRoutes(Route[] routes);
+    public void addAllPlayers(PlayerStats[] players);
 
     public void popToast(String message);
     public void switchToEndView();
