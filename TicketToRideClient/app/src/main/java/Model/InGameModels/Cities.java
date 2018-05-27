@@ -47,4 +47,7 @@ public class Cities {
         }
         return null;
     }
+    public List<City> getCities() {
+        return cityList;
+    }
 }
