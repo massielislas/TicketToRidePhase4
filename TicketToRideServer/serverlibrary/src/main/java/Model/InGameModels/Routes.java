@@ -13,6 +13,7 @@ import Model.InGameModels.Route;
 
 public class Routes
 {
+    private final static Routes instance = new Routes();
     List<Route> routeList;
     public Routes(){
         String[] startCities = {"Vancouver", "Vancouver", "Vancouver", "Seattle", "Seattle", "Seattle",
@@ -81,4 +82,13 @@ public class Routes
             }
         }
     }
+
+    public static Routes getInstance() {
+        return instance;
+    }
+
+    public List<Route> getRouteList() {
+        return routeList;
+    }
+
 }
