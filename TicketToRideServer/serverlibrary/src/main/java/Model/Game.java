@@ -130,12 +130,7 @@ public class Game {
             if (!other.getUserName().equals(p.getUserName())) {
                 PlayerShallow copy = new PlayerShallow(other.getnameString(),
                         other.getTrainHandSize(), other.getDestHandSize(),
-<<<<<<< HEAD
-                        other.getTrainPiecesLeft(),other.getTurnNumber(),
-                        other.getCurrentScore());
-=======
                         other.getTrainPiecesLeft(),other.getTurnNumber(),other.getCurrentScore());
->>>>>>> integration
                 list.add(copy);
             }
         }
