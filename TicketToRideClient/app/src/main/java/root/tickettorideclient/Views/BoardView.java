@@ -1,6 +1,7 @@
 package root.tickettorideclient.Views;
 
 import android.graphics.Color;
+import android.nfc.cardemulation.CardEmulation;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,9 +26,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import Model.InGameModels.Cities;
+import Model.InGameModels.City;
+import Model.InGameModels.PlayerShallow;
+import Model.InGameModels.Route;
+import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
 import root.tickettorideclient.Callbacks.IDestinationCardsCallback;
+import root.tickettorideclient.Callbacks.IDrawDestinationsCallback;
+import root.tickettorideclient.Presenters.BoardPresenter;
 import root.tickettorideclient.Presenters.IBoardView;
 import root.tickettorideclient.R;
 
@@ -36,6 +45,8 @@ import root.tickettorideclient.R;
  */
 
 public class BoardView extends Fragment implements OnMapReadyCallback, IBoardView {
+
+    IBoardPresenter presenter;
 
     GoogleMap myGoogleMap;
     MapView myMapView;
@@ -78,7 +89,9 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     TextView otherPlayerBanner;
     RecyclerView otherPlayerRecyclerView;
 
-    ArrayList<PlayerStats>otherPlayers = new ArrayList<>();
+    ArrayList<PlayerStats> otherPlayers = new ArrayList<>();
+    City[] cities;
+    Route[] routes;
 
     private OtherPlayerAdapter playerAdapter;
 
@@ -86,6 +99,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = new BoardPresenter(this, getActivity());
     }
 
 
@@ -96,6 +110,13 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         setUpTopInputs();
         setUpBottomInputs();
         createRecyclerView();
+
+        //For testing - use update pattern for real thing
+        this.cities = Cities.getInstance().getCities().toArray(cities);
+        //draw cities
+        this.routes = (new Routes()).getRouteList().toArray(routes);
+        //draw routes
+
         return myView;
     }
 
@@ -106,7 +127,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     public void updateUI(){
-        addFakePlayers();
+       // addFakePlayers();
         playerAdapter = new OtherPlayerAdapter(otherPlayers);
         otherPlayerRecyclerView.setAdapter(playerAdapter);
     }
@@ -163,6 +184,12 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
         trainCardsDeck = (TextView)myView.findViewById(R.id.trainCardsDeck);
         destinationCardsDeck = (TextView)myView.findViewById(R.id.destinationCardsDeck);
+        destinationCardsDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((IDrawDestinationsCallback) getActivity()).goToDrawDestinations();
+            }
+        });
 
         faceUpCard1 = (View) myView.findViewById(R.id.faceUpCard1);
         faceUpCard2 = (View) myView.findViewById(R.id.faceUpCard2);
@@ -195,9 +222,19 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         chatBoxContainer = (LinearLayout)myView.findViewById(R.id.chatboxContainer);
         chatBox = (TextView) myView.findViewById(R.id.chatBox);
         typedMessage = (EditText) myView.findViewById(R.id.typeMessageLine);
-        sendMessageButton = (Button) myView.findViewById(R.id.readyButton);
-        chatboxBanner = (TextView)myView.findViewById(R.id.chatAndHistoryBanner);
 
+        sendMessageButton = (Button) myView.findViewById(R.id.submitMessageButton);
+        sendMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!typedMessage.getText().toString().equals("")) {
+                    presenter.sendChat(typedMessage.getText().toString());
+                    typedMessage.setText("");
+                }
+            }
+        });
+
+        chatboxBanner = (TextView)myView.findViewById(R.id.chatAndHistoryBanner);
         chatboxBanner.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -240,8 +277,62 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     @Override
-    public void addToHand(TrainCard card) {
-        //TODO
+    public void updateHand(TrainCard[] cards) {
+       Integer black = 0;
+       Integer blue = 0;
+       Integer green = 0;
+       Integer orange = 0;
+       Integer purple = 0;
+       Integer red = 0;
+       Integer white = 0;
+       Integer wild = 0;
+       Integer yellow = 0;
+
+       for (int i = 0; i < cards.length; ++i ) {
+           TrainCard card = cards[i];
+           String cardColor = card.getColor();
+
+           switch (cardColor) {
+               case "black":
+                    black = black + 1;
+                    break;
+               case "blue":
+                    blue = blue + 1;
+                    break;
+               case "green":
+                    green = green + 1;
+                    break;
+               case "orange":
+                    orange = orange + 1;
+                    break;
+               case "purple":
+                    purple = purple + 1;
+                    break;
+               case "red":
+                    red = red + 1;
+                    break;
+               case "white":
+                    white = white + 1;
+                    break;
+               case "wild":
+                    wild = wild + 1;
+                    break;
+               case "yellow":
+                    yellow = yellow + 1;
+                    break;
+           }
+       }
+
+        playerBlackCards.setText(black.toString());
+        playerBlueCards.setText(blue.toString());
+        playerGreenCards.setText(green.toString());
+        playerOrangeCards.setText(orange.toString());
+        playerPurpleCards.setText(purple.toString());
+        playerRedCards.setText(red.toString());
+        playerWhiteCards.setText(white.toString());
+        playerWildCards.setText(wild.toString());
+        playerYellowCards.setText(yellow.toString());
+
     }
 
     @Override
@@ -278,6 +369,23 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     @Override
+    public void addAllCities (City[] cities) {
+        this.cities = cities;
+        //drawCities
+    }
+
+    @Override
+    public void addAllRoutes (Route[] routes) {
+        this.routes = routes;
+        //drawRoutes
+    }
+
+    @Override
+    public void addAllPlayers (PlayerStats[] players) {
+        this.otherPlayers = new ArrayList<>(Arrays.asList(players));
+    }
+
+    @Override
     public void popToast(String message) {
         Toast toast = Toast.makeText(getContext(),message, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -300,8 +408,6 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             trainCards = (TextView) itemView.findViewById(R.id.otherPlayerTrainCards);
             destinationCards = (TextView) itemView.findViewById(R.id.otherPlayerDestinationCards);
             username = (TextView) itemView.findViewById(R.id.otherPlayerUsername);
-
-
         }
 
         public void bind(final PlayerStats playerStats){

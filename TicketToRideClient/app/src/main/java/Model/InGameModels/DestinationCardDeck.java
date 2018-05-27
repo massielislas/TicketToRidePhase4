@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 public class DestinationCardDeck {
+
     public ArrayList<DestinationCard> destinationCards;
     public DestinationCardDeck(){
         int i = 0;

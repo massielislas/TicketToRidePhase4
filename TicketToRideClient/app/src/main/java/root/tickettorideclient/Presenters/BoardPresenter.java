@@ -22,7 +22,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
     public BoardPresenter (IBoardView view, FragmentActivity mn) {
         this.view = view;
         facade = new PlayFacade();
-        this.facade.addObserver(this);
+      //  this.facade.addObserver(this);
         this.mn = mn;
     }
 
@@ -42,12 +42,27 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+
+        /*    public void addHistory(String[] messages);
+    public void addToHand(TrainCard card);
+    public void updatePlayerPoints(String playerID, Integer points);
+    public void updateTrainPieces(String playerID, Integer pieces);
+    public void updateFaceUp(TrainCard[] cards);
+    public void updateDestinationDeck(Integer cardCount);
+    public void updateTrainDeck(Integer cardCount); */
+
         //update whatever
         mn.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
-               // view.update whatever
+              //  view.addHistory();
+              //  view.addToHand();
+              //  view.updatePlayerPoints();
+              //  view.updateTrainDeck();
+                // view.updateFaceUp();
+              //  view.updateDestinationDeck();
+              //  view.updateTrainDeck();
             }
         });
     }

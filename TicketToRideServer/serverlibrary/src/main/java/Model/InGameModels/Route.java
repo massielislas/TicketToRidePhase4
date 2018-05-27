@@ -1,7 +1,5 @@
 package Model.InGameModels;
 
-import java.awt.Color;
-
 import Model.UserPass;
 
 /**
@@ -13,16 +11,84 @@ public class Route {
     private City city2;
     private int length;
     private boolean isClaimed;
+    private boolean isDouble;
+    private boolean isDoubleClaimed;
     private UserPass claimant;
     private int scoreValue;
     private int ID;
-    private Color color;
+    private String color;
+    private String doubleColor;
 
-    public Route(City newCity1, City newCity2, int newLength){
+
+    public Route(City newCity1, City newCity2, int newLength, String newColor, int newID){
         city1 = newCity1;
         city2 = newCity2;
         length = newLength;
-        switch (new)
+        switch (newLength){
+            case 1:
+                scoreValue = 1;
+                break;
+            case 2:
+                scoreValue = 2;
+                break;
+            case 3:
+                scoreValue = 4;
+                break;
+            case 4:
+                scoreValue = 7;
+                break;
+            case 5:
+                scoreValue = 10;
+                break;
+            case 6:
+                scoreValue = 15;
+                break;
+        }
+        color = newColor;
+        ID = newID;
+    }
+    public Route(City newCity1, City newCity2, int newLength, String newColor, int newID, String newDoubleColor){
+        city1 = newCity1;
+        city2 = newCity2;
+        length = newLength;
+        switch (newLength){
+            case 1:
+                scoreValue = 1;
+                break;
+            case 2:
+                scoreValue = 2;
+                break;
+            case 3:
+                scoreValue = 4;
+                break;
+            case 4:
+                scoreValue = 7;
+                break;
+            case 5:
+                scoreValue = 10;
+                break;
+            case 6:
+                scoreValue = 15;
+                break;
+        }
+        color = newColor;
+        ID = newID;
+        isDouble = true;
+        doubleColor = newDoubleColor;
+    }
+
+
+
+    public boolean isDouble() {
+        return isDouble;
+    }
+
+    public boolean isDoubleClaimedl() {
+        return isDoubleClaimed;
+    }
+
+    public void setDoubleClaimed(boolean doubleClaimed) {
+        isDoubleClaimed = doubleClaimed;
     }
 
     public City getCity1() {
@@ -81,11 +147,11 @@ public class Route {
         this.ID = ID;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor(String color) {
         this.color = color;
     }
 }
