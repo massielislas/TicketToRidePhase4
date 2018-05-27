@@ -53,7 +53,8 @@ public class Game {
         chat = new ArrayList<>();
     }
 
-    public Game(int playerCount, int currentPlayers, int gameNumber, String ID) {
+    public Game(int playerCount, int currentPlayers, int gameNumber, String ID)
+    {
         this.playerCount = playerCount;
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
@@ -61,9 +62,6 @@ public class Game {
         this.playerList = new ArrayList<>();
         this.userList = new ArrayList<>();
         initializeTrainCards();
-        for (Player p: playerList) {
-
-        }
     }
 
     public boolean addPlayerToGame(UserPass user) {
