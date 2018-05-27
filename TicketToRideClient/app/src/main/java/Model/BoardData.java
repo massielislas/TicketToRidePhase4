@@ -3,8 +3,10 @@ package Model;
 import java.util.List;
 
 import Model.InGameModels.Chat;
+import Model.InGameModels.City;
 import Model.InGameModels.Player;
 import Model.InGameModels.PlayerShallow;
+import Model.InGameModels.Route;
 import Model.InGameModels.TrainCard;
 
 public class BoardData {
@@ -16,6 +18,24 @@ public class BoardData {
     private int destDeckSize;
     private int trainDeckSize;
     private List<TrainCard> faceUpCards;
+    private List<City> cities;
+    private List<Route> routes;
+
+    public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
+    }
+
+    public List<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
+    }
 
     public List<PlayerShallow> getOtherPlayerInfo() {
         return otherPlayerInfo;
