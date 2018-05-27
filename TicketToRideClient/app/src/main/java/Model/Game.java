@@ -3,12 +3,14 @@ package Model;
 import android.annotation.TargetApi;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
 
 import Model.InGameModels.Chat;
+import Model.InGameModels.City;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
@@ -27,7 +29,8 @@ public class Game extends Observable
 
     ArrayList<DestinationCard> destinationDeck;
     ArrayList<Player> players;
-    ArrayList<Route> routes;
+    List<Route> routes;
+    List<City> cities;
     ArrayList<TrainCard> faceUpTrainDeck;
     ArrayList<TrainCard> faceDownTrainDeck;
     Chat chat;
@@ -47,6 +50,14 @@ public class Game extends Observable
         this.destinationDeck = new DestinationCardDeck().getDestinationCards();
     }
 
+    public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
+    }
+
     public ArrayList<DestinationCard> getDestinationDeck() {
         return destinationDeck;
     }
@@ -63,11 +74,11 @@ public class Game extends Observable
         this.players = players;
     }
 
-    public ArrayList<Route> getRoutes() {
+    public List<Route> getRoutes() {
         return routes;
     }
 
-    public void setRoutes(ArrayList<Route> routes) {
+    public void setRoutes(List<Route> routes) {
         this.routes = routes;
     }
 
