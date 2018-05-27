@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import Model.InGameModels.Chat;
 import Model.InGameModels.DestinationCard;
+import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
 import Model.InGameModels.Route;
 import Model.InGameModels.TrainCard;
@@ -43,6 +44,47 @@ public class Game extends Observable
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
         this.ID = ID;
+        this.destinationDeck = new DestinationCardDeck().getDestinationCards();
+    }
+
+    public ArrayList<DestinationCard> getDestinationDeck() {
+        return destinationDeck;
+    }
+
+    public void setDestinationDeck(ArrayList<DestinationCard> destinationDeck) {
+        this.destinationDeck = destinationDeck;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
+    public ArrayList<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(ArrayList<Route> routes) {
+        this.routes = routes;
+    }
+
+    public ArrayList<TrainCard> getFaceUpTrainDeck() {
+        return faceUpTrainDeck;
+    }
+
+    public void setFaceUpTrainDeck(ArrayList<TrainCard> faceUpTrainDeck) {
+        this.faceUpTrainDeck = faceUpTrainDeck;
+    }
+
+    public ArrayList<TrainCard> getFaceDownTrainDeck() {
+        return faceDownTrainDeck;
+    }
+
+    public void setFaceDownTrainDeck(ArrayList<TrainCard> faceDownTrainDeck) {
+        this.faceDownTrainDeck = faceDownTrainDeck;
     }
 
     void addAnObserver(Observer o)

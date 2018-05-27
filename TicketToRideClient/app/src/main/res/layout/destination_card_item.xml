@@ -8,10 +8,13 @@
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:id="@+id/destinationCardItem"
-        android:padding="10dp"
+        android:padding="15dp"
         android:layout_weight="1"
         android:background="#dbb930"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        android:text="City1 to City 2 \n Points:100"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -23,7 +26,7 @@
         android:layout_gravity="center"
         android:textAlignment="center"
         android:layout_margin="20dp"
-        android:textSize="18dp"/>
+        android:textSize="20dp"/>
 
 
 

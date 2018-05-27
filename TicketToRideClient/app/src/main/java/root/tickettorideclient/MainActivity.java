@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements ILoginCallback, I
 
         if(fragment == null){
             fragment = new LoginView();
-            fragmentManager.beginTransaction().add(R.id.main_acttivity_container, fragment).commit();
+            fragmentManager.beginTransaction().add(R.id.main_acttivity_container, fragment).addToBackStack(null).commit();
         }
     }
 }

@@ -17,14 +17,14 @@ import Model.InGameModels.DestinationCard;
 import root.tickettorideclient.R;
 
 /**
- * Created by Massiel on 5/25/2018.
+ * Created by Massiel on 5/26/2018.
  */
 
-public class DestinationCardsView extends Fragment {
+public class DrawDestinationCardsView extends Fragment{
     View v;
     RecyclerView cardListRecyclerView;
     DestinationsAdapter destinationsAdapter;
-    ArrayList<DestinationCard>userDestinationCards = new ArrayList<>();
+    ArrayList<DestinationCard> userDestinationCards = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,14 +75,8 @@ public class DestinationCardsView extends Fragment {
             String route = destinationCard.getCity1().getName() + " to " + destinationCard.getCity2().getName() + "\n";
             route += "Points: "  + destinationCard.getPointValue();
             String completionMessage;
-            if(destinationCard.isComplete())
-                completionMessage = "Completed!";
-
-            else
-                completionMessage = "Not completed";
-
             this.destinationCard.setText(route);
-            completion.setText(completionMessage);
+            completion.setText("");
         }
     }
 

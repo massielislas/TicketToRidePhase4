@@ -73,12 +73,26 @@ public class PlayFacade {
 
         Player player = new Player(userData.getUsername(), info.getTurnNumber(), color);
         player.setTrainCards(info.getStartingTrainCards());
+        player.setToChoose(info.getStartingDestCards());
         userData.setCurrentPlayer(player);
     }
 
-    public SinglePlayerStartInfo getStartInfo ()
+    public SetUpData getSetUpData ()
     {
-        return info;
+        SetUpData data = new SetUpData();
+        data.setColor(userData.getCurrentPlayer().getColor());
+        data.setTurnNumber(userData.getCurrentPlayer().getTurnNumber());
+        data.setStartingTrainCards(userData.getCurrentPlayer().getTrainCards());
+        data.setStartingDestCards(userData.getCurrentPlayer().getToChoose());
+        return data;
+    }
+
+    public BoardData getBoardData()
+    {
+        BoardData data = new BoardData();
+        data.setDestDeckSize(userData.getCurrentGame().getDestinationDeck().size());
+        data.setTrainDeckSize(userData.getCurrentGame().getFaceDownTrainDeck().size());
+        data.setOtherPlayerInfo();
     }
 
 }
