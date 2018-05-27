@@ -1,22 +1,17 @@
 package Model.InGameModels;
 
-import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import Model.InGameModels.City;
 
 /**
  * Created by Topper on 5/25/2018.
  */
 
 public class Cities {
-    private final static Cities instance = new Cities();
-    public static Cities getInstance(){
-        return instance;
-    }
-    List<City> cityList;
-    final int NUM_CITIES = 37;
+    private static Cities instance = null;
+    List<City> cityList = new ArrayList<>();
+    final int NUM_CITIES = 35;
     private Cities(){
         Double[] lats = {33.749, 42.3601, 51.0486, 32.7765, 41.8781, 32.7767, 39.7392, 46.7867,
                 31.7619, 46.5891, 29.7604, 39.0997, 34.7465, 34.0522, 36.1699, 25.7617, 45.5017,
@@ -37,6 +32,12 @@ public class Cities {
        for(int i = 0; i < NUM_CITIES; i++){
            cityList.add(new City(cityNames[i],lats[i],longs[i]));
        }
+    }
+
+    public static Cities getInstance(){
+        if(instance == null)
+            instance = new Cities();
+        return  instance;
     }
 
     public List<City> getCityList() {

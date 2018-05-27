@@ -10,7 +10,7 @@ import java.util.List;
 public class Routes
 {
     //private final static Routes instance = new Routes();
-    List<Route> routeList;
+    List<Route> routeList = new ArrayList<>();
     public Routes(){
         String[] startCities = {"Vancouver", "Vancouver", "Vancouver", "Seattle", "Seattle", "Seattle",
                 "Seattle", "Portland", "Portland", "Portland", "San Fran", "San Fran", "San Fran",
