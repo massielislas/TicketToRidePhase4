@@ -142,7 +142,7 @@ public class TicketToRideFacade implements ITicketToRide {
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"Model.SinglePlayerStartInfo"};
             Object[] methodArguments = {initPack};
-            Command command = new Command("Model.GameFacade", "getInstance",
+            Command command = new Command("Model.PlayFacade", "getInstance",
                     "setStartInfo", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommand(p.getUserName(),command);
