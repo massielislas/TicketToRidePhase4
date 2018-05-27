@@ -27,6 +27,8 @@ public class Chat extends Observable
         addObserver(o);
     }
 
+    public void removeAnObserver(Observer o) {deleteObserver(o);}
+
     public static Chat getInstance() {
         return instance;
     }

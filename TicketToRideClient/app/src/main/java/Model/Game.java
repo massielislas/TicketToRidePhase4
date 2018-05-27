@@ -103,6 +103,8 @@ public class Game extends Observable
         addObserver(o);
     }
 
+    public void removeAnObserver(Observer o) {deleteObserver(o);}
+
     public ArrayList<DestinationCard> getSelectedDestinationCards(ArrayList<Double> toGet)
     {
         ArrayList<DestinationCard> selectedCards = new ArrayList<DestinationCard>();
