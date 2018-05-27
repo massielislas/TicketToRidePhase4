@@ -3,6 +3,7 @@ package root.tickettorideclient.Views;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,10 +26,14 @@ public class DrawDestinationCardsView extends Fragment{
     RecyclerView cardListRecyclerView;
     DestinationsAdapter destinationsAdapter;
     ArrayList<DestinationCard> userDestinationCards = new ArrayList<>();
+    int selectedColor;
+    int nonSelectedColor;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        selectedColor = ContextCompat.getColor(getContext(), R.color.selectedCardColor);
+        nonSelectedColor = ContextCompat.getColor(getContext(), R.color.unselectedCardColor);
     }
 
     @Nullable
@@ -62,20 +67,30 @@ public class DrawDestinationCardsView extends Fragment{
     }
 
     public class DestinationCardHolder extends RecyclerView.ViewHolder{
-        TextView destinationCard;
+        TextView destinationCardTextView;
         TextView completion;
 
         public DestinationCardHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.destination_card_item, parent, false));
-            destinationCard = (TextView) itemView.findViewById(R.id.destinationCardItem);
+            destinationCardTextView = (TextView) itemView.findViewById(R.id.destinationCardItem);
             completion = (TextView) itemView.findViewById(R.id.completion);
         }
 
         public void bind(final DestinationCard destinationCard){
             String route = destinationCard.getCity1().getName() + " to " + destinationCard.getCity2().getName() + "\n";
             route += "Points: "  + destinationCard.getPointValue();
-            String completionMessage;
-            this.destinationCard.setText(route);
+            destinationCardTextView.setText(route);
+            final int destinationCardColor = destinationCardTextView.getDrawingCacheBackgroundColor();
+            destinationCardTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                     if(destinationCardTextView.getDrawingCacheBackgroundColor() == selectedColor){
+                         destinationCardTextView.setBackgroundColor(nonSelectedColor);
+                     }
+                     else
+                         destinationCardTextView.setBackgroundColor(selectedColor);
+                }
+            });
             completion.setText("");
         }
     }
