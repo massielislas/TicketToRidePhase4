@@ -114,8 +114,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         //For testing - use update pattern for real thing
         this.cities = Cities.getInstance().getCities().toArray(cities);
         //draw cities
-        this.routes = Routes
-
+        this.routes = (new Routes()).getRouteList().toArray(routes);
+        //draw routes
 
         return myView;
     }
