@@ -155,11 +155,11 @@ public class TicketToRideProxy implements ITicketToRide {
     }
 
     @Override
-    public GameStartResult startGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
+    public GameStartResult startGame(String ID) {
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"java.lang.Double", "java.lang.Double", "java.lang.Double", "java.lang.String"};
-        Object[] methodArguments = {playerCount, currentPlayers, gameNumber, ID};
+        String[] methodParamTypeNames = {"java.lang.String"};
+        Object[] methodArguments = {ID};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
                 "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,

@@ -58,10 +58,10 @@ public class TicketToRideFacade implements ITicketToRide {
 
     public Result addPlayerToGame(String userPass, Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
         //Check if the game with the corresponding ID exists
-        Game game = new Game(playerCount, currentPlayers, gameNumber, ID);
+        Game game = Server.getSpecificGame(ID);
         UserPass uName = new UserPass(userPass);
 
-        if (!Server.doesGameExist(game)) {
+        if (game == null) {
             return new Result(false, "Invalid Game ID");
         }
         //Check if the user with the corresponding name exists
@@ -81,6 +81,10 @@ public class TicketToRideFacade implements ITicketToRide {
                         "addPlayer", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                         methodArguments);
                 CommandManager.getInstance().addCommandAllUsers(command);
+
+                if (game.getCurrentPlayers() == game.getPlayerCount()) {
+                    startGame(game.getID());
+                }
             }
             return check;
         }
@@ -112,15 +116,15 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
-    public GameStartResult startGame (Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
-        return startGame((Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
-    }
+//    public GameStartResult startGame (Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
+//        return startGame((Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
+//    }
 
-    public GameStartResult startGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
+    public GameStartResult startGame(String ID) {
 
-        Game game = new Game(playerCount, currentPlayers, gameNumber, ID);
+        Game game = Server.getSpecificGame(ID);
 
-        if (!Server.doesGameExist(game)) {
+        if (game == null) {
             return new GameStartResult(false, "That game doesn't exist!");
         }
         else {
