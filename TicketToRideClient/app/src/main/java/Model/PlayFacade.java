@@ -8,6 +8,7 @@ import Model.InGameModels.Chat;
 import Model.InGameModels.Cities;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Player;
+import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
 import Results.Result;
@@ -18,6 +19,7 @@ public class PlayFacade {
     Chat chat = Chat.getInstance();
     UserData userData = UserData.getUserData();
     Cities cities = Cities.getInstance();
+    Routes routes = new Routes();
     SinglePlayerStartInfo info;
 
     public void addObserver(Observer o)
@@ -86,7 +88,7 @@ public class PlayFacade {
         player.setToChoose(info.getStartingDestCards());
         userData.setCurrentPlayer(player);
         userData.getCurrentGame().setCities(cities.getCityList());
-
+        userData.getCurrentGame().setRoutes(routes.getRouteList());
     }
 
     public SetUpData getSetUpData ()
@@ -106,9 +108,8 @@ public class PlayFacade {
         data.setTrainDeckSize(userData.getCurrentGame().getFaceDownTrainDeck().size());
         data.setOtherPlayerInfo(info.getPlayerInfo());
         data.setFaceUpCards(userData.getCurrentGame().getFaceUpTrainDeck());
-        data.setRoutes();
+        data.setRoutes(userData.getCurrentGame().getRoutes());
         data.setCities(userData.getCurrentGame().getCities());
         return data;
     }
-
 }
