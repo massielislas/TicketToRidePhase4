@@ -40,7 +40,7 @@ public class DestinationCardsView extends Fragment {
     }
 
     public void createList(){
-        cardListRecyclerView = (RecyclerView) cardListRecyclerView.findViewById(R.id.destinationCardsRecyclerView);
+        cardListRecyclerView = (RecyclerView) v.findViewById(R.id.destinationCardsRecyclerView);
         cardListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
     }
@@ -48,12 +48,14 @@ public class DestinationCardsView extends Fragment {
     public void updateUI(){
         addFakeDestinations();
         destinationsAdapter = new DestinationsAdapter(userDestinationCards);
+        cardListRecyclerView.setAdapter(destinationsAdapter);
     }
 
     public void addFakeDestinations(){
         for(int i = 0; i < 3; i++){
             City city1 = new City("City" + i, 0.0, 0.0);
-            City city2 = new City("City" + (i + 1), 0.0, 0.0);
+            City city2 = new City("City" + (i + 1), 0.0
+                    , 0.0);
             DestinationCard destinationCard = new DestinationCard(city1, city2, i, i);
             userDestinationCards.add(destinationCard);
         }
@@ -64,13 +66,13 @@ public class DestinationCardsView extends Fragment {
         TextView completion;
 
         public DestinationCardHolder(LayoutInflater inflater, ViewGroup parent){
-            super(inflater.inflate(R.layout.game_list_item, parent, false));
+            super(inflater.inflate(R.layout.destination_card_item, parent, false));
             destinationCard = (TextView) itemView.findViewById(R.id.destinationCardItem);
             completion = (TextView) itemView.findViewById(R.id.completion);
         }
 
         public void bind(final DestinationCard destinationCard){
-            String route = destinationCard.getCity1() + " to " + destinationCard.getCity2() + "\n";
+            String route = destinationCard.getCity1().getName() + " to " + destinationCard.getCity2().getName() + "\n";
             route += "Points: "  + destinationCard.getPointValue();
             String completionMessage;
             if(destinationCard.isComplete())
