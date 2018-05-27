@@ -1,32 +1,94 @@
 package Model.InGameModels;
 
-import android.graphics.Color;
-
-import java.util.Observable;
-
-import Model.InGameModels.City;
 import Model.UserPass;
 
-public class Route extends Observable {
+/**
+ * Created by Master_Chief on 5/23/2018.
+ */
 
+public class Route {
+    private City city1;
+    private City city2;
     private int length;
-    private String color;
     private boolean isClaimed;
+    private boolean isDouble;
+    private boolean isDoubleClaimed;
     private UserPass claimant;
     private int scoreValue;
     private int ID;
-    private City city1;
-    private City city2;
+    private String color;
+    private String doubleColor;
 
-    public Route(int length, String color, int scoreValue, int ID, City city1, City city2) {
-        this.length = length;
-        this.color = color;
-        this.scoreValue = scoreValue;
-        this.ID = ID;
-        this.city1 = city1;
-        this.city2 = city2;
-        isClaimed = false;
-        claimant = null;
+
+    public Route(City newCity1, City newCity2, int newLength, String newColor, int newID){
+        city1 = newCity1;
+        city2 = newCity2;
+        length = newLength;
+        switch (newLength){
+            case 1:
+                scoreValue = 1;
+                break;
+            case 2:
+                scoreValue = 2;
+                break;
+            case 3:
+                scoreValue = 4;
+                break;
+            case 4:
+                scoreValue = 7;
+                break;
+            case 5:
+                scoreValue = 10;
+                break;
+            case 6:
+                scoreValue = 15;
+                break;
+        }
+        color = newColor;
+        ID = newID;
+    }
+    public Route(City newCity1, City newCity2, int newLength, String newColor, int newID, String newDoubleColor){
+        city1 = newCity1;
+        city2 = newCity2;
+        length = newLength;
+        switch (newLength){
+            case 1:
+                scoreValue = 1;
+                break;
+            case 2:
+                scoreValue = 2;
+                break;
+            case 3:
+                scoreValue = 4;
+                break;
+            case 4:
+                scoreValue = 7;
+                break;
+            case 5:
+                scoreValue = 10;
+                break;
+            case 6:
+                scoreValue = 15;
+                break;
+        }
+        color = newColor;
+        ID = newID;
+        isDouble = true;
+        doubleColor = newDoubleColor;
+    }
+
+
+
+    public boolean isDouble() {
+        return isDouble;
+    }
+
+    public boolean isDoubleClaimedl() {
+        return isDoubleClaimed;
+    }
+
+    public void setDoubleClaimed(boolean doubleClaimed) {
+        isDoubleClaimed = doubleClaimed;
     }
 
     public City getCity1() {
@@ -89,6 +151,7 @@ public class Route extends Observable {
         return color;
     }
 
-    public void setColor(String color) { this.color = color;
+    public void setColor(String color) {
+        this.color = color;
     }
 }
