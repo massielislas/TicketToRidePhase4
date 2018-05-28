@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -67,7 +68,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     TextView yourHandBanner;
     LinearLayout yourHandDisplay;
-    TextView playerPurpleCards;
+    TextView playerPinkCards;
     TextView playerWhiteCards;
     TextView playerBlueCards;
     TextView playerYellowCards;
@@ -173,7 +174,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             }
         });
 
-        playerPurpleCards = (TextView) myView.findViewById(R.id.playerPurpleCards);
+        playerPinkCards = (TextView) myView.findViewById(R.id.playerPinkCards);
         playerWhiteCards = (TextView) myView.findViewById(R.id.playerWhiteCards);
         playerBlueCards = (TextView) myView.findViewById(R.id.playerBlueCards);
         playerYellowCards = (TextView) myView.findViewById(R.id.playerYellowCards);
@@ -314,7 +315,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
        Integer blue = 0;
        Integer green = 0;
        Integer orange = 0;
-       Integer purple = 0;
+       Integer pink = 0;
        Integer red = 0;
        Integer white = 0;
        Integer wild = 0;
@@ -322,7 +323,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
        for (int i = 0; i < cards.size(); ++i ) {
            TrainCard card = cards.get(i);
-           String cardColor = card.getColor();
+           String cardColor = card.getColor().toLowerCase();
 
            switch (cardColor) {
                case "black":
@@ -337,8 +338,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                case "orange":
                     orange = orange + 1;
                     break;
-               case "purple":
-                    purple = purple + 1;
+               case "pink":
+                    pink = pink + 1;
                     break;
                case "red":
                     red = red + 1;
@@ -359,7 +360,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         playerBlueCards.setText(blue.toString());
         playerGreenCards.setText(green.toString());
         playerOrangeCards.setText(orange.toString());
-        playerPurpleCards.setText(purple.toString());
+        playerPinkCards.setText(pink.toString());
         playerRedCards.setText(red.toString());
         playerWhiteCards.setText(white.toString());
         playerWildCards.setText(wild.toString());
@@ -410,6 +411,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void updateFaceUp(ArrayList<TrainCard> cards) {
+        //TODO: COLORS
         if (cards.size() > 0) {
             faceUpCard1.setBackgroundColor(Color.parseColor(cards.get(0).getColor()));
 
@@ -501,31 +503,31 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             String color = routes.get(i).getColor();
             switch (color){
                 case "Gray":
-                    polylineOptions.color(Color.GRAY);
+                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainGray));
                     break;
                 case "Yellow":
-                    polylineOptions.color(Color.YELLOW);
+                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainYellow));
                     break;
                 case "Blue":
-                    polylineOptions.color(Color.BLUE);
+                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainBlue));
                     break;
                 case "Green":
-                    polylineOptions.color(Color.GREEN);
+                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainGreen));
                     break;
                 case "Pink":
-                    polylineOptions.color(Color.MAGENTA);
+                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainPink));
                     break;
                 case "Black":
-                    polylineOptions.color(Color.BLACK);
+                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainBlack));
                     break;
                 case "Orange":
-                    polylineOptions.color(Color.rgb(255, 175, 58));
+                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainOrange));
                     break;
                 case "White":
-                    polylineOptions.color(Color.WHITE);
+                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainWhite));
                     break;
                 case "Red":
-                    polylineOptions.color(Color.RED);
+                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainRed));
                     break;
                 default:
                     polylineOptions.color(Color.CYAN);
@@ -543,31 +545,31 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                 String color2 = routes.get(i).getDoubleColor();
                 switch (color2){
                     case "Gray":
-                        polylineOptions2.color(Color.GRAY);
+                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainGray));
                         break;
                     case "Yellow":
-                        polylineOptions2.color(Color.YELLOW);
+                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainYellow));
                         break;
                     case "Blue":
-                        polylineOptions2.color(Color.BLUE);
+                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainBlue));
                         break;
                     case "Green":
-                        polylineOptions2.color(Color.GREEN);
+                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainGreen));
                         break;
                     case "Pink":
-                        polylineOptions2.color(Color.MAGENTA);
+                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainPink));
                         break;
                     case "Black":
-                        polylineOptions2.color(Color.BLACK);
+                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainBlack));
                         break;
                     case "Orange":
-                        polylineOptions2.color(Color.rgb(255, 175, 58));
+                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainOrange));
                         break;
                     case "White":
-                        polylineOptions2.color(Color.WHITE);
+                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainWhite));
                         break;
                     case "Red":
-                        polylineOptions2.color(Color.RED);
+                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainRed));
                         break;
                     default:
                         polylineOptions2.color(Color.CYAN);

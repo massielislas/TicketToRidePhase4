@@ -88,17 +88,17 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="30dp"
-                        android:background="#9c4bd0"
+                        android:background="@color/trainGreen"
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
-                        android:id="@+id/playerPurpleCards"
+                        android:id="@+id/playerGreenCards"
                         android:layout_margin="10dp">
                     </TextView>
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="30dp"
-                        android:background="#dddddd"
+                        android:background="@color/trainWhite"
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:id="@+id/playerWhiteCards"
@@ -108,20 +108,20 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="30dp"
-                        android:background="#0886ce"
+                        android:background="@color/trainYellow"
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
-                        android:id="@+id/playerBlueCards"
+                        android:id="@+id/playerYellowCards"
                         android:layout_margin="10dp">
                     </TextView>
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="30dp"
-                        android:background=" #fffd51"
+                        android:background="@color/trainWild"
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
-                        android:id="@+id/playerYellowCards"
+                        android:id="@+id/playerWildCards"
                         android:layout_margin="10dp">
                     </TextView>
                 </LinearLayout>
@@ -131,30 +131,32 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="30dp"
-                        android:background="#ffbd51"
+                        android:background="@color/trainOrange"
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:id="@+id/playerOrangeCards"
                         android:layout_margin="5dp">
                     </TextView>
 
+
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="30dp"
-                        android:background="#515151"
+                        android:background="@color/trainBlue"
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
-                        android:id="@+id/playerBlackCards"
+                        android:id="@+id/playerBlueCards"
                         android:layout_margin="5dp">
                     </TextView>
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="30dp"
-                        android:background="#ff5e51"
+                        android:background="@color/trainRed"
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:id="@+id/playerRedCards"
@@ -164,20 +166,20 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="30dp"
-                        android:background="#47de61"
+                        android:background="@color/trainBlack"
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
-                        android:id="@+id/playerGreenCards"
+                        android:id="@+id/playerBlackCards"
                         android:layout_margin="5dp">
                     </TextView>
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="30dp"
-                        android:background="#bbccff"
+                        android:background="@color/trainPink"
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
-                        android:id="@+id/playerWildCards"
+                        android:id="@+id/playerPinkCards"
                         android:layout_margin="5dp">
                     </TextView>
                 </LinearLayout>
