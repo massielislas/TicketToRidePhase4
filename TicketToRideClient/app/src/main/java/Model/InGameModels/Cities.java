@@ -11,7 +11,7 @@ import java.util.List;
 public class Cities {
     private static Cities instance = null;
     List<City> cityList = new ArrayList<>();
-    final int NUM_CITIES = 35;
+    final int NUM_CITIES = 36;
     private Cities(){
         Double[] lats = {33.749, 42.3601, 51.0486, 32.7765, 41.8781, 32.7767, 39.7392, 46.7867,
                 31.7619, 46.5891, 29.7604, 39.0997, 34.7465, 34.0522, 36.1699, 25.7617, 45.5017,

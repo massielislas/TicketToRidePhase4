@@ -487,8 +487,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
             PolylineOptions polylineOptions = new PolylineOptions();
             polylineOptions.add(new LatLng(
-                    routes.get(i).getCity1().getLatitude(), routes.get(i).getCity1().getLatitude()),
-                    new LatLng(routes.get(i).getCity1().getLatitude(), routes.get(i).getCity2().getLongitude()));
+                    routes.get(i).getCity1().getLatitude(), routes.get(i).getCity1().getLongitude()),
+                    new LatLng(routes.get(i).getCity2().getLatitude(), routes.get(i).getCity2().getLongitude()));
             polylineOptions.width(5);
             String color = routes.get(i).getColor();
             switch (color){

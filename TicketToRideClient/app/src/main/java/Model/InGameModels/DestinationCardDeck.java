@@ -46,7 +46,7 @@ public class DestinationCardDeck {
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Kansas City"),
                 Cities.getInstance().findCity("Houston"),5,i++));
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Winnipeg"),
-                Cities.getInstance().findCity("Litle Rock"),11,i++));
+                Cities.getInstance().findCity("Little Rock"),11,i++));
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Chicago"),
                 Cities.getInstance().findCity("New Orleans"),7,i++));
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Seattle"),
