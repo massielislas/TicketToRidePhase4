@@ -33,7 +33,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
     public BoardPresenter (IBoardView view, FragmentActivity mn) {
         this.view = view;
         facade = new PlayFacade();
-      //  this.facade.addObserver(this);
+        facade.addBoardObserver(this);
         this.mn = mn;
     }
 
@@ -65,9 +65,8 @@ public class BoardPresenter implements IBoardPresenter, Observer {
                     view.addAllCities(new ArrayList<City>(data.getCities()));
                 }
 
-                if (view.getNumRoutes() != data.getRoutes().size()) {
-                    view.addAllRoutes(new ArrayList<Route>(data.getRoutes()));
-                }
+                view.addAllRoutes(new ArrayList<Route>(data.getRoutes()));
+
 
                 if (view.getNumPlayers() != data.getOtherPlayerInfo().size()) {
 

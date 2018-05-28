@@ -12,19 +12,34 @@ import Model.InGameModels.Player;
 import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
+import Model.InGameModels.TrainCardDeck;
 import Results.Result;
 
 public class PlayFacade {
 
-    TicketToRideProxy proxy = new TicketToRideProxy();
-    Chat chat = Chat.getInstance();
-    UserData userData = UserData.getUserData();
-    Cities cities = Cities.getInstance();
-    Routes routes = new Routes();
-    DestinationCardDeck destCardDeck = new DestinationCardDeck();
+    TicketToRideProxy proxy;
+    Chat chat;
+    UserData userData;
+    Cities cities;
+    Routes routes;
+    DestinationCardDeck destCardDeck;
     SinglePlayerStartInfo info;
-    BoardData boardData = new BoardData();
-    SetUpData setUpData = new SetUpData();
+    BoardData boardData;
+    SetUpData setUpData;
+    TrainCardDeck trainCardDeck;
+
+    public PlayFacade()
+    {
+        trainCardDeck = new TrainCardDeck();
+        setUpData = new SetUpData();
+        boardData = new BoardData();
+        destCardDeck = new DestinationCardDeck();
+        routes = new Routes();
+        cities = Cities.getInstance();
+        userData = UserData.getUserData();
+        chat = Chat.getInstance();
+        proxy = new TicketToRideProxy();
+    }
 
     public void addSetUpObserver(Observer o)
     {
@@ -113,9 +128,7 @@ public class PlayFacade {
         userData.getCurrentGame().setCities(cities.getCityList());
         userData.getCurrentGame().setRoutes(routes.getRouteList());
         userData.getCurrentGame().setDestinationDeck(destCardDeck.getDestinationCards());
-        //TODO
-        // set faceDownTrainDeck
-        // userData.getCurrentGame().setFaceDownTrainDeck();
+        userData.getCurrentGame().setFaceDownTrainDeck(trainCardDeck.getTrainCards());
         setSetUpData();
     }
 
