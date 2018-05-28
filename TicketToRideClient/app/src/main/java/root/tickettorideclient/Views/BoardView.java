@@ -151,6 +151,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             playerStats.setDestinationCards(i);
             playerStats.setTrainCards(i);
             playerStats.setTrainPieces(i);
+            playerStats.setPoints(i);
             otherPlayers.add(playerStats);
         }
     }
@@ -582,12 +583,14 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         TextView trainCards;
         TextView destinationCards;
         TextView username;
+        TextView points;
         public OtherPlayerHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.other_player_stats_item, parent, false));
             trainPieces = (TextView) itemView.findViewById(R.id.otherPlayerTrainPieces);
             trainCards = (TextView) itemView.findViewById(R.id.otherPlayerTrainCards);
             destinationCards = (TextView) itemView.findViewById(R.id.otherPlayerDestinationCards);
             username = (TextView) itemView.findViewById(R.id.otherPlayerUsername);
+            points = (TextView) itemView.findViewById(R.id.otherPlayerPoints);
         }
 
         public void bind(final PlayerStats playerStats){
@@ -595,6 +598,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             trainPieces.setText("T:" + playerStats.getTrainPieces());
             trainCards.setText("C:" + playerStats.getTrainCards());
             destinationCards.setText("D:" + playerStats.getDestinationCards());
+            points.setText("P:" + playerStats.getPoints());
         }
     }
 
