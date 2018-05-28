@@ -61,8 +61,14 @@ public class Game {
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
         this.ID = ID;
-        this.playerList = new ArrayList<>();
-        this.userList = new ArrayList<>();
+        playerList = new ArrayList<>();
+        userList = new ArrayList<>();
+        trainCardFacedownDeck = new ArrayList<>();
+        trainCardFaceupDeck = new TrainCard[faceupSize];
+        discardedTrainCards = new ArrayList<>();
+        DestinationCardDeck deck = new DestinationCardDeck();
+        destinationCardDeck = deck.getDestinationCards();
+        chat = new ArrayList<>();
         initializeTrainCards();
     }
 
