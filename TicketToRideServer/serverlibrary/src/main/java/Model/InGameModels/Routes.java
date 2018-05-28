@@ -17,8 +17,8 @@ public class Routes
     List<Route> routeList;
     public Routes(){
         String[] startCities = {"Vancouver", "Vancouver", "Vancouver", "Seattle", "Seattle", "Seattle",
-                "Seattle", "Portland", "Portland", "Portland", "San Fran", "San Fran", "San Fran",
-                "San Fran", "Los Angeles", "Los Angeles", "Los Angeles", "Las Vegas", "Salt Lake",
+                "Seattle", "Portland", "Portland", "Portland", "San Francisco", "San Francisco", "San Francisco",
+                "San Francisco", "Los Angeles", "Los Angeles", "Los Angeles", "Las Vegas", "Salt Lake",
                 "Salt Lake", "Salt Lake", "Helena", "Helena", "Helena", "Helena", "Helena", "Denver",
                 "Denver", "Denver", "Denver", "Denver", "Denver", "Phoenix", "Phoenix", "Santa Fe",
                 "Santa Fe", "El Paso", "El Paso", "El Paso", "Winnipeg", "Winnipeg", "Duluth", "Duluth",
@@ -33,7 +33,7 @@ public class Routes
                 "Montreal", "Montreal"
         };
         String[] endCities = {"Calgary", "Seattle", "Seattle", "Portland", "Portland", "Calgary",
-                "Helena", "Salt Lake", "San Fran", "San Fran", "Salt Lake", "Salt Lake", "Los Angeles",
+                "Helena", "Salt Lake", "San Francisco", "San Francisco", "Salt Lake", "Salt Lake", "Los Angeles",
                 "Los Angeles", "Las Vegas", "Phoenix", "El Paso", "Salt Lake", "Denver", "Denver",
                 "Helena", "Calgary", "Denver", "Omaha", "Duluth", "Winnipeg", "Santa Fe", "Phoenix",
                 "Omaha", "Kansas City", "Kansas City", "Oklahoma City", "El Paso", "Santa Fe", "El Paso",
