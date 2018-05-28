@@ -24,7 +24,7 @@ public class Cities {
                 90.1994, 111.891, 122.4194, 105.9378, 122.3321, 79.3832, 123.1207, 77.0369, 97.1384,
                 84.3358};
         String[] cityNames = {"Atlanta", "Boston", "Calgary", "Charleston", "Chicago", "Dallas", "Denver", "Duluth",
-                "El Paso", "Helena", "Houston", "Kansas City", "Little Rock", "Los Angeles", "Los Vegas",
+                "El Paso", "Helena", "Houston", "Kansas City", "Little Rock", "Los Angeles", "Las Vegas",
                 "Miami", "Montreal", "Nashville", "New Orleans", "New York", "Oklahoma City", "Omaha",
                 "Phoenix", "Pittsburgh", "Portland", "Raleigh", "Saint Louis", "Salt Lake",
                 "San Francisco", "Santa Fe", "Seattle", "Toronto", "Vancouver", "Washington DC",
@@ -51,6 +51,7 @@ public class Cities {
                 return c;
             }
         }
+        System.out.println(cityName);
         return null;
     }
     public List<City> getCities() {
