@@ -37,6 +37,7 @@ import java.util.Map;
 
 import Model.InGameModels.Cities;
 import Model.InGameModels.City;
+import Model.InGameModels.DestinationCard;
 import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
@@ -276,7 +277,9 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         UiSettings uiSettings = myGoogleMap.getUiSettings();
         uiSettings.setZoomGesturesEnabled(true);
         drawCities();
+        drawRoutes();
     }
+
 
     @Override
     public void addAllHistory(ArrayList<String> messages) {
@@ -354,27 +357,68 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     @Override
     public void updatePlayerPoints(String playerID, Integer points) {
+        for (int i = 0; i < otherPlayers.size(); ++i) {
+            if (otherPlayers.get(i).getUsername().equals(playerID)) {
+                otherPlayers.get(i).setPoints(points);
+                return;
+            }
+        }
         userPointsBanner.setText("POINTS: " + points);
     }
 
     @Override
-    public void updateTrainPieces(String playerID, Integer pieces) {
+    public void updatePlayerPieces(String playerID, Integer pieces) {
+        for (int i = 0; i < otherPlayers.size(); ++i) {
+            if (otherPlayers.get(i).getUsername().equals(playerID)) {
+                otherPlayers.get(i).setTrainPieces(pieces);
+                return;
+            }
+        }
         userPointsBanner.setText("TRAINS: " + pieces + "/45");
+    }
+
+    @Override
+    public void updatePlayerTrainCards(String playerID, Integer cards) {
+        for (int i = 0; i < otherPlayers.size(); ++i) {
+            if (otherPlayers.get(i).getUsername().equals(playerID)) {
+                otherPlayers.get(i).setTrainCards(cards);
+            }
+        }
+    }
+
+    @Override
+    public void updatePlayerDestCards(String playerID, Integer cards) {
+        for (int i = 0; i < otherPlayers.size(); ++i) {
+            if (otherPlayers.get(i).getUsername().equals(playerID)) {
+                otherPlayers.get(i).setDestinationCards(cards);
+            }
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void updateFaceUp(ArrayList<TrainCard> cards) {
-        //TODO: FIXME (can have 0 to 5)
-        if (cards.size() == 5) {
+        if (cards.size() > 0) {
             faceUpCard1.setBackgroundColor(Color.parseColor(cards.get(0).getColor()));
+
+        }
+        if (cards.size() > 1) {
             faceUpCard2.setBackgroundColor(Color.parseColor(cards.get(1).getColor()));
+
+        }
+        if (cards.size() > 2) {
             faceUpCard3.setBackgroundColor(Color.parseColor(cards.get(2).getColor()));
+
+        }
+        if (cards.size() > 3) {
             faceUpCard4.setBackgroundColor(Color.parseColor(cards.get(3).getColor()));
+        }
+        if (cards.size() > 4) {
             faceUpCard5.setBackgroundColor(Color.parseColor(cards.get(4).getColor()));
 
         }
     }
+
 
     @Override
     public void updateDestinationDeck(Integer cardCount) {
@@ -391,6 +435,40 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         this.cities = cities;
         //drawCities
     }
+
+    @Override
+    public void addAllRoutes (ArrayList<Route> routes) {
+        this.routes = routes;
+        //drawRoutes
+    }
+
+    @Override
+    public void addAllPlayers (ArrayList<PlayerStats> players) {
+        this.otherPlayers = players;
+    }
+
+    @Override
+    public void popToast(String message) {
+        Toast toast = Toast.makeText(getContext(),message, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
+    @Override
+    public void switchToEndView() {
+        //TODO: implement in next phase
+        popToast("Game ended: switch to end view");
+    }
+
+    @Override
+    public Integer getNumCities() {return cities.size();}
+
+    @Override
+    public Integer getNumPlayers() {return otherPlayers.size(); }
+
+    @Override
+    public Integer getNumRoutes() {return routes.size(); }
+
 
     public void drawCities(){
         float color = BitmapDescriptorFactory.HUE_RED;
@@ -443,29 +521,6 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             }
             lines.put(routes.get(i), myGoogleMap.addPolyline(polylineOptions));
         }
-    }
-
-    @Override
-    public void addAllRoutes (ArrayList<Route> routes) {
-        this.routes = routes;
-        //drawRoutes
-    }
-
-    @Override
-    public void addAllPlayers (ArrayList<PlayerStats> players) {
-        this.otherPlayers = players;
-    }
-
-    @Override
-    public void popToast(String message) {
-        Toast toast = Toast.makeText(getContext(),message, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
-    }
-
-    public void switchToEndView() {
-        //TODO: implement in next phase
-        popToast("Game ended: switch to end view");
     }
 
     public class OtherPlayerHolder extends RecyclerView.ViewHolder{

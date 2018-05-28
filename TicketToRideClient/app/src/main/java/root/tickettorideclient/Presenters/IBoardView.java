@@ -18,7 +18,6 @@ public interface IBoardView {
     public void addOneHistory(String message);
 
     public void updateHand(ArrayList<TrainCard> cards);
-    public void updateDestCards(ArrayList<DestinationCard> cards);
 
     public void updatePlayerPoints(String playerID, Integer points);
     public void updatePlayerPieces(String playerID, Integer pieces);
