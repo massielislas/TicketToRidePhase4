@@ -481,6 +481,10 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     public void drawRoutes(){
         for(int i = 0; i < routes.size(); i++){
+            System.out.println(i);
+            if(routes.get(i).getCity1() == null || routes.get(i).getCity2() == null)
+                System.out.print("null");
+
             PolylineOptions polylineOptions = new PolylineOptions();
             polylineOptions.add(new LatLng(
                     routes.get(i).getCity1().getLatitude(), routes.get(i).getCity1().getLatitude()),
