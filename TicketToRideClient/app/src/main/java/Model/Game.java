@@ -32,7 +32,7 @@ public class Game extends Observable
     List<Route> routes;
     List<City> cities;
     ArrayList<TrainCard> faceUpTrainDeck;
-    ArrayList<TrainCard> faceDownTrainDeck;
+    List<TrainCard> faceDownTrainDeck;
     Chat chat;
 
     Game(int playerCount, int currentPlayers, int gameNumber) {
@@ -90,11 +90,11 @@ public class Game extends Observable
         this.faceUpTrainDeck = faceUpTrainDeck;
     }
 
-    public ArrayList<TrainCard> getFaceDownTrainDeck() {
+    public List<TrainCard> getFaceDownTrainDeck() {
         return faceDownTrainDeck;
     }
 
-    public void setFaceDownTrainDeck(ArrayList<TrainCard> faceDownTrainDeck) {
+    public void setFaceDownTrainDeck(List<TrainCard> faceDownTrainDeck) {
         this.faceDownTrainDeck = faceDownTrainDeck;
     }
 

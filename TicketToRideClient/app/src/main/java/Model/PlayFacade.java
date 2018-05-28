@@ -12,6 +12,7 @@ import Model.InGameModels.Player;
 import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
+import Model.InGameModels.TrainCardDeck;
 import Results.Result;
 
 public class PlayFacade {
@@ -25,6 +26,7 @@ public class PlayFacade {
     SinglePlayerStartInfo info;
     BoardData boardData = new BoardData();
     SetUpData setUpData = new SetUpData();
+    TrainCardDeck trainCardDeck = new TrainCardDeck();
 
     public void addSetUpObserver(Observer o)
     {
@@ -113,9 +115,7 @@ public class PlayFacade {
         userData.getCurrentGame().setCities(cities.getCityList());
         userData.getCurrentGame().setRoutes(routes.getRouteList());
         userData.getCurrentGame().setDestinationDeck(destCardDeck.getDestinationCards());
-        //TODO
-        // set faceDownTrainDeck
-        // userData.getCurrentGame().setFaceDownTrainDeck();
+        userData.getCurrentGame().setFaceDownTrainDeck(trainCardDeck.getTrainCards());
         setSetUpData();
     }
 
