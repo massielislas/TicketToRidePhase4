@@ -3,8 +3,6 @@ package Model;
 import java.util.ArrayList;
 import Model.InGameModels.Player;
 import Model.InGameModels.TrainCard;
-import Results.GameResult;
-import Results.GameStartResult;
 import Results.LoginRegisterResult;
 import Results.Result;
 
@@ -59,7 +57,7 @@ public class TicketToRideFacade implements ITicketToRide {
 
     public Result addPlayerToGame(String userPass, Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
         //Check if the game with the corresponding ID exists
-        Game game = Server.getSpecificGame(ID);
+        Game game = Server.getInactiveGame(ID);
         UserPass uName = new UserPass(userPass);
 
         if (game == null) {
@@ -126,7 +124,7 @@ public class TicketToRideFacade implements ITicketToRide {
     @Override
     public Result startGame(String ID) {
 
-        Game game = Server.getSpecificGame(ID);
+        Game game = Server.getSpecificActiveGame(ID);
 
         if (game == null) {
             return new Result(false, "That game doesn't exist!");
@@ -158,7 +156,7 @@ public class TicketToRideFacade implements ITicketToRide {
     }
 
     @Override
-    private void updateFaceUpCards(Game game)
+    public void updateFaceUpCards(Game game)
     {
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
@@ -177,7 +175,7 @@ public class TicketToRideFacade implements ITicketToRide {
     }
 
     public Result sendChat(String userName, String msg, String gameID) {
-        Game toChat = Server.getSpecificGame(gameID);
+        Game toChat = Server.getSpecificActiveGame(gameID);
         if (toChat != null) {
             toChat.addChat(msg, userName);
             //Command for Chat
@@ -199,7 +197,7 @@ public class TicketToRideFacade implements ITicketToRide {
     }
 
     public Result discardDestCards(String username, String gameID, ArrayList<Integer> cardIDs) {
-        Game game = Server.getSpecificGame(gameID);
+        Game game = Server.getSpecificActiveGame(gameID);
         if (game != null) {
             //Command for Chat
             String[] instanceParamTypeNames = new String[0];

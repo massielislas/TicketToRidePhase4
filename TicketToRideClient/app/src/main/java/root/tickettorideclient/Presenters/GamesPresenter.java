@@ -35,7 +35,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
 
     public void createGame(Integer numPlayers) {
 
-        GameResult result = facade.createGame(numPlayers);
+        Result result = facade.createGame(numPlayers);
 
         //if unsucessful,
         //pop error toast
