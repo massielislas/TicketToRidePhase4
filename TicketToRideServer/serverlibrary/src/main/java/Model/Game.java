@@ -158,6 +158,15 @@ public class Game {
         chat.add(userName + ": " + msg);
     }
 
+    public boolean userAlreadyInGame(UserPass name) {
+        for (Player p : playerList) {
+            if (p.getUserName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getPlayerCount()
     {
         return playerCount;

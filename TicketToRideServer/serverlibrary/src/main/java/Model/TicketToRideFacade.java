@@ -67,6 +67,10 @@ public class TicketToRideFacade implements ITicketToRide {
         if (!Server.doesUserExist(uName)) {
             return new Result(false, "Invalid User");
         }
+
+        if (game.userAlreadyInGame(uName)) {
+            return new Result(false, "You're already in this game!");
+        }
         //Then attempt to add the player to the game, if the game is full, respond accordingly
         else {
             Result check = Server.addPlayerToGame(game, uName);
