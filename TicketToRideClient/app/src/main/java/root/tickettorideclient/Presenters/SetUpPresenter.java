@@ -33,6 +33,7 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
         this.view = view;
         this.facade = new PlayFacade();
 //        this.facade.addObserver(this);
+        this.facade.addSetUpObserver(this);
         this.mn = mn;
     }
 
