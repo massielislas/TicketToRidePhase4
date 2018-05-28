@@ -9,26 +9,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import Model.InGameModels.City;
 import Model.InGameModels.DestinationCard;
+import root.tickettorideclient.Presenters.DestinationCardsPresenter;
+import root.tickettorideclient.Presenters.IDestinationCardsView;
 import root.tickettorideclient.R;
 
 /**
  * Created by Massiel on 5/25/2018.
  */
 
-public class DestinationCardsView extends Fragment {
+public class DestinationCardsView extends Fragment implements IDestinationCardsView {
     View v;
     RecyclerView cardListRecyclerView;
     DestinationsAdapter destinationsAdapter;
     ArrayList<DestinationCard>userDestinationCards = new ArrayList<>();
 
+    IDestinationCardsPresenter presenter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        presenter = new DestinationCardsPresenter();
     }
 
     @Nullable
@@ -46,20 +53,30 @@ public class DestinationCardsView extends Fragment {
     }
 
     public void updateUI(){
+        userDestinationCards = presenter.getDestCards();
         addFakeDestinations();
         destinationsAdapter = new DestinationsAdapter(userDestinationCards);
         cardListRecyclerView.setAdapter(destinationsAdapter);
     }
 
     public void addFakeDestinations(){
-        for(int i = 0; i < 3; i++){
-            City city1 = new City("City" + i, 0.0, 0.0);
-            City city2 = new City("City" + (i + 1), 0.0
-                    , 0.0);
-            DestinationCard destinationCard = new DestinationCard(city1, city2, i, i);
-            userDestinationCards.add(destinationCard);
+        if ((userDestinationCards == null) || (userDestinationCards.size() == 0)) {
+            for (int i = 0; i < 3; i++) {
+                City city1 = new City("City" + i, 0.0, 0.0);
+                City city2 = new City("City" + (i + 1), 0.0
+                        , 0.0);
+                DestinationCard destinationCard = new DestinationCard(city1, city2, i, i);
+                userDestinationCards.add(destinationCard);
+            }
         }
     }
+
+
+    @Override
+    public void popToast (String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
 
     public class DestinationCardHolder extends RecyclerView.ViewHolder{
         TextView destinationCard;

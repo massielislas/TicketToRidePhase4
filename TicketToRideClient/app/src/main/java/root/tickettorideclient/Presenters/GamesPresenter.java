@@ -66,6 +66,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         //if successful,
         //switchViews
         if (result.isSuccess()) {
+            facade.deRegisterObserver(this);
             view.switchToWaitingView();
         }
 

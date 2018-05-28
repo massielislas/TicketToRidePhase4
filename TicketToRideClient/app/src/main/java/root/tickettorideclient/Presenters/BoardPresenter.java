@@ -97,7 +97,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
                 view.updatePlayerPoints(thisPlayer.getUserName().getNameOrPassword(), thisPlayer.getCurrentScore());
                 view.updateHand(new ArrayList<TrainCard>(thisPlayer.getTrainCards()));
                 view.updatePlayerPieces(thisPlayer.getUserName().getNameOrPassword(), thisPlayer.getTrainPiecesLeft());
-                view.updateDestCards(new ArrayList<DestinationCard>(thisPlayer.getDestCards()));
+              //  view.updateDestCards(new ArrayList<DestinationCard>(thisPlayer.getDestCards()));
 
                 for (int i = 0; i < data.getOtherPlayerInfo().size(); ++i) {
                     PlayerShallow player = data.getOtherPlayerInfo().get(i);

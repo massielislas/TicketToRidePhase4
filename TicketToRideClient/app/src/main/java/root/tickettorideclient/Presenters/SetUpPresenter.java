@@ -54,7 +54,7 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
         //if result is successful
         //switch to board
         if (result.isSuccess()) {
-            //unregister??
+            facade.deRegisterSetUpObserver(this);
             view.switchToBoardView();
         }
     }

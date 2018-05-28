@@ -41,6 +41,6 @@ public class WaitingPresenter implements IWaitingPresenter, Observer {
 
     @Override
     public void deregister () {
-        //facade.deregister(this);
+        facade.deRegisterObserver(this);
     }
 }
