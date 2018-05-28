@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 import Model.InGameModels.Chat;
 import Model.InGameModels.DestinationCard;
@@ -61,20 +62,12 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
     @Override
     public void update(Observable observable, Object o) {
 
-        //if observable is Chat
-        //don't do anything
-        if (observable.getClass().equals(Chat.class)) {
-            return;
-        }
+        final SetUpData data = (SetUpData) o;
 
-        //if observable is [other]
-        //set up
         mn.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
-                SetUpData data = facade.getSetUpData();
-
                 view.setPlayerNumber(data.getTurnNumber());
                 view.setPlayerColor(data.getColor());
                 view.setDestCards(new ArrayList<DestinationCard>(data.getStartingDestCards()));

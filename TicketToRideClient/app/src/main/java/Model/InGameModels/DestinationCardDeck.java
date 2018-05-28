@@ -7,6 +7,7 @@ public class DestinationCardDeck {
 
     public ArrayList<DestinationCard> destinationCards;
     public DestinationCardDeck(){
+        destinationCards = new ArrayList<>();
         int i = 0;
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Montreal"),
                 Cities.getInstance().findCity("Atlanta"),9,i++));
