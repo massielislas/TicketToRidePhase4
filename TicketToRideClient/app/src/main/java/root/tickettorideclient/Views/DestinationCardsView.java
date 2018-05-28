@@ -61,6 +61,7 @@ public class DestinationCardsView extends Fragment implements IDestinationCardsV
 
     public void addFakeDestinations(){
         if ((userDestinationCards == null) || (userDestinationCards.size() == 0)) {
+            userDestinationCards = new ArrayList<>();
             for (int i = 0; i < 3; i++) {
                 City city1 = new City("City" + i, 0.0, 0.0);
                 City city2 = new City("City" + (i + 1), 0.0

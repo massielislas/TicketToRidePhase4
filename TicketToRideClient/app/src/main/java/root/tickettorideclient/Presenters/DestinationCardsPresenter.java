@@ -3,6 +3,7 @@ package root.tickettorideclient.Presenters;
 import java.util.ArrayList;
 
 import Model.InGameModels.DestinationCard;
+import Model.InGameModels.Player;
 import Model.PlayFacade;
 import Model.UserData;
 import root.tickettorideclient.Views.IDestinationCardsPresenter;
@@ -21,7 +22,14 @@ public class DestinationCardsPresenter implements IDestinationCardsPresenter {
 
     public ArrayList<DestinationCard> getDestCards () {
         UserData thisUser = UserData.getUserData();
-        return new ArrayList<>(thisUser.getCurrentPlayer().getDestCards());
+        Player currentPlayer = thisUser.getCurrentPlayer();
+
+        if (currentPlayer == null) {
+            return null;
+        }
+
+
+        return new ArrayList<>(currentPlayer.getDestCards());
     }
 
 }

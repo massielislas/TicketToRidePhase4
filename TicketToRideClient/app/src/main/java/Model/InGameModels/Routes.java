@@ -64,7 +64,7 @@ public class Routes
                 if(startCities[i].equals(startCities[i+1])&&endCities[i].equals(endCities[i+1]))
                 {
                     routeList.add(new Route(Cities.getInstance().findCity(startCities[i]),
-                            Cities.getInstance().findCity(endCities[i]),lengths[i],colors[i],id++,colors[i+1]));
+                            Cities.getInstance().findCity(endCities[i]),lengths[i],colors[i],id++,colors[i+1], id++));
                     i++;
                 }
                 else{

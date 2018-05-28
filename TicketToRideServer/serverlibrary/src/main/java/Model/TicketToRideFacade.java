@@ -158,7 +158,7 @@ public class TicketToRideFacade implements ITicketToRide {
     }
 
     @Override
-    private void updateFaceUpCards(Game game)
+    public void updateFaceUpCards(Game game)
     {
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];

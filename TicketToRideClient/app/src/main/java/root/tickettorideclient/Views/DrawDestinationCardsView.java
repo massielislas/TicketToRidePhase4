@@ -13,18 +13,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import Model.InGameModels.City;
 import Model.InGameModels.DestinationCard;
+import root.tickettorideclient.Presenters.DrawDestinationCardsPresenter;
+import root.tickettorideclient.Presenters.IDestinationCardsView;
+import root.tickettorideclient.Presenters.IDrawDestinationCardsView;
 import root.tickettorideclient.R;
 
 /**
  * Created by Massiel on 5/26/2018.
  */
 
-public class DrawDestinationCardsView extends Fragment{
+public class DrawDestinationCardsView extends Fragment implements IDrawDestinationCardsView {
     View v;
     RecyclerView cardListRecyclerView;
     DestinationsAdapter destinationsAdapter;
@@ -32,11 +36,15 @@ public class DrawDestinationCardsView extends Fragment{
     int selectedColor;
     int nonSelectedColor;
 
+    IDrawDestinationPresenter presenter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         selectedColor = ContextCompat.getColor(getContext(), R.color.selectedCardColor);
         nonSelectedColor = ContextCompat.getColor(getContext(), R.color.unselectedCardColor);
+
+        presenter = new DrawDestinationCardsPresenter();
     }
 
     @Nullable
@@ -54,20 +62,31 @@ public class DrawDestinationCardsView extends Fragment{
     }
 
     public void updateUI(){
+        userDestinationCards = presenter.getChoices();
         addFakeDestinations();
         destinationsAdapter = new DestinationsAdapter(userDestinationCards);
         cardListRecyclerView.setAdapter(destinationsAdapter);
     }
 
     public void addFakeDestinations(){
-        for(int i = 0; i < 3; i++){
-            City city1 = new City("City" + i, 0.0, 0.0);
-            City city2 = new City("City" + (i + 1), 0.0
-                    , 0.0);
-            DestinationCard destinationCard = new DestinationCard(city1, city2, i, i);
-            userDestinationCards.add(destinationCard);
+        if ((userDestinationCards == null) || (userDestinationCards.size() != 3)) {
+            userDestinationCards = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                City city1 = new City("City" + i, 0.0, 0.0);
+                City city2 = new City("City" + (i + 1), 0.0
+                        , 0.0);
+                DestinationCard destinationCard = new DestinationCard(city1, city2, i, i);
+                userDestinationCards.add(destinationCard);
+            }
+            popToast("Auto generated choices");
         }
     }
+
+    @Override
+    public void popToast (String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
 
     public class DestinationCardHolder extends RecyclerView.ViewHolder{
         TextView destinationCardTextView;

@@ -16,6 +16,7 @@ public class Route {
     private UserPass claimant;
     private int scoreValue;
     private int ID;
+    private int doubleID;
     private String color;
     private String doubleColor;
 
@@ -55,7 +56,7 @@ public class Route {
         color = newColor;
         ID = newID;
     }
-    public Route(City newCity1, City newCity2, int newLength, String newColor, int newID, String newDoubleColor){
+    public Route(City newCity1, City newCity2, int newLength, String newColor, int newID, String newDoubleColor, int newDoubleID){
         city1 = newCity1;
         city2 = newCity2;
         length = newLength;
@@ -83,6 +84,7 @@ public class Route {
         ID = newID;
         isDouble = true;
         doubleColor = newDoubleColor;
+        doubleID = newDoubleID;
     }
 
 
