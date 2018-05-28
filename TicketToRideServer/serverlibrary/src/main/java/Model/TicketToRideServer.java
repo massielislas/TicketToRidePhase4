@@ -108,9 +108,18 @@ class TicketToRideServer {
         }
     }
 
-    public Game getSpecificGame(String ID) {
+    public Game getSpecificActiveGame(String ID) {
         for (Game g : activeGames) {
-            if (g.getID() == ID) {
+            if (g.getID().equals(ID)) {
+                return g;
+            }
+        }
+        return null;
+    }
+
+    public Game getInactiveGame(String ID) {
+        for (Game g : notYetActiveGames) {
+            if (g.getID().equals(ID)) {
                 return g;
             }
         }
