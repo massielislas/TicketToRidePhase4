@@ -26,15 +26,19 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Dash;
+import com.google.android.gms.maps.model.Gap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import Model.InGameModels.Cities;
@@ -492,12 +496,14 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     public void drawRoutes(){
+        List<PatternItem> dashedPattern = Arrays.asList(new Dash(60), new Gap(60));
         for(int i = 0; i < routes.size(); i++){
             PolylineOptions polylineOptions = new PolylineOptions();
             polylineOptions.add(new LatLng(
                     routes.get(i).getCity1().getLatitude(), routes.get(i).getCity1().getLongitude()),
                     new LatLng(routes.get(i).getCity2().getLatitude(), routes.get(i).getCity2().getLongitude()));
             polylineOptions.width(7);
+            polylineOptions.pattern(dashedPattern);
             String color = routes.get(i).getColor();
             switch (color){
                 case "Gray":
@@ -540,6 +546,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                                 routes.get(i).getCity1().getLatitude()+doubleRouteOffset, routes.get(i).getCity1().getLongitude()+doubleRouteOffset),
                         new LatLng(routes.get(i).getCity2().getLatitude()+doubleRouteOffset, routes.get(i).getCity2().getLongitude()+doubleRouteOffset));
                 polylineOptions2.width(10);
+                polylineOptions.pattern(dashedPattern);
                 String color2 = routes.get(i).getDoubleColor();
                 switch (color2){
                     case "Gray":
