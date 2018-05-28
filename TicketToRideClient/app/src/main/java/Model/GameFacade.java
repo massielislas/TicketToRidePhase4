@@ -23,6 +23,7 @@ public class GameFacade
         int gameNumber = gameList.getGameList().size() + 1;
         Game game = new Game(playerCount, 0, gameNumber);
         Result result =  proxy.createNewGame(game.getPlayerCount(), game.getCurrentPlayers(), game.getGameNumber(), game.getID());
+        //System.out.println("FIRST: " + game.getID());
         if (result.isSuccess())
         {
             UserData.getUserData().setCurrentGame(game);
@@ -44,7 +45,7 @@ public class GameFacade
     }
     public Result joinGame(String gameID)
     {
-        System.out.println("Game: " + gameID);
+        //System.out.println("Second: " + gameID);
         Game game = gameList.getGameList().get(gameID);
         if (game == null) System.out.println("uh oh!");
         Result result = proxy.addPlayerToGame(userData.getUsername().getNameOrPassword(), game.getPlayerCount(), game.getCurrentPlayers(), game.getGameNumber(), game.getID());
