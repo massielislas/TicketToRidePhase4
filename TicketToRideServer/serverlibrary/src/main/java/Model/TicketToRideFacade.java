@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import Model.InGameModels.Player;
+import Model.InGameModels.TrainCard;
 import Results.GameResult;
 import Results.GameStartResult;
 import Results.LoginRegisterResult;
@@ -136,6 +137,7 @@ public class TicketToRideFacade implements ITicketToRide {
             }
             else {
                 initializeHands(game);
+                updateFaceUpCards(game);
                 return new GameStartResult(game);
             }
         }
@@ -153,6 +155,24 @@ public class TicketToRideFacade implements ITicketToRide {
                     methodArguments);
             CommandManager.getInstance().addCommand(p.getUserName(),command);
         }
+    }
+
+    private void updateFaceUpCards(Game game)
+    {
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.util.ArrayList<Integer>"};
+        TrainCard[] faceUpDeck = game.getTrainCardFaceupDeck();
+        ArrayList<Integer> faceUpIDs = new ArrayList<Integer>();
+        for (int i = 0; i < faceUpIDs.size(); i++)
+        {
+            faceUpIDs.add(i, faceUpDeck[i].getID());
+        }
+        Object[] methodArguments = {faceUpIDs};
+        Command command = new Command("Model.PlayFacade", "getInstance",
+                "updateFaceUpCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+        CommandManager.getInstance().addCommandAllUsers(command);
     }
 
     public Result sendChat(String userName, String msg, String gameID) {
