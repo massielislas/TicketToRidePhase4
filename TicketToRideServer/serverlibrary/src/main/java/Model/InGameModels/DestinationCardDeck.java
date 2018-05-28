@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 
 public class DestinationCardDeck {
+
     public ArrayList<DestinationCard> destinationCards;
     public DestinationCardDeck(){
+        destinationCards = new ArrayList<>();
         int i = 0;
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Montreal"),
                 Cities.getInstance().findCity("Atlanta"),9,i++));
@@ -13,13 +15,13 @@ public class DestinationCardDeck {
                 Cities.getInstance().findCity("New Orleans"),13,i++));
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Duluth"),
                 Cities.getInstance().findCity("El Paso"),10,i++));
-        destinationCards.add(new DestinationCard(Cities.getInstance().findCity("San Fran"),
+        destinationCards.add(new DestinationCard(Cities.getInstance().findCity("San Francisco"),
                 Cities.getInstance().findCity("Atlanta"),17,i++));
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Duluth"),
                 Cities.getInstance().findCity("Houston"),8,i++));
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("New York"),
                 Cities.getInstance().findCity("Atlanta"),6,i++));
-        destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Sault Ste. Marie"),
+        destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Sault St. Marie"),
                 Cities.getInstance().findCity("Atlanta"),9,i++));
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Helena"),
                 Cities.getInstance().findCity("Los Angeles"),8,i++));
@@ -44,7 +46,7 @@ public class DestinationCardDeck {
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Kansas City"),
                 Cities.getInstance().findCity("Houston"),5,i++));
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Winnipeg"),
-                Cities.getInstance().findCity("Litle Rock"),11,i++));
+                Cities.getInstance().findCity("Little Rock"),11,i++));
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Chicago"),
                 Cities.getInstance().findCity("New Orleans"),7,i++));
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Seattle"),
@@ -57,7 +59,7 @@ public class DestinationCardDeck {
                 Cities.getInstance().findCity("Miami"),12,i++));
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Calgary"),
                 Cities.getInstance().findCity("Salt Lake"),7,i++));
-        destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Sault Ste. Marie"),
+        destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Sault St. Marie"),
                 Cities.getInstance().findCity("Nashville"),8,i++));
         destinationCards.add(new DestinationCard(Cities.getInstance().findCity("Winnipeg"),
                 Cities.getInstance().findCity("Houston"),12,i++));

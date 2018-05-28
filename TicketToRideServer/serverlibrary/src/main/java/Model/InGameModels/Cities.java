@@ -1,19 +1,17 @@
 package Model.InGameModels;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Topper on 5/25/2018.
  */
 
-public class Cities
-{
-    private final static Cities instance = new Cities();
-    public static Cities getInstance(){
-        return instance;
-    }
-    List<City> cityList;
-    final int NUM_CITIES = 37;
+public class Cities {
+    private static Cities instance = null;
+    List<City> cityList = new ArrayList<>();
+    final int NUM_CITIES = 36;
     private Cities(){
         Double[] lats = {33.749, 42.3601, 51.0486, 32.7765, 41.8781, 32.7767, 39.7392, 46.7867,
                 31.7619, 46.5891, 29.7604, 39.0997, 34.7465, 34.0522, 36.1699, 25.7617, 45.5017,
@@ -26,15 +24,26 @@ public class Cities
                 90.1994, 111.891, 122.4194, 105.9378, 122.3321, 79.3832, 123.1207, 77.0369, 97.1384,
                 84.3358};
         String[] cityNames = {"Atlanta", "Boston", "Calgary", "Charleston", "Chicago", "Dallas", "Denver", "Duluth",
-                "El Paso", "Helena", "Houston", "Kansas City", "Little Rock", "Los Angeles", "Los Vegas",
+                "El Paso", "Helena", "Houston", "Kansas City", "Little Rock", "Los Angeles", "Las Vegas",
                 "Miami", "Montreal", "Nashville", "New Orleans", "New York", "Oklahoma City", "Omaha",
                 "Phoenix", "Pittsburgh", "Portland", "Raleigh", "Saint Louis", "Salt Lake",
                 "San Francisco", "Santa Fe", "Seattle", "Toronto", "Vancouver", "Washington DC",
                 "Winnipeg", "Sault St. Marie"};
-       for(int i = 0; i < NUM_CITIES; i++){
-           cityList.add(new City(cityNames[i], lats[i] ,-longs[i]));
-       }
+        for(int i = 0; i < NUM_CITIES; i++){
+            cityList.add(new City(cityNames[i],lats[i],-longs[i]));
+        }
     }
+
+    public static Cities getInstance(){
+        if(instance == null)
+            instance = new Cities();
+        return  instance;
+    }
+
+    public List<City> getCityList() {
+        return cityList;
+    }
+
     public City findCity(String cityName){
         for(City c: cityList){
             if(c.getName().equals(cityName))
@@ -42,6 +51,10 @@ public class Cities
                 return c;
             }
         }
+        System.out.println(cityName);
         return null;
+    }
+    public List<City> getCities() {
+        return cityList;
     }
 }
