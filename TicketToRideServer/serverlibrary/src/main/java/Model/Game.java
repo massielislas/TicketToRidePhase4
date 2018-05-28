@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import Model.InGameModels.DestinationCard;
+import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
 import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.TrainCard;
@@ -49,7 +50,8 @@ public class Game {
         trainCardFacedownDeck = new ArrayList<>();
         trainCardFaceupDeck = new TrainCard[faceupSize];
         discardedTrainCards = new ArrayList<>();
-        destinationCardDeck = new ArrayList<>();
+        DestinationCardDeck deck = new DestinationCardDeck();
+        destinationCardDeck = deck.getDestinationCards();
         chat = new ArrayList<>();
     }
 
@@ -59,8 +61,14 @@ public class Game {
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
         this.ID = ID;
-        this.playerList = new ArrayList<>();
-        this.userList = new ArrayList<>();
+        playerList = new ArrayList<>();
+        userList = new ArrayList<>();
+        trainCardFacedownDeck = new ArrayList<>();
+        trainCardFaceupDeck = new TrainCard[faceupSize];
+        discardedTrainCards = new ArrayList<>();
+        DestinationCardDeck deck = new DestinationCardDeck();
+        destinationCardDeck = deck.getDestinationCards();
+        chat = new ArrayList<>();
         initializeTrainCards();
     }
 
@@ -107,12 +115,12 @@ public class Game {
 
     public SinglePlayerStartInfo dealStartingHand(Player p) {
 
-        SinglePlayerStartInfo startingHand = new SinglePlayerStartInfo(p.getUserName(), p.getTurnNumber());
+        SinglePlayerStartInfo startingInfo = new SinglePlayerStartInfo(p.getUserName(), p.getTurnNumber());
         //Put the first 4 and 3 Train and Destination Cards to the starting hand package
         for (int i = 0; i < startingTrainHandSize; i ++) {
-            startingHand.addTrainCard(trainCardFacedownDeck.get(i));
+            startingInfo.addTrainCard(trainCardFacedownDeck.get(i));
             if (i < 3) {
-                startingHand.addDestCard(destinationCardDeck.get(i));
+                startingInfo.addDestCard(destinationCardDeck.get(i));
             }
         }
         //Then remove the corresponding cards from the corresponding decks
@@ -125,6 +133,15 @@ public class Game {
         //Then create a list with all the information about other players that they are allowed to
         //see. Allowing us to display the relevant info for them without actually telling them
         //anything they aren't supposed to know.
+        List<PlayerShallow> list = getPlayerShallows(p);
+        startingInfo.setPlayerInfo(list);
+        return startingInfo;
+    }
+
+    //private function for retrieving information that players are allowed to know about other
+    //players in the game (hand size, score, train pieces left)
+    private List<PlayerShallow> getPlayerShallows(Player p) {
+
         List<PlayerShallow> list = new ArrayList<>();
         for (Player other : playerList) {
             if (!other.getUserName().equals(p.getUserName())) {
@@ -134,8 +151,7 @@ public class Game {
                 list.add(copy);
             }
         }
-        startingHand.setPlayerInfo(list);
-        return startingHand;
+        return list;
     }
 
     public void addChat(String msg, String userName) {

@@ -71,6 +71,8 @@ public class TicketToRideFacade implements ITicketToRide {
         //Then attempt to add the player to the game, if the game is full, respond accordingly
         else {
             Result check = Server.addPlayerToGame(game, uName);
+            //If the attempt to add a player to the game was successful,send a command to update the
+            //number of players in the corresponding game on the Client side.
             if(check.isSuccess())
             {
                 String[] instanceParamTypeNames = new String[0];
