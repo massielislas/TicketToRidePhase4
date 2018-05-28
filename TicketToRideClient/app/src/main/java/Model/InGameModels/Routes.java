@@ -40,7 +40,7 @@ public class Routes
                 "Miami", "Atlanta", "Atlanta", "Nashville", "Saint Louis", "Nashville", "Pittsburgh",
                 "Chicago", "Chicago", "Montreal", "Toronto", "Toronto", "Pittsburgh", "Pittsburgh",
                 "Atlanta", "Raleigh", "Pittsburgh", "Miami", "Charleston", "Raleigh", "Raleigh",
-                "Raleigh", "Washington DC", "New York", "New Yost", "Montreal", "Charleston", "Washington DC",
+                "Raleigh", "Washington DC", "New York", "New York", "Montreal", "Charleston", "Washington DC",
                 "Washington DC", "Miami", "New York", "New York", "Boston", "Boston", "Montreal", "Boston",
                 "Boston"};
         int[] lengths = {3, 1, 1, 1, 1, 4, 6, 6, 6, 6, 5, 5, 3, 3, 2, 3, 6, 3, 3, 3, 3, 4, 4, 5, 6,
