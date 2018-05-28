@@ -19,6 +19,14 @@ public class Route {
     private String color;
     private String doubleColor;
 
+    public String getDoubleColor() {
+        return doubleColor;
+    }
+
+    public void setDoubleColor(String doubleColor) {
+        this.doubleColor = doubleColor;
+    }
+
 
     public Route(City newCity1, City newCity2, int newLength, String newColor, int newID){
         city1 = newCity1;

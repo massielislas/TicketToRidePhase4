@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -137,7 +139,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     public void updateUI(){
-       // addFakePlayers();
+       addFakePlayers();
         playerAdapter = new OtherPlayerAdapter(otherPlayers);
         otherPlayerRecyclerView.setAdapter(playerAdapter);
     }
@@ -278,6 +280,15 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         uiSettings.setZoomGesturesEnabled(true);
         drawCities();
         drawRoutes();
+        zoomToCenter();
+    }
+
+    public void zoomToCenter(){
+        CameraUpdate centerOn =
+                CameraUpdateFactory.newLatLng(new LatLng(39.8283, -98.5795));
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(3);
+        myGoogleMap.moveCamera(centerOn);
+        myGoogleMap.animateCamera(zoom);
     }
 
 
@@ -481,15 +492,11 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     public void drawRoutes(){
         for(int i = 0; i < routes.size(); i++){
-            System.out.println(i);
-            if(routes.get(i).getCity1() == null || routes.get(i).getCity2() == null)
-                System.out.print("null");
-
             PolylineOptions polylineOptions = new PolylineOptions();
             polylineOptions.add(new LatLng(
                     routes.get(i).getCity1().getLatitude(), routes.get(i).getCity1().getLongitude()),
                     new LatLng(routes.get(i).getCity2().getLatitude(), routes.get(i).getCity2().getLongitude()));
-            polylineOptions.width(5);
+            polylineOptions.width(7);
             String color = routes.get(i).getColor();
             switch (color){
                 case "Gray":
@@ -524,6 +531,49 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                     break;
             }
             lines.put(routes.get(i), myGoogleMap.addPolyline(polylineOptions));
+
+            if(routes.get(i).isDouble()){
+                double doubleRouteOffset = .25;
+                PolylineOptions polylineOptions2 = new PolylineOptions();
+                polylineOptions2.add(new LatLng(
+                                routes.get(i).getCity1().getLatitude()+doubleRouteOffset, routes.get(i).getCity1().getLongitude()+doubleRouteOffset),
+                        new LatLng(routes.get(i).getCity2().getLatitude()+doubleRouteOffset, routes.get(i).getCity2().getLongitude()+doubleRouteOffset));
+                polylineOptions2.width(10);
+                String color2 = routes.get(i).getDoubleColor();
+                switch (color2){
+                    case "Gray":
+                        polylineOptions2.color(Color.GRAY);
+                        break;
+                    case "Yellow":
+                        polylineOptions2.color(Color.YELLOW);
+                        break;
+                    case "Blue":
+                        polylineOptions2.color(Color.BLUE);
+                        break;
+                    case "Green":
+                        polylineOptions2.color(Color.GREEN);
+                        break;
+                    case "Pink":
+                        polylineOptions2.color(Color.MAGENTA);
+                        break;
+                    case "Black":
+                        polylineOptions2.color(Color.BLACK);
+                        break;
+                    case "Orange":
+                        polylineOptions2.color(Color.rgb(255, 175, 58));
+                        break;
+                    case "White":
+                        polylineOptions2.color(Color.WHITE);
+                        break;
+                    case "Red":
+                        polylineOptions2.color(Color.RED);
+                        break;
+                    default:
+                        polylineOptions2.color(Color.CYAN);
+                        break;
+                }
+                lines.put(routes.get(i), myGoogleMap.addPolyline(polylineOptions2));
+            }
         }
     }
 
