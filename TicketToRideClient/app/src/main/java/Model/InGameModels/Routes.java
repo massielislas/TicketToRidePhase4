@@ -13,8 +13,8 @@ public class Routes
     List<Route> routeList = new ArrayList<>();
     public Routes(){
         String[] startCities = {"Vancouver", "Vancouver", "Vancouver", "Seattle", "Seattle", "Seattle",
-                "Seattle", "Portland", "Portland", "Portland", "San Fran", "San Fran", "San Fran",
-                "San Fran", "Los Angeles", "Los Angeles", "Los Angeles", "Las Vegas", "Salt Lake",
+                "Seattle", "Portland", "Portland", "Portland", "San Francisco", "San Francisco", "San Francisco",
+                "San Francisco", "Los Angeles", "Los Angeles", "Los Angeles", "Las Vegas", "Salt Lake",
                 "Salt Lake", "Salt Lake", "Helena", "Helena", "Helena", "Helena", "Helena", "Denver",
                 "Denver", "Denver", "Denver", "Denver", "Denver", "Phoenix", "Phoenix", "Santa Fe",
                 "Santa Fe", "El Paso", "El Paso", "El Paso", "Winnipeg", "Winnipeg", "Duluth", "Duluth",
@@ -23,13 +23,13 @@ public class Routes
                 "Dallas", "Dallas", "Dallas", "Houston", "New Orleans", "New Orleans", "New Orleans",
                 "New Orleans", "Little Rock", "Little Rock", "Saint Louis", "Saint Louis", "Saint Louis",
                 "Saint Louis", "Sault St. Marie", "Sault St. Marie", "Chicago", "Chicago", "Chicago",
-                "Nashville", "Nashville", "Nashville", "Atlanta", "Atlanta", "Atlanta", "Atlanta", "Pittsbourgh",
-                "Pittsbourgh", "Pittsbourgh", "Pittsbourgh", "Toronto", "Raleigh", "Raleigh", "Raleigh",
+                "Nashville", "Nashville", "Nashville", "Atlanta", "Atlanta", "Atlanta", "Atlanta", "Pittsburgh",
+                "Pittsburgh", "Pittsburgh", "Pittsburgh", "Toronto", "Raleigh", "Raleigh", "Raleigh",
                 "Charleston", "Washington DC", "Washington DC", "New York", "New York", "New York",
                 "Montreal", "Montreal"
         };
         String[] endCities = {"Calgary", "Seattle", "Seattle", "Portland", "Portland", "Calgary",
-                "Helena", "Salt Lake", "San Fran", "San Fran", "Salt Lake", "Salt Lake", "Los Angeles",
+                "Helena", "Salt Lake", "San Francisco", "San Francisco", "Salt Lake", "Salt Lake", "Los Angeles",
                 "Los Angeles", "Las Vegas", "Phoenix", "El Paso", "Salt Lake", "Denver", "Denver",
                 "Helena", "Calgary", "Denver", "Omaha", "Duluth", "Winnipeg", "Santa Fe", "Phoenix",
                 "Omaha", "Kansas City", "Kansas City", "Oklahoma City", "El Paso", "Santa Fe", "El Paso",
@@ -37,9 +37,9 @@ public class Routes
                 "Omaha", "Omaha", "Chicago", "Toronto", "Sault St. Marie", "Kansas City", "Kansas City",
                 "Chicago", "Oklahoma City", "Oklahoma City", "Saint Louis", "Saint Louis", "Little Rock",
                 "Dallas", "Dallas", "Little Rock", "Houston", "Houston", "New Orleans", "Little Rock",
-                "Miami", "Atlanta", "Atlanta", "Nashville", "Saint Louis", "Nashville", "Pittsbourgh",
-                "Chicago", "Chicago", "Montreal", "Toronto", "Toronto", "Pittsbourgh", "Pittsbourgh",
-                "Atlanta", "Raleigh", "Pittsbourgh", "Miami", "Charleston", "Raleigh", "Raleigh",
+                "Miami", "Atlanta", "Atlanta", "Nashville", "Saint Louis", "Nashville", "Pittsburgh",
+                "Chicago", "Chicago", "Montreal", "Toronto", "Toronto", "Pittsburgh", "Pittsburgh",
+                "Atlanta", "Raleigh", "Pittsburgh", "Miami", "Charleston", "Raleigh", "Raleigh",
                 "Raleigh", "Washington DC", "New York", "New Yost", "Montreal", "Charleston", "Washington DC",
                 "Washington DC", "Miami", "New York", "New York", "Boston", "Boston", "Montreal", "Boston",
                 "Boston"};
