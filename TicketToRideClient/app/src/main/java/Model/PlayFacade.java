@@ -113,6 +113,7 @@ public class PlayFacade {
         userData.getCurrentGame().setCities(cities.getCityList());
         userData.getCurrentGame().setRoutes(routes.getRouteList());
         userData.getCurrentGame().setDestinationDeck(destCardDeck.getDestinationCards());
+        userData.getCurrentGame().setFaceDownTrainDeck();
         setSetUpData();
     }
 

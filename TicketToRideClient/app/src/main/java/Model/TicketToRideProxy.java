@@ -144,7 +144,6 @@ public class TicketToRideProxy implements ITicketToRide {
                 return null;
             }
             Object result = Encoder.Decode(json, GameResult.class);
-
             return (GameResult)result;
         }
         catch (MalformedURLException exception)

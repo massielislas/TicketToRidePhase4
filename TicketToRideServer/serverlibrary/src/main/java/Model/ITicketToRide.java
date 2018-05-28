@@ -19,6 +19,7 @@ public interface ITicketToRide {
     Result startGame(String ID);
     Result sendChat(String username, String message, String gameID);
     Result discardDestCards(String username, String gameID, ArrayList<Integer> destinationCards);
+    void updateFaceUpCards(Game game);
 
 }
 
