@@ -1,7 +1,6 @@
 package root.tickettorideclient.Views;
 
 import android.graphics.Color;
-import android.nfc.cardemulation.CardEmulation;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +27,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,6 +100,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     ArrayList<City> cities;
     ArrayList<Route> routes;
     Map<City, Marker>markers = new HashMap<>();
+    Map<Route, Polyline>lines = new HashMap<>();
 
     private OtherPlayerAdapter playerAdapter;
 
@@ -396,6 +398,50 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             LatLng latLng = new LatLng(cities.get(i).getLatitude(), cities.get(i).getLongitude());
             Marker marker = myGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(color)));
             markers.put(cities.get(i), marker);
+        }
+    }
+
+    public void drawRoutes(){
+        for(int i = 0; i < routes.size(); i++){
+            PolylineOptions polylineOptions = new PolylineOptions();
+            polylineOptions.add(new LatLng(
+                    routes.get(i).getCity1().getLatitude(), routes.get(i).getCity1().getLatitude()),
+                    new LatLng(routes.get(i).getCity1().getLatitude(), routes.get(i).getCity2().getLongitude()));
+            polylineOptions.width(5);
+            String color = routes.get(i).getColor();
+            switch (color){
+                case "Gray":
+                    polylineOptions.color(Color.GRAY);
+                    break;
+                case "Yellow":
+                    polylineOptions.color(Color.YELLOW);
+                    break;
+                case "Blue":
+                    polylineOptions.color(Color.BLUE);
+                    break;
+                case "Green":
+                    polylineOptions.color(Color.GREEN);
+                    break;
+                case "Pink":
+                    polylineOptions.color(Color.MAGENTA);
+                    break;
+                case "Black":
+                    polylineOptions.color(Color.BLACK);
+                    break;
+                case "Orange":
+                    polylineOptions.color(Color.rgb(255, 175, 58));
+                    break;
+                case "White":
+                    polylineOptions.color(Color.WHITE);
+                    break;
+                case "Red":
+                    polylineOptions.color(Color.RED);
+                    break;
+                default:
+                    polylineOptions.color(Color.CYAN);
+                    break;
+            }
+            lines.put(routes.get(i), myGoogleMap.addPolyline(polylineOptions));
         }
     }
 
