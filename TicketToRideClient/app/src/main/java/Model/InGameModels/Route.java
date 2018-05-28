@@ -83,10 +83,6 @@ public class Route {
         return isDouble;
     }
 
-    public boolean isDoubleClaimedl() {
-        return isDoubleClaimed;
-    }
-
     public void setDoubleClaimed(boolean doubleClaimed) {
         isDoubleClaimed = doubleClaimed;
     }
@@ -153,5 +149,9 @@ public class Route {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public boolean isDoubleClaimed() {
+        return isDoubleClaimed;
     }
 }
