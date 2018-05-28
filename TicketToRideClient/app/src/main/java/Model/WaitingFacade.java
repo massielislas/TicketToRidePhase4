@@ -3,6 +3,7 @@ package Model;
 import java.util.Observer;
 
 import Results.GameStartResult;
+import Results.Result;
 
 /**
  * Created by zachgormley on 5/13/18.
@@ -24,7 +25,7 @@ public class WaitingFacade
         currentGame = userData.getCurrentGame();
     }
 
-    public GameStartResult startGame()
+    public Result startGame()
     {
         return proxy.startGame(currentGame.getID());
     }

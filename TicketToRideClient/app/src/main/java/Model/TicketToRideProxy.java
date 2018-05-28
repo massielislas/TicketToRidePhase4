@@ -120,7 +120,7 @@ public class TicketToRideProxy implements ITicketToRide {
     }
 
     @Override
-    public GameResult createNewGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
+    public Result createNewGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
 
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
@@ -143,8 +143,8 @@ public class TicketToRideProxy implements ITicketToRide {
                 System.out.println("json is null");
                 return null;
             }
-            Object result = Encoder.Decode(json, GameResult.class);
-            return (GameResult)result;
+            Object result = Encoder.Decode(json, Result.class);
+            return (Result)result;
         }
         catch (MalformedURLException exception)
         {
@@ -154,7 +154,7 @@ public class TicketToRideProxy implements ITicketToRide {
     }
 
     @Override
-    public GameStartResult startGame(String ID) {
+    public Result startGame(String ID) {
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
         String[] methodParamTypeNames = {"java.lang.String"};
@@ -177,8 +177,8 @@ public class TicketToRideProxy implements ITicketToRide {
                 System.out.println("json is null");
                 return null;
             }
-            Object result = Encoder.Decode(json, GameStartResult.class);
-            return (GameStartResult)result;
+            Object result = Encoder.Decode(json, Result.class);
+            return (Result)result;
         }
         catch (MalformedURLException exception)
         {

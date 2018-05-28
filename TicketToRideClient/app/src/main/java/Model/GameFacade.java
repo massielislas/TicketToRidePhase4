@@ -18,11 +18,11 @@ public class GameFacade
     Games gameList = Games.getGames();
 
     public static GameFacade getInstance() {return instance;}
-    public GameResult createGame(int playerCount)
+    public Result createGame(int playerCount)
     {
         int gameNumber = gameList.getGameList().size() + 1;
         Game game = new Game(playerCount, 0, gameNumber);
-        GameResult result =  proxy.createNewGame(game.getPlayerCount(), game.getCurrentPlayers(), game.getGameNumber(), game.getID());
+        Result result =  proxy.createNewGame(game.getPlayerCount(), game.getCurrentPlayers(), game.getGameNumber(), game.getID());
         if (result.isSuccess())
         {
             UserData.getUserData().setCurrentGame(game);
