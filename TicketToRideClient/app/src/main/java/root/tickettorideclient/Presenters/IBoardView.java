@@ -3,6 +3,7 @@ package root.tickettorideclient.Presenters;
 import java.util.ArrayList;
 
 import Model.InGameModels.City;
+import Model.InGameModels.DestinationCard;
 import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.Route;
 import Model.InGameModels.TrainCard;
@@ -15,9 +16,16 @@ import root.tickettorideclient.Views.PlayerStats;
 public interface IBoardView {
     public void addAllHistory(ArrayList<String> messages);
     public void addOneHistory(String message);
-    public void updateHand(ArrayList<TrainCard> card);
+
+    public void updateHand(ArrayList<TrainCard> cards);
+    public void updateDestCards(ArrayList<DestinationCard> cards);
+
     public void updatePlayerPoints(String playerID, Integer points);
-    public void updateTrainPieces(String playerID, Integer pieces);
+    public void updatePlayerPieces(String playerID, Integer pieces);
+
+    public void updatePlayerTrainCards(String playerID, Integer pieces);
+    public void updatePlayerDestCards(String playerID, Integer pieces);
+
     public void updateFaceUp(ArrayList<TrainCard> cards);
     public void updateDestinationDeck(Integer cardCount);
     public void updateTrainDeck(Integer cardCount);
@@ -27,4 +35,8 @@ public interface IBoardView {
 
     public void popToast(String message);
     public void switchToEndView();
+
+    public Integer getNumCities();
+    public Integer getNumPlayers();
+    public Integer getNumRoutes();
 }
