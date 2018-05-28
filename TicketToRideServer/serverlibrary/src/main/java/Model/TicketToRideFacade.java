@@ -94,16 +94,16 @@ public class TicketToRideFacade implements ITicketToRide {
     }
 
     //do we need this?!?!
-    public GameResult createNewGame(Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
+    public Result createNewGame(Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
         return createNewGame((Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
     }
 
-    public GameResult createNewGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
+    public Result createNewGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID) {
 
         Game newGame = new Game(playerCount, currentPlayers, gameNumber, ID);
 
         if (Server.doesGameExist(newGame)) {
-            return new GameResult(false, "That game already exists!");
+            return new Result(false, "That game already exists!");
         }
         else {
             String[] instanceParamTypeNames = new String[0];
@@ -115,7 +115,7 @@ public class TicketToRideFacade implements ITicketToRide {
                     methodArguments);
             CommandManager.getInstance().addCommandAllUsers(command);
             Server.addGameToQueue(newGame);
-            return new GameResult(newGame);
+            return new Result(true, "successfully created new Game");
         }
     }
 
@@ -123,22 +123,22 @@ public class TicketToRideFacade implements ITicketToRide {
 //        return startGame((Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
 //    }
 
-    public GameStartResult startGame(String ID) {
+    @Override
+    public Result startGame(String ID) {
 
         Game game = Server.getSpecificGame(ID);
 
         if (game == null) {
-            return new GameStartResult(false, "That game doesn't exist!");
+            return new Result(false, "That game doesn't exist!");
         }
         else {
             if (!Server.startGame(game)) {
-                return new GameStartResult(false, "That game can't be started without" +
+                return new Result(false, "That game can't be started without" +
                         " enough players");
             }
             else {
                 initializeHands(game);
-                updateFaceUpCards(game);
-                return new GameStartResult(game);
+                return new Result(true, "Starting Game number " + game.getGameNumber());
             }
         }
     }
@@ -157,6 +157,7 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
+    @Override
     private void updateFaceUpCards(Game game)
     {
         String[] instanceParamTypeNames = new String[0];
