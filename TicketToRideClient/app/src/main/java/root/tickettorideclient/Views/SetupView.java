@@ -197,23 +197,23 @@ public class SetupView extends Fragment implements ISetUpView {
         switch(color.toLowerCase()) //set color
         {
             case "blue":{
-                color = "blue";
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerBlue));
                 break;
             }
             case "yellow":{
-                color = "yellow";
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerYellow));
                 break;
             }
             case "green":{
-                color = "green";
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerGreen));
                 break;
             }
             case "red":{
-                color = "red";
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerRed));
                 break;
             }
             case "purple":{
-                color = "purple";
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerPurple));
                 break;
             }
             default:{
@@ -221,6 +221,7 @@ public class SetupView extends Fragment implements ISetUpView {
                 break;
             }
         }
+
     }
 
     @Override
