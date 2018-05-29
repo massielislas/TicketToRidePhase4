@@ -691,19 +691,21 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     public void drawRoutes(){
+        removeLines();
+        lines.clear();
         int dashGap = 30;
         List<PatternItem> dashedPattern = Arrays.asList(new Dash(dashGap), new Gap(dashGap));
         double doubleRouteOffset = .3;
         for(int i = 0; i < routes.size(); i++){
             Route route = routes.get(i);
             if(!route.isClaimed())
-                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0), route);
+                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0, dashedPattern), route);
             else
                 lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0), route);
 
             if(routes.get(i).isDouble()){
                 if(!route.isDoubleClaimed())
-                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset), route);
+                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset, dashedPattern), route);
                 else
                     lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset), route);
             }
