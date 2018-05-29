@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputFilter;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +34,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PatternItem;
+import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +62,7 @@ import root.tickettorideclient.R;
  * Created by Massiel on 5/21/2018.
  */
 
-public class BoardView extends Fragment implements OnMapReadyCallback, IBoardView {
+public class BoardView extends Fragment implements OnMapReadyCallback, IBoardView, GoogleMap.OnInfoWindowClickListener{
 
     IBoardPresenter presenter;
 
@@ -105,12 +108,16 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     RecyclerView otherPlayerRecyclerView;
 
     ArrayList<PlayerStats> otherPlayers = new ArrayList<>();
-    ArrayList<City> cities;
-    ArrayList<Route> routes;
+    ArrayList<City> cities = new ArrayList<>();
+    ArrayList<Route> routes = new ArrayList<>();
     Map<City, Marker>markers = new HashMap<>();
-    Map<Route, Polyline>lines = new HashMap<>();
+    Map<Polyline, Route>lines = new HashMap<>();
 
     private OtherPlayerAdapter playerAdapter;
+
+    Route routeClicked = null;
+
+    final int LINE_WIDTH = 10;
 
 
     @Override
@@ -161,8 +168,22 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         }
     }
 
+    public void removeLines(){
+        Iterator it = lines.keySet().iterator();
+        while(it.hasNext()){
+            Map.Entry pair = (Map.Entry) it.next();
+            ((Polyline) pair.getKey()).remove();
+        }
+    }
+
     public void setUpTopInputs(){
         userPointsBanner = (TextView) myView.findViewById(R.id.pointsDisplay);
+        userPointsBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //SECRET UPDATE BUTTON
+            }
+        });
         userTrainsBanner = (TextView) myView.findViewById(R.id.trainDisplay);
 
         yourHandDisplay = (LinearLayout) myView.findViewById(R.id.yourHandDisplay);
@@ -188,6 +209,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         playerWildCards = (TextView) myView.findViewById(R.id.playerWildCards);
         playerGreenCards = (TextView) myView.findViewById(R.id.playerGreenCards);
 
+        availableCardsDisplay = (LinearLayout) myView.findViewById(R.id.availableCardsDisplay);
         availableCardsDisplay = (LinearLayout) myView.findViewById(R.id.availableCardsDisplay);
         availableCardsBanner = (TextView)myView.findViewById(R.id.availableCardsBanner);
         availableCardsBanner.setOnClickListener(new View.OnClickListener() {
@@ -287,7 +309,52 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         drawCities();
         drawRoutes();
         zoomToCenter();
+        polylineOnClickListener();
+        googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                View v = getLayoutInflater().inflate(R.layout.info_window, null);
+                TextView textView = (TextView) v.findViewById(R.id.infoWindowText);
+                textView.setText(marker.getTitle());
+                return v;
+            }
+        });
     }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+
+    }
+
+    public void polylineOnClickListener(){
+        myGoogleMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
+            @Override
+            public void onPolylineClick(Polyline polyline) {
+                routeClicked = lines.get(polyline);
+                Marker marker = markers.get(routeClicked.getCity1());
+                String addToClaim = "\nClick To Claim!";
+                String infoWindowText = routeClicked.getCity1().getName() + " to " + routeClicked.getCity2().getName() + "\n" +
+                        "Points: " + routeClicked.getScoreValue() + "\n" +
+                        "Length: " + routeClicked.getLength();
+                if(!routeClicked.isClaimed()){
+                    infoWindowText+=  addToClaim;
+                }
+
+                String marker1text = routeClicked.getCity1() + " P:" + routeClicked.getScoreValue() + " L:" + routeClicked.getLength();
+                marker.setTitle(marker1text);
+
+                marker.setTitle(infoWindowText);
+                marker.showInfoWindow();
+            }
+        });
+    }
+
+
 
     public void zoomToCenter(){
         CameraUpdate centerOn =
@@ -415,24 +482,64 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void updateFaceUp(ArrayList<TrainCard> cards) {
-        //TODO: COLORS
+        String[] colors = new String[cards.size()];
+        for (int i = 0; i < cards.size(); ++i) {
+            colors[i] = cards.get(i).getColor();
+        }
+
+        Integer[] colorInts = new Integer[cards.size()];
+        for (int i = 0; i < cards.size(); ++i) {
+            switch (colors[i].toLowerCase()) {
+                case "gray": //aka wild
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainWild);
+                    break;
+                case "yellow":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainYellow);
+                    break;
+                case "blue":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainBlue);
+                    break;
+                case "green":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainGreen);
+                    break;
+                case "pink":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainPink);
+                    break;
+                case "black":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainBlack);
+                    break;
+                case "orange":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainOrange);
+                    break;
+                case "white":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainWhite);
+                    break;
+                case "red":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainRed);
+                    break;
+                default:
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.colorPrimary);
+                    break;
+            }
+        }
+
         if (cards.size() > 0) {
-            faceUpCard1.setBackgroundColor(Color.parseColor(cards.get(0).getColor()));
+            faceUpCard1.setBackgroundColor(colorInts[0]);
 
         }
         if (cards.size() > 1) {
-            faceUpCard2.setBackgroundColor(Color.parseColor(cards.get(1).getColor()));
+            faceUpCard2.setBackgroundColor(colorInts[1]);
 
         }
         if (cards.size() > 2) {
-            faceUpCard3.setBackgroundColor(Color.parseColor(cards.get(2).getColor()));
+            faceUpCard3.setBackgroundColor(colorInts[2]);
 
         }
         if (cards.size() > 3) {
-            faceUpCard4.setBackgroundColor(Color.parseColor(cards.get(3).getColor()));
+            faceUpCard4.setBackgroundColor(colorInts[3]);
         }
         if (cards.size() > 4) {
-            faceUpCard5.setBackgroundColor(Color.parseColor(cards.get(4).getColor()));
+            faceUpCard5.setBackgroundColor(colorInts[4]);
 
         }
     }
@@ -497,92 +604,110 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         }
     }
 
+    public Polyline drawLine(City city1, City city2, String color, double offset, List<PatternItem>dashedPattern){
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.add(new LatLng(
+                        city1.getLatitude() + offset, city1.getLongitude() + offset),
+                new LatLng(city2.getLatitude() + offset, city2.getLongitude() + offset));
+        polylineOptions.width(LINE_WIDTH);
+        polylineOptions.pattern(dashedPattern);
+        polylineOptions.clickable(true);
+        switch (color) {
+            case "Gray":
+                polylineOptions.color(Color.GRAY);
+                break;
+            case "Yellow":
+                polylineOptions.color(Color.YELLOW);
+                break;
+            case "Blue":
+                polylineOptions.color(Color.BLUE);
+                break;
+            case "Green":
+                polylineOptions.color(Color.GREEN);
+                break;
+            case "Pink":
+                polylineOptions.color(Color.MAGENTA);
+                break;
+            case "Black":
+                polylineOptions.color(Color.BLACK);
+                break;
+            case "Orange":
+                polylineOptions.color(Color.rgb(255, 175, 58));
+                break;
+            case "White":
+                polylineOptions.color(Color.WHITE);
+                break;
+            case "Red":
+                polylineOptions.color(Color.RED);
+                break;
+            default:
+                polylineOptions.color(Color.CYAN);
+                break;
+        }
+        return myGoogleMap.addPolyline(polylineOptions);
+    }
+
+    public Polyline drawLine(City city1, City city2, String color, double offset){
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.add(new LatLng(
+                        city1.getLatitude() + offset, city1.getLongitude() + offset),
+                new LatLng(city2.getLatitude() + offset, city2.getLongitude() + offset));
+        polylineOptions.width(LINE_WIDTH);
+        polylineOptions.clickable(true);
+        switch (color) {
+            case "Gray":
+                polylineOptions.color(Color.GRAY);
+                break;
+            case "Yellow":
+                polylineOptions.color(Color.YELLOW);
+                break;
+            case "Blue":
+                polylineOptions.color(Color.BLUE);
+                break;
+            case "Green":
+                polylineOptions.color(Color.GREEN);
+                break;
+            case "Pink":
+                polylineOptions.color(Color.MAGENTA);
+                break;
+            case "Black":
+                polylineOptions.color(Color.BLACK);
+                break;
+            case "Orange":
+                polylineOptions.color(Color.rgb(255, 175, 58));
+                break;
+            case "White":
+                polylineOptions.color(Color.WHITE);
+                break;
+            case "Red":
+                polylineOptions.color(Color.RED);
+                break;
+            default:
+                polylineOptions.color(Color.CYAN);
+                break;
+        }
+        Polyline polyline = myGoogleMap.addPolyline(polylineOptions);
+       return polyline;
+    }
+
     public void drawRoutes(){
-        List<PatternItem> dashedPattern = Arrays.asList(new Dash(60), new Gap(60));
+        removeLines();
+        lines.clear();
+        int dashGap = 30;
+        List<PatternItem> dashedPattern = Arrays.asList(new Dash(dashGap), new Gap(dashGap));
+        double doubleRouteOffset = .3;
         for(int i = 0; i < routes.size(); i++){
-            PolylineOptions polylineOptions = new PolylineOptions();
-            polylineOptions.add(new LatLng(
-                    routes.get(i).getCity1().getLatitude(), routes.get(i).getCity1().getLongitude()),
-                    new LatLng(routes.get(i).getCity2().getLatitude(), routes.get(i).getCity2().getLongitude()));
-            polylineOptions.width(7);
-            polylineOptions.pattern(dashedPattern);
-            String color = routes.get(i).getColor();
-            switch (color){
-                case "Gray":
-                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainGray));
-                    break;
-                case "Yellow":
-                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainYellow));
-                    break;
-                case "Blue":
-                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainBlue));
-                    break;
-                case "Green":
-                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainGreen));
-                    break;
-                case "Pink":
-                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainPink));
-                    break;
-                case "Black":
-                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainBlack));
-                    break;
-                case "Orange":
-                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainOrange));
-                    break;
-                case "White":
-                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainWhite));
-                    break;
-                case "Red":
-                    polylineOptions.color(ContextCompat.getColor(getContext(), R.color.trainRed));
-                    break;
-                default:
-                    polylineOptions.color(Color.CYAN);
-                    break;
-            }
-            lines.put(routes.get(i), myGoogleMap.addPolyline(polylineOptions));
+            Route route = routes.get(i);
+            if(!route.isClaimed())
+                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0, dashedPattern), route);
+            else
+                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0), route);
 
             if(routes.get(i).isDouble()){
-                double doubleRouteOffset = .25;
-                PolylineOptions polylineOptions2 = new PolylineOptions();
-                polylineOptions2.add(new LatLng(
-                                routes.get(i).getCity1().getLatitude()+doubleRouteOffset, routes.get(i).getCity1().getLongitude()+doubleRouteOffset),
-                        new LatLng(routes.get(i).getCity2().getLatitude()+doubleRouteOffset, routes.get(i).getCity2().getLongitude()+doubleRouteOffset));
-                polylineOptions2.width(10);
-                polylineOptions.pattern(dashedPattern);
-                String color2 = routes.get(i).getDoubleColor();
-                switch (color2){
-                    case "Gray":
-                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainGray));
-                        break;
-                    case "Yellow":
-                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainYellow));
-                        break;
-                    case "Blue":
-                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainBlue));
-                        break;
-                    case "Green":
-                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainGreen));
-                        break;
-                    case "Pink":
-                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainPink));
-                        break;
-                    case "Black":
-                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainBlack));
-                        break;
-                    case "Orange":
-                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainOrange));
-                        break;
-                    case "White":
-                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainWhite));
-                        break;
-                    case "Red":
-                        polylineOptions2.color(ContextCompat.getColor(getContext(), R.color.trainRed));
-                        break;
-                    default:
-                        polylineOptions2.color(Color.CYAN);
-                        break;
-                }
-                lines.put(routes.get(i), myGoogleMap.addPolyline(polylineOptions2));
+                if(!route.isDoubleClaimed())
+                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset, dashedPattern), route);
+                else
+                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset), route);
             }
         }
     }

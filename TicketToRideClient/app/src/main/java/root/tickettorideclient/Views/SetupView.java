@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 import Model.InGameModels.DestinationCard;
@@ -37,7 +38,6 @@ public class SetupView extends Fragment implements ISetUpView {
     View secondTrainCard;
     View thirdTrainCard;
     View fourthTrainCard;
-    View fifthTrainCard;
 
     TextView playerNumber;
     View playerColor;
@@ -154,7 +154,6 @@ public class SetupView extends Fragment implements ISetUpView {
         secondTrainCard = (View) v.findViewById(R.id.secondCard);
         thirdTrainCard = (View) v.findViewById(R.id.thirdCard);
         fourthTrainCard = (View) v.findViewById(R.id.fourthCard);
-        fifthTrainCard = (View) v.findViewById(R.id.fifthCard);
     }
 
     private void checkDestinationSelections(){
@@ -193,18 +192,80 @@ public class SetupView extends Fragment implements ISetUpView {
 
     @Override
     public void setPlayerColor(String color) {
-        //TODO: FIXME
-        playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        switch(color.toLowerCase()) //set color
+        {
+            case "blue":{
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerBlue));
+                break;
+            }
+            case "yellow":{
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerYellow));
+                break;
+            }
+            case "green":{
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerGreen));
+                break;
+            }
+            case "red":{
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerRed));
+                break;
+            }
+            case "purple":{
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerPurple));
+                break;
+            }
+            default:{
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                break;
+            }
+        }
+
     }
 
     @Override
     public void setHand(ArrayList<TrainCard> cards) {
-        if ((cards != null) && (cards.size() == 3)) {
-            firstTrainCard.setBackgroundColor(Color.parseColor(cards.get(0).getColor()));
-            secondTrainCard.setBackgroundColor(Color.parseColor(cards.get(1).getColor()));
-            thirdTrainCard.setBackgroundColor(Color.parseColor(cards.get(2).getColor()));
-            fourthTrainCard.setBackgroundColor(Color.parseColor(cards.get(3).getColor()));
-            fifthTrainCard.setBackgroundColor(Color.parseColor(cards.get(4).getColor()));
+
+        if ((cards != null) && cards.size() == 4) {
+
+            Integer[] colors = new Integer[4];
+
+            for (int i = 0; i < 4; i++) {
+                String cardColor = cards.get(i).getColor().toLowerCase();
+                switch (cardColor) {
+                    case "black":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainBlack);
+                        break;
+                    case "blue":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainBlue);
+                        break;
+                    case "green":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainGreen);
+                        break;
+                    case "orange":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainOrange);
+                        break;
+                    case "pink":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainPink);
+                        break;
+                    case "red":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainRed);
+                        break;
+                    case "white":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainWhite);
+                        break;
+                    case "wild":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainWild);
+                        break;
+                    case "yellow":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainYellow);
+                        break;
+                }
+            }
+
+            firstTrainCard.setBackgroundColor(colors[0]);
+            secondTrainCard.setBackgroundColor(colors[1]);
+            thirdTrainCard.setBackgroundColor(colors[2]);
+            fourthTrainCard.setBackgroundColor(colors[3]);
         }
     }
 
@@ -218,16 +279,16 @@ public class SetupView extends Fragment implements ISetUpView {
             destinationCards.add(cards.get(2));
 
             DestinationCard firstCard = destinationCards.get(0);
-            String firstMessage = firstCard.getPointValue() + " points: " + firstCard.getCity1() + " to " + firstCard.getCity2();
+            String firstMessage = firstCard.getPointValue() + " points: " + firstCard.getCity1().getName() + " to " + firstCard.getCity2().getName();
             firstDestinationCard.setText(firstMessage);
 
             DestinationCard secondCard = destinationCards.get(1);
-            String secondMessage = secondCard.getPointValue() + " points: " + secondCard.getCity1() + " to " + secondCard.getCity2();
-            firstDestinationCard.setText(secondMessage);
+            String secondMessage = secondCard.getPointValue() + " points: " + secondCard.getCity1().getName() + " to " + secondCard.getCity2().getName();
+            secondDestinationCard.setText(secondMessage);
 
             DestinationCard thirdCard = destinationCards.get(2);
-            String thirdMessage = thirdCard.getPointValue() + " points: " + thirdCard.getCity1() + " to " + thirdCard.getCity2();
-            firstDestinationCard.setText(thirdMessage);
+            String thirdMessage = thirdCard.getPointValue() + " points: " + thirdCard.getCity1().getName() + " to " + thirdCard.getCity2().getName();
+            thirdDestinationCard.setText(thirdMessage);
         }
     }
 

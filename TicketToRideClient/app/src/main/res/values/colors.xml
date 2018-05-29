@@ -8,11 +8,7 @@
     <color name="unselectedCardColor">#f4d76e</color>
 
 
-
     <color name="trainGray">#a8a8a8</color>
-
-
-
 
     <color name="trainPink">#c412af</color>
     <color name="trainOrange">#c46812</color>
@@ -26,7 +22,10 @@
     <color name="trainWild">#ccccff</color>
 
 
-
-
+    <color name="playerBlue">#002396</color>
+    <color name="playerYellow">#e2de00</color>
+    <color name="playerGreen">#00963c</color>
+    <color name="playerRed">#960000</color>
+    <color name="playerPurple">#700096</color>
 
 </resources>

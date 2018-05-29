@@ -15,7 +15,7 @@ public class DrawDestinationCardsPresenter implements IDrawDestinationPresenter 
     private PlayFacade facade;
 
     public DrawDestinationCardsPresenter () {
-        facade = new PlayFacade();
+        facade = PlayFacade.getInstance();
     }
 
     @Override
