@@ -279,15 +279,15 @@ public class SetupView extends Fragment implements ISetUpView {
             destinationCards.add(cards.get(2));
 
             DestinationCard firstCard = destinationCards.get(0);
-            String firstMessage = firstCard.getPointValue() + " points: " + firstCard.getCity1() + " to " + firstCard.getCity2();
+            String firstMessage = firstCard.getPointValue() + " points: " + firstCard.getCity1().getName() + " to " + firstCard.getCity2().getName();
             firstDestinationCard.setText(firstMessage);
 
             DestinationCard secondCard = destinationCards.get(1);
-            String secondMessage = secondCard.getPointValue() + " points: " + secondCard.getCity1() + " to " + secondCard.getCity2();
+            String secondMessage = secondCard.getPointValue() + " points: " + secondCard.getCity1().getName() + " to " + secondCard.getCity2().getName();
             firstDestinationCard.setText(secondMessage);
 
             DestinationCard thirdCard = destinationCards.get(2);
-            String thirdMessage = thirdCard.getPointValue() + " points: " + thirdCard.getCity1() + " to " + thirdCard.getCity2();
+            String thirdMessage = thirdCard.getPointValue() + " points: " + thirdCard.getCity1().getName() + " to " + thirdCard.getCity2().getName();
             firstDestinationCard.setText(thirdMessage);
         }
     }
