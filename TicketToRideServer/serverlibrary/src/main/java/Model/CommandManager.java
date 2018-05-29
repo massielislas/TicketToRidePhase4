@@ -3,8 +3,10 @@ package Model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import Results.PollResult;
 
@@ -16,10 +18,10 @@ public class CommandManager {
 
     private final static CommandManager instance = new CommandManager();
     private Map<UserPass,Command[]> commandMap;
-    private List<Command> allCommands;
+    private Set<Command> allCommands;
     private CommandManager(){
         commandMap = new HashMap<>();
-        allCommands = new ArrayList<>();
+        allCommands = new HashSet<>();
     }
     public static CommandManager getInstance() {
         return instance;
