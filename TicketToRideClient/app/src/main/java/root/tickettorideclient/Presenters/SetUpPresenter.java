@@ -51,7 +51,6 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
         if (!result.isSuccess()) {
             view.popToast("Cannot commit choices: " + result.getMessage());
         }
-
         //if result is successful
         //switch to board
         if (result.isSuccess()) {
