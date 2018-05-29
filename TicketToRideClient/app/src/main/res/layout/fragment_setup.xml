@@ -17,7 +17,7 @@
             android:id="@+id/playerNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You are Player -1"
+            android:text="You are Player: "
             android:layout_gravity="center"
             android:layout_marginRight="50dp"
             android:textColor="#000000"
@@ -36,7 +36,6 @@
         <View android:id="@+id/playerColor"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:background="#0116a0"
             android:layout_alignParentTop="true"
             android:layout_gravity="center"/>
 
@@ -70,7 +69,6 @@
         <View android:id="@+id/firstCard"
             android:layout_width="20dp"
             android:layout_height="match_parent"
-            android:background="#00ced6"
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:layout_margin="10dp"
@@ -80,7 +78,6 @@
             android:layout_width="20dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:background="#82000a"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"/>
@@ -88,7 +85,6 @@
         <View android:id="@+id/thirdCard"
             android:layout_width="20dp"
             android:layout_height="match_parent"
-            android:background="#d6d600"
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:layout_margin="10dp"
@@ -97,7 +93,6 @@
         <View android:id="@+id/fourthCard"
             android:layout_width="20dp"
             android:layout_height="match_parent"
-            android:background="#9100a8"
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:layout_margin="10dp"
@@ -107,7 +102,6 @@
             android:layout_width="20dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:background="#6acc6d"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"/>
@@ -144,7 +138,6 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="14 points: Provo to Amsterdam"
             android:padding="10dp"
             android:textColor="#000000"/>
 
@@ -156,7 +149,6 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="14 points: Cedar City to Marrakesh"
             android:padding="10dp"
             android:textColor="#000000"/>
 
@@ -168,7 +160,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="14 points: Salt Lake to Beirut"
+
             android:padding="10dp"
             android:textColor="#000000" />
     </LinearLayout>

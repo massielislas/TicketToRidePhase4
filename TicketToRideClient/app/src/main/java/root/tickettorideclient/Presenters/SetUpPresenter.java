@@ -31,10 +31,10 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
 
     public SetUpPresenter (ISetUpView view, FragmentActivity mn) {
         this.view = view;
-        this.facade = new PlayFacade();
+        this.facade = PlayFacade.getInstance();
 //        this.facade.addObserver(this);
-        this.facade.addSetUpObserver(this);
         this.mn = mn;
+        this.facade.addSetUpObserver(this);
     }
 
     public ArrayList<DestinationCard> getDestinationCards () {
@@ -51,7 +51,6 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
         if (!result.isSuccess()) {
             view.popToast("Cannot commit choices: " + result.getMessage());
         }
-
         //if result is successful
         //switch to board
         if (result.isSuccess()) {

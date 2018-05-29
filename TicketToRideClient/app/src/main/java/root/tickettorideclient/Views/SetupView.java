@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 import Model.InGameModels.DestinationCard;
@@ -193,18 +194,80 @@ public class SetupView extends Fragment implements ISetUpView {
 
     @Override
     public void setPlayerColor(String color) {
-        //TODO: FIXME
-        playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        switch(color.toLowerCase()) //set color
+        {
+            case "blue":{
+                color = "blue";
+                break;
+            }
+            case "yellow":{
+                color = "yellow";
+                break;
+            }
+            case "green":{
+                color = "green";
+                break;
+            }
+            case "red":{
+                color = "red";
+                break;
+            }
+            case "purple":{
+                color = "purple";
+                break;
+            }
+            default:{
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                break;
+            }
+        }
     }
 
     @Override
     public void setHand(ArrayList<TrainCard> cards) {
-        if ((cards != null) && (cards.size() == 3)) {
-            firstTrainCard.setBackgroundColor(Color.parseColor(cards.get(0).getColor()));
-            secondTrainCard.setBackgroundColor(Color.parseColor(cards.get(1).getColor()));
-            thirdTrainCard.setBackgroundColor(Color.parseColor(cards.get(2).getColor()));
-            fourthTrainCard.setBackgroundColor(Color.parseColor(cards.get(3).getColor()));
-            fifthTrainCard.setBackgroundColor(Color.parseColor(cards.get(4).getColor()));
+
+        if ((cards != null) && cards.size() == 5) {
+
+            Integer[] colors = new Integer[5];
+
+            for (int i = 0; i < 5; i++) {
+                String cardColor = cards.get(i).getColor().toLowerCase();
+                switch (cardColor) {
+                    case "black":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainBlack);
+                        break;
+                    case "blue":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainBlue);
+                        break;
+                    case "green":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainGreen);
+                        break;
+                    case "orange":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainOrange);
+                        break;
+                    case "pink":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainPink);
+                        break;
+                    case "red":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainRed);
+                        break;
+                    case "white":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainWhite);
+                        break;
+                    case "wild":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainWild);
+                        break;
+                    case "yellow":
+                        colors[i] = ContextCompat.getColor(getContext(), R.color.trainYellow);
+                        break;
+                }
+            }
+
+            firstTrainCard.setBackgroundColor(colors[0]);
+            secondTrainCard.setBackgroundColor(colors[1]);
+            thirdTrainCard.setBackgroundColor(colors[2]);
+            fourthTrainCard.setBackgroundColor(colors[3]);
+            fifthTrainCard.setBackgroundColor(colors[4]);
         }
     }
 

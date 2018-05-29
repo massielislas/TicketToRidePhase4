@@ -116,6 +116,10 @@ class TicketToRideServer {
         }
         return null;
     }
+    public void activateGame(Game game){
+        notYetActiveGames.remove(game);
+        activeGames.add(game);
+    }
 
     public Game getInactiveGame(String ID) {
         for (Game g : notYetActiveGames) {

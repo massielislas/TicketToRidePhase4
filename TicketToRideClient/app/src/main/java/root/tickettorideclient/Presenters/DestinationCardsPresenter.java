@@ -17,7 +17,7 @@ public class DestinationCardsPresenter implements IDestinationCardsPresenter {
     private PlayFacade facade;
 
     public DestinationCardsPresenter () {
-        facade = new PlayFacade();
+        facade = PlayFacade.getInstance();
     }
 
     public ArrayList<DestinationCard> getDestCards () {
