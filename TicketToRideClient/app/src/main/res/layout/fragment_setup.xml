@@ -36,7 +36,6 @@
         <View android:id="@+id/playerColor"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:background=""
             android:layout_alignParentTop="true"
             android:layout_gravity="center"/>
 
@@ -70,7 +69,6 @@
         <View android:id="@+id/firstCard"
             android:layout_width="20dp"
             android:layout_height="match_parent"
-            android:background=""
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:layout_margin="10dp"
@@ -80,7 +78,6 @@
             android:layout_width="20dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:background=""
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"/>
@@ -88,7 +85,6 @@
         <View android:id="@+id/thirdCard"
             android:layout_width="20dp"
             android:layout_height="match_parent"
-            android:background=""
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:layout_margin="10dp"
@@ -97,7 +93,6 @@
         <View android:id="@+id/fourthCard"
             android:layout_width="20dp"
             android:layout_height="match_parent"
-            android:background=""
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:layout_margin="10dp"
@@ -107,7 +102,6 @@
             android:layout_width="20dp"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:background=""
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"/>
