@@ -20,6 +20,10 @@ import Results.Result;
 
 public class PlayFacade {
 
+    private static final PlayFacade instance = new PlayFacade();
+
+    public static PlayFacade getInstance() {return instance;}
+
     TicketToRideProxy proxy;
     Chat chat;
     UserData userData;
