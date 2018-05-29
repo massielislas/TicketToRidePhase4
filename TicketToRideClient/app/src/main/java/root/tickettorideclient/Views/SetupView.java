@@ -253,7 +253,7 @@ public class SetupView extends Fragment implements ISetUpView {
                     case "white":
                         colors[i] = ContextCompat.getColor(getContext(), R.color.trainWhite);
                         break;
-                    case "wild":
+                    case "gray":
                         colors[i] = ContextCompat.getColor(getContext(), R.color.trainWild);
                         break;
                     case "yellow":
