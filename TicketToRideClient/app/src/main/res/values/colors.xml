@@ -7,21 +7,23 @@
     <color name="selectedCardColor">#b5b5b5</color>
     <color name="unselectedCardColor">#f4d76e</color>
 
-    <color name="trainBlack">#3d3d3d</color>
-    <color name="trainBlue">#1357c4</color>
+
 
     <color name="trainGray">#a8a8a8</color>
 
-    <color name="trainGreen">#12c427</color>
 
-    <color name="trainOrange">#c45312</color>
-    <color name="trainPurple">#8e12c4</color>
+
+
+    <color name="trainPink">#c412af</color>
+    <color name="trainOrange">#c46812</color>
+    <color name="trainBlue">#1357c4</color>
     <color name="trainRed">#c41232</color>
+    <color name="trainBlack">#3d3d3d</color>
 
+    <color name="trainGreen">#12c486</color>
     <color name="trainWhite">#e8e8e8</color>
-    <color name="trainWild">#ccccff</color>
     <color name="trainYellow">#e8c414</color>
-
+    <color name="trainWild">#ccccff</color>
 
 
 

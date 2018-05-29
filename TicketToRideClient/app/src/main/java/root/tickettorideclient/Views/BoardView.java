@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -71,7 +72,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     TextView yourHandBanner;
     LinearLayout yourHandDisplay;
-    TextView playerPurpleCards;
+    TextView playerPinkCards;
     TextView playerWhiteCards;
     TextView playerBlueCards;
     TextView playerYellowCards;
@@ -110,6 +111,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     Map<Route, Polyline>lines = new HashMap<>();
 
     private OtherPlayerAdapter playerAdapter;
+
+    final int LINE_WIDTH = 10;
 
 
     @Override
@@ -160,6 +163,12 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         }
     }
 
+    public void removeLines(){
+        for(int i = 0; i < lines.size(); i++){
+            lines.get(i).remove();
+        }
+    }
+
     public void setUpTopInputs(){
         userPointsBanner = (TextView) myView.findViewById(R.id.pointsDisplay);
         userTrainsBanner = (TextView) myView.findViewById(R.id.trainDisplay);
@@ -177,7 +186,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             }
         });
 
-        playerPurpleCards = (TextView) myView.findViewById(R.id.playerPurpleCards);
+        playerPinkCards = (TextView) myView.findViewById(R.id.playerPinkCards);
         playerWhiteCards = (TextView) myView.findViewById(R.id.playerWhiteCards);
         playerBlueCards = (TextView) myView.findViewById(R.id.playerBlueCards);
         playerYellowCards = (TextView) myView.findViewById(R.id.playerYellowCards);
@@ -318,7 +327,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
        Integer blue = 0;
        Integer green = 0;
        Integer orange = 0;
-       Integer purple = 0;
+       Integer pink = 0;
        Integer red = 0;
        Integer white = 0;
        Integer wild = 0;
@@ -326,7 +335,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
        for (int i = 0; i < cards.size(); ++i ) {
            TrainCard card = cards.get(i);
-           String cardColor = card.getColor();
+           String cardColor = card.getColor().toLowerCase();
 
            switch (cardColor) {
                case "black":
@@ -341,8 +350,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                case "orange":
                     orange = orange + 1;
                     break;
-               case "purple":
-                    purple = purple + 1;
+               case "pink":
+                    pink = pink + 1;
                     break;
                case "red":
                     red = red + 1;
@@ -363,7 +372,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         playerBlueCards.setText(blue.toString());
         playerGreenCards.setText(green.toString());
         playerOrangeCards.setText(orange.toString());
-        playerPurpleCards.setText(purple.toString());
+        playerPinkCards.setText(pink.toString());
         playerRedCards.setText(red.toString());
         playerWhiteCards.setText(white.toString());
         playerWildCards.setText(wild.toString());
@@ -414,6 +423,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void updateFaceUp(ArrayList<TrainCard> cards) {
+        //TODO: COLORS
         if (cards.size() > 0) {
             faceUpCard1.setBackgroundColor(Color.parseColor(cards.get(0).getColor()));
 
@@ -500,7 +510,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         polylineOptions.add(new LatLng(
                         city1.getLatitude() + offset, city1.getLongitude() + offset),
                 new LatLng(city2.getLatitude() + offset, city2.getLongitude() + offset));
-        polylineOptions.width(7);
+        polylineOptions.width(LINE_WIDTH);
+        polylineOptions.pattern(dashedPattern);
         polylineOptions.clickable(true);
         switch (color) {
             case "Gray":
@@ -542,7 +553,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         polylineOptions.add(new LatLng(
                         city1.getLatitude() + offset, city1.getLongitude() + offset),
                 new LatLng(city2.getLatitude() + offset, city2.getLongitude() + offset));
-        polylineOptions.width(7);
+        polylineOptions.width(LINE_WIDTH);
         polylineOptions.clickable(true);
         switch (color) {
             case "Gray":
@@ -580,16 +591,15 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     public void drawRoutes(){
-        List<PatternItem> dashedPattern = Arrays.asList(new Dash(60), new Gap(60));
-        double doubleRouteOffset = .25;
+        int dashGap = 30;
+        List<PatternItem> dashedPattern = Arrays.asList(new Dash(dashGap), new Gap(dashGap));
+        double doubleRouteOffset = .3;
         for(int i = 0; i < routes.size(); i++){
             Route route = routes.get(i);
-            PolylineOptions polylineOptions = new PolylineOptions();
             lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0, dashedPattern));
 
-            if(routes.get(i).isDouble()){
+            if(routes.get(i).isDouble())
                 lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset, dashedPattern));
-            }
         }
     }
 

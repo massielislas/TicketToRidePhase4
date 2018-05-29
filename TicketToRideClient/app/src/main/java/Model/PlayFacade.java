@@ -17,16 +17,29 @@ import Results.Result;
 
 public class PlayFacade {
 
-    TicketToRideProxy proxy = new TicketToRideProxy();
-    Chat chat = Chat.getInstance();
-    UserData userData = UserData.getUserData();
-    Cities cities = Cities.getInstance();
-    Routes routes = new Routes();
-    DestinationCardDeck destCardDeck = new DestinationCardDeck();
+    TicketToRideProxy proxy;
+    Chat chat;
+    UserData userData;
+    Cities cities;
+    Routes routes;
+    DestinationCardDeck destCardDeck;
     SinglePlayerStartInfo info;
-    BoardData boardData = new BoardData();
-    SetUpData setUpData = new SetUpData();
-    TrainCardDeck trainCardDeck = new TrainCardDeck();
+    BoardData boardData;
+    SetUpData setUpData;
+    TrainCardDeck trainCardDeck;
+
+    public PlayFacade()
+    {
+        trainCardDeck = new TrainCardDeck();
+        setUpData = new SetUpData();
+        boardData = new BoardData();
+        destCardDeck = new DestinationCardDeck();
+        routes = new Routes();
+        cities = Cities.getInstance();
+        userData = UserData.getUserData();
+        chat = Chat.getInstance();
+        proxy = new TicketToRideProxy();
+    }
 
     public void addSetUpObserver(Observer o)
     {
