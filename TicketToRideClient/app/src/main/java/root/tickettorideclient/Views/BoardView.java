@@ -171,6 +171,12 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     public void setUpTopInputs(){
         userPointsBanner = (TextView) myView.findViewById(R.id.pointsDisplay);
+        userPointsBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //SECRET UPDATE BUTTON
+            }
+        });
         userTrainsBanner = (TextView) myView.findViewById(R.id.trainDisplay);
 
         yourHandDisplay = (LinearLayout) myView.findViewById(R.id.yourHandDisplay);
@@ -196,6 +202,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         playerWildCards = (TextView) myView.findViewById(R.id.playerWildCards);
         playerGreenCards = (TextView) myView.findViewById(R.id.playerGreenCards);
 
+        availableCardsDisplay = (LinearLayout) myView.findViewById(R.id.availableCardsDisplay);
         availableCardsDisplay = (LinearLayout) myView.findViewById(R.id.availableCardsDisplay);
         availableCardsBanner = (TextView)myView.findViewById(R.id.availableCardsBanner);
         availableCardsBanner.setOnClickListener(new View.OnClickListener() {
@@ -596,10 +603,17 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         double doubleRouteOffset = .3;
         for(int i = 0; i < routes.size(); i++){
             Route route = routes.get(i);
-            lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0, dashedPattern));
+            if(!route.isClaimed())
+                lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0, dashedPattern));
+            else
+                lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0);
 
-            if(routes.get(i).isDouble())
-                lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset, dashedPattern));
+            if(routes.get(i).isDouble()){
+                if(!route.isDoubleClaimed())
+                    lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset, dashedPattern));
+                else
+                    lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset));
+            }
         }
     }
 
