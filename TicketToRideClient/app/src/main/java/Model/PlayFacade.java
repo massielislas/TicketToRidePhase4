@@ -2,6 +2,7 @@ package Model;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observer;
 
 import Communication.Encoder;
@@ -10,6 +11,7 @@ import Model.InGameModels.Cities;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
+import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
@@ -155,6 +157,20 @@ public class PlayFacade {
         boardData.setFaceUpCards(userData.getCurrentGame().getFaceUpTrainDeck());
         boardData.setRoutes(userData.getCurrentGame().getRoutes());
         boardData.setCities(userData.getCurrentGame().getCities());
+        boardData.setChange();
+    }
+
+    public void mockUpdate()
+    {
+        List<PlayerShallow> otherPlayerInfo = boardData.getOtherPlayerInfo();
+        for (PlayerShallow player: otherPlayerInfo)
+        {
+            int scoreToAdd = player.getTurnNumber() * 50;
+            int trainCardToSub = player.getTrainCardHand() * 2;
+            player.setCurrentScore(player.getCurrentScore()+scoreToAdd);
+            player.setTrainCardHand(player.getTrainCardHand() - trainCardToSub);
+            player.setDestCardHand(player.getDestCardHand() - 1);
+        }
         boardData.setChange();
     }
 }
