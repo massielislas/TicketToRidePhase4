@@ -32,7 +32,7 @@ public class PlayFacade {
     SetUpData setUpData;
     TrainCardDeck trainCardDeck;
 
-    public PlayFacade()
+    private PlayFacade()
     {
         trainCardDeck = new TrainCardDeck();
         setUpData = new SetUpData();
