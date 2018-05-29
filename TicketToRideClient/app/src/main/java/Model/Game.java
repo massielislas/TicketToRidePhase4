@@ -110,7 +110,7 @@ public class Game extends Observable
         ArrayList<DestinationCard> selectedCards = new ArrayList<DestinationCard>();
         for (Double cardID: toGet)
         {
-            selectedCards.add(findSelectedDestinationCard(cardID));
+            if (findSelectedDestinationCard(cardID) != null) selectedCards.add(findSelectedDestinationCard(cardID));
         }
         return selectedCards;
     }
