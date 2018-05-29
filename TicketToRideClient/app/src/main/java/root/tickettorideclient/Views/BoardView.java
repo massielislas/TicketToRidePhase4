@@ -62,7 +62,7 @@ import root.tickettorideclient.R;
  * Created by Massiel on 5/21/2018.
  */
 
-public class BoardView extends Fragment implements OnMapReadyCallback, IBoardView, GoogleMap.InfoWindowAdapter{
+public class BoardView extends Fragment implements OnMapReadyCallback, IBoardView, GoogleMap.OnInfoWindowClickListener{
 
     IBoardPresenter presenter;
 
@@ -114,6 +114,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     Map<Polyline, Route>lines = new HashMap<>();
 
     private OtherPlayerAdapter playerAdapter;
+
+    Route routeClicked = null;
 
     final int LINE_WIDTH = 10;
 
@@ -308,51 +310,51 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         drawRoutes();
         zoomToCenter();
         polylineOnClickListener();
-    }
-
-//    public Polyline findline(Polyline polyline){
-//        lines.get(polyline);
-//        if(lines.containsValue(polyline))
-//            Toast.makeText(getContext(), "Found the line!", Toast.LENGTH_LONG);
-//        else
-//            Toast.makeText(getContext(), "Nah, man. Not working", Toast.LENGTH_LONG);
-//    }
-
-    public void polylineOnClickListener(){
-        myGoogleMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
+        googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
-            public void onPolylineClick(Polyline polyline) {
-                Route route = lines.get(polyline);
-                Marker marker1 = markers.get(route.getCity1());
-                Marker marker2 = markers.get(route.getCity2());
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
 
-
-                String addToClaim = "\n Click To Claim!";
-                String infoWindowText = route.getCity1().getName() + " to " + route.getCity2().getName() + "\n" +
-                        "Points: " + route.getScoreValue() + "\n" +
-                        "Length: " + route.getLength();
-                if(!route.isClaimed()){
-                    infoWindowText+=  addToClaim;
-                }
-
-                String marker1text = route.getCity1() + " P:" + route.getScoreValue() + " L:" + route.getLength();
-                marker1.setTitle(marker1text);
-
-                marker1.setTitle(infoWindowText);
-                marker1.showInfoWindow();
+            @Override
+            public View getInfoContents(Marker marker) {
+                View v = getLayoutInflater().inflate(R.layout.info_window, null);
+                TextView textView = (TextView) v.findViewById(R.id.infoWindowText);
+                textView.setText(marker.getTitle());
+                return v;
             }
         });
     }
 
     @Override
-    public View getInfoContents(Marker marker) {
-        return null;
+    public void onInfoWindowClick(Marker marker) {
+
     }
 
-    @Override
-    public View getInfoWindow(Marker marker) {
-        return null;
+    public void polylineOnClickListener(){
+        myGoogleMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
+            @Override
+            public void onPolylineClick(Polyline polyline) {
+                routeClicked = lines.get(polyline);
+                Marker marker = markers.get(routeClicked.getCity1());
+                String addToClaim = "\nClick To Claim!";
+                String infoWindowText = routeClicked.getCity1().getName() + " to " + routeClicked.getCity2().getName() + "\n" +
+                        "Points: " + routeClicked.getScoreValue() + "\n" +
+                        "Length: " + routeClicked.getLength();
+                if(!routeClicked.isClaimed()){
+                    infoWindowText+=  addToClaim;
+                }
+
+                String marker1text = routeClicked.getCity1() + " P:" + routeClicked.getScoreValue() + " L:" + routeClicked.getLength();
+                marker.setTitle(marker1text);
+
+                marker.setTitle(infoWindowText);
+                marker.showInfoWindow();
+            }
+        });
     }
+
+
 
     public void zoomToCenter(){
         CameraUpdate centerOn =
