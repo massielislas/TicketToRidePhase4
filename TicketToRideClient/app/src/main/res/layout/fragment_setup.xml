@@ -29,14 +29,14 @@
             android:text="@string/yourColor"
             android:layout_margin="10dp"
             android:layout_gravity="center"
-            android:textColor=""
+            android:textColor="#000000"
             android:textSize="20dp"/>
 
 
         <View android:id="@+id/playerColor"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:background="#ffffff"
+            android:background=""
             android:layout_alignParentTop="true"
             android:layout_gravity="center"/>
 
