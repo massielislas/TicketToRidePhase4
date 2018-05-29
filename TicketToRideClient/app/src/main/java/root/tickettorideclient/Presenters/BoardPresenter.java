@@ -34,6 +34,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         this.view = view;
         facade = PlayFacade.getInstance();
         facade.addBoardObserver(this);
+     //   facade.addBoardObserver(this);
         this.mn = mn;
     }
 
