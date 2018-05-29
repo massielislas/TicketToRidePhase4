@@ -68,7 +68,6 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
                 view.addAllRoutes(new ArrayList<Route>(data.getRoutes()));
 
-
                 if (view.getNumPlayers() != data.getOtherPlayerInfo().size()) {
 
                     ArrayList<PlayerStats> playerStats = new ArrayList<>();
@@ -109,6 +108,21 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
             }
         });
+    }
+
+    @Override
+    public void claimRoute (Route route) {
+        //if route is claimed
+        //pop toast
+        if (route.isClaimed()) {
+            view.popToast("Route has already been claimed, by " + route.getClaimant());
+            return;
+        }
+
+        //else claim route
+        //facade.claimRoute(route);
+        view.popToast("Claiming route underway!");
+
     }
 
 }

@@ -123,7 +123,6 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new BoardPresenter(this, getActivity());
     }
 
 
@@ -141,6 +140,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         this.routes = new ArrayList<>(new Routes().getRouteList());
         //draw routes
 
+        presenter = new BoardPresenter(this, getActivity());
         return myView;
     }
 
@@ -328,7 +328,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-
+        presenter.claimRoute(routeClicked);
     }
 
     public void polylineOnClickListener(){
