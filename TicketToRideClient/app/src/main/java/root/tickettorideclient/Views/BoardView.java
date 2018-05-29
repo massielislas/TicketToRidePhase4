@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputFilter;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +34,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PatternItem;
+import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +62,7 @@ import root.tickettorideclient.R;
  * Created by Massiel on 5/21/2018.
  */
 
-public class BoardView extends Fragment implements OnMapReadyCallback, IBoardView {
+public class BoardView extends Fragment implements OnMapReadyCallback, IBoardView, GoogleMap.InfoWindowAdapter{
 
     IBoardPresenter presenter;
 
@@ -105,10 +108,10 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     RecyclerView otherPlayerRecyclerView;
 
     ArrayList<PlayerStats> otherPlayers = new ArrayList<>();
-    ArrayList<City> cities;
-    ArrayList<Route> routes;
+    ArrayList<City> cities = new ArrayList<>();
+    ArrayList<Route> routes = new ArrayList<>();
     Map<City, Marker>markers = new HashMap<>();
-    Map<Route, Polyline>lines = new HashMap<>();
+    Map<Polyline, Route>lines = new HashMap<>();
 
     private OtherPlayerAdapter playerAdapter;
 
@@ -164,8 +167,10 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     public void removeLines(){
-        for(int i = 0; i < lines.size(); i++){
-            lines.get(i).remove();
+        Iterator it = lines.keySet().iterator();
+        while(it.hasNext()){
+            Map.Entry pair = (Map.Entry) it.next();
+            ((Polyline) pair.getKey()).remove();
         }
     }
 
@@ -302,6 +307,51 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         drawCities();
         drawRoutes();
         zoomToCenter();
+        polylineOnClickListener();
+    }
+
+//    public Polyline findline(Polyline polyline){
+//        lines.get(polyline);
+//        if(lines.containsValue(polyline))
+//            Toast.makeText(getContext(), "Found the line!", Toast.LENGTH_LONG);
+//        else
+//            Toast.makeText(getContext(), "Nah, man. Not working", Toast.LENGTH_LONG);
+//    }
+
+    public void polylineOnClickListener(){
+        myGoogleMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
+            @Override
+            public void onPolylineClick(Polyline polyline) {
+                Route route = lines.get(polyline);
+                Marker marker1 = markers.get(route.getCity1());
+                Marker marker2 = markers.get(route.getCity2());
+
+
+                String addToClaim = "\n Click To Claim!";
+                String infoWindowText = route.getCity1().getName() + " to " + route.getCity2().getName() + "\n" +
+                        "Points: " + route.getScoreValue() + "\n" +
+                        "Length: " + route.getLength();
+                if(!route.isClaimed()){
+                    infoWindowText+=  addToClaim;
+                }
+
+                String marker1text = route.getCity1() + " P:" + route.getScoreValue() + " L:" + route.getLength();
+                marker1.setTitle(marker1text);
+
+                marker1.setTitle(infoWindowText);
+                marker1.showInfoWindow();
+            }
+        });
+    }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+        return null;
+    }
+
+    @Override
+    public View getInfoWindow(Marker marker) {
+        return null;
     }
 
     public void zoomToCenter(){
@@ -594,7 +644,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                 polylineOptions.color(Color.CYAN);
                 break;
         }
-       return myGoogleMap.addPolyline(polylineOptions);
+        Polyline polyline = myGoogleMap.addPolyline(polylineOptions);
+       return polyline;
     }
 
     public void drawRoutes(){
@@ -604,15 +655,15 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         for(int i = 0; i < routes.size(); i++){
             Route route = routes.get(i);
             if(!route.isClaimed())
-                lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0, dashedPattern));
+                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0), route);
             else
-                lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0);
+                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0), route);
 
             if(routes.get(i).isDouble()){
                 if(!route.isDoubleClaimed())
-                    lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset, dashedPattern));
+                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset), route);
                 else
-                    lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset));
+                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset), route);
             }
         }
     }
