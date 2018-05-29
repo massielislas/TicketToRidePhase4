@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Observer;
 
+import Communication.Encoder;
 import Model.InGameModels.Chat;
 import Model.InGameModels.Cities;
 import Model.InGameModels.DestinationCard;
@@ -91,6 +92,11 @@ public class PlayFacade {
     public void addChat(String message)
     {
         chat.addChatMessage(message);
+    }
+
+    public void setStartInfo(String jsonString){
+        SinglePlayerStartInfo fromGson = (SinglePlayerStartInfo) Encoder.Decode(jsonString,SinglePlayerStartInfo.class);
+        setStartInfo(fromGson);
     }
 
     public void setStartInfo(SinglePlayerStartInfo info)

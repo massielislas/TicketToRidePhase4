@@ -1,6 +1,8 @@
 package Model;
 
 import java.util.ArrayList;
+
+import Communication.Encoder;
 import Model.InGameModels.Player;
 import Model.InGameModels.TrainCard;
 import Results.LoginRegisterResult;
@@ -88,6 +90,7 @@ public class TicketToRideFacade implements ITicketToRide {
                 CommandManager.getInstance().addCommandAllUsers(command);
 
                 if (game.getCurrentPlayers() == game.getPlayerCount()) {
+                    Server.activateGame(game);
                     startGame(game.getID());
                 }
             }
@@ -150,8 +153,8 @@ public class TicketToRideFacade implements ITicketToRide {
             SinglePlayerStartInfo initPack = game.dealStartingHand(p);
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
-            String[] methodParamTypeNames = {"Model.SinglePlayerStartInfo"};
-            Object[] methodArguments = {initPack};
+            String[] methodParamTypeNames = {"java.lang.String"};
+            Object[] methodArguments = {new Encoder().Encode(initPack)};
             Command command = new Command("Model.PlayFacade", "getInstance",
                     "setStartInfo", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);

@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GameActivity"
+        <activity android:name=".MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,14 +21,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".GameActivity" />
 
         <!--Maps android key-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBs7MOAWWHT0DOUo_9tWjVBlzG-m5ngOAg" />
     </application>
-
 
     <uses-feature
         android:glEsVersion="0x00020000"
