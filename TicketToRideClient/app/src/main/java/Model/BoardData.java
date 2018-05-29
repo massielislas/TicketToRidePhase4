@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -19,7 +20,7 @@ public class BoardData extends Observable{
     private List<PlayerShallow> otherPlayerInfo;
     private int destDeckSize;
     private int trainDeckSize;
-    private List<TrainCard> faceUpCards;
+    private TrainCard[] faceUpCards;
     private List<City> cities;
     private List<Route> routes;
 
@@ -85,11 +86,11 @@ public class BoardData extends Observable{
         this.trainDeckSize = trainDeckSize;
     }
 
-    public List<TrainCard> getFaceUpCards() {
+    public TrainCard[] getFaceUpCards() {
         return faceUpCards;
     }
 
-    public void setFaceUpCards(List<TrainCard> faceUpCards) {
+    public void setFaceUpCards(TrainCard[] faceUpCards) {
         this.faceUpCards = faceUpCards;
     }
 }

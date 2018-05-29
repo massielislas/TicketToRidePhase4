@@ -17,12 +17,21 @@ public class SinglePlayerStartInfo {
     private List<DestinationCard> startingDestCards;
     private List<TrainCard> startingTrainCards;
     private List<PlayerShallow> playerInfo;
+    private TrainCard[] startingFaceUpCards;
 
     public SinglePlayerStartInfo(UserPass username, int turnNumber) {
         this.username = username;
         this.turnNumber = turnNumber;
         startingDestCards = new ArrayList<>();
         startingTrainCards = new ArrayList<>();
+    }
+
+    public TrainCard[] getStartingFaceUpCards() {
+        return startingFaceUpCards;
+    }
+
+    public void setStartingFaceUpCards(TrainCard[] startingFaceUpCards) {
+        this.startingFaceUpCards = startingFaceUpCards;
     }
 
     public int getTurnNumber() {

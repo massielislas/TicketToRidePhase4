@@ -97,8 +97,14 @@ public class PlayFacade {
         userData.getCurrentPlayer().addToDestinationHand(toAdd);
     }
 
-    public void updateFaceUpCards(ArrayList<TrainCard> cards)
+    public void updateFaceUpCards(Double cardOne, Double cardTwo, Double cardThree, Double cardFour, Double cardFive)
     {
+        TrainCard[] cards = {};
+        cards[0] = (userData.getCurrentGame().findSelectedTrainCard(cardOne));
+        cards[1] = (userData.getCurrentGame().findSelectedTrainCard(cardTwo));
+        cards[2] = (userData.getCurrentGame().findSelectedTrainCard(cardThree));
+        cards[3] = (userData.getCurrentGame().findSelectedTrainCard(cardFour));
+        cards[4] = (userData.getCurrentGame().findSelectedTrainCard(cardFive));
         userData.getCurrentGame().setFaceUpTrainDeck(cards);
     }
 
@@ -144,6 +150,7 @@ public class PlayFacade {
         player.setTrainCards(info.getStartingTrainCards());
         player.setToChoose(info.getStartingDestCards());
         userData.setCurrentPlayer(player);
+        userData.getCurrentGame().setFaceUpTrainDeck(info.getStartingFaceUpCards());
         userData.getCurrentGame().setCities(cities.getCityList());
         userData.getCurrentGame().setRoutes(routes.getRouteList());
         userData.getCurrentGame().setDestinationDeck(destCardDeck.getDestinationCards());
