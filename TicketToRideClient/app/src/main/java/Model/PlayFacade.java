@@ -1,16 +1,13 @@
 package Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Observer;
-
 import Communication.Encoder;
 import Model.InGameModels.Chat;
 import Model.InGameModels.Cities;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
-import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
 import Model.InGameModels.TrainCardDeck;
