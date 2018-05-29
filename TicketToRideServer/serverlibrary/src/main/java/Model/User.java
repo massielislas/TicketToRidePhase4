@@ -24,7 +24,8 @@ public class User {
         if(obj instanceof User)
         {
             User userObj = (User) obj;
-            if(userObj.ID.equals(this.ID) && userObj.password.equals(this.password) && userObj.userName.equals(this.userName)) {
+            if(userObj.ID.equals(this.ID) && userObj.password.equals(this.password)
+                    && userObj.userName.equals(this.userName)) {
                 return true;
             }
         }

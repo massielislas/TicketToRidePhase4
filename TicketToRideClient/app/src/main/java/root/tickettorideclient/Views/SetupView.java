@@ -38,7 +38,6 @@ public class SetupView extends Fragment implements ISetUpView {
     View secondTrainCard;
     View thirdTrainCard;
     View fourthTrainCard;
-    View fifthTrainCard;
 
     TextView playerNumber;
     View playerColor;
@@ -155,7 +154,6 @@ public class SetupView extends Fragment implements ISetUpView {
         secondTrainCard = (View) v.findViewById(R.id.secondCard);
         thirdTrainCard = (View) v.findViewById(R.id.thirdCard);
         fourthTrainCard = (View) v.findViewById(R.id.fourthCard);
-        fifthTrainCard = (View) v.findViewById(R.id.fifthCard);
     }
 
     private void checkDestinationSelections(){
@@ -197,23 +195,23 @@ public class SetupView extends Fragment implements ISetUpView {
         switch(color.toLowerCase()) //set color
         {
             case "blue":{
-                color = "blue";
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerBlue));
                 break;
             }
             case "yellow":{
-                color = "yellow";
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerYellow));
                 break;
             }
             case "green":{
-                color = "green";
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerGreen));
                 break;
             }
             case "red":{
-                color = "red";
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerRed));
                 break;
             }
             case "purple":{
-                color = "purple";
+                playerColor.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.playerPurple));
                 break;
             }
             default:{
@@ -221,16 +219,17 @@ public class SetupView extends Fragment implements ISetUpView {
                 break;
             }
         }
+
     }
 
     @Override
     public void setHand(ArrayList<TrainCard> cards) {
 
-        if ((cards != null) && cards.size() == 5) {
+        if ((cards != null) && cards.size() == 4) {
 
-            Integer[] colors = new Integer[5];
+            Integer[] colors = new Integer[4];
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 4; i++) {
                 String cardColor = cards.get(i).getColor().toLowerCase();
                 switch (cardColor) {
                     case "black":
@@ -267,7 +266,6 @@ public class SetupView extends Fragment implements ISetUpView {
             secondTrainCard.setBackgroundColor(colors[1]);
             thirdTrainCard.setBackgroundColor(colors[2]);
             fourthTrainCard.setBackgroundColor(colors[3]);
-            fifthTrainCard.setBackgroundColor(colors[4]);
         }
     }
 
@@ -281,15 +279,15 @@ public class SetupView extends Fragment implements ISetUpView {
             destinationCards.add(cards.get(2));
 
             DestinationCard firstCard = destinationCards.get(0);
-            String firstMessage = firstCard.getPointValue() + " points: " + firstCard.getCity1() + " to " + firstCard.getCity2();
+            String firstMessage = firstCard.getPointValue() + " points: " + firstCard.getCity1().getName() + " to " + firstCard.getCity2().getName();
             firstDestinationCard.setText(firstMessage);
 
             DestinationCard secondCard = destinationCards.get(1);
-            String secondMessage = secondCard.getPointValue() + " points: " + secondCard.getCity1() + " to " + secondCard.getCity2();
+            String secondMessage = secondCard.getPointValue() + " points: " + secondCard.getCity1().getName() + " to " + secondCard.getCity2().getName();
             firstDestinationCard.setText(secondMessage);
 
             DestinationCard thirdCard = destinationCards.get(2);
-            String thirdMessage = thirdCard.getPointValue() + " points: " + thirdCard.getCity1() + " to " + thirdCard.getCity2();
+            String thirdMessage = thirdCard.getPointValue() + " points: " + thirdCard.getCity1().getName() + " to " + thirdCard.getCity2().getName();
             firstDestinationCard.setText(thirdMessage);
         }
     }

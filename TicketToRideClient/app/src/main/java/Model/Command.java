@@ -92,4 +92,16 @@ public class Command {
             return null;
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash *= targetClass.hashCode();
+        hash -= instanceMethodName.hashCode();
+        hash += instanceMethodArgs.hashCode();
+        hash /= instanceParamTypeNames.hashCode();
+        hash *= methodName.hashCode();
+        hash -= methodParamTypeNames.hashCode();
+        return hash;
+    }
 }
