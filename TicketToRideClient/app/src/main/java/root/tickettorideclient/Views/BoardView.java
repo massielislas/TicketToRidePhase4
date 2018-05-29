@@ -495,92 +495,100 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         }
     }
 
+    public Polyline drawLine(City city1, City city2, String color, double offset, List<PatternItem>dashedPattern){
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.add(new LatLng(
+                        city1.getLatitude() + offset, city1.getLongitude() + offset),
+                new LatLng(city2.getLatitude() + offset, city2.getLongitude() + offset));
+        polylineOptions.width(7);
+        polylineOptions.clickable(true);
+        switch (color) {
+            case "Gray":
+                polylineOptions.color(Color.GRAY);
+                break;
+            case "Yellow":
+                polylineOptions.color(Color.YELLOW);
+                break;
+            case "Blue":
+                polylineOptions.color(Color.BLUE);
+                break;
+            case "Green":
+                polylineOptions.color(Color.GREEN);
+                break;
+            case "Pink":
+                polylineOptions.color(Color.MAGENTA);
+                break;
+            case "Black":
+                polylineOptions.color(Color.BLACK);
+                break;
+            case "Orange":
+                polylineOptions.color(Color.rgb(255, 175, 58));
+                break;
+            case "White":
+                polylineOptions.color(Color.WHITE);
+                break;
+            case "Red":
+                polylineOptions.color(Color.RED);
+                break;
+            default:
+                polylineOptions.color(Color.CYAN);
+                break;
+        }
+        return myGoogleMap.addPolyline(polylineOptions);
+    }
+
+    public Polyline drawLine(City city1, City city2, String color, double offset){
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.add(new LatLng(
+                        city1.getLatitude() + offset, city1.getLongitude() + offset),
+                new LatLng(city2.getLatitude() + offset, city2.getLongitude() + offset));
+        polylineOptions.width(7);
+        polylineOptions.clickable(true);
+        switch (color) {
+            case "Gray":
+                polylineOptions.color(Color.GRAY);
+                break;
+            case "Yellow":
+                polylineOptions.color(Color.YELLOW);
+                break;
+            case "Blue":
+                polylineOptions.color(Color.BLUE);
+                break;
+            case "Green":
+                polylineOptions.color(Color.GREEN);
+                break;
+            case "Pink":
+                polylineOptions.color(Color.MAGENTA);
+                break;
+            case "Black":
+                polylineOptions.color(Color.BLACK);
+                break;
+            case "Orange":
+                polylineOptions.color(Color.rgb(255, 175, 58));
+                break;
+            case "White":
+                polylineOptions.color(Color.WHITE);
+                break;
+            case "Red":
+                polylineOptions.color(Color.RED);
+                break;
+            default:
+                polylineOptions.color(Color.CYAN);
+                break;
+        }
+       return myGoogleMap.addPolyline(polylineOptions);
+    }
+
     public void drawRoutes(){
         List<PatternItem> dashedPattern = Arrays.asList(new Dash(60), new Gap(60));
+        double doubleRouteOffset = .25;
         for(int i = 0; i < routes.size(); i++){
+            Route route = routes.get(i);
             PolylineOptions polylineOptions = new PolylineOptions();
-            polylineOptions.add(new LatLng(
-                    routes.get(i).getCity1().getLatitude(), routes.get(i).getCity1().getLongitude()),
-                    new LatLng(routes.get(i).getCity2().getLatitude(), routes.get(i).getCity2().getLongitude()));
-            polylineOptions.width(7);
-            polylineOptions.pattern(dashedPattern);
-            String color = routes.get(i).getColor();
-            switch (color){
-                case "Gray":
-                    polylineOptions.color(Color.GRAY);
-                    break;
-                case "Yellow":
-                    polylineOptions.color(Color.YELLOW);
-                    break;
-                case "Blue":
-                    polylineOptions.color(Color.BLUE);
-                    break;
-                case "Green":
-                    polylineOptions.color(Color.GREEN);
-                    break;
-                case "Pink":
-                    polylineOptions.color(Color.MAGENTA);
-                    break;
-                case "Black":
-                    polylineOptions.color(Color.BLACK);
-                    break;
-                case "Orange":
-                    polylineOptions.color(Color.rgb(255, 175, 58));
-                    break;
-                case "White":
-                    polylineOptions.color(Color.WHITE);
-                    break;
-                case "Red":
-                    polylineOptions.color(Color.RED);
-                    break;
-                default:
-                    polylineOptions.color(Color.CYAN);
-                    break;
-            }
-            lines.put(routes.get(i), myGoogleMap.addPolyline(polylineOptions));
+            lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0, dashedPattern));
 
             if(routes.get(i).isDouble()){
-                double doubleRouteOffset = .25;
-                PolylineOptions polylineOptions2 = new PolylineOptions();
-                polylineOptions2.add(new LatLng(
-                                routes.get(i).getCity1().getLatitude()+doubleRouteOffset, routes.get(i).getCity1().getLongitude()+doubleRouteOffset),
-                        new LatLng(routes.get(i).getCity2().getLatitude()+doubleRouteOffset, routes.get(i).getCity2().getLongitude()+doubleRouteOffset));
-                polylineOptions2.width(10);
-                polylineOptions.pattern(dashedPattern);
-                String color2 = routes.get(i).getDoubleColor();
-                switch (color2){
-                    case "Gray":
-                        polylineOptions2.color(Color.GRAY);
-                        break;
-                    case "Yellow":
-                        polylineOptions2.color(Color.YELLOW);
-                        break;
-                    case "Blue":
-                        polylineOptions2.color(Color.BLUE);
-                        break;
-                    case "Green":
-                        polylineOptions2.color(Color.GREEN);
-                        break;
-                    case "Pink":
-                        polylineOptions2.color(Color.MAGENTA);
-                        break;
-                    case "Black":
-                        polylineOptions2.color(Color.BLACK);
-                        break;
-                    case "Orange":
-                        polylineOptions2.color(Color.rgb(255, 175, 58));
-                        break;
-                    case "White":
-                        polylineOptions2.color(Color.WHITE);
-                        break;
-                    case "Red":
-                        polylineOptions2.color(Color.RED);
-                        break;
-                    default:
-                        polylineOptions2.color(Color.CYAN);
-                        break;
-                }
-                lines.put(routes.get(i), myGoogleMap.addPolyline(polylineOptions2));
+                lines.put(route, drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset, dashedPattern));
             }
         }
     }
