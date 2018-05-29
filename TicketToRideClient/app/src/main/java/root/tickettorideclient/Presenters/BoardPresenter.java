@@ -32,7 +32,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
     public BoardPresenter (IBoardView view, FragmentActivity mn) {
         this.view = view;
-        facade = new PlayFacade();
+        facade = PlayFacade.getInstance();
         facade.addBoardObserver(this);
         this.mn = mn;
     }
