@@ -482,24 +482,64 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void updateFaceUp(ArrayList<TrainCard> cards) {
-        //TODO: COLORS
+        String[] colors = new String[cards.size()];
+        for (int i = 0; i < cards.size(); ++i) {
+            colors[i] = cards.get(i).getColor();
+        }
+
+        Integer[] colorInts = new Integer[cards.size()];
+        for (int i = 0; i < cards.size(); ++i) {
+            switch (colors[i].toLowerCase()) {
+                case "gray": //aka wild
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainWild);
+                    break;
+                case "yellow":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainYellow);
+                    break;
+                case "blue":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainBlue);
+                    break;
+                case "green":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainGreen);
+                    break;
+                case "pink":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainPink);
+                    break;
+                case "black":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainBlack);
+                    break;
+                case "orange":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainOrange);
+                    break;
+                case "white":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainWhite);
+                    break;
+                case "red":
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.trainRed);
+                    break;
+                default:
+                    colorInts[i] = ContextCompat.getColor(getContext(), R.color.colorPrimary);
+                    break;
+            }
+        }
+
         if (cards.size() > 0) {
-            faceUpCard1.setBackgroundColor(Color.parseColor(cards.get(0).getColor()));
+            faceUpCard1.setBackgroundColor(colorInts[0]);
 
         }
         if (cards.size() > 1) {
-            faceUpCard2.setBackgroundColor(Color.parseColor(cards.get(1).getColor()));
+            faceUpCard2.setBackgroundColor(colorInts[1]);
 
         }
         if (cards.size() > 2) {
-            faceUpCard3.setBackgroundColor(Color.parseColor(cards.get(2).getColor()));
+            faceUpCard3.setBackgroundColor(colorInts[2]);
 
         }
         if (cards.size() > 3) {
-            faceUpCard4.setBackgroundColor(Color.parseColor(cards.get(3).getColor()));
+            faceUpCard4.setBackgroundColor(colorInts[3]);
         }
         if (cards.size() > 4) {
-            faceUpCard5.setBackgroundColor(Color.parseColor(cards.get(4).getColor()));
+            faceUpCard5.setBackgroundColor(colorInts[4]);
 
         }
     }
