@@ -33,8 +33,8 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
         this.view = view;
         this.facade = PlayFacade.getInstance();
 //        this.facade.addObserver(this);
-        this.facade.addSetUpObserver(this);
         this.mn = mn;
+        this.facade.addSetUpObserver(this);
     }
 
     public ArrayList<DestinationCard> getDestinationCards () {
