@@ -38,7 +38,6 @@ public class SetupView extends Fragment implements ISetUpView {
     View secondTrainCard;
     View thirdTrainCard;
     View fourthTrainCard;
-    View fifthTrainCard;
 
     TextView playerNumber;
     View playerColor;
@@ -155,7 +154,6 @@ public class SetupView extends Fragment implements ISetUpView {
         secondTrainCard = (View) v.findViewById(R.id.secondCard);
         thirdTrainCard = (View) v.findViewById(R.id.thirdCard);
         fourthTrainCard = (View) v.findViewById(R.id.fourthCard);
-        fifthTrainCard = (View) v.findViewById(R.id.fifthCard);
     }
 
     private void checkDestinationSelections(){
@@ -227,11 +225,11 @@ public class SetupView extends Fragment implements ISetUpView {
     @Override
     public void setHand(ArrayList<TrainCard> cards) {
 
-        if ((cards != null) && cards.size() == 5) {
+        if ((cards != null) && cards.size() == 4) {
 
-            Integer[] colors = new Integer[5];
+            Integer[] colors = new Integer[4];
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 4; i++) {
                 String cardColor = cards.get(i).getColor().toLowerCase();
                 switch (cardColor) {
                     case "black":
@@ -268,7 +266,6 @@ public class SetupView extends Fragment implements ISetUpView {
             secondTrainCard.setBackgroundColor(colors[1]);
             thirdTrainCard.setBackgroundColor(colors[2]);
             fourthTrainCard.setBackgroundColor(colors[3]);
-            fifthTrainCard.setBackgroundColor(colors[4]);
         }
     }
 
