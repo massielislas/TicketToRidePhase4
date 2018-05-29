@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 
 public class Command {
 
-
+    private long time;
     private String targetClass;
     private String instanceMethodName;
     private String methodName;
@@ -22,6 +22,7 @@ public class Command {
                    String methodName, String[] instanceParamTypeNames,
                    Object[] instanceMethodArgs, String[] methodParamTypeNames,
                    Object[] methodArguments) {
+        this.time = System.currentTimeMillis();
         this.targetClass = targetClass;
         this.instanceMethodName = instanceMethodName;
         this.methodName = methodName;
@@ -103,6 +104,7 @@ public class Command {
         hash /= instanceParamTypeNames.hashCode();
         hash *= methodName.hashCode();
         hash -= methodParamTypeNames.hashCode();
+        hash *= time;
         return hash;
     }
 }
