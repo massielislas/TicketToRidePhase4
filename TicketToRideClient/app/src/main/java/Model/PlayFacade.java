@@ -166,7 +166,7 @@ public class PlayFacade {
         for (PlayerShallow player: otherPlayerInfo)
         {
             int scoreToAdd = player.getTurnNumber() * 50;
-            int trainCardToSub = player.getTrainCardHand() * 2;
+            int trainCardToSub = player.getTurnNumber() * 2;
             player.setCurrentScore(player.getCurrentScore()+scoreToAdd);
             player.setTrainCardHand(player.getTrainCardHand() - trainCardToSub);
             player.setDestCardHand(player.getDestCardHand() - 1);
