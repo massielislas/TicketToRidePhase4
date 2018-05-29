@@ -33,9 +33,9 @@ public class BoardPresenter implements IBoardPresenter, Observer {
     public BoardPresenter (IBoardView view, FragmentActivity mn) {
         this.view = view;
         facade = PlayFacade.getInstance();
+        this.mn = mn;
         facade.addBoardObserver(this);
      //   facade.addBoardObserver(this);
-        this.mn = mn;
     }
 
     public void sendChat (String message) {
