@@ -229,7 +229,7 @@ public class TicketToRideProxy implements ITicketToRide {
         Object[] methodArguments = {username, gameID, cardOne, cardTwo};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
-                "selectCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                "discardDestCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                 methodArguments);
 
         String jsonStr = Encoder.Encode(command);
