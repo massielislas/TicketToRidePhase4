@@ -151,7 +151,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     public void updateUI(){
-       addFakePlayers();
+//       addFakePlayers();
         playerAdapter = new OtherPlayerAdapter(otherPlayers);
         otherPlayerRecyclerView.setAdapter(playerAdapter);
     }
@@ -170,9 +170,10 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     public void removeLines(){
         Iterator it = lines.keySet().iterator();
+
         while(it.hasNext()){
-            Map.Entry pair = (Map.Entry) it.next();
-            ((Polyline) pair.getKey()).remove();
+            Polyline polyline = (Polyline) it.next();
+            polyline.remove();
         }
     }
 
@@ -418,7 +419,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                case "white":
                     white = white + 1;
                     break;
-               case "wild":
+               case "gray":
                     wild = wild + 1;
                     break;
                case "yellow":
@@ -458,7 +459,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                 return;
             }
         }
-        userPointsBanner.setText("TRAINS: " + pieces + "/45");
+        userTrainsBanner.setText("TRAINS: " + pieces + "/45");
     }
 
     @Override
