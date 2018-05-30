@@ -56,6 +56,17 @@ public class BoardPresenter implements IBoardPresenter, Observer {
     @Override
     public void update(Observable observable, Object o) {
 
+        if (o.getClass().equals(Chat.class)) {
+            final Chat chat = (Chat) o;
+            mn.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    view.addAllHistory(chat.getChat());
+                }
+            });
+            return;
+        }
+
         final BoardData data = (BoardData) o;
 
         mn.runOnUiThread(new Runnable() {

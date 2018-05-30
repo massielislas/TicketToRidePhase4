@@ -19,7 +19,7 @@ public class Chat extends Observable
     {
         chat.add(message);
         setChanged(); //set change has occurred
-        notifyObservers(chat); //TODO:
+        notifyObservers(this); //TODO:
                                 // replace chat with necessary view list
         clearChanged(); //no longer have a change!
     }
