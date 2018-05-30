@@ -250,4 +250,18 @@ public class TicketToRideFacade implements ITicketToRide {
             return new Result(false, "Something failed in discardDestCards in TicketToRideFacade");
         }
     }
+    public void updatePlayers(Game game){
+        for(Player p:game.getPlayerList()){
+            UpdateInfo info = game.getUpdateInfo(p);
+            String gsonString = new Encoder().Encode(info);
+            String[] instanceParamTypeNames = new String[0];
+            Object[] instanceMethodArgs = new Object[0];
+            String[] methodParamTypeNames = {"java.lang.String"};
+            Object[] methodArguments = {gsonString};
+            Command command = new Command("Model.PlayFacade", "getInstance",
+                    "updateBoardData", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                    methodArguments);
+            CommandManager.getInstance().addCommand(p.getUserName(),command);
+        }
+    }
 }

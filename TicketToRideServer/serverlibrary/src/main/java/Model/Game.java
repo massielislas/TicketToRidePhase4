@@ -159,11 +159,8 @@ public class Game {
     }
 
     public UpdateInfo getUpdateInfo(Player p){
-        int currentDestDeckSize = new Double(getDestCardDeckSize()).intValue();
-        int currentTrainDeckSize = new Double(getTrainCardDeckSize()).intValue();
-        for(Player p: getPlayerList()){
-            UpdateInfo updateInfo = new UpdateInfo(1,getPlayerShallows(p),getTrainCardFaceupDeck(),getTrainCardDeckSize(),getDestCardDeckSize())
-        }
+        return new UpdateInfo(1,getPlayerShallows(p),getTrainCardFaceupDeck(),new Double(getTrainCardDeckSize()).intValue(),
+                    new Double(getDestCardDeckSize()).intValue());
     }
 
     public void addChat(String msg, String userName) {
