@@ -220,7 +220,7 @@ public class TicketToRideFacade implements ITicketToRide {
 
     }
 
-    public Result discardDestCards(String username, String gameID, Double card1, Double card2, Double card3) {
+    public Result discardDestCards(String username, String gameID, Double card1, Double card2) {
         //Get the game with the corresponding ID
         Game game = Server.getSpecificActiveGame(gameID);
         //Get the player whose hands we are modifying
