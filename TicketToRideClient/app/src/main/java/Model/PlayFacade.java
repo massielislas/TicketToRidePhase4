@@ -116,6 +116,7 @@ public class PlayFacade {
     public void addChat(String message)
     {
         chat.addChatMessage(message);
+
     }
 
     public void updateDeckSize(Double trainDeckSize, Double destDeckSize)

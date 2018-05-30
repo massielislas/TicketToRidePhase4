@@ -17,6 +17,7 @@ public class Chat extends Observable
 
     public void addChatMessage(String message)
     {
+        chat.add(message);
         setChanged(); //set change has occurred
         notifyObservers(chat); //TODO:
                                 // replace chat with necessary view list

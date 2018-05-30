@@ -170,9 +170,10 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     public void removeLines(){
         Iterator it = lines.keySet().iterator();
+
         while(it.hasNext()){
-            Map.Entry pair = (Map.Entry) it.next();
-            ((Polyline) pair.getKey()).remove();
+            Polyline polyline = (Polyline) it.next();
+            polyline.remove();
         }
     }
 
