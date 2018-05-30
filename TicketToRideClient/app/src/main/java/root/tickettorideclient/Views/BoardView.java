@@ -151,7 +151,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     public void updateUI(){
-       addFakePlayers();
+//       addFakePlayers();
         playerAdapter = new OtherPlayerAdapter(otherPlayers);
         otherPlayerRecyclerView.setAdapter(playerAdapter);
     }
