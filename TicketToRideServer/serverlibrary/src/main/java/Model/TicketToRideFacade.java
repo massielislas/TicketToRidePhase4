@@ -192,8 +192,8 @@ public class TicketToRideFacade implements ITicketToRide {
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.String"};
             Object[] methodArguments = {totalMessage};
-            Command command = new Command("Model.Chat", "getInstance",
-                    "addChatMessage", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+            Command command = new Command("Model.PlayFacade", "getInstance",
+                    "addChat", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommandMultipleUsers(toChat.getUserList(),command);
             //
