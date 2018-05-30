@@ -49,6 +49,7 @@ public class PlayFacade {
     {
         //chat.addAnObserver(o);
         setUpData.addAnObserver(o);
+        if (setUpData!=null) setUpData.setChange();
     }
 
     public void addBoardObserver(Observer o)
@@ -176,6 +177,7 @@ public class PlayFacade {
         boardData.setFaceUpCards(userData.getCurrentGame().getFaceUpTrainDeck());
         boardData.setRoutes(userData.getCurrentGame().getRoutes());
         boardData.setCities(userData.getCurrentGame().getCities());
+        boardData.setCurrentPlayer(userData.getCurrentPlayer());
         boardData.setChange();
     }
 

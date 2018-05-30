@@ -16,7 +16,7 @@ public class BoardData extends Observable{
 
     private UserData userData = UserData.getUserData();
     private Chat chat = Chat.getInstance();
-    private Player currentPlayer = userData.getCurrentPlayer();
+    private Player currentPlayer;
     private List<PlayerShallow> otherPlayerInfo;
     private int destDeckSize;
     private int trainDeckSize;
@@ -29,6 +29,10 @@ public class BoardData extends Observable{
         setChanged(); //set change has occurred
         notifyObservers(this); //notify observers we have a change and give them new playercount
         clearChanged(); //no longer have a change!
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     public void addAnObserver(Observer o)
