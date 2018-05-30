@@ -127,7 +127,7 @@ public class PlayFacade {
 
     public void updateBoardData(String jsonString)
     {
-        updateInfo update = (updateInfo) Encoder.Decode(jsonString, updateInfo.class);
+        UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonString, UpdateInfo.class);
     }
 
     //public void updateOtherPlayer()
@@ -195,10 +195,13 @@ public class PlayFacade {
         boardData.setRoutes(userData.getCurrentGame().getRoutes());
         boardData.setCities(userData.getCurrentGame().getCities());
         boardData.setCurrentPlayer(userData.getCurrentPlayer());
-        List<PlayerShallow> otherPlayerInfo = boardData.getOtherPlayerInfo();
-        for (PlayerShallow player: otherPlayerInfo)
-        {
-            if (player.getTurnNumber() == 1) boardData.setUserPlaying(player.getuName());
+        if (userData.getCurrentPlayer().getTurnNumber() == 1)
+            boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
+        else {
+            List<PlayerShallow> otherPlayerInfo = boardData.getOtherPlayerInfo();
+            for (PlayerShallow player : otherPlayerInfo) {
+                if (player.getTurnNumber() == 1) boardData.setUserPlaying(player.getuName());
+            }
         }
         boardData.setChange();
     }
