@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -260,6 +261,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     public void setUpBottomInputs(){
         chatBoxContainer = (LinearLayout)myView.findViewById(R.id.chatboxContainer);
         chatBox = (TextView) myView.findViewById(R.id.chatBox);
+        chatBox.setMovementMethod(new ScrollingMovementMethod());
         typedMessage = (EditText) myView.findViewById(R.id.typeMessageLine);
 
         sendMessageButton = (Button) myView.findViewById(R.id.submitMessageButton);
