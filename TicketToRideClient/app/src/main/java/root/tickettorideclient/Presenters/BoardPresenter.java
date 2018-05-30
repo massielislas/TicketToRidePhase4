@@ -118,6 +118,9 @@ public class BoardPresenter implements IBoardPresenter, Observer {
                     view.updatePlayerTrainCards(player.getuName(), player.getTrainCardHand());
                 }
 
+                view.updateTurn("DUMMY_VALUE");
+                //view.updateTurn(data.get);
+
             }
         });
     }
@@ -139,6 +142,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
     @Override
     public void test () {
+        view.popToast("Starting Test");
         facade.mockUpdate();
     }
 
