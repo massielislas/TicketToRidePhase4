@@ -338,6 +338,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                 Marker marker = markers.get(routeClicked.getCity1());
                 String addToClaim = "\nClick To Claim!";
                 String infoWindowText = routeClicked.getCity1().getName() + " to " + routeClicked.getCity2().getName() + "\n" +
+                        "Color: " + routeClicked.getColor() + "\n" +
                         "Points: " + routeClicked.getScoreValue() + "\n" +
                         "Length: " + routeClicked.getLength();
                 if(!routeClicked.isClaimed()){
