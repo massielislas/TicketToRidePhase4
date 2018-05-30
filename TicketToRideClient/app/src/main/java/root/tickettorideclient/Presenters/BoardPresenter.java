@@ -139,6 +139,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
     @Override
     public void test () {
+        view.popToast("Starting Test");
         facade.mockUpdate();
     }
 

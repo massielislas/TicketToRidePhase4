@@ -205,6 +205,20 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
+    public void addGameHistory(Game game, String message){
+        //ToDo: add these commands to the game chat history
+        String totalMessage = message;
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.String"};
+        Object[] methodArguments = {totalMessage};
+        Command command = new Command("Model.PlayFacade", "getInstance",
+                "addChat", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+        CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(),command);
+
+    }
+
 //    public Result discardDestCards(String username, String gameID, Double card1, Double card3){
 //
 //    }
