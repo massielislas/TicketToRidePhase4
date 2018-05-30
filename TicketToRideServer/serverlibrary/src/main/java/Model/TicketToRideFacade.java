@@ -220,14 +220,15 @@ public class TicketToRideFacade implements ITicketToRide {
 
     }
 
-
     public Result discardDestCards(String username, String gameID, Double card1, Double card2, Double card3) {
         //Get the game with the corresponding ID
         Game game = Server.getSpecificActiveGame(gameID);
         //Get the player whose hands we are modifying
         UserPass name = new UserPass(username);
         Player player = game.getPlayer(name);
+        int numberdiscarded = 0;
         if (card1 != -1) {
+            numberdiscarded++;
             DestinationCard toDiscard = player.removeDestCard(card1.intValue());
             if (toDiscard == null) {
                 return new Result(false, "That card isn't in that players hand!");
@@ -235,6 +236,7 @@ public class TicketToRideFacade implements ITicketToRide {
             game.addDestCardBackIn(toDiscard);
         }
         if (card2 != -1) {
+            numberdiscarded++;
             DestinationCard toDiscard = player.removeDestCard(card1.intValue());
             if (toDiscard == null) {
                 return new Result(false, "That card isn't in that players hand!");
@@ -242,6 +244,7 @@ public class TicketToRideFacade implements ITicketToRide {
             game.addDestCardBackIn(toDiscard);
         }
         updatePlayers(game);
+        addGameHistory(game,"<<"+username+" discarded " + numberdiscarded + " Destination Cards>>");
         return new Result(true, "");
     }
 
