@@ -190,6 +190,10 @@ public class Game {
         CommandManager.getInstance().addCommandAllUsers(command);
     }
 
+    public void addDestCardBackIn(DestinationCard card) {
+        destinationCardDeck.add(card);
+    }
+
     public int getPlayerCount()
     {
         return playerCount;
