@@ -18,8 +18,8 @@ public interface ITicketToRide {
     Result createNewGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID);
     Result startGame(String ID);
     Result sendChat(String username, String message, String gameID);
-    Result discardDestCards(String username, String gameID, ArrayList<Integer> destinationCards);
-    void updateFaceUpCards(Game game);
+//    Result discardDestCards(String username, String gameID, ArrayList<Integer> destinationCards);
+//    void updateFaceUpCards(Game game);
 
 }
 

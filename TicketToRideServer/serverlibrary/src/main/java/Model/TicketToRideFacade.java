@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 
 import Communication.Encoder;
+import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
 import Model.InGameModels.TrainCard;
 import Results.LoginRegisterResult;
@@ -162,24 +163,24 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
-    @Override
-    public void updateFaceUpCards(Game game)
-    {
-        String[] instanceParamTypeNames = new String[0];
-        Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"java.util.ArrayList<Integer>"};
-        TrainCard[] faceUpDeck = game.getTrainCardFaceupDeck();
-        ArrayList<Integer> faceUpIDs = new ArrayList<Integer>();
-        for (int i = 0; i < faceUpIDs.size(); i++)
-        {
-            faceUpIDs.add(i, faceUpDeck[i].getID());
-        }
-        Object[] methodArguments = {faceUpIDs};
-        Command command = new Command("Model.PlayFacade", "getInstance",
-                "updateFaceUpCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-                methodArguments);
-        CommandManager.getInstance().addCommandAllUsers(command);
-    }
+// KEEP!!!
+//    public void updateFaceUpCards(Double card1, Double card2, Double card3, Double card4, Double card5)
+//    {
+//        String[] instanceParamTypeNames = new String[0];
+//        Object[] instanceMethodArgs = new Object[0];
+//        String[] methodParamTypeNames = {"java.util.ArrayList<Integer>"};
+//        TrainCard[] faceUpDeck = game.getTrainCardFaceupDeck();
+//        ArrayList<Integer> faceUpIDs = new ArrayList<Integer>();
+//        for (int i = 0; i < faceUpIDs.size(); i++)
+//        {
+//            faceUpIDs.add(i, faceUpDeck[i].getID());
+//        }
+//        Object[] methodArguments = {faceUpIDs};
+//        Command command = new Command("Model.PlayFacade", "getInstance",
+//                "updateFaceUpCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+//                methodArguments);
+//        CommandManager.getInstance().addCommandAllUsers(command);
+//    }
 
     public Result sendChat(String userName, String msg, String gameID) {
         Game toChat = Server.getSpecificActiveGame(gameID);
@@ -203,21 +204,34 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
-    public Result discardDestCards(String username, String gameID, ArrayList<Integer> cardIDs) {
+//    public Result discardDestCards(String username, String gameID, Double card1, Double card3){
+//
+//    }
+
+    public Result selectCards(String username, String gameID, Double card1, Double card2, Double card3) {
         Game game = Server.getSpecificActiveGame(gameID);
+        Player player = game.getPlayer(new UserPass(username));
+        player.getDestCards().add(new DestinationCardDeck().getDestinationCard(card1.intValue()));
+        if(card2.intValue() != -1) {
+            player.getDestCards().add(new DestinationCardDeck().getDestinationCard(card2.intValue()));
+        }
+        if(card3.intValue() != -1) {
+            player.getDestCards().add(new DestinationCardDeck().getDestinationCard(card3.intValue()));
+        }
+
         if (game != null) {
             //Command for Chat
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
-            String[] methodParamTypeNames = {"java.lang.String", "java.lang.Double"};
-            Object[] methodArguments = {username, cardIDs.size()};
+            String[] methodParamTypeNames = {"java.lang.Double","java.lang.Double","java.lang.Double"};
+            Object[] methodArguments = {card1, card2, card3};
             Command command = new Command("Model.Chat", "getInstance",
-                    "discardCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                    "addCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
-            CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(), command);
+            CommandManager.getInstance().addCommand(new UserPass(username), command);
             //
-            return new Result(true, "removed " + cardIDs.size() + " destination cards from " +
-                    username + "'s hand");
+
+            return new Result(true, "");
         }
         //
         else {

@@ -135,6 +135,7 @@ public class Game {
         //anything they aren't supposed to know.
         List<PlayerShallow> list = getPlayerShallows(p);
         startingInfo.setPlayerInfo(list);
+        startingInfo.setStartingFaceUpCards(trainCardFaceupDeck);
         return startingInfo;
     }
 
@@ -241,6 +242,15 @@ public class Game {
         return userList;
     }
 
+    public Player getPlayer(UserPass user){
+        for(Player p: playerList){
+            if(p.getUserName().equals(user)){
+                return p;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean equals(Object obj) {
 
@@ -253,6 +263,5 @@ public class Game {
         }
         return true;
     }
-
 
 }
