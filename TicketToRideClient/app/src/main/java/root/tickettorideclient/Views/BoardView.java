@@ -181,7 +181,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         userPointsBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //SECRET UPDATE BUTTON
+                presenter.test();
             }
         });
         userTrainsBanner = (TextView) myView.findViewById(R.id.trainDisplay);
