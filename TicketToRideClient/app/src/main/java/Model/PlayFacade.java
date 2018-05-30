@@ -77,18 +77,34 @@ public class PlayFacade {
 
     public Result selectCards(ArrayList<Integer> cards)
     {
-        return proxy.selectCards(userData.getUsername().getNameOrPassword(), userData.getCurrentGame().getID(), cards);
+        Double cardOne = new Double(cards.get(0));
+        Double cardTwo = new Double(cards.get(1));
+        Double cardThree;
+        if (cards.size() == 2) cardThree = new Double(-1);
+        else cardThree = new Double(cards.get(2));
+        return proxy.selectCards(userData.getUsername().getNameOrPassword(), userData.getCurrentGame().getID(), cardOne, cardTwo, cardThree);
     }
 
-    public void addCards(ArrayList<Double> cards)
+    public void addCards(Double one, Double two, Double three)
     {
+        ArrayList<Double> cards = new ArrayList<Double>() {
+        };
+        cards.add(0, one);
+        cards.add(1, two);
+        cards.add(2, three);
         Game currentGame = userData.getCurrentGame();
         ArrayList<DestinationCard> toAdd = currentGame.getSelectedDestinationCards(cards);
         userData.getCurrentPlayer().addToDestinationHand(toAdd);
     }
 
-    public void updateFaceUpCards(ArrayList<TrainCard> cards)
+    public void updateFaceUpCards(Double cardOne, Double cardTwo, Double cardThree, Double cardFour, Double cardFive)
     {
+        TrainCard[] cards = {};
+        cards[0] = (userData.getCurrentGame().findSelectedTrainCard(cardOne));
+        cards[1] = (userData.getCurrentGame().findSelectedTrainCard(cardTwo));
+        cards[2] = (userData.getCurrentGame().findSelectedTrainCard(cardThree));
+        cards[3] = (userData.getCurrentGame().findSelectedTrainCard(cardFour));
+        cards[4] = (userData.getCurrentGame().findSelectedTrainCard(cardFive));
         userData.getCurrentGame().setFaceUpTrainDeck(cards);
     }
 
@@ -134,6 +150,7 @@ public class PlayFacade {
         player.setTrainCards(info.getStartingTrainCards());
         player.setToChoose(info.getStartingDestCards());
         userData.setCurrentPlayer(player);
+        userData.getCurrentGame().setFaceUpTrainDeck(info.getStartingFaceUpCards());
         userData.getCurrentGame().setCities(cities.getCityList());
         userData.getCurrentGame().setRoutes(routes.getRouteList());
         userData.getCurrentGame().setDestinationDeck(destCardDeck.getDestinationCards());

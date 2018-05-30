@@ -20,5 +20,5 @@ public interface ITicketToRide {
     Result createNewGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID);
     Result startGame(String ID);
     Result sendChat(String username, String message, String gameID);
-    Result selectCards(String username, String gameID, ArrayList<Integer> destinationCards);
+    Result selectCards(String username, String gameID, Double cardOne, Double cardTwo, Double cardThree);
 }

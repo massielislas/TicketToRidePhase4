@@ -16,6 +16,7 @@ import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
 import Model.InGameModels.Route;
 import Model.InGameModels.TrainCard;
+import Model.InGameModels.TrainCardDeck;
 
 public class Game extends Observable
 {
@@ -31,7 +32,7 @@ public class Game extends Observable
     ArrayList<Player> players;
     List<Route> routes;
     List<City> cities;
-    ArrayList<TrainCard> faceUpTrainDeck;
+    TrainCard[] faceUpTrainDeck;
     List<TrainCard> faceDownTrainDeck;
     Chat chat;
 
@@ -82,11 +83,11 @@ public class Game extends Observable
         this.routes = routes;
     }
 
-    public ArrayList<TrainCard> getFaceUpTrainDeck() {
+    public TrainCard[] getFaceUpTrainDeck() {
         return faceUpTrainDeck;
     }
 
-    public void setFaceUpTrainDeck(ArrayList<TrainCard> faceUpTrainDeck) {
+    public void setFaceUpTrainDeck(TrainCard[] faceUpTrainDeck) {
         this.faceUpTrainDeck = faceUpTrainDeck;
     }
 
@@ -110,9 +111,18 @@ public class Game extends Observable
         ArrayList<DestinationCard> selectedCards = new ArrayList<DestinationCard>();
         for (Double cardID: toGet)
         {
-            selectedCards.add(findSelectedDestinationCard(cardID));
+            if (findSelectedDestinationCard(cardID) != null) selectedCards.add(findSelectedDestinationCard(cardID));
         }
         return selectedCards;
+    }
+
+    public TrainCard findSelectedTrainCard(Double cardID)
+    {
+        for (TrainCard currentCard: faceDownTrainDeck)
+        {
+            if (cardID == currentCard.getID()) return currentCard;
+        }
+        return null; //we should never get here!
     }
 
     public DestinationCard findSelectedDestinationCard(Double cardID)
