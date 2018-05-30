@@ -41,8 +41,17 @@ public class Player {
     public String getnameString() {
         return userName.getNameOrPassword();
     }
+
     public UserPass getUserName() {
         return userName;
+    }
+
+    public void addTrainCard(TrainCard card) {
+        trainCards.add(card);
+    }
+
+    public void addDestCard(DestinationCard card) {
+        destCards.add(card);
     }
 
     public void setUserName(UserPass userName) {
