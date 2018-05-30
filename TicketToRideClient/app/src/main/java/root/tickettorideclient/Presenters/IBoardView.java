@@ -32,6 +32,8 @@ public interface IBoardView {
     public void addAllRoutes(ArrayList<Route> routes);
     public void addAllPlayers(ArrayList<PlayerStats> players);
 
+    public void updateTurn(String playerID);
+
     public void popToast(String message);
     public void switchToEndView();
 

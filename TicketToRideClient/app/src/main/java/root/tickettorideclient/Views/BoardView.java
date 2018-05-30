@@ -581,6 +581,11 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     @Override
+    public void updateTurn (String playerID) {
+        this.playersTurnText.setText("It is " + playerID + "'s turn.");
+    }
+
+    @Override
     public void popToast(String message) {
         Toast toast = Toast.makeText(getContext(),message, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
