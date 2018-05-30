@@ -82,7 +82,10 @@ public class PlayFacade {
         Double cardOne = new Double(cards.get(0));
         Double cardTwo = new Double(cards.get(1));
         Double cardThree;
-        if (cards.size() == 2) cardThree = new Double(-1);
+        if (cards.size() == 2) {
+            cardThree = new Double(-1);
+
+        }
         else cardThree = new Double(cards.get(2));
         return proxy.selectCards(userData.getUsername().getNameOrPassword(), userData.getCurrentGame().getID(), cardOne, cardTwo, cardThree);
     }
@@ -113,6 +116,13 @@ public class PlayFacade {
     public void addChat(String message)
     {
         chat.addChatMessage(message);
+    }
+
+    public void updateDeckSize(Double trainDeckSize, Double destDeckSize)
+    {
+        boardData.setTrainDeckSize(trainDeckSize.intValue());
+        boardData.setDestDeckSize(destDeckSize.intValue());
+        boardData.setChange();
     }
 
     public void setStartInfo(String jsonString){
