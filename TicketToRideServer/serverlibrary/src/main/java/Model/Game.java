@@ -125,9 +125,9 @@ public class Game {
         }
         //Then remove the corresponding cards from the corresponding decks
         for (int i = 0; i < startingTrainHandSize; i++) {
-            trainCardFacedownDeck.remove(i);
+            trainCardFacedownDeck.remove(0);
             if (i < 3) {
-                destinationCardDeck.remove(i);
+                destinationCardDeck.remove(0);
             }
         }
         //Then create a list with all the information about other players that they are allowed to
