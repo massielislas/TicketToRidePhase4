@@ -571,6 +571,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @Override
     public void addAllPlayers (ArrayList<PlayerStats> players) {
         this.otherPlayers = players;
+        updateUI();
     }
 
     @Override
