@@ -81,7 +81,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
                         newPlayer.setTrainPieces(player.getPiecesLeft());
                         newPlayer.setUsername(player.getuName());
 
-                        playerStats.add(new PlayerStats());
+                        playerStats.add(newPlayer);
                     }
 
                     view.addAllPlayers(playerStats);
