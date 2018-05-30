@@ -72,7 +72,6 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
                 view.setPlayerColor(data.getColor());
                 view.setDestCards(new ArrayList<DestinationCard>(data.getStartingDestCards()));
                 view.setHand(new ArrayList<TrainCard>(data.getStartingTrainCards()));
-                view.popToast("YAYAYAYAY");
             }
         });
     }
