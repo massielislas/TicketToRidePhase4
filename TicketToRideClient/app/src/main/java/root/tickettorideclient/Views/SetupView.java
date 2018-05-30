@@ -77,16 +77,24 @@ public class SetupView extends Fragment implements ISetUpView {
             public void onClick(View view) {
 
                 if ((destinationCards != null) && (destinationCards.size() == 3)) {
-                    ArrayList<Integer> keepCards = new ArrayList<>();
+                    ArrayList<Integer> rejectCards = new ArrayList<>();
                     if ((destinationCardsSelected.size() == 3) && (destinationCards.size() == 3)) {
                         for (int i = 0; i < 3; ++i) {
-                            if (destinationCardsSelected.get(i) == true) {
-                                keepCards.add(destinationCards.get(i).getID());
+                            if (destinationCardsSelected.get(i) == false) {
+                                rejectCards.add(destinationCards.get(i).getID());
                             }
                         }
                     }
 
-                    presenter.keepDestinationCards(keepCards);
+                    if (rejectCards.size() == 0) {
+                        rejectCards.add(-1);
+                        rejectCards.add(-1);
+                    }
+                    else if (rejectCards.size() == 1) {
+                        rejectCards.add(-1);
+                    }
+
+                    presenter.rejectDestCards(rejectCards);
                 }
                 switchToBoardView();
             }
