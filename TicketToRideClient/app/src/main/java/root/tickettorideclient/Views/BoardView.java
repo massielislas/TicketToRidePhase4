@@ -96,6 +96,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     View faceUpCard4;
     View faceUpCard5;
 
+    TextView playersTurnText;
+
     TextView viewYourDestinationCardsBanner;
 
     TextView chatboxBanner;
@@ -238,6 +240,9 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         faceUpCard4 =  (View) myView.findViewById(R.id.faceUpCard4);
         faceUpCard5 = (View) myView.findViewById(R.id.faceUpCard5);
 
+        playersTurnText = (TextView) myView.findViewById(R.id.playersTurn);
+
+
         otherPlayerBanner = (TextView) myView.findViewById(R.id.otherPlayersBanner);
         otherPlayerBanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -340,7 +345,6 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                 Marker marker = markers.get(routeClicked.getCity1());
                 String addToClaim = "\nClick To Claim!";
                 String infoWindowText = routeClicked.getCity1().getName() + " to " + routeClicked.getCity2().getName() + "\n" +
-                        "Color: " + routeClicked.getColor() + "\n" +
                         "Points: " + routeClicked.getScoreValue() + "\n" +
                         "Length: " + routeClicked.getLength();
                 if(!routeClicked.isClaimed()){
@@ -573,6 +577,11 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     public void addAllPlayers (ArrayList<PlayerStats> players) {
         this.otherPlayers = players;
         updateUI();
+    }
+
+    @Override
+    public void updateTurn (String playerID) {
+        this.playersTurnText.setText("It is " + playerID + "'s turn.");
     }
 
     @Override

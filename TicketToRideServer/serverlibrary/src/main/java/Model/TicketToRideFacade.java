@@ -160,6 +160,7 @@ public class TicketToRideFacade implements ITicketToRide {
                     "setStartInfo", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommand(p.getUserName(),command);
+            addGameHistory(game,"<< Added: " + p.getUserName().getNameOrPassword() + " to the game>>");
         }
         game.updateDeckSizeCommand(game.getTrainCardDeckSize(), game.getDestCardDeckSize());
     }
@@ -219,9 +220,6 @@ public class TicketToRideFacade implements ITicketToRide {
 
     }
 
-//    public Result discardDestCards(String username, String gameID, Double card1, Double card3){
-//
-//    }
 
     public Result selectCards(String username, String gameID, Double card1, Double card2, Double card3) {
         Game game = Server.getSpecificActiveGame(gameID);
@@ -250,6 +248,20 @@ public class TicketToRideFacade implements ITicketToRide {
         //
         else {
             return new Result(false, "Something failed in discardDestCards in TicketToRideFacade");
+        }
+    }
+    public void updatePlayers(Game game){
+        for(Player p:game.getPlayerList()){
+            UpdateInfo info = game.getUpdateInfo(p);
+            String gsonString = new Encoder().Encode(info);
+            String[] instanceParamTypeNames = new String[0];
+            Object[] instanceMethodArgs = new Object[0];
+            String[] methodParamTypeNames = {"java.lang.String"};
+            Object[] methodArguments = {gsonString};
+            Command command = new Command("Model.PlayFacade", "getInstance",
+                    "updateBoardData", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                    methodArguments);
+            CommandManager.getInstance().addCommand(p.getUserName(),command);
         }
     }
 }
