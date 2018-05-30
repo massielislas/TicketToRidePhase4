@@ -118,9 +118,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
                     view.updatePlayerTrainCards(player.getuName(), player.getTrainCardHand());
                 }
 
-                view.updateTurn("DUMMY_VALUE");
-                //view.updateTurn(data.get);
-
+                view.updateTurn(data.getUserPlaying());
             }
         });
     }
