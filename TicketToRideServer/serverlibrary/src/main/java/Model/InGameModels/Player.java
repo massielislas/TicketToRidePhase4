@@ -54,6 +54,14 @@ public class Player {
         destCards.add(card);
     }
 
+    public DestinationCard removeDestCard(int id) {
+        for (DestinationCard d : destCards) {
+            if(d.getID() == id) {
+                return d;
+            }
+        }
+        return null;
+    }
     public void setUserName(UserPass userName) {
         this.userName = userName;
     }

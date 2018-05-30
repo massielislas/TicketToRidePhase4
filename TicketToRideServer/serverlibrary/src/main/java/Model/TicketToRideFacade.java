@@ -3,11 +3,11 @@ package Model;
 import java.util.ArrayList;
 
 import Communication.Encoder;
-import Model.InGameModels.DestinationCardDeck;
-import Model.InGameModels.Player;
-import Model.InGameModels.TrainCard;
+import Model.InGameModels.*;
+import Model.InGameModels.DestinationCard;
 import Results.LoginRegisterResult;
 import Results.Result;
+import sun.security.krb5.internal.crypto.Des;
 
 /**
  * Created by Lance on 5/15/2018.
@@ -221,35 +221,30 @@ public class TicketToRideFacade implements ITicketToRide {
     }
 
 
-    public Result selectCards(String username, String gameID, Double card1, Double card2, Double card3) {
+    public Result discardDestCards(String username, String gameID, Double card1, Double card2, Double card3) {
+        //Get the game with the corresponding ID
         Game game = Server.getSpecificActiveGame(gameID);
-        Player player = game.getPlayer(new UserPass(username));
-        player.getDestCards().add(new DestinationCardDeck().getDestinationCard(card1.intValue()));
-        if(card2.intValue() != -1) {
-            player.getDestCards().add(new DestinationCardDeck().getDestinationCard(card2.intValue()));
+        //Get the player whose hands we are modifying
+        UserPass name = new UserPass(username);
+        Player player = game.getPlayer(name);
+        if (card1 != -1) {
+            DestinationCard toDiscard = player.removeDestCard(card1.intValue());
+            if (toDiscard == null) {
+                return new Result(false, "That card isn't in that players hand!");
+            }
+            game.addDestCardBackIn(toDiscard);
         }
-        if(card3.intValue() != -1) {
-            player.getDestCards().add(new DestinationCardDeck().getDestinationCard(card3.intValue()));
+        if (card2 != -1) {
+            DestinationCard toDiscard = player.removeDestCard(card1.intValue());
+            if (toDiscard == null) {
+                return new Result(false, "That card isn't in that players hand!");
+            }
+            game.addDestCardBackIn(toDiscard);
         }
-
-        if (game != null) {
-            String[] instanceParamTypeNames = new String[0];
-            Object[] instanceMethodArgs = new Object[0];
-            String[] methodParamTypeNames = {"java.lang.Double","java.lang.Double","java.lang.Double"};
-            Object[] methodArguments = {card1, card2, card3};
-            Command command = new Command("Model.PlayFacade", "getInstance",
-                    "addCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-                    methodArguments);
-            CommandManager.getInstance().addCommand(new UserPass(username), command);
-            //
-
-            return new Result(true, "");
-        }
-        //
-        else {
-            return new Result(false, "Something failed in discardDestCards in TicketToRideFacade");
-        }
+        updatePlayers(game);
+        return new Result(true, "");
     }
+
     public void updatePlayers(Game game){
         for(Player p:game.getPlayerList()){
             UpdateInfo info = game.getUpdateInfo(p);
