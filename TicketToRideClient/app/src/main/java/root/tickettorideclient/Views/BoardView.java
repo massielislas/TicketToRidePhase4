@@ -94,7 +94,6 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     View faceUpCard3;
     View faceUpCard4;
     View faceUpCard5;
-    View trainCardsLeftInDeck;
 
     TextView viewYourDestinationCardsBanner;
 
@@ -237,7 +236,6 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         faceUpCard3 =  (View) myView.findViewById(R.id.faceUpCard3);
         faceUpCard4 =  (View) myView.findViewById(R.id.faceUpCard4);
         faceUpCard5 = (View) myView.findViewById(R.id.faceUpCard5);
-        trainCardsLeftInDeck = (View) myView.findViewById(R.id.trainCardsLeftInDeck);
 
         otherPlayerBanner = (TextView) myView.findViewById(R.id.otherPlayersBanner);
         otherPlayerBanner.setOnClickListener(new View.OnClickListener() {
