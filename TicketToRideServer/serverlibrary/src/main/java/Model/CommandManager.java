@@ -32,9 +32,6 @@ public class CommandManager {
             Command[] commands = commandMap.get(username);
             ArrayList<Command> commandList = new ArrayList<>(Arrays.asList(commands));
             commandList.add(command);
-            if (!allCommands.contains(command)) {
-                allCommands.add(command);
-            }
             commandMap.put(username, (Command[]) commandList.toArray(new Command[commandList.size()]));
         }
         else
@@ -66,6 +63,9 @@ public class CommandManager {
 
     public void addCommandAllUsers(Command command)
     {
+        if (!allCommands.contains(command)) {
+            allCommands.add(command);
+        }
         for(UserPass key: commandMap.keySet())
         {
             addCommand(key, command);
