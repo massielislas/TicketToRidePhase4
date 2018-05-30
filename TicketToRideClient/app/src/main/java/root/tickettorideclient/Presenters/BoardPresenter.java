@@ -3,6 +3,7 @@ package root.tickettorideclient.Presenters;
 import android.support.v4.app.FragmentActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -90,7 +91,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
                 view.updateTrainDeck(data.getTrainDeckSize());
                 view.updateDestinationDeck(data.getDestDeckSize());
-                view.updateFaceUp(new ArrayList<TrainCard>(data.getFaceUpCards()));
+                view.updateFaceUp(new ArrayList<TrainCard>(Arrays.asList(data.getFaceUpCards())));
 
                 Player thisPlayer = data.getCurrentPlayer();
                 view.updatePlayerPoints(thisPlayer.getUserName().getNameOrPassword(), thisPlayer.getCurrentScore());
@@ -123,6 +124,11 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         //facade.claimRoute(route);
         view.popToast("Claiming route underway!");
 
+    }
+
+    @Override
+    public void test () {
+        facade.mockUpdate();
     }
 
 }

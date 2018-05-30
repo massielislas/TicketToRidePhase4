@@ -9,4 +9,5 @@ import Model.InGameModels.Route;
 public interface IBoardPresenter {
     public void sendChat(String message);
     public void claimRoute(Route route);
+    public void test();
 }
