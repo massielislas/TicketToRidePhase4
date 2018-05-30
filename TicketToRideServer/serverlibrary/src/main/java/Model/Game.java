@@ -158,6 +158,14 @@ public class Game {
         return list;
     }
 
+    public UpdateInfo getUpdateInfo(Player p){
+        int currentDestDeckSize = new Double(getDestCardDeckSize()).intValue();
+        int currentTrainDeckSize = new Double(getTrainCardDeckSize()).intValue();
+        for(Player p: getPlayerList()){
+            UpdateInfo updateInfo = new UpdateInfo(1,getPlayerShallows(p),getTrainCardFaceupDeck(),getTrainCardDeckSize(),getDestCardDeckSize())
+        }
+    }
+
     public void addChat(String msg, String userName) {
         chat.add(userName + ": " + msg);
     }
