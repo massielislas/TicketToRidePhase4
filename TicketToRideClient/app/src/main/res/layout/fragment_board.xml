@@ -422,7 +422,9 @@
                 android:text="Oh hey, this is really cool"
                 android:padding="10dp"
                 android:textColor="#000000"
-                android:id="@+id/chatBox"/>
+                android:id="@+id/chatBox"
+                android:maxLines="4"
+                android:scrollbars="vertical"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"
