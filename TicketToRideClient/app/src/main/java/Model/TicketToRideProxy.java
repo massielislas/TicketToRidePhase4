@@ -221,12 +221,12 @@ public class TicketToRideProxy implements ITicketToRide {
         }
     }
 
-    public Result selectCards(String username, String gameID, Double cardOne, Double cardTwo, Double cardThree)
+    public Result discardCards(String username, String gameID, Double cardOne, Double cardTwo)
     {
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
         String[] methodParamTypeNames = {"java.lang.String", "java.lang.String", "java.lang.Double", "java.lang.Double", "java.lang.Double"};
-        Object[] methodArguments = {username, gameID, cardOne, cardTwo, cardThree};
+        Object[] methodArguments = {username, gameID, cardOne, cardTwo};
 
         Command command = new Command("Model.TicketToRideFacade", "getInstance",
                 "selectCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,

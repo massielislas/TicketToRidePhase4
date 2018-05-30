@@ -77,17 +77,11 @@ public class PlayFacade {
     }
 
 
-    public Result selectCards(ArrayList<Integer> cards)
+    public Result discardCards(ArrayList<Integer> cards)
     {
         Double cardOne = new Double(cards.get(0));
         Double cardTwo = new Double(cards.get(1));
-        Double cardThree;
-        if (cards.size() == 2) {
-            cardThree = new Double(-1);
-
-        }
-        else cardThree = new Double(cards.get(2));
-        return proxy.selectCards(userData.getUsername().getNameOrPassword(), userData.getCurrentGame().getID(), cardOne, cardTwo, cardThree);
+        return proxy.discardCards(userData.getUsername().getNameOrPassword(), userData.getCurrentGame().getID(), cardOne, cardTwo);
     }
 
     public void addCards(Double one, Double two, Double three)
