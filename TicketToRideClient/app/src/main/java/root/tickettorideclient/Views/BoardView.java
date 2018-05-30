@@ -418,7 +418,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                case "white":
                     white = white + 1;
                     break;
-               case "wild":
+               case "gray":
                     wild = wild + 1;
                     break;
                case "yellow":
@@ -458,7 +458,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                 return;
             }
         }
-        userPointsBanner.setText("TRAINS: " + pieces + "/45");
+        userTrainsBanner.setText("TRAINS: " + pieces + "/45");
     }
 
     @Override
