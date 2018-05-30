@@ -28,6 +28,7 @@ public class Game {
     private final int destinationCardDealNumber = 3;
     //Number of the game in the queue
     private int gameNumber;
+    private int turnNumber;
     //Max number of players
     private int playerCount;
     private int currentPlayers;
@@ -54,6 +55,7 @@ public class Game {
         DestinationCardDeck deck = new DestinationCardDeck();
         destinationCardDeck = deck.getDestinationCards();
         chat = new ArrayList<>();
+        turnNumber = 1;
     }
 
     public Game(int playerCount, int currentPlayers, int gameNumber, String ID)
@@ -70,6 +72,7 @@ public class Game {
         DestinationCardDeck deck = new DestinationCardDeck();
         destinationCardDeck = deck.getDestinationCards();
         chat = new ArrayList<>();
+        turnNumber = 1;
         initializeTrainCards();
     }
 
@@ -159,7 +162,7 @@ public class Game {
     }
 
     public UpdateInfo getUpdateInfo(Player p){
-        return new UpdateInfo(1,getPlayerShallows(p),getTrainCardFaceupDeck(),new Double(getTrainCardDeckSize()).intValue(),
+        return new UpdateInfo(turnNumber,getPlayerShallows(p),getTrainCardFaceupDeck(),new Double(getTrainCardDeckSize()).intValue(),
                     new Double(getDestCardDeckSize()).intValue());
     }
 
