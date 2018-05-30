@@ -42,9 +42,9 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
         return null;
     }
 
-    public void keepDestinationCards(ArrayList<Integer> cardIDs) {
+    public void rejectDestCards(ArrayList<Integer> cardIDs) {
 
-        Result result = facade.selectCards(cardIDs);
+        Result result = facade.discardCards(cardIDs);
 
         //if result is unsuccessful
         //pop error toast
