@@ -161,6 +161,7 @@ public class TicketToRideFacade implements ITicketToRide {
                     methodArguments);
             CommandManager.getInstance().addCommand(p.getUserName(),command);
         }
+        game.updateDeckSizeCommand(game.getTrainCardDeckSize(), game.getDestCardDeckSize());
     }
 
 // KEEP!!!
