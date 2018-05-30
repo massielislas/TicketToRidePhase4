@@ -122,6 +122,11 @@ public class PlayFacade {
     public void updateBoardData(String jsonString)
     {
         UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonString, UpdateInfo.class);
+        boardData.setFaceUpCards(update.getCurrentFaceUpCards());
+        boardData.setDestDeckSize(update.getDestDeckSize());
+        boardData.setOtherPlayerInfo(update.getPlayerInfo());
+        boardData.setTrainDeckSize(update.getTrainDeckSize());
+        boardData.setChange();
     }
 
     //public void updateOtherPlayer()
