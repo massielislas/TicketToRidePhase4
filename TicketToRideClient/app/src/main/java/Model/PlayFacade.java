@@ -118,12 +118,19 @@ public class PlayFacade {
         chat.addChatMessage(message);
     }
 
-    public void updateDeckSize(Double trainDeckSize, Double destDeckSize)
+    /*public void updateDeckSize(Double trainDeckSize, Double destDeckSize)
     {
         boardData.setTrainDeckSize(trainDeckSize.intValue());
         boardData.setDestDeckSize(destDeckSize.intValue());
         boardData.setChange();
+    }*/
+
+    public void updateBoardData(String jsonString)
+    {
+        updateInfo update = (updateInfo) Encoder.Decode(jsonString, updateInfo.class);
     }
+
+    //public void updateOtherPlayer()
 
     public void setStartInfo(String jsonString){
         SinglePlayerStartInfo fromGson = (SinglePlayerStartInfo) Encoder.Decode(jsonString,SinglePlayerStartInfo.class);
@@ -188,6 +195,11 @@ public class PlayFacade {
         boardData.setRoutes(userData.getCurrentGame().getRoutes());
         boardData.setCities(userData.getCurrentGame().getCities());
         boardData.setCurrentPlayer(userData.getCurrentPlayer());
+        List<PlayerShallow> otherPlayerInfo = boardData.getOtherPlayerInfo();
+        for (PlayerShallow player: otherPlayerInfo)
+        {
+            if (player.getTurnNumber() == 1) boardData.setUserPlaying(player.getuName());
+        }
         boardData.setChange();
     }
 

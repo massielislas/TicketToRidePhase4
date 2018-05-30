@@ -17,6 +17,7 @@ public class BoardData extends Observable{
     private UserData userData = UserData.getUserData();
     private Chat chat = Chat.getInstance();
     private Player currentPlayer;
+    private String userPlaying;
     private List<PlayerShallow> otherPlayerInfo;
     private int destDeckSize;
     private int trainDeckSize;
@@ -44,6 +45,14 @@ public class BoardData extends Observable{
 
     public Chat getChat() {
         return chat;
+    }
+
+    public String getUserPlaying() {
+        return userPlaying;
+    }
+
+    public void setUserPlaying(String userPlaying) {
+        this.userPlaying = userPlaying;
     }
 
     public Player getCurrentPlayer() {
