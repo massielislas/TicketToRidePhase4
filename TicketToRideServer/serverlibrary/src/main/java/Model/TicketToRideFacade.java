@@ -220,12 +220,11 @@ public class TicketToRideFacade implements ITicketToRide {
         }
 
         if (game != null) {
-            //Command for Chat
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.Double","java.lang.Double","java.lang.Double"};
             Object[] methodArguments = {card1, card2, card3};
-            Command command = new Command("Model.Chat", "getInstance",
+            Command command = new Command("Model.PlayFacade", "getInstance",
                     "addCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommand(new UserPass(username), command);

@@ -75,6 +75,7 @@ public class PlayFacade {
         return proxy.sendChat(userData.getUsername().getNameOrPassword(), message, userData.getCurrentGame().getID());
     }
 
+
     public Result selectCards(ArrayList<Integer> cards)
     {
         Double cardOne = new Double(cards.get(0));
