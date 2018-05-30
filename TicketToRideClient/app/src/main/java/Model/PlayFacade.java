@@ -113,7 +113,6 @@ public class PlayFacade {
     public void addChat(String message)
     {
         chat.addChatMessage(message);
-
     }
 
     public void setStartInfo(String jsonString){
