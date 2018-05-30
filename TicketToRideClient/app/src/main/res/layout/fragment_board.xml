@@ -92,7 +92,9 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:id="@+id/playerGreenCards"
-                        android:layout_margin="10dp">
+                        android:layout_margin="10dp"
+                        android:textColor="#000000"
+                        android:textAlignment="center">
                     </TextView>
 
                     <TextView
@@ -102,7 +104,9 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:id="@+id/playerWhiteCards"
-                        android:layout_margin="10dp">
+                        android:layout_margin="10dp"
+                        android:textColor="#000000"
+                        android:textAlignment="center">
                     </TextView>
 
                     <TextView
@@ -112,7 +116,9 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:id="@+id/playerYellowCards"
-                        android:layout_margin="10dp">
+                        android:layout_margin="10dp"
+                        android:textColor="#000000"
+                        android:textAlignment="center">
                     </TextView>
 
                     <TextView
@@ -122,7 +128,9 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:id="@+id/playerWildCards"
-                        android:layout_margin="10dp">
+                        android:layout_margin="10dp"
+                        android:textColor="#000000"
+                        android:textAlignment="center">
                     </TextView>
                 </LinearLayout>
 
@@ -139,7 +147,9 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:id="@+id/playerOrangeCards"
-                        android:layout_margin="5dp">
+                        android:layout_margin="5dp"
+                        android:textColor="#ffffff"
+                        android:textAlignment="center">
                     </TextView>
 
 
@@ -150,7 +160,9 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:id="@+id/playerBlueCards"
-                        android:layout_margin="5dp">
+                        android:layout_margin="5dp"
+                        android:textColor="#ffffff"
+                        android:textAlignment="center">
                     </TextView>
 
                     <TextView
@@ -160,7 +172,9 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:id="@+id/playerRedCards"
-                        android:layout_margin="5dp">
+                        android:layout_margin="5dp"
+                        android:textColor="#ffffff"
+                        android:textAlignment="center">
                     </TextView>
 
                     <TextView
@@ -170,7 +184,9 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:id="@+id/playerBlackCards"
-                        android:layout_margin="5dp">
+                        android:layout_margin="5dp"
+                        android:textColor="#ffffff"
+                        android:textAlignment="center">
                     </TextView>
 
                     <TextView
@@ -180,7 +196,9 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_weight="1"
                         android:id="@+id/playerPinkCards"
-                        android:layout_margin="5dp">
+                        android:layout_margin="5dp"
+                        android:textColor="#ffffff"
+                        android:textAlignment="center">
                     </TextView>
                 </LinearLayout>
             </LinearLayout>
