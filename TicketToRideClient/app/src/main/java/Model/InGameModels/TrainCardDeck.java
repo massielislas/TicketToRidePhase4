@@ -42,6 +42,13 @@ public class TrainCardDeck {
         }
     }
 
+    public TrainCard getCardByID(Integer ID)
+    {
+        for (TrainCard card: trainCards)
+            if (card.getID() == ID) return card;
+        return null;
+    }
+
     public List<TrainCard> getTrainCards() {
         return trainCards;
     }

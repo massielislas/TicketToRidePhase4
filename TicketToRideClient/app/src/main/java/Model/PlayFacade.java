@@ -10,6 +10,7 @@ import Model.InGameModels.DestinationCard;
 import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
 import Model.InGameModels.PlayerShallow;
+import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
 import Model.InGameModels.TrainCardDeck;
@@ -222,6 +223,7 @@ public class PlayFacade {
         List<PlayerShallow> otherPlayerInfo = boardData.getOtherPlayerInfo();
         for (PlayerShallow player: otherPlayerInfo)
         {
+            if (player.getTurnNumber() == 2) boardData.setUserPlaying(player.getuName());
             int scoreToAdd = player.getTurnNumber() * 50;
             int trainCardToSub = player.getTurnNumber() * 2;
             int piecesToRemove = player.getTurnNumber() *2;
@@ -229,8 +231,19 @@ public class PlayFacade {
             player.setCurrentScore(player.getCurrentScore()+scoreToAdd);
             player.setTrainCardHand(player.getTrainCardHand() - trainCardToSub);
             player.setDestCardHand(player.getDestCardHand() - 1);
-
+            List<Route> routes = boardData.getRoutes();
+            routes.get(player.getTurnNumber()).setClaimed(true);
+            routes.get(player.getTurnNumber()).setClaimant(player.getuName());
         }
+        TrainCard[] newFaceUpCards = {trainCardDeck.getCardByID(1), trainCardDeck.getCardByID(40),
+                trainCardDeck.getCardByID(31), trainCardDeck.getCardByID(100), trainCardDeck.getCardByID(69)};
+        /*newFaceUpCards[1] = trainCardDeck.getCardByID(1);
+        newFaceUpCards[2] = trainCardDeck.getCardByID(40);
+        newFaceUpCards[3] = trainCardDeck.getCardByID(31);
+        newFaceUpCards[4] = trainCardDeck.getCardByID(100);
+        newFaceUpCards[5] = trainCardDeck.getCardByID(69);*/
+        boardData.setFaceUpCards(newFaceUpCards);
+
         boardData.setChange();
     }
 }
