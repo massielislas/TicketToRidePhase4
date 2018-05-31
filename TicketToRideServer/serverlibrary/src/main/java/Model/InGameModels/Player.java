@@ -57,7 +57,9 @@ public class Player {
     public DestinationCard removeDestCard(int id) {
         for (DestinationCard d : destCards) {
             if(d.getID() == id) {
-                return d;
+                DestinationCard toRemove = d;
+                destCards.remove(d);
+                return toRemove;
             }
         }
         return null;

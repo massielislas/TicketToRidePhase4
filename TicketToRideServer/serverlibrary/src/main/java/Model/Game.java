@@ -124,7 +124,7 @@ public class Game {
         for (int i = 0; i < startingTrainHandSize; i ++) {
             startingInfo.addTrainCard(trainCardFacedownDeck.get(i));
             p.addTrainCard(trainCardFacedownDeck.get(i));
-            if (i < 3) {
+            if (i < destinationCardDealNumber) {
                 startingInfo.addDestCard(destinationCardDeck.get(i));
                 p.addDestCard(destinationCardDeck.get(i));
             }
@@ -132,7 +132,7 @@ public class Game {
         //Then remove the corresponding cards from the corresponding decks
         for (int i = 0; i < startingTrainHandSize; i++) {
             trainCardFacedownDeck.remove(0);
-            if (i < 3) {
+            if (i < destinationCardDealNumber) {
                 destinationCardDeck.remove(0);
             }
         }
