@@ -134,6 +134,7 @@ public class PlayFacade {
         boardData.setDestDeckSize(update.getDestDeckSize());
         userData.getCurrentGame().setDestDeckSize(update.getDestDeckSize());
         boardData.setOtherPlayerInfo(update.getPlayerInfo());
+        userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
         boardData.setChange();
@@ -182,6 +183,7 @@ public class PlayFacade {
         userData.getCurrentGame().setCities(cities.getCityList());
         userData.getCurrentGame().setRoutes(routes.getRouteList());
         userData.getCurrentGame().setDestinationDeck(destCardDeck.getDestinationCards());
+        userData.getCurrentGame().setOtherPlayers(info.getPlayerInfo());
         userData.getCurrentGame().setFaceDownTrainDeck(trainCardDeck.getTrainCards());
         setSetUpData();
     }
@@ -199,7 +201,7 @@ public class PlayFacade {
     {
         boardData.setDestDeckSize(userData.getCurrentGame().getDestDeckSize());
         boardData.setTrainDeckSize(userData.getCurrentGame().getTrainDeckSize());
-        boardData.setOtherPlayerInfo(info.getPlayerInfo());
+        boardData.setOtherPlayerInfo(userData.getCurrentGame().getOtherPlayers());
         boardData.setFaceUpCards(userData.getCurrentGame().getFaceUpTrainDeck());
         boardData.setRoutes(userData.getCurrentGame().getRoutes());
         boardData.setCities(userData.getCurrentGame().getCities());
@@ -227,6 +229,7 @@ public class PlayFacade {
             player.setCurrentScore(player.getCurrentScore()+scoreToAdd);
             player.setTrainCardHand(player.getTrainCardHand() - trainCardToSub);
             player.setDestCardHand(player.getDestCardHand() - 1);
+
         }
         boardData.setChange();
     }

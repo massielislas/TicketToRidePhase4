@@ -14,6 +14,7 @@ import Model.InGameModels.City;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
+import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.Route;
 import Model.InGameModels.TrainCard;
 import Model.InGameModels.TrainCardDeck;
@@ -32,6 +33,7 @@ public class Game extends Observable
     int destDeckSize;
     int trainDeckSize;
     ArrayList<Player> players;
+    List<PlayerShallow> otherPlayers;
     List<Route> routes;
     List<City> cities;
     TrainCard[] faceUpTrainDeck;
@@ -71,6 +73,14 @@ public class Game extends Observable
 
     public void setTrainDeckSize(int trainDeckSize) {
         this.trainDeckSize = trainDeckSize;
+    }
+
+    public List<PlayerShallow> getOtherPlayers() {
+        return otherPlayers;
+    }
+
+    public void setOtherPlayers(List<PlayerShallow> otherPlayers) {
+        this.otherPlayers = otherPlayers;
     }
 
     public List<City> getCities() {
