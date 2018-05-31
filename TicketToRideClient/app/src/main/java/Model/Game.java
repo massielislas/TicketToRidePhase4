@@ -29,6 +29,8 @@ public class Game extends Observable
     int currentPlayers; //current in game
 
     ArrayList<DestinationCard> destinationDeck;
+    int destDeckSize;
+    int trainDeckSize;
     ArrayList<Player> players;
     List<Route> routes;
     List<City> cities;
@@ -41,6 +43,8 @@ public class Game extends Observable
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
         this.ID = UUID.randomUUID().toString();
+        trainDeckSize = 110;
+        destDeckSize = 30;
     }
 
     Game(int playerCount, int currentPlayers, int gameNumber, String ID) {
@@ -49,6 +53,24 @@ public class Game extends Observable
         this.gameNumber = gameNumber;
         this.ID = ID;
         this.destinationDeck = new DestinationCardDeck().getDestinationCards();
+        trainDeckSize = 110;
+        destDeckSize = 30;
+    }
+
+    public int getDestDeckSize() {
+        return destDeckSize;
+    }
+
+    public void setDestDeckSize(int destDeckSize) {
+        this.destDeckSize = destDeckSize;
+    }
+
+    public int getTrainDeckSize() {
+        return trainDeckSize;
+    }
+
+    public void setTrainDeckSize(int trainDeckSize) {
+        this.trainDeckSize = trainDeckSize;
     }
 
     public List<City> getCities() {

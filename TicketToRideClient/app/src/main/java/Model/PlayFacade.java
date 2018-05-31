@@ -132,8 +132,10 @@ public class PlayFacade {
         UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonString, UpdateInfo.class);
         boardData.setFaceUpCards(update.getCurrentFaceUpCards());
         boardData.setDestDeckSize(update.getDestDeckSize());
+        userData.getCurrentGame().setDestDeckSize(update.getDestDeckSize());
         boardData.setOtherPlayerInfo(update.getPlayerInfo());
         boardData.setTrainDeckSize(update.getTrainDeckSize());
+        userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
         boardData.setChange();
     }
 
@@ -195,8 +197,8 @@ public class PlayFacade {
 
     public void setBoardData()
     {
-        boardData.setDestDeckSize(userData.getCurrentGame().getDestinationDeck().size());
-        boardData.setTrainDeckSize(userData.getCurrentGame().getFaceDownTrainDeck().size());
+        boardData.setDestDeckSize(userData.getCurrentGame().getDestDeckSize());
+        boardData.setTrainDeckSize(userData.getCurrentGame().getTrainDeckSize());
         boardData.setOtherPlayerInfo(info.getPlayerInfo());
         boardData.setFaceUpCards(userData.getCurrentGame().getFaceUpTrainDeck());
         boardData.setRoutes(userData.getCurrentGame().getRoutes());
