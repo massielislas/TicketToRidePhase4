@@ -221,6 +221,10 @@ public class PlayFacade {
     public void mockUpdate()
     {
         List<PlayerShallow> otherPlayerInfo = boardData.getOtherPlayerInfo();
+        Player cPlayer = boardData.getCurrentPlayer();
+        cPlayer.setTrainPiecesLeft(cPlayer.getTrainPiecesLeft() - (cPlayer.getTurnNumber() * 2));
+        cPlayer.setCurrentScore(cPlayer.getCurrentScore() + (cPlayer.getTurnNumber() * 60));
+        if (cPlayer.getTurnNumber() == 2) boardData.setUserPlaying(cPlayer.getUserName().getNameOrPassword());
         for (PlayerShallow player: otherPlayerInfo)
         {
             if (player.getTurnNumber() == 2) boardData.setUserPlaying(player.getuName());
