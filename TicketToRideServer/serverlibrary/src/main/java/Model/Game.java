@@ -182,7 +182,7 @@ public class Game {
     public void updateDeckSizeCommand(Double trainDeck, Double DestDeck) {
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"java.lance.Double", "java.lang.Double"};
+        String[] methodParamTypeNames = {"java.lang.Double", "java.lang.Double"};
         Object[] methodArguments = { trainDeck, DestDeck };
         Command command = new Command("Model.PlayFacade", "getInstance",
                 "updateDeckSize", instanceParamTypeNames, instanceMethodArgs,
