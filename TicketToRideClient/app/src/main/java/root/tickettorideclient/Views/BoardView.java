@@ -312,8 +312,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         UiSettings uiSettings = myGoogleMap.getUiSettings();
         uiSettings.setZoomGesturesEnabled(true);
-//        drawCities();
-//        drawRoutes();
+        drawCities();
+        drawRoutes();
         zoomToCenter();
         polylineOnClickListener();
         googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -575,7 +575,6 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     public void addAllCities (ArrayList<City> cities) {
         this.cities = cities;
         updateUI();
-        drawCities();
     }
 
     @Override
