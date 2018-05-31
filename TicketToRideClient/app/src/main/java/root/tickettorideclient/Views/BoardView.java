@@ -135,12 +135,6 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         setUpTopInputs();
         setUpBottomInputs();
         createRecyclerView();
-
-        //For testing - use update pattern for real thing
-        this.cities = new ArrayList<>(Cities.getInstance().getCities());
-        //draw cities
-        this.routes = new ArrayList<>(new Routes().getRouteList());
-        //draw routes
         return myView;
     }
 
@@ -326,6 +320,9 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                 return v;
             }
         });
+        this.cities = new ArrayList<>(Cities.getInstance().getCities());
+        this.routes = new ArrayList<>(new Routes().getRouteList());
+        drawCities();
         presenter = new BoardPresenter(this, getActivity());
     }
 
@@ -571,7 +568,6 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @Override
     public void addAllCities (ArrayList<City> cities) {
         this.cities = cities;
-        drawCities();
     }
 
     @Override
