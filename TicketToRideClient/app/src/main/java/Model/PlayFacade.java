@@ -221,9 +221,12 @@ public class PlayFacade {
     public void mockUpdate()
     {
         List<PlayerShallow> otherPlayerInfo = boardData.getOtherPlayerInfo();
+        List<Route> routes = boardData.getRoutes();
         Player cPlayer = boardData.getCurrentPlayer();
         cPlayer.setTrainPiecesLeft(cPlayer.getTrainPiecesLeft() - (cPlayer.getTurnNumber() * 2));
         cPlayer.setCurrentScore(cPlayer.getCurrentScore() + (cPlayer.getTurnNumber() * 60));
+        routes.get(cPlayer.getTurnNumber()).setClaimed(true);
+        routes.get(cPlayer.getTurnNumber()).setClaimant(cPlayer.getUserName().getNameOrPassword());
         if (cPlayer.getTurnNumber() == 2) boardData.setUserPlaying(cPlayer.getUserName().getNameOrPassword());
         for (PlayerShallow player: otherPlayerInfo)
         {
@@ -235,7 +238,6 @@ public class PlayFacade {
             player.setCurrentScore(player.getCurrentScore()+scoreToAdd);
             player.setTrainCardHand(player.getTrainCardHand() - trainCardToSub);
             player.setDestCardHand(player.getDestCardHand() - 1);
-            List<Route> routes = boardData.getRoutes();
             routes.get(player.getTurnNumber()).setClaimed(true);
             routes.get(player.getTurnNumber()).setClaimant(player.getuName());
         }
