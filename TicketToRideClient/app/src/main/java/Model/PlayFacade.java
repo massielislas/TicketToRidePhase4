@@ -77,10 +77,18 @@ public class PlayFacade {
     }
 
 
-    public Result discardCards(ArrayList<Integer> cards)
+    public Result discardCards(ArrayList<Integer> discard)
     {
-        Double cardOne = new Double(cards.get(0));
-        Double cardTwo = new Double(cards.get(1));
+        Double cardOne = new Double(discard.get(0));
+        Double cardTwo = new Double(discard.get(1));
+
+        List<DestinationCard> currentHand = userData.getCurrentPlayer().getDestCards();
+        for (int i = 0; i < currentHand.size(); i ++)
+        {
+            if ((currentHand.get(i).getID() == cardOne)
+                    || (currentHand.get(i).getID() == cardTwo))
+                currentHand.remove(i);
+        }
         return proxy.discardCards(userData.getUsername().getNameOrPassword(), userData.getCurrentGame().getID(), cardOne, cardTwo);
     }
 
@@ -166,7 +174,7 @@ public class PlayFacade {
 
         Player player = new Player(userData.getUsername(), info.getTurnNumber(), color);
         player.setTrainCards(info.getStartingTrainCards());
-        player.setToChoose(info.getStartingDestCards());
+        player.setDestCards(info.getStartingDestCards());
         userData.setCurrentPlayer(player);
         userData.getCurrentGame().setFaceUpTrainDeck(info.getStartingFaceUpCards());
         userData.getCurrentGame().setCities(cities.getCityList());
@@ -181,7 +189,7 @@ public class PlayFacade {
         setUpData.setColor(userData.getCurrentPlayer().getColor());
         setUpData.setTurnNumber(userData.getCurrentPlayer().getTurnNumber());
         setUpData.setStartingTrainCards(userData.getCurrentPlayer().getTrainCards());
-        setUpData.setStartingDestCards(userData.getCurrentPlayer().getToChoose());
+        setUpData.setStartingDestCards(userData.getCurrentPlayer().getDestCards());
         setUpData.setChange();
     }
 
@@ -212,6 +220,8 @@ public class PlayFacade {
         {
             int scoreToAdd = player.getTurnNumber() * 50;
             int trainCardToSub = player.getTurnNumber() * 2;
+            int piecesToRemove = player.getTurnNumber() *2;
+            player.setPiecesLeft(player.getPiecesLeft() - piecesToRemove);
             player.setCurrentScore(player.getCurrentScore()+scoreToAdd);
             player.setTrainCardHand(player.getTrainCardHand() - trainCardToSub);
             player.setDestCardHand(player.getDestCardHand() - 1);
