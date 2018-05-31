@@ -312,8 +312,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         UiSettings uiSettings = myGoogleMap.getUiSettings();
         uiSettings.setZoomGesturesEnabled(true);
-        drawCities();
-        drawRoutes();
+//        drawCities();
+//        drawRoutes();
         zoomToCenter();
         polylineOnClickListener();
         googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -378,12 +378,14 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             String text = chatBox.getText() + "\n" + messages.get(i);
             chatBox.setText(text);
         }
+        updateUI();
     }
 
     @Override
     public void addOneHistory(String message) {
         String text = chatBox.getText() + "\n" + message;
         chatBox.setText(text);
+        updateUI();
     }
 
     @Override
@@ -443,6 +445,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         playerWildCards.setText(wild.toString());
         playerYellowCards.setText(yellow.toString());
 
+        updateUI();
     }
 
     @Override
@@ -454,6 +457,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             }
         }
         userPointsBanner.setText("POINTS: " + points);
+        updateUI();
     }
 
     @Override
@@ -465,6 +469,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             }
         }
         userTrainsBanner.setText("TRAINS: " + pieces + "/45");
+        updateUI();
     }
 
     @Override
@@ -474,6 +479,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                 otherPlayers.get(i).setTrainCards(cards);
             }
         }
+        updateUI();
     }
 
     @Override
@@ -483,6 +489,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                 otherPlayers.get(i).setDestinationCards(cards);
             }
         }
+        updateUI();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -548,29 +555,35 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             faceUpCard5.setBackgroundColor(colorInts[4]);
 
         }
+        updateUI();
     }
 
 
     @Override
     public void updateDestinationDeck(Integer cardCount) {
         destinationCardsDeck.setText(cardCount + " Destination Cards");
+        updateUI();
     }
 
     @Override
     public void updateTrainDeck(Integer cardCount) {
         trainCardsDeck.setText(cardCount + " Train Cards");
+        updateUI();
     }
 
     @Override
     public void addAllCities (ArrayList<City> cities) {
         this.cities = cities;
-        //drawCities
+        updateUI();
+        drawCities();
     }
 
     @Override
     public void addAllRoutes (ArrayList<Route> routes) {
         this.routes = routes;
-        //drawRoutes
+        updateUI();
+        removeLines();
+        drawRoutes();
     }
 
     @Override
@@ -582,6 +595,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @Override
     public void updateTurn (String playerID) {
         this.playersTurnText.setText("It is " + playerID + "'s turn.");
+        updateUI();
     }
 
     @Override
@@ -589,6 +603,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         Toast toast = Toast.makeText(getContext(),message, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+        updateUI();
     }
 
     @Override
@@ -598,13 +613,19 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     }
 
     @Override
-    public Integer getNumCities() {return cities.size();}
+    public Integer getNumCities() {
+        updateUI();
+        return cities.size();}
 
     @Override
-    public Integer getNumPlayers() {return otherPlayers.size(); }
+    public Integer getNumPlayers() {
+        updateUI();
+        return otherPlayers.size(); }
 
     @Override
-    public Integer getNumRoutes() {return routes.size(); }
+    public Integer getNumRoutes() {
+        updateUI();
+        return routes.size(); }
 
 
     public void drawCities(){
