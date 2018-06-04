@@ -36,7 +36,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         facade = PlayFacade.getInstance();
         this.mn = mn;
         facade.addBoardObserver(this);
-     //   facade.addBoardObserver(this);
+        facade.addChatObserver(this);
     }
 
     public void sendChat (String message) {
@@ -77,12 +77,29 @@ public class BoardPresenter implements IBoardPresenter, Observer {
     public void chooseFaceUpCard(TrainCard card) {
         Result result = facade.chooseFaceUpCard(card);
 
+        //if result unsuccessful,
+        //pop toast with error
+        if (!result.isSuccess()) {
+            view.popToast("Error drawing face-up card: " + result.getMessage());
+            return;
+        }
 
-
+        //if result successful,
+        //do nothing
     }
 
     public void drawFromTrainDeck() {
-        //TODO: implement me
+        Result result = facade.drawFromTrainDeck();
+
+        //if result unsuccessful,
+        //pop toast with error
+        if (!result.isSuccess()) {
+            view.popToast("Error drawing from deck: " + result.getMessage());
+            return;
+        }
+
+        //if result successful,
+        //do nothing
     }
 
 
@@ -156,25 +173,6 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         });
     }
 
-    @Override
-    public void claimRoute (Route route) {
-        //if route is claimed
-        //pop toast
-        if (route.isClaimed()) {
-            view.popToast("Route has already been claimed, by " + route.getClaimant());
-            return;
-        }
 
-        //else claim route
-        //facade.claimRoute(route);
-        view.popToast("Claiming route underway!");
-
-    }
-
-    @Override
-    public void test () {
-        view.popToast("Starting Test");
-        facade.mockUpdate();
-    }
 
 }

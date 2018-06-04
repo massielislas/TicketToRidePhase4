@@ -44,7 +44,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
         selectedColor = ContextCompat.getColor(getContext(), R.color.selectedCardColor);
         nonSelectedColor = ContextCompat.getColor(getContext(), R.color.unselectedCardColor);
 
-        presenter = new DrawDestinationCardsPresenter();
+        presenter = new DrawDestinationCardsPresenter(this, getActivity());
     }
 
     @Nullable
@@ -62,7 +62,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     }
 
     public void updateUI(){
-        userDestinationCards = presenter.getChoices();
+       // userDestinationCards = presenter.getChoices();
         addFakeDestinations();
         destinationsAdapter = new DestinationsAdapter(userDestinationCards);
         cardListRecyclerView.setAdapter(destinationsAdapter);
