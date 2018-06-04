@@ -1,10 +1,13 @@
 package Model;
 
 import java.util.ArrayList;
-import Model.InGameModels.Player;
-import Model.InGameModels.TrainCard;
+
+import Communication.Encoder;
+import Model.InGameModels.*;
+import Model.InGameModels.DestinationCard;
 import Results.LoginRegisterResult;
 import Results.Result;
+import sun.security.krb5.internal.crypto.Des;
 
 /**
  * Created by Lance on 5/15/2018.
@@ -88,6 +91,7 @@ public class TicketToRideFacade implements ITicketToRide {
                 CommandManager.getInstance().addCommandAllUsers(command);
 
                 if (game.getCurrentPlayers() == game.getPlayerCount()) {
+                    Server.activateGame(game);
                     startGame(game.getID());
                 }
             }
@@ -150,33 +154,35 @@ public class TicketToRideFacade implements ITicketToRide {
             SinglePlayerStartInfo initPack = game.dealStartingHand(p);
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
-            String[] methodParamTypeNames = {"Model.SinglePlayerStartInfo"};
-            Object[] methodArguments = {initPack};
+            String[] methodParamTypeNames = {"java.lang.String"};
+            Object[] methodArguments = {new Encoder().Encode(initPack)};
             Command command = new Command("Model.PlayFacade", "getInstance",
                     "setStartInfo", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommand(p.getUserName(),command);
+            addGameHistory(game,"<< Added: " + p.getUserName().getNameOrPassword() + " to the game>>");
         }
+        game.updateDeckSizeCommand(game.getTrainCardDeckSize(), game.getDestCardDeckSize());
     }
 
-    @Override
-    public void updateFaceUpCards(Game game)
-    {
-        String[] instanceParamTypeNames = new String[0];
-        Object[] instanceMethodArgs = new Object[0];
-        String[] methodParamTypeNames = {"java.util.ArrayList<Integer>"};
-        TrainCard[] faceUpDeck = game.getTrainCardFaceupDeck();
-        ArrayList<Integer> faceUpIDs = new ArrayList<Integer>();
-        for (int i = 0; i < faceUpIDs.size(); i++)
-        {
-            faceUpIDs.add(i, faceUpDeck[i].getID());
-        }
-        Object[] methodArguments = {faceUpIDs};
-        Command command = new Command("Model.PlayFacade", "getInstance",
-                "updateFaceUpCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-                methodArguments);
-        CommandManager.getInstance().addCommandAllUsers(command);
-    }
+// KEEP!!!
+//    public void updateFaceUpCards(Double card1, Double card2, Double card3, Double card4, Double card5)
+//    {
+//        String[] instanceParamTypeNames = new String[0];
+//        Object[] instanceMethodArgs = new Object[0];
+//        String[] methodParamTypeNames = {"java.util.ArrayList<Integer>"};
+//        TrainCard[] faceUpDeck = game.getTrainCardFaceupDeck();
+//        ArrayList<Integer> faceUpIDs = new ArrayList<Integer>();
+//        for (int i = 0; i < faceUpIDs.size(); i++)
+//        {
+//            faceUpIDs.add(i, faceUpDeck[i].getID());
+//        }
+//        Object[] methodArguments = {faceUpIDs};
+//        Command command = new Command("Model.PlayFacade", "getInstance",
+//                "updateFaceUpCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+//                methodArguments);
+//        CommandManager.getInstance().addCommandAllUsers(command);
+//    }
 
     public Result sendChat(String userName, String msg, String gameID) {
         Game toChat = Server.getSpecificActiveGame(gameID);
@@ -188,8 +194,8 @@ public class TicketToRideFacade implements ITicketToRide {
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.String"};
             Object[] methodArguments = {totalMessage};
-            Command command = new Command("Model.Chat", "getInstance",
-                    "addChatMessage", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+            Command command = new Command("Model.PlayFacade", "getInstance",
+                    "addChat", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommandMultipleUsers(toChat.getUserList(),command);
             //
@@ -200,25 +206,60 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
-    public Result discardDestCards(String username, String gameID, ArrayList<Integer> cardIDs) {
+    public void addGameHistory(Game game, String message){
+        //ToDo: add these commands to the game chat history
+        String totalMessage = message;
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.String"};
+        Object[] methodArguments = {totalMessage};
+        Command command = new Command("Model.PlayFacade", "getInstance",
+                "addChat", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+        CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(),command);
+
+    }
+
+    public Result discardDestCards(String username, String gameID, Double card1, Double card2) {
+        //Get the game with the corresponding ID
         Game game = Server.getSpecificActiveGame(gameID);
-        if (game != null) {
-            //Command for Chat
+        //Get the player whose hands we are modifying
+        UserPass name = new UserPass(username);
+        Player player = game.getPlayer(name);
+        int numberdiscarded = 0;
+        if (card1 != -1) {
+            numberdiscarded++;
+            DestinationCard toDiscard = player.removeDestCard(card1.intValue());
+            if (toDiscard == null) {
+                return new Result(false, "That card isn't in that players hand!");
+            }
+            game.addDestCardBackIn(toDiscard);
+        }
+        if (card2 != -1) {
+            numberdiscarded++;
+            DestinationCard toDiscard = player.removeDestCard(card1.intValue());
+            if (toDiscard == null) {
+                return new Result(false, "That card isn't in that players hand!");
+            }
+            game.addDestCardBackIn(toDiscard);
+        }
+        updatePlayers(game);
+        addGameHistory(game,"<<"+username+" discarded " + numberdiscarded + " Destination Cards>>");
+        return new Result(true, "");
+    }
+
+    public void updatePlayers(Game game){
+        for(Player p:game.getPlayerList()){
+            UpdateInfo info = game.getUpdateInfo(p);
+            String gsonString = new Encoder().Encode(info);
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
-            String[] methodParamTypeNames = {"java.lang.String", "java.lang.Double"};
-            Object[] methodArguments = {username, cardIDs.size()};
-            Command command = new Command("Model.Chat", "getInstance",
-                    "discardCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+            String[] methodParamTypeNames = {"java.lang.String"};
+            Object[] methodArguments = {gsonString};
+            Command command = new Command("Model.PlayFacade", "getInstance",
+                    "updateBoardData", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
-            CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(), command);
-            //
-            return new Result(true, "removed " + cardIDs.size() + " destination cards from " +
-                    username + "'s hand");
-        }
-        //
-        else {
-            return new Result(false, "Something failed in discardDestCards in TicketToRideFacade");
+            CommandManager.getInstance().addCommand(p.getUserName(),command);
         }
     }
 }

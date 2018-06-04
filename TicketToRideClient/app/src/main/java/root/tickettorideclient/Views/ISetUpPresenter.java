@@ -10,5 +10,5 @@ import Model.InGameModels.DestinationCard;
 
 public interface ISetUpPresenter {
     public ArrayList<DestinationCard> getDestinationCards();
-    public void keepDestinationCards(ArrayList<Integer> cardIDs);
+    public void rejectDestCards(ArrayList<Integer> cardIDs);
 }

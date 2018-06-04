@@ -41,10 +41,29 @@ public class Player {
     public String getnameString() {
         return userName.getNameOrPassword();
     }
+
     public UserPass getUserName() {
         return userName;
     }
 
+    public void addTrainCard(TrainCard card) {
+        trainCards.add(card);
+    }
+
+    public void addDestCard(DestinationCard card) {
+        destCards.add(card);
+    }
+
+    public DestinationCard removeDestCard(int id) {
+        for (DestinationCard d : destCards) {
+            if(d.getID() == id) {
+                DestinationCard toRemove = d;
+                destCards.remove(d);
+                return toRemove;
+            }
+        }
+        return null;
+    }
     public void setUserName(UserPass userName) {
         this.userName = userName;
     }

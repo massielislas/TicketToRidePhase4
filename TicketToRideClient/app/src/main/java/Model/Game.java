@@ -14,8 +14,10 @@ import Model.InGameModels.City;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
+import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.Route;
 import Model.InGameModels.TrainCard;
+import Model.InGameModels.TrainCardDeck;
 
 public class Game extends Observable
 {
@@ -28,10 +30,13 @@ public class Game extends Observable
     int currentPlayers; //current in game
 
     ArrayList<DestinationCard> destinationDeck;
+    int destDeckSize;
+    int trainDeckSize;
     ArrayList<Player> players;
+    List<PlayerShallow> otherPlayers;
     List<Route> routes;
     List<City> cities;
-    ArrayList<TrainCard> faceUpTrainDeck;
+    TrainCard[] faceUpTrainDeck;
     List<TrainCard> faceDownTrainDeck;
     Chat chat;
 
@@ -40,6 +45,8 @@ public class Game extends Observable
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
         this.ID = UUID.randomUUID().toString();
+        trainDeckSize = 110;
+        destDeckSize = 30;
     }
 
     Game(int playerCount, int currentPlayers, int gameNumber, String ID) {
@@ -48,6 +55,32 @@ public class Game extends Observable
         this.gameNumber = gameNumber;
         this.ID = ID;
         this.destinationDeck = new DestinationCardDeck().getDestinationCards();
+        trainDeckSize = 110;
+        destDeckSize = 30;
+    }
+
+    public int getDestDeckSize() {
+        return destDeckSize;
+    }
+
+    public void setDestDeckSize(int destDeckSize) {
+        this.destDeckSize = destDeckSize;
+    }
+
+    public int getTrainDeckSize() {
+        return trainDeckSize;
+    }
+
+    public void setTrainDeckSize(int trainDeckSize) {
+        this.trainDeckSize = trainDeckSize;
+    }
+
+    public List<PlayerShallow> getOtherPlayers() {
+        return otherPlayers;
+    }
+
+    public void setOtherPlayers(List<PlayerShallow> otherPlayers) {
+        this.otherPlayers = otherPlayers;
     }
 
     public List<City> getCities() {
@@ -82,11 +115,11 @@ public class Game extends Observable
         this.routes = routes;
     }
 
-    public ArrayList<TrainCard> getFaceUpTrainDeck() {
+    public TrainCard[] getFaceUpTrainDeck() {
         return faceUpTrainDeck;
     }
 
-    public void setFaceUpTrainDeck(ArrayList<TrainCard> faceUpTrainDeck) {
+    public void setFaceUpTrainDeck(TrainCard[] faceUpTrainDeck) {
         this.faceUpTrainDeck = faceUpTrainDeck;
     }
 
@@ -110,9 +143,18 @@ public class Game extends Observable
         ArrayList<DestinationCard> selectedCards = new ArrayList<DestinationCard>();
         for (Double cardID: toGet)
         {
-            selectedCards.add(findSelectedDestinationCard(cardID));
+            if (findSelectedDestinationCard(cardID) != null) selectedCards.add(findSelectedDestinationCard(cardID));
         }
         return selectedCards;
+    }
+
+    public TrainCard findSelectedTrainCard(Double cardID)
+    {
+        for (TrainCard currentCard: faceDownTrainDeck)
+        {
+            if (cardID == currentCard.getID()) return currentCard;
+        }
+        return null; //we should never get here!
     }
 
     public DestinationCard findSelectedDestinationCard(Double cardID)

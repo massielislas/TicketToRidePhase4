@@ -13,7 +13,7 @@ public class Route {
     private boolean isClaimed;
     private boolean isDouble;
     private boolean isDoubleClaimed;
-    private UserPass claimant;
+    private String claimant;
     private int scoreValue;
     private int ID;
     private int doubleID;
@@ -129,11 +129,11 @@ public class Route {
         isClaimed = claimed;
     }
 
-    public UserPass getClaimant() {
+    public String getClaimant() {
         return claimant;
     }
 
-    public void setClaimant(UserPass claimant) {
+    public void setClaimant(String claimant) {
         this.claimant = claimant;
     }
 

@@ -25,8 +25,10 @@ public class Game {
     private final int totalNormalCards = numberOfEachType * countOfCardTypes;
     private final int faceupSize = 5;
     private final int startingTrainHandSize = 4;
+    private final int destinationCardDealNumber = 3;
     //Number of the game in the queue
     private int gameNumber;
+    private int turnNumber;
     //Max number of players
     private int playerCount;
     private int currentPlayers;
@@ -53,6 +55,7 @@ public class Game {
         DestinationCardDeck deck = new DestinationCardDeck();
         destinationCardDeck = deck.getDestinationCards();
         chat = new ArrayList<>();
+        turnNumber = 1;
     }
 
     public Game(int playerCount, int currentPlayers, int gameNumber, String ID)
@@ -69,6 +72,7 @@ public class Game {
         DestinationCardDeck deck = new DestinationCardDeck();
         destinationCardDeck = deck.getDestinationCards();
         chat = new ArrayList<>();
+        turnNumber = 1;
         initializeTrainCards();
     }
 
@@ -108,7 +112,7 @@ public class Game {
         }
         //then remove those cards from the deck
         for (int i = 0; i < faceupSize; i ++) {
-            trainCardFacedownDeck.remove(i);
+            trainCardFacedownDeck.remove(0);
         }
     }
 
@@ -119,15 +123,17 @@ public class Game {
         //Put the first 4 and 3 Train and Destination Cards to the starting hand package
         for (int i = 0; i < startingTrainHandSize; i ++) {
             startingInfo.addTrainCard(trainCardFacedownDeck.get(i));
-            if (i < 3) {
+            p.addTrainCard(trainCardFacedownDeck.get(i));
+            if (i < destinationCardDealNumber) {
                 startingInfo.addDestCard(destinationCardDeck.get(i));
+                p.addDestCard(destinationCardDeck.get(i));
             }
         }
         //Then remove the corresponding cards from the corresponding decks
         for (int i = 0; i < startingTrainHandSize; i++) {
-            trainCardFacedownDeck.remove(i);
-            if (i < 3) {
-                destinationCardDeck.remove(i);
+            trainCardFacedownDeck.remove(0);
+            if (i < destinationCardDealNumber) {
+                destinationCardDeck.remove(0);
             }
         }
         //Then create a list with all the information about other players that they are allowed to
@@ -135,6 +141,7 @@ public class Game {
         //anything they aren't supposed to know.
         List<PlayerShallow> list = getPlayerShallows(p);
         startingInfo.setPlayerInfo(list);
+        startingInfo.setStartingFaceUpCards(trainCardFaceupDeck);
         return startingInfo;
     }
 
@@ -154,6 +161,11 @@ public class Game {
         return list;
     }
 
+    public UpdateInfo getUpdateInfo(Player p){
+        return new UpdateInfo(turnNumber,getPlayerShallows(p),getTrainCardFaceupDeck(),new Double(getTrainCardDeckSize()).intValue(),
+                    new Double(getDestCardDeckSize()).intValue());
+    }
+
     public void addChat(String msg, String userName) {
         chat.add(userName + ": " + msg);
     }
@@ -165,6 +177,21 @@ public class Game {
             }
         }
         return false;
+    }
+
+    public void updateDeckSizeCommand(Double trainDeck, Double DestDeck) {
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.Double", "java.lang.Double"};
+        Object[] methodArguments = { trainDeck, DestDeck };
+        Command command = new Command("Model.PlayFacade", "getInstance",
+                "updateDeckSize", instanceParamTypeNames, instanceMethodArgs,
+                methodParamTypeNames, methodArguments);
+        CommandManager.getInstance().addCommandAllUsers(command);
+    }
+
+    public void addDestCardBackIn(DestinationCard card) {
+        destinationCardDeck.add(card);
     }
 
     public int getPlayerCount()
@@ -217,6 +244,14 @@ public class Game {
         return trainCardFacedownDeck;
     }
 
+    public double getTrainCardDeckSize() {
+        return (double) trainCardFacedownDeck.size();
+    }
+
+    public double getDestCardDeckSize() {
+        return (double) destinationCardDeck.size();
+    }
+
     public void setTrainCardFacedownDeck(List<TrainCard> trainCardFacedownDeck) {
         this.trainCardFacedownDeck = trainCardFacedownDeck;
     }
@@ -241,6 +276,15 @@ public class Game {
         return userList;
     }
 
+    public Player getPlayer(UserPass user){
+        for(Player p: playerList){
+            if(p.getUserName().equals(user)){
+                return p;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean equals(Object obj) {
 
@@ -253,6 +297,5 @@ public class Game {
         }
         return true;
     }
-
 
 }

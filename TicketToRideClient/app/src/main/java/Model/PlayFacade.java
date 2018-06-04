@@ -1,14 +1,15 @@
 package Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observer;
-
+import Communication.Encoder;
 import Model.InGameModels.Chat;
 import Model.InGameModels.Cities;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
+import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
@@ -16,6 +17,10 @@ import Model.InGameModels.TrainCardDeck;
 import Results.Result;
 
 public class PlayFacade {
+
+    private static final PlayFacade instance = new PlayFacade();
+
+    public static PlayFacade getInstance() {return instance;}
 
     TicketToRideProxy proxy;
     Chat chat;
@@ -28,7 +33,7 @@ public class PlayFacade {
     SetUpData setUpData;
     TrainCardDeck trainCardDeck;
 
-    public PlayFacade()
+    private PlayFacade()
     {
         trainCardDeck = new TrainCardDeck();
         setUpData = new SetUpData();
@@ -45,6 +50,7 @@ public class PlayFacade {
     {
         //chat.addAnObserver(o);
         setUpData.addAnObserver(o);
+        if (setUpData!=null) setUpData.setChange();
     }
 
     public void addBoardObserver(Observer o)
@@ -71,26 +77,75 @@ public class PlayFacade {
         return proxy.sendChat(userData.getUsername().getNameOrPassword(), message, userData.getCurrentGame().getID());
     }
 
-    public Result selectCards(ArrayList<Integer> cards)
+
+    public Result discardCards(ArrayList<Integer> discard)
     {
-        return proxy.selectCards(userData.getUsername().getNameOrPassword(), userData.getCurrentGame().getID(), cards);
+        Double cardOne = new Double(discard.get(0));
+        Double cardTwo = new Double(discard.get(1));
+
+        List<DestinationCard> currentHand = userData.getCurrentPlayer().getDestCards();
+        for (int i = 0; i < currentHand.size(); i ++)
+        {
+            if ((currentHand.get(i).getID() == cardOne)
+                    || (currentHand.get(i).getID() == cardTwo))
+                currentHand.remove(i);
+        }
+        return proxy.discardCards(userData.getUsername().getNameOrPassword(), userData.getCurrentGame().getID(), cardOne, cardTwo);
     }
 
-    public void addCards(ArrayList<Double> cards)
+    public void addCards(Double one, Double two, Double three)
     {
+        ArrayList<Double> cards = new ArrayList<Double>() {
+        };
+        cards.add(0, one);
+        cards.add(1, two);
+        cards.add(2, three);
         Game currentGame = userData.getCurrentGame();
         ArrayList<DestinationCard> toAdd = currentGame.getSelectedDestinationCards(cards);
         userData.getCurrentPlayer().addToDestinationHand(toAdd);
     }
 
-    public void updateFaceUpCards(ArrayList<TrainCard> cards)
+    public void updateFaceUpCards(Double cardOne, Double cardTwo, Double cardThree, Double cardFour, Double cardFive)
     {
+        TrainCard[] cards = {};
+        cards[0] = (userData.getCurrentGame().findSelectedTrainCard(cardOne));
+        cards[1] = (userData.getCurrentGame().findSelectedTrainCard(cardTwo));
+        cards[2] = (userData.getCurrentGame().findSelectedTrainCard(cardThree));
+        cards[3] = (userData.getCurrentGame().findSelectedTrainCard(cardFour));
+        cards[4] = (userData.getCurrentGame().findSelectedTrainCard(cardFive));
         userData.getCurrentGame().setFaceUpTrainDeck(cards);
     }
 
     public void addChat(String message)
     {
         chat.addChatMessage(message);
+    }
+
+    /*public void updateDeckSize(Double trainDeckSize, Double destDeckSize)
+    {
+        boardData.setTrainDeckSize(trainDeckSize.intValue());
+        boardData.setDestDeckSize(destDeckSize.intValue());
+        boardData.setChange();
+    }*/
+
+    public void updateBoardData(String jsonString)
+    {
+        UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonString, UpdateInfo.class);
+        boardData.setFaceUpCards(update.getCurrentFaceUpCards());
+        boardData.setDestDeckSize(update.getDestDeckSize());
+        userData.getCurrentGame().setDestDeckSize(update.getDestDeckSize());
+        boardData.setOtherPlayerInfo(update.getPlayerInfo());
+        userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
+        boardData.setTrainDeckSize(update.getTrainDeckSize());
+        userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
+        boardData.setChange();
+    }
+
+    //public void updateOtherPlayer()
+
+    public void setStartInfo(String jsonString){
+        SinglePlayerStartInfo fromGson = (SinglePlayerStartInfo) Encoder.Decode(jsonString,SinglePlayerStartInfo.class);
+        setStartInfo(fromGson);
     }
 
     public void setStartInfo(SinglePlayerStartInfo info)
@@ -123,11 +178,13 @@ public class PlayFacade {
 
         Player player = new Player(userData.getUsername(), info.getTurnNumber(), color);
         player.setTrainCards(info.getStartingTrainCards());
-        player.setToChoose(info.getStartingDestCards());
+        player.setDestCards(info.getStartingDestCards());
         userData.setCurrentPlayer(player);
+        userData.getCurrentGame().setFaceUpTrainDeck(info.getStartingFaceUpCards());
         userData.getCurrentGame().setCities(cities.getCityList());
         userData.getCurrentGame().setRoutes(routes.getRouteList());
         userData.getCurrentGame().setDestinationDeck(destCardDeck.getDestinationCards());
+        userData.getCurrentGame().setOtherPlayers(info.getPlayerInfo());
         userData.getCurrentGame().setFaceDownTrainDeck(trainCardDeck.getTrainCards());
         setSetUpData();
     }
@@ -137,18 +194,62 @@ public class PlayFacade {
         setUpData.setColor(userData.getCurrentPlayer().getColor());
         setUpData.setTurnNumber(userData.getCurrentPlayer().getTurnNumber());
         setUpData.setStartingTrainCards(userData.getCurrentPlayer().getTrainCards());
-        setUpData.setStartingDestCards(userData.getCurrentPlayer().getToChoose());
+        setUpData.setStartingDestCards(userData.getCurrentPlayer().getDestCards());
         setUpData.setChange();
     }
 
     public void setBoardData()
     {
-        boardData.setDestDeckSize(userData.getCurrentGame().getDestinationDeck().size());
-        boardData.setTrainDeckSize(userData.getCurrentGame().getFaceDownTrainDeck().size());
-        boardData.setOtherPlayerInfo(info.getPlayerInfo());
+        boardData.setDestDeckSize(userData.getCurrentGame().getDestDeckSize());
+        boardData.setTrainDeckSize(userData.getCurrentGame().getTrainDeckSize());
+        boardData.setOtherPlayerInfo(userData.getCurrentGame().getOtherPlayers());
         boardData.setFaceUpCards(userData.getCurrentGame().getFaceUpTrainDeck());
         boardData.setRoutes(userData.getCurrentGame().getRoutes());
         boardData.setCities(userData.getCurrentGame().getCities());
+        boardData.setCurrentPlayer(userData.getCurrentPlayer());
+        if (userData.getCurrentPlayer().getTurnNumber() == 1)
+            boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
+        else {
+            List<PlayerShallow> otherPlayerInfo = boardData.getOtherPlayerInfo();
+            for (PlayerShallow player : otherPlayerInfo) {
+                if (player.getTurnNumber() == 1) boardData.setUserPlaying(player.getuName());
+            }
+        }
+        boardData.setChange();
+    }
+
+    public void mockUpdate()
+    {
+        List<PlayerShallow> otherPlayerInfo = boardData.getOtherPlayerInfo();
+        List<Route> routes = boardData.getRoutes();
+        Player cPlayer = boardData.getCurrentPlayer();
+        cPlayer.setTrainPiecesLeft(cPlayer.getTrainPiecesLeft() - (cPlayer.getTurnNumber() * 2));
+        cPlayer.setCurrentScore(cPlayer.getCurrentScore() + (cPlayer.getTurnNumber() * 60));
+        routes.get(cPlayer.getTurnNumber()).setClaimed(true);
+        routes.get(cPlayer.getTurnNumber()).setClaimant(cPlayer.getUserName().getNameOrPassword());
+        if (cPlayer.getTurnNumber() == 2) boardData.setUserPlaying(cPlayer.getUserName().getNameOrPassword());
+        for (PlayerShallow player: otherPlayerInfo)
+        {
+            if (player.getTurnNumber() == 2) boardData.setUserPlaying(player.getuName());
+            int scoreToAdd = player.getTurnNumber() * 50;
+            int trainCardToSub = player.getTurnNumber() * 2;
+            int piecesToRemove = player.getTurnNumber() *2;
+            player.setPiecesLeft(player.getPiecesLeft() - piecesToRemove);
+            player.setCurrentScore(player.getCurrentScore()+scoreToAdd);
+            player.setTrainCardHand(player.getTrainCardHand() - trainCardToSub);
+            player.setDestCardHand(player.getDestCardHand() - 1);
+            routes.get(player.getTurnNumber()).setClaimed(true);
+            routes.get(player.getTurnNumber()).setClaimant(player.getuName());
+        }
+        TrainCard[] newFaceUpCards = {trainCardDeck.getCardByID(1), trainCardDeck.getCardByID(40),
+                trainCardDeck.getCardByID(31), trainCardDeck.getCardByID(100), trainCardDeck.getCardByID(69)};
+        /*newFaceUpCards[1] = trainCardDeck.getCardByID(1);
+        newFaceUpCards[2] = trainCardDeck.getCardByID(40);
+        newFaceUpCards[3] = trainCardDeck.getCardByID(31);
+        newFaceUpCards[4] = trainCardDeck.getCardByID(100);
+        newFaceUpCards[5] = trainCardDeck.getCardByID(69);*/
+        boardData.setFaceUpCards(newFaceUpCards);
+
         boardData.setChange();
     }
 }

@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,11 +16,12 @@ public class BoardData extends Observable{
 
     private UserData userData = UserData.getUserData();
     private Chat chat = Chat.getInstance();
-    private Player currentPlayer = userData.getCurrentPlayer();
+    private Player currentPlayer;
+    private String userPlaying;
     private List<PlayerShallow> otherPlayerInfo;
     private int destDeckSize;
     private int trainDeckSize;
-    private List<TrainCard> faceUpCards;
+    private TrainCard[] faceUpCards;
     private List<City> cities;
     private List<Route> routes;
 
@@ -28,6 +30,10 @@ public class BoardData extends Observable{
         setChanged(); //set change has occurred
         notifyObservers(this); //notify observers we have a change and give them new playercount
         clearChanged(); //no longer have a change!
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     public void addAnObserver(Observer o)
@@ -39,6 +45,14 @@ public class BoardData extends Observable{
 
     public Chat getChat() {
         return chat;
+    }
+
+    public String getUserPlaying() {
+        return userPlaying;
+    }
+
+    public void setUserPlaying(String userPlaying) {
+        this.userPlaying = userPlaying;
     }
 
     public Player getCurrentPlayer() {
@@ -85,11 +99,11 @@ public class BoardData extends Observable{
         this.trainDeckSize = trainDeckSize;
     }
 
-    public List<TrainCard> getFaceUpCards() {
+    public TrainCard[] getFaceUpCards() {
         return faceUpCards;
     }
 
-    public void setFaceUpCards(List<TrainCard> faceUpCards) {
+    public void setFaceUpCards(TrainCard[] faceUpCards) {
         this.faceUpCards = faceUpCards;
     }
 }

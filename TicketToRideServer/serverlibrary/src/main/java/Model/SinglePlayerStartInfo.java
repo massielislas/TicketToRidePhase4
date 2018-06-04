@@ -17,6 +17,7 @@ public class SinglePlayerStartInfo {
     private List<DestinationCard> startingDestCards;
     private List<TrainCard> startingTrainCards;
     private List<PlayerShallow> playerInfo;
+    private TrainCard[] startingFaceUpCards;
 
     public SinglePlayerStartInfo(UserPass username, int turnNumber) {
         this.username = username;
@@ -69,4 +70,11 @@ public class SinglePlayerStartInfo {
         this.startingTrainCards = startingTrainCards;
     }
 
+    public TrainCard[] getStartingFaceUpCards() {
+        return startingFaceUpCards;
+    }
+
+    public void setStartingFaceUpCards(TrainCard[] startingFaceUpCards) {
+        this.startingFaceUpCards = startingFaceUpCards;
+    }
 }

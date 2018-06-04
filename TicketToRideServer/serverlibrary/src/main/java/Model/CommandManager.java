@@ -3,8 +3,10 @@ package Model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import Results.PollResult;
 
@@ -30,7 +32,6 @@ public class CommandManager {
             Command[] commands = commandMap.get(username);
             ArrayList<Command> commandList = new ArrayList<>(Arrays.asList(commands));
             commandList.add(command);
-            allCommands.add(command);
             commandMap.put(username, (Command[]) commandList.toArray(new Command[commandList.size()]));
         }
         else
@@ -62,6 +63,9 @@ public class CommandManager {
 
     public void addCommandAllUsers(Command command)
     {
+        if (!allCommands.contains(command)) {
+            allCommands.add(command);
+        }
         for(UserPass key: commandMap.keySet())
         {
             addCommand(key, command);

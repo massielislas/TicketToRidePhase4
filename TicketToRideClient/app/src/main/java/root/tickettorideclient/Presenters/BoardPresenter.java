@@ -3,6 +3,7 @@ package root.tickettorideclient.Presenters;
 import android.support.v4.app.FragmentActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -32,9 +33,10 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
     public BoardPresenter (IBoardView view, FragmentActivity mn) {
         this.view = view;
-        facade = new PlayFacade();
-        facade.addBoardObserver(this);
+        facade = PlayFacade.getInstance();
         this.mn = mn;
+        facade.addBoardObserver(this);
+     //   facade.addBoardObserver(this);
     }
 
     public void sendChat (String message) {
@@ -87,6 +89,17 @@ public class BoardPresenter implements IBoardPresenter, Observer {
     @Override
     public void update(Observable observable, Object o) {
 
+        if (o.getClass().equals(Chat.class)) {
+            final Chat chat = (Chat) o;
+            mn.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    view.addAllHistory(chat.getChat());
+                }
+            });
+            return;
+        }
+
         final BoardData data = (BoardData) o;
 
         mn.runOnUiThread(new Runnable() {
@@ -100,7 +113,6 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
                 view.addAllRoutes(new ArrayList<Route>(data.getRoutes()));
 
-
                 if (view.getNumPlayers() != data.getOtherPlayerInfo().size()) {
 
                     ArrayList<PlayerStats> playerStats = new ArrayList<>();
@@ -113,7 +125,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
                         newPlayer.setTrainPieces(player.getPiecesLeft());
                         newPlayer.setUsername(player.getuName());
 
-                        playerStats.add(new PlayerStats());
+                        playerStats.add(newPlayer);
                     }
 
                     view.addAllPlayers(playerStats);
@@ -123,7 +135,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
                 view.updateTrainDeck(data.getTrainDeckSize());
                 view.updateDestinationDeck(data.getDestDeckSize());
-                view.updateFaceUp(new ArrayList<TrainCard>(data.getFaceUpCards()));
+                view.updateFaceUp(new ArrayList<TrainCard>(Arrays.asList(data.getFaceUpCards())));
 
                 Player thisPlayer = data.getCurrentPlayer();
                 view.updatePlayerPoints(thisPlayer.getUserName().getNameOrPassword(), thisPlayer.getCurrentScore());
@@ -139,8 +151,30 @@ public class BoardPresenter implements IBoardPresenter, Observer {
                     view.updatePlayerTrainCards(player.getuName(), player.getTrainCardHand());
                 }
 
+                view.updateTurn(data.getUserPlaying());
             }
         });
+    }
+
+    @Override
+    public void claimRoute (Route route) {
+        //if route is claimed
+        //pop toast
+        if (route.isClaimed()) {
+            view.popToast("Route has already been claimed, by " + route.getClaimant());
+            return;
+        }
+
+        //else claim route
+        //facade.claimRoute(route);
+        view.popToast("Claiming route underway!");
+
+    }
+
+    @Override
+    public void test () {
+        view.popToast("Starting Test");
+        facade.mockUpdate();
     }
 
 }

@@ -57,4 +57,28 @@ public class DestinationCard {
     public void setCity2(City city2) {
         this.city2 = city2;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DestinationCard that = (DestinationCard) o;
+
+        if (ID != that.ID) return false;
+        if (pointValue != that.pointValue) return false;
+        if (!city1.equals(that.city1)) return false;
+        return city2.equals(that.city2);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = ID;
+        result = 31 * result + pointValue;
+        result = 31 * result + city1.hashCode();
+        result = 31 * result + city2.hashCode();
+        return result;
+    }
 }
