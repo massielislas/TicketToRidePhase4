@@ -55,9 +55,18 @@ public class PlayFacade {
 
     public void addBoardObserver(Observer o)
     {
-        chat.addAnObserver(o);
         boardData.addObserver(o);
         setBoardData();
+    }
+
+    public void addChatObserver(Observer o)
+    {
+        chat.addAnObserver(o);
+    }
+
+    public void desRegisterChatObserver(Observer o)
+    {
+        chat.removeAnObserver(o);
     }
 
     public void deRegisterSetUpObserver(Observer o)
@@ -68,7 +77,6 @@ public class PlayFacade {
 
     public void deRegisterBoardObserver(Observer o)
     {
-        chat.removeAnObserver(o);
         boardData.removeAnObserver(o);
     }
 
@@ -119,6 +127,21 @@ public class PlayFacade {
     public void addChat(String message)
     {
         chat.addChatMessage(message);
+    }
+
+    public Result claimRoute(Route route)
+    {}
+
+    public Result chooseFaceUpCard(TrainCard card)
+    {}
+
+    public Result drawFromTrainDeck()
+    {}
+
+    public Result drawDestCards()
+    {
+        DestinationCardDeck.
+        boardData.getCurrentPlayer().setToChoose();
     }
 
     /*public void updateDeckSize(Double trainDeckSize, Double destDeckSize)
