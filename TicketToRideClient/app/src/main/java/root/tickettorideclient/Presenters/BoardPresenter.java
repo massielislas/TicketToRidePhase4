@@ -40,7 +40,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
     public void sendChat (String message) {
         Result result = facade.sendChat(message);
 
-        //if result unsucessful,
+        //if result unsuccessful,
         //pop toast with error
         if (!result.isSuccess()) {
             view.popToast("Error sending chat message: " + result.getMessage());
@@ -48,6 +48,39 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
         //if result successful,
         //do nothing
+    }
+
+    public void claimRoute(Route route) {
+        //if route already claimed
+        //pop toast with error
+        if (route.isClaimed()) {
+            view.popToast("Route is already claimed.");
+            return;
+        }
+
+        Result result = facade.claimRoute(Route route);
+
+        //if result unsuccessful,
+        //pop toast with error
+        if (!result.isSuccess()) {
+            view.popToast("Error claiming route: " + result.getMessage());
+            return;
+        }
+
+        //if result successful,
+        //pop toast with success
+        view.popToast("Route " + route.getCity1() + " to " + route.getCity2() + " successfully claimed.");
+    }
+
+    public void chooseFaceUpCard(TrainCard card) {
+        Result result = facade.chooseFaceUpCard(card);
+
+
+
+    }
+
+    public void drawFromTrainDeck() {
+        //TODO: implement me
     }
 
 
