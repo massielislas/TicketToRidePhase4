@@ -55,6 +55,7 @@ import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
 import root.tickettorideclient.Callbacks.IDestinationCardsCallback;
 import root.tickettorideclient.Callbacks.IDrawDestinationsCallback;
+import root.tickettorideclient.Callbacks.IEndGameCallback;
 import root.tickettorideclient.Presenters.BoardPresenter;
 import root.tickettorideclient.Presenters.IBoardView;
 import root.tickettorideclient.R;
@@ -180,6 +181,13 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             }
         });
         userTrainsBanner = (TextView) myView.findViewById(R.id.trainDisplay);
+        userTrainsBanner.setOnClickListener(new View.OnClickListener() {
+            //Secret button to take you to end view
+            @Override
+            public void onClick(View view) {
+                ((IEndGameCallback) getActivity()).goToEndGame();
+            }
+        });
 
         yourHandDisplay = (LinearLayout) myView.findViewById(R.id.yourHandDisplay);
         yourHandBanner = (TextView)myView.findViewById(R.id.yourHandBanner);
