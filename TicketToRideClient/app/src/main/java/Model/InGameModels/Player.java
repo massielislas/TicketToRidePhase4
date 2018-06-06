@@ -44,7 +44,11 @@ public class Player extends Observable {
         {
             destCards.add(card);
         }
+    }
 
+    public void addToTrainCardHand(TrainCard trainCard)
+    {
+        trainCards.add(trainCard);
     }
 
     public String getColor() {
