@@ -201,6 +201,23 @@ public class PlayFacade {
         boardData.setChange();
     }
 
+    public void changeTurn(Double turnNumber)
+    {
+        if (turnNumber == userData.getCurrentPlayer().getTurnNumber()) {
+            userData.getCurrentPlayer().getMyState().activateTurn();
+            boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
+        }
+        else{
+            List<PlayerShallow> otherPlayers = userData.getCurrentGame().getOtherPlayers();
+            for (PlayerShallow player: otherPlayers)
+            {
+                if (player.getTurnNumber() == turnNumber.intValue())
+                    boardData.setUserPlaying(player.getuName());
+            }
+        }
+        boardData.setChange();
+    }
+
     //public void updateOtherPlayer()
 
     public void setStartInfo(String jsonString){
