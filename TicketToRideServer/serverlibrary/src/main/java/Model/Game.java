@@ -201,18 +201,133 @@ public class Game {
 
     public Result claimRoute(String username, Double routeID) {
         Route toClaim = routes.getRoute(routeID.intValue());
+        Player claimer = getPlayer(new UserPass(username));
+        if (toClaim.isDouble()) {
+            return claimDoubleRoute(username, routeID.intValue());
+        }
         if (toClaim.isClaimed()) {
             return new Result(false, "That route is already claimed!");
         }
+        
     }
-    boolean chooseFaceUpCard(String username, Double cardID) {
 
+    private Result claimDoubleRoute(String userName, int routeID) {
+        Route toClaim = routes.getRoute(routeID);
+        Player claimer = getPlayer(new UserPass(userName));
+        if (toClaim.isDoubleClaimedl() && toClaim.isClaimed()) {
+            return new Result(false, "Both of those routes are already claimed!");
+        }
+        else if (toClaim.isClaimed() && !toClaim.isDoubleClaimedl()) {
+
+        }
     }
-    boolean drawFromTrainDeck(String username) {
 
+    public Result chooseFaceUpCard(String username, Double cardID) {
+        Player addToHand = getPlayer(new UserPass(username));
+        TrainCard toAdd = getFromFaceUpByID(cardID.intValue());
+        if (toAdd == null) {
+            return new Result(false, "That card isn't in the faceup cards!");
+        }
+        else {
+            addToHand.addTrainCard(toAdd);
+            updateFaceUpDeck();
+            return new Result(true,toAdd.getType() +" card successfully drawn");
+        }
     }
-    boolean drawDestCards(String username) {
+    public Result drawFromTrainDeck(String username) {
+        if (trainCardFacedownDeck.isEmpty()) {
+            reshuffleDiscardedTrains();
+        }
+        Player personDrawing = getPlayer(new UserPass(username));
+        TrainCard toAdd = trainCardFacedownDeck.get(0);
+        personDrawing.addTrainCard(toAdd);
+        trainCardFacedownDeck.remove(0);
+        return new Result(true, toAdd.getType() + " drawn from deck");
+        //TODO set up command to send cardID back to ClientSide
+    }
+    public Result drawDestCards(String username) {
+        Player personDrawing = getPlayer(new UserPass(username));
+        //If the destination card deck size is smaller than 3, draw all of the rest of the cards
+        if (destinationCardDeck.size() < 3) {
+            int size = destinationCardDeck.size();
+            for (int i = 0; i < destinationCardDeck.size(); i++) {
+                personDrawing.addDestCard(destinationCardDeck.get(0));
+                destinationCardDeck.remove(0);
+            }
+            //if there are none, send a message saying so
+            if (size == 0) {
+                return new Result(false, "destination card deck is empty");
+            }
+            return new Result(true, "drew " + size + " destination cards");
+        }
+        //Otherwise draw three cards
+        else {
+            for (int i = 0; i < 3; i++) {
+                personDrawing.addDestCard(destinationCardDeck.get(0));
+                destinationCardDeck.remove(0);
+            }
+            return new Result(true, "drew 3 destination cards");
+        }
+        //TODO create command to send Destination Card IDS back to Client
+    }
 
+    private TrainCard getFromFaceUpByID(int ID) {
+        //Find the card by its ID number in the face up deck. Set the corresponding slot to null
+        //then return it
+        for (int i = 0; i < trainCardFaceupDeck.length; i ++) {
+            if (trainCardFaceupDeck[i].getID() == ID) {
+                TrainCard toRet = trainCardFaceupDeck[i];
+                trainCardFaceupDeck[i] = null;
+                return toRet;
+            }
+        }
+        return null;
+    }
+
+    private void updateFaceUpDeck() {
+        //Check if there are cards left in the trainCardDeck
+        if (trainCardFacedownDeck.isEmpty()) {
+            reshuffleDiscardedTrains();
+        }
+        //For each card missing from the face up deck, put the top card of the face down deck in its
+        //place
+        for (int i = 0; i < trainCardFaceupDeck.length; i++) {
+            if (trainCardFaceupDeck[i] == null) {
+                TrainCard workWith = trainCardFacedownDeck.get(0);
+                trainCardFaceupDeck[i] = workWith;
+                trainCardFacedownDeck.remove(0);
+                //always check and reshuffle if needed
+                if (trainCardFacedownDeck.isEmpty()) {
+                    reshuffleDiscardedTrains();
+                }
+            }
+        }
+        //Then check if there are 3 or more wilds, reset the whole face up deck if there are 3 or more
+        checkAndResetFaceUp();
+        //TODO Set up command to update face up deck on Client side
+    }
+
+    private void checkAndResetFaceUp() {
+        //count of locomotives in the face up deck
+        int count = 0;
+        for (int i = 0; i < trainCardFaceupDeck.length; i++) {
+            if (trainCardFaceupDeck[i].getType().equals("Locomotive")) {
+                count++;
+            }
+        }
+        //Then if the count is greater than 2, discard all the cards and get 5 new cards from the
+        //top of the face down deck
+        if (count > 2) {
+            for (int i = 0; i <trainCardFaceupDeck.length; i++) {
+                discardedTrainCards.add(trainCardFaceupDeck[i]);
+                trainCardFaceupDeck[i] = trainCardFacedownDeck.get(0);
+                trainCardFacedownDeck.remove(0);
+                if (trainCardFacedownDeck.isEmpty()) {
+                    reshuffleDiscardedTrains();
+                }
+            }
+        }
+        checkAndResetFaceUp();
     }
 
     public int getPlayerCount()

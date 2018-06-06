@@ -12,8 +12,6 @@ public class UserData
 
     Player currentPlayer;
 
-    Model.State.MyState
-
     Host host;
 
     Port port;

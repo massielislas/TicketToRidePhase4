@@ -7,6 +7,7 @@ import java.util.List;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Route;
 import Model.InGameModels.TrainCard;
+import Model.TicketToRideProxy;
 import Model.UserData;
 import Results.Result;
 
@@ -95,15 +96,13 @@ public class FirstActiveTurnState extends TurnState {
     }
 
     @Override
-    public DestinationCard[] drawDestinationCards() {
+    public Result drawDestinationCards() {
         if(!canDrawDestinationCards()){
-            return null;
+            return new Result(false, "cant do it!");
         }
         //toDo: get the 3 cards from the TTRProxy
-        DestinationCard[] toPickFrom = null;
-        UserData.getUserData().getCurrentPlayer().addToDestinationHand(new ArrayList<>(Arrays.asList(toPickFrom)));
         MyState.getInstance().state = new NonActiveTurnState();
-        return toPickFrom;
+        return new Result(true, "wait for the cards!");
         //Note, the user will have to discard some of them, the same way as they did before.
     }
 
@@ -130,7 +129,8 @@ public class FirstActiveTurnState extends TurnState {
             return new Result(false, "NO CAN DO!");
         }
         else{
-            //todo: replace drawnCard from TTRProxy method!
+            Result fromProxy = new TicketToRideProxy().drawFromTrainDeck(UserData.getUserData().getUsername().getNameOrPassword(),
+                    UserData.getUserData().getCurrentGame().getID());
             TrainCard drawnCard = null;
             UserData.getUserData().getCurrentPlayer().getTrainCards().add(drawnCard);
             MyState.getInstance().state = new SecondActiveTurnState();

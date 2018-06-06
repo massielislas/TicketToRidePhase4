@@ -85,7 +85,7 @@ public class Routes
 
     public Route getRoute(int ID) {
         for (Route toRet : routeList) {
-            if (toRet.getID() == ID) {
+            if ((toRet.getID() == ID) || (toRet.getID() * -1 == ID)) {
                 return toRet;
             }
         }

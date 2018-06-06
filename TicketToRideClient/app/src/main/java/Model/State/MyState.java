@@ -11,7 +11,11 @@ import Results.Result;
 
 public class MyState {
     TurnState state;
-    public MyState(){
+    public static MyState getInstance(){
+        return instance;
+    }
+    private static MyState instance = new MyState();
+    private MyState(){
         state= new NonActiveTurnState();
     }
 
