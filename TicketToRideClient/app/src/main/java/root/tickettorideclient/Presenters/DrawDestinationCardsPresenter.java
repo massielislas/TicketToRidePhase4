@@ -30,8 +30,13 @@ public class DrawDestinationCardsPresenter implements IDrawDestinationPresenter,
     }
 
     @Override
-    public void returnDestCards (DestinationCard[] cards) {
+    public void setChoices () {
+        //TODO
+    }
 
+    @Override
+    public void returnDestCards (DestinationCard[] cards) {
+        //TODO
     }
 
     @Override

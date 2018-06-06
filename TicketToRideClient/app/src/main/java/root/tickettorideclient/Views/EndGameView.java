@@ -9,16 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import root.tickettorideclient.Presenters.IEndGameView;
 import root.tickettorideclient.R;
 
 /**
  * Created by Massiel on 6/4/2018.
  */
 
-public class EndGameView extends Fragment{
+public class EndGameView extends Fragment implements IEndGameView {
     final String POINTS_FROM_CLAIMED_ROUTES = "Points from claimed routes: ";
     final String POINTS_FROM_REACHED_DESTINATIONS = "Points from reached destinations: ";
     final String POINTS_FROM_UNREACHED_DESTINATIONS = "Points from unreached destinations: ";
@@ -32,7 +34,7 @@ public class EndGameView extends Fragment{
     TextView totalPointsWinner;
     View v;
     RecyclerView otherFinalStatsRecyclerView;
-    ArrayList<PlayerFinalStats>playerFinalStats;
+    ArrayList<PlayerFinalStats>playerFinalStats = new ArrayList<>();
 
     PlayerFinalStatsAdapter finalStatsAdapter;
 
@@ -77,11 +79,25 @@ public class EndGameView extends Fragment{
     }
 
     private void updateUI(){
-        //TODO set here by presenter
-        playerFinalStats = new ArrayList<>();
-        addFakeData();
+      //  addFakeData();
         finalStatsAdapter = new PlayerFinalStatsAdapter(playerFinalStats);
         otherFinalStatsRecyclerView.setAdapter(finalStatsAdapter);
+    }
+
+    @Override
+    public void updatePlayerScoresView(String playerID, int score) {
+        for (int i = 0; i < playerFinalStats.size(); ++i) {
+            if (playerFinalStats.get(i).getName().equals(playerID)) {
+                playerFinalStats.get(i).setTotalPoints(score);
+                i = playerFinalStats.size();
+            }
+        }
+        updateUI();
+    }
+
+    @Override
+    public void popErrorToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     public class PlayerFinalStatsHolder extends RecyclerView.ViewHolder{

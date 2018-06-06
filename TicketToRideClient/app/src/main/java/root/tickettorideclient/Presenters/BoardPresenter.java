@@ -60,7 +60,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
             return;
         }
 
-        Result result = facade.claimRoute(Route route);
+        Result result = facade.claimRoute(route);
 
         //if result unsuccessful,
         //pop toast with error

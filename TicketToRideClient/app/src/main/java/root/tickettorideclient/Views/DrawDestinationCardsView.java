@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import Model.InGameModels.City;
 import Model.InGameModels.DestinationCard;
@@ -63,7 +64,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
 
     public void updateUI(){
        // userDestinationCards = presenter.getChoices();
-        addFakeDestinations();
+       // addFakeDestinations();
         destinationsAdapter = new DestinationsAdapter(userDestinationCards);
         cardListRecyclerView.setAdapter(destinationsAdapter);
     }
@@ -87,6 +88,10 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void updateDestCards(DestinationCard[] cards) {
+        userDestinationCards = new ArrayList<DestinationCard>(Arrays.asList(cards));
+    }
 
     public class DestinationCardHolder extends RecyclerView.ViewHolder{
         TextView destinationCardTextView;
