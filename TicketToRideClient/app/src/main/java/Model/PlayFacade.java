@@ -201,6 +201,7 @@ public class PlayFacade {
         boardData.setChange();
     }
 
+    //method that gets called by command sent by server
     public void changeTurn(Double turnNumber)
     {
         if (turnNumber == userData.getCurrentPlayer().getTurnNumber()) {
