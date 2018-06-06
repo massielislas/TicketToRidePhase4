@@ -77,7 +77,42 @@ public class Route {
         doubleColor = newDoubleColor;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Route route = (Route) o;
+
+        if (length != route.length) return false;
+        if (isClaimed != route.isClaimed) return false;
+        if (isDouble != route.isDouble) return false;
+        if (isDoubleClaimed != route.isDoubleClaimed) return false;
+        if (scoreValue != route.scoreValue) return false;
+        if (ID != route.ID) return false;
+        if (!city1.equals(route.city1)) return false;
+        if (!city2.equals(route.city2)) return false;
+        if (claimant != null ? !claimant.equals(route.claimant) : route.claimant != null)
+            return false;
+        if (color != null ? !color.equals(route.color) : route.color != null) return false;
+        return doubleColor != null ? doubleColor.equals(route.doubleColor) : route.doubleColor == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = city1.hashCode();
+        result = 31 * result + city2.hashCode();
+        result = 31 * result + length;
+        result = 31 * result + (isClaimed ? 1 : 0);
+        result = 31 * result + (isDouble ? 1 : 0);
+        result = 31 * result + (isDoubleClaimed ? 1 : 0);
+        result = 31 * result + (claimant != null ? claimant.hashCode() : 0);
+        result = 31 * result + scoreValue;
+        result = 31 * result + ID;
+        result = 31 * result + (color != null ? color.hashCode() : 0);
+        result = 31 * result + (doubleColor != null ? doubleColor.hashCode() : 0);
+        return result;
+    }
 
     public boolean isDouble() {
         return isDouble;
