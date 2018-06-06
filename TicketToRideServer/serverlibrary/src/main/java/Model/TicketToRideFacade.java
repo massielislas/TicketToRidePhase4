@@ -261,24 +261,26 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
+    //TODO Possibly implement the sending of commands from here, depending on what info is needed
     Result claimRoute(String username, String gameID, Double routeID) {
         Result toRet;
         Game game = Server.getSpecificActiveGame(gameID);
         toRet = game.claimRoute(username, routeID);
-        if (!toRet.isSuccess()) {
-            return toRet;
-        }
-        else {
-            game.
-        }
+        return toRet;
     }
     Result chooseFaceUpCard(String username, String gameID, Double cardID) {
         Game game = Server.getSpecificActiveGame(gameID);
+        updatePlayers(game);
+        return game.chooseFaceUpCard(username, cardID);
     }
     Result drawFromTrainDeck(String username, String gameID) {
         Game game = Server.getSpecificActiveGame(gameID);
+        updatePlayers(game);
+        return game.drawFromTrainDeck(username);
     }
     Result drawDestCards(String username, String gameID) {
         Game game = Server.getSpecificActiveGame(gameID);
+        updatePlayers(game);
+        return game.drawDestCards(username);
     }
 }

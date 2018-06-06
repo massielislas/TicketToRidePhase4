@@ -208,7 +208,7 @@ public class Game {
         if (toClaim.isClaimed()) {
             return new Result(false, "That route is already claimed!");
         }
-
+        
     }
 
     private Result claimDoubleRoute(String userName, int routeID) {
@@ -328,7 +328,6 @@ public class Game {
             }
         }
         checkAndResetFaceUp();
-        //TODO Set up command to tell Clients about changes in the face up deck if changes happen
     }
 
     public int getPlayerCount()
