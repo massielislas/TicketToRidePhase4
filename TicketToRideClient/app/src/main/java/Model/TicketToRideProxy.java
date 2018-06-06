@@ -254,4 +254,20 @@ public class TicketToRideProxy implements ITicketToRide {
             return null;
         }
     }
+    public Result claimRoute(String username, String gameID, Double routeID)
+    {
+
+    }
+    public Result chooseFaceUpCard(String username, String gameID, Double cardID)
+    {
+
+    }
+    public Result drawFromTrainDeck(String username, String gameID)
+    {
+
+    }
+    public Result drawDestCards(String username, String gameID)
+    {
+
+    }
 }
