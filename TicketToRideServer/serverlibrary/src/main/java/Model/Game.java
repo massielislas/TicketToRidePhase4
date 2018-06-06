@@ -9,8 +9,11 @@ import Model.InGameModels.DestinationCard;
 import Model.InGameModels.DestinationCardDeck;
 import Model.InGameModels.Player;
 import Model.InGameModels.PlayerShallow;
+import Model.InGameModels.Route;
+import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
 import Model.InGameModels.TrainCardDeck;
+import Results.Result;
 
 
 /**
@@ -42,6 +45,7 @@ public class Game {
     private List<TrainCard> discardedTrainCards;
     private List<DestinationCard> destinationCardDeck;
     private List<String> chat;
+    private Routes routes;
 
     public Game(int playerCount, int currentPlayers) {
         this.playerCount = playerCount;
@@ -49,6 +53,7 @@ public class Game {
         this.ID = UUID.randomUUID().toString();
         playerList = new ArrayList<>();
         userList = new ArrayList<>();
+        routes = new Routes();
         trainCardFacedownDeck = new ArrayList<>();
         trainCardFaceupDeck = new TrainCard[faceupSize];
         discardedTrainCards = new ArrayList<>();
@@ -192,6 +197,22 @@ public class Game {
 
     public void addDestCardBackIn(DestinationCard card) {
         destinationCardDeck.add(card);
+    }
+
+    public Result claimRoute(String username, Double routeID) {
+        Route toClaim = routes.getRoute(routeID.intValue());
+        if (toClaim.isClaimed()) {
+            return new Result(false, "That route is already claimed!");
+        }
+    }
+    boolean chooseFaceUpCard(String username, Double cardID) {
+
+    }
+    boolean drawFromTrainDeck(String username) {
+
+    }
+    boolean drawDestCards(String username) {
+
     }
 
     public int getPlayerCount()

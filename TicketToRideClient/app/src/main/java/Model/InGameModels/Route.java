@@ -88,7 +88,6 @@ public class Route {
     }
 
 
-
     public boolean isDouble() {
         return isDouble;
     }
