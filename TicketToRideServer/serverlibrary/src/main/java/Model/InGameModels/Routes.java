@@ -83,6 +83,15 @@ public class Routes
         }
     }
 
+    public Route getRoute(int ID) {
+        for (Route toRet : routeList) {
+            if (toRet.getID() == ID) {
+                return toRet;
+            }
+        }
+        return null;
+    }
+
     /*public static Routes getInstance() {
         return instance;
     }*/

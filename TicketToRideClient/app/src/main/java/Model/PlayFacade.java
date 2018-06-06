@@ -55,9 +55,18 @@ public class PlayFacade {
 
     public void addBoardObserver(Observer o)
     {
-        chat.addAnObserver(o);
         boardData.addObserver(o);
         setBoardData();
+    }
+
+    public void addChatObserver(Observer o)
+    {
+        chat.addAnObserver(o);
+    }
+
+    public void desRegisterChatObserver(Observer o)
+    {
+        chat.removeAnObserver(o);
     }
 
     public void deRegisterSetUpObserver(Observer o)
@@ -68,7 +77,6 @@ public class PlayFacade {
 
     public void deRegisterBoardObserver(Observer o)
     {
-        chat.removeAnObserver(o);
         boardData.removeAnObserver(o);
     }
 
@@ -93,7 +101,7 @@ public class PlayFacade {
         return proxy.discardCards(userData.getUsername().getNameOrPassword(), userData.getCurrentGame().getID(), cardOne, cardTwo);
     }
 
-    public void addCards(Double one, Double two, Double three)
+    /*public void addCards(Double one, Double two, Double three)
     {
         ArrayList<Double> cards = new ArrayList<Double>() {
         };
@@ -103,7 +111,7 @@ public class PlayFacade {
         Game currentGame = userData.getCurrentGame();
         ArrayList<DestinationCard> toAdd = currentGame.getSelectedDestinationCards(cards);
         userData.getCurrentPlayer().addToDestinationHand(toAdd);
-    }
+    }*/
 
     public void updateFaceUpCards(Double cardOne, Double cardTwo, Double cardThree, Double cardFour, Double cardFive)
     {
@@ -119,6 +127,62 @@ public class PlayFacade {
     public void addChat(String message)
     {
         chat.addChatMessage(message);
+    }
+
+    public Result claimRoute(Route route)
+    {
+        Double routeID = new Double(route.getID());
+        return proxy.claimRoute(userData.getUsername().getNameOrPassword(),
+                userData.getCurrentGame().getID(), routeID);
+    }
+
+    //Do we need this method for server to make a command for?
+    //Or can we just check result object of claimRoute?
+    public void getRouteChange(Double routeID){
+        //if needed eventually we'll...
+        boardData.setChange();
+    }
+
+    public Result chooseFaceUpCard(TrainCard card)
+    {
+        Double cardID = new Double(card.getID());
+        if (card.getType().equals("Locomotive")){
+            //TODO change state of players turn!
+        }
+        return proxy.chooseFaceUpCard(userData.getUsername().getNameOrPassword(),
+                userData.getCurrentGame().getID(), cardID);
+    }
+
+    public Result drawFromTrainDeck()
+    {
+        return proxy.drawFromTrainDeck(userData.getUsername().getNameOrPassword(),
+                userData.getCurrentGame().getID());
+    }
+
+    //method that gets called by command sent by server
+    public void getTrainCard(Double cardID)
+    {
+        TrainCard trainCardToAdd = trainCardDeck.getCardByID(cardID.intValue());
+        userData.getCurrentPlayer().addToTrainCardHand(trainCardToAdd);
+        boardData.setChange();
+    }
+
+    public Result drawDestCards()
+    {
+        return proxy.drawDestCards(userData.getUsername().getNameOrPassword(),
+                userData.getCurrentGame().getID());
+    }
+
+    //method that gets called by command sent by server
+    public void getDestCards(Double cardOne, Double cardTwo, Double cardThree)
+    {
+        ArrayList<DestinationCard> destCardsToAdd = new ArrayList<DestinationCard>();
+        destCardsToAdd.add(destCardDeck.getDestinationCard(cardOne.intValue()));
+        destCardsToAdd.add(destCardDeck.getDestinationCard(cardTwo.intValue()));
+        destCardsToAdd.add(destCardDeck.getDestinationCard(cardThree.intValue()));
+        userData.getCurrentPlayer().addToDestinationHand(destCardsToAdd);
+        userData.getCurrentPlayer().setToChoose(destCardsToAdd);
+        boardData.setChange();
     }
 
     /*public void updateDeckSize(Double trainDeckSize, Double destDeckSize)
@@ -243,13 +307,7 @@ public class PlayFacade {
         }
         TrainCard[] newFaceUpCards = {trainCardDeck.getCardByID(1), trainCardDeck.getCardByID(40),
                 trainCardDeck.getCardByID(31), trainCardDeck.getCardByID(100), trainCardDeck.getCardByID(69)};
-        /*newFaceUpCards[1] = trainCardDeck.getCardByID(1);
-        newFaceUpCards[2] = trainCardDeck.getCardByID(40);
-        newFaceUpCards[3] = trainCardDeck.getCardByID(31);
-        newFaceUpCards[4] = trainCardDeck.getCardByID(100);
-        newFaceUpCards[5] = trainCardDeck.getCardByID(69);*/
         boardData.setFaceUpCards(newFaceUpCards);
-
         boardData.setChange();
     }
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:text="Name"
+        android:id="@+id/playerName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Points won for longest route:"
+        android:id="@+id/longestRoute"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Points from claimed routes: #"
+        android:id="@+id/pointsFromClaimedRoutes"
+        android:layout_gravity="center"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Points from reached destinations: #"
+        android:id="@+id/pointsFromReachedDestinations"
+        android:layout_gravity="center"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Points lost for unreached destinations: #"
+        android:id="@+id/pointsLostFromUnreachedDestinations"
+        android:layout_gravity="center"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TOTAL POINTS #"
+        android:id="@+id/totalPoints"
+        android:layout_gravity="center"
+        android:textColor="#000000"/>
+</LinearLayout>
