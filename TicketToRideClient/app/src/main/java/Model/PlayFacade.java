@@ -132,31 +132,28 @@ public class PlayFacade {
     public Result claimRoute(Route route)
     {
         Double routeID = new Double(route.getID());
-        return proxy.claimRoute(userData.getUsername().getNameOrPassword(),
-                userData.getCurrentGame().getID(), routeID);
+        return userData.getCurrentPlayer().getMyState().ClaimRoute(route);
     }
 
-    //Do we need this method for server to make a command for?
+    /*//Do we need this method for server to make a command for?
     //Or can we just check result object of claimRoute?
     public void getRouteChange(Double routeID){
         //if needed eventually we'll...
         boardData.setChange();
-    }
+    }*/
 
     public Result chooseFaceUpCard(TrainCard card)
     {
-        Double cardID = new Double(card.getID());
+        /*Double cardID = new Double(card.getID());
         if (card.getType().equals("Locomotive")){
             //TODO change state of players turn!
-        }
-        return proxy.chooseFaceUpCard(userData.getUsername().getNameOrPassword(),
-                userData.getCurrentGame().getID(), cardID);
+        }*/
+        return userData.getCurrentPlayer().getMyState().DrawFaceUpCard(card);
     }
 
     public Result drawFromTrainDeck()
     {
-        return proxy.drawFromTrainDeck(userData.getUsername().getNameOrPassword(),
-                userData.getCurrentGame().getID());
+        return userData.getCurrentPlayer().getMyState().drawFaceDownCard();
     }
 
     //method that gets called by command sent by server
@@ -169,8 +166,7 @@ public class PlayFacade {
 
     public Result drawDestCards()
     {
-        return proxy.drawDestCards(userData.getUsername().getNameOrPassword(),
-                userData.getCurrentGame().getID());
+        return userData.getCurrentPlayer().getMyState().drawDestinationCards();
     }
 
     //method that gets called by command sent by server
