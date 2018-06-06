@@ -7,13 +7,15 @@ import android.os.Bundle;
 
 import root.tickettorideclient.Callbacks.IDestinationCardsCallback;
 import root.tickettorideclient.Callbacks.IDrawDestinationsCallback;
+import root.tickettorideclient.Callbacks.IEndGameCallback;
 import root.tickettorideclient.Callbacks.IGoToBoardCallback;
 import root.tickettorideclient.Views.BoardView;
 import root.tickettorideclient.Views.DestinationCardsView;
 import root.tickettorideclient.Views.DrawDestinationCardsView;
+import root.tickettorideclient.Views.EndGameView;
 import root.tickettorideclient.Views.SetupView;
 
-public class GameActivity extends AppCompatActivity implements IGoToBoardCallback, IDestinationCardsCallback, IDrawDestinationsCallback{
+public class GameActivity extends AppCompatActivity implements IGoToBoardCallback, IDestinationCardsCallback, IDrawDestinationsCallback, IEndGameCallback{
 
     FragmentManager fragmentManager;
 
@@ -47,5 +49,11 @@ public class GameActivity extends AppCompatActivity implements IGoToBoardCallbac
     public void goToDrawDestinations() {
         Fragment destinationCardsFragment = new DrawDestinationCardsView();
         fragmentManager.beginTransaction().replace(R.id.game_activity_container, destinationCardsFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void goToEndGame() {
+        Fragment endGameFragment = new EndGameView();
+        fragmentManager.beginTransaction().replace(R.id.game_activity_container, endGameFragment).commit();
     }
 }

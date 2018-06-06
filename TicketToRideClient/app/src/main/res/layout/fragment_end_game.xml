@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Winner: Massiel"
+            android:textSize="30dp"
+            android:id="@+id/winnerName"
+            android:layout_gravity="center"
+            android:textColor="#000000"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:background="#e0b5ff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Points won for longest route:"
+            android:id="@+id/longestRouteWinner"
+            android:textColor="#000000"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Points from claimed routes: #"
+            android:id="@+id/pointsFromClaimedRoutesWinner"
+            android:layout_gravity="center"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Points from reached destinations: #"
+            android:id="@+id/pointsFromReachedDestinationsWinner"
+            android:layout_gravity="center"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Points lost for unreached destinations: #"
+            android:id="@+id/pointsLostFromUnreachedDestinationsWinner"
+            android:layout_gravity="center"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOTAL POINTS #"
+            android:id="@+id/totalPointsWinner"
+            android:layout_gravity="center"
+            android:textColor="#000000"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/playerFinalStatsRecyclerView">
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
