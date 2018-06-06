@@ -262,4 +262,18 @@ public class TicketToRideFacade implements ITicketToRide {
             CommandManager.getInstance().addCommand(p.getUserName(),command);
         }
     }
+
+    Result claimRoute(String username, String gameID, Double routeID) {
+        Game game = Server.getSpecificActiveGame(gameID);
+        
+    }
+    Result chooseFaceUpCard(String username, String gameID, Double cardID) {
+        Game game = Server.getSpecificActiveGame(gameID);
+    }
+    Result drawFromTrainDeck(String username, String gameID) {
+        Game game = Server.getSpecificActiveGame(gameID);
+    }
+    Result drawDestCards(String username, String gameID) {
+        Game game = Server.getSpecificActiveGame(gameID);
+    }
 }
