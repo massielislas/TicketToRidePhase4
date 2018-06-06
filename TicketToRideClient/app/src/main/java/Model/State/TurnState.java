@@ -31,7 +31,7 @@ public class TurnState {
     public Result drawFaceDownCard(){
         return new Result(false, "FAIL");
     }
-    public DestinationCard[] drawDestinationCards(){
-        return null;
+    public Result drawDestinationCards(){
+        return new Result(false, "FAIL");
     }
 }
