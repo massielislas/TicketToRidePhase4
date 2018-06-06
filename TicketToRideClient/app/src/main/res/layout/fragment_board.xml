@@ -283,7 +283,7 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:background="#2f6fd6"
+                        android:background="@color/trainDeckBackground"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:text="Train Cards: #"
@@ -294,7 +294,7 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:background="#dbb930"
+                        android:background="@color/destDeckBackground"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:text="Destination Cards: #"

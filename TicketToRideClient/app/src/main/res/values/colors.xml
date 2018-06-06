@@ -34,9 +34,13 @@
     <color name="darkBackgroundOriginal">#383838</color>
     <color name="lightBackgroundOriginal">#ffe3af</color>
     <color name="chatBackgroundOriginal">#cccccc</color>
+    <color name="destDeckBackgroundOriginal">#dbb930</color>
+    <color name="trainDeckBackgroundOriginal">#2f6fd6</color>
 
     <color name="darkBackground">#535453</color>
     <color name="lightBackground">#ffce7a</color>
     <color name="chatBackground">#3ac192</color>
+    <color name="destDeckBackground">#f2bf68</color>
+    <color name="trainDeckBackground">#7fe8c3</color>
 
 </resources>
