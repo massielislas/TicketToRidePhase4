@@ -1,4 +1,4 @@
-package Model.InGameModels.State;
+package Model.State;
 
 import Model.InGameModels.TrainCard;
 import Model.UserData;

@@ -10,6 +10,7 @@ import java.util.Observer;
 import java.util.Set;
 import java.util.TreeSet;
 
+import Model.State.MyState;
 import Model.UserPass;
 
 public class Player extends Observable {
@@ -23,6 +24,7 @@ public class Player extends Observable {
     private int currentScore;
     private UserPass userName;
     private int turnNumber;
+    private MyState myState;
 
     public Player(UserPass name, int queuePosition, String color) {
         this.userName = name;
@@ -33,6 +35,7 @@ public class Player extends Observable {
         routesClaimed = new HashSet<>();
         trainPiecesLeft = 45;
         currentScore = 0;
+        myState = MyState.getInstance();
         setChanged(); //set change has occurred
         notifyObservers(); //notify observers we have a change and give them new playercount
         clearChanged(); //no longer have a change!
@@ -44,6 +47,10 @@ public class Player extends Observable {
         {
             destCards.add(card);
         }
+    }
+
+    public MyState getMyState() {
+        return myState;
     }
 
     public void addToTrainCardHand(TrainCard trainCard)

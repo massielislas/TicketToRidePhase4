@@ -1,4 +1,4 @@
-package Model.InGameModels.State;
+package Model.State;
 
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Route;
@@ -10,11 +10,14 @@ import Results.Result;
  */
 
 public class MyState {
-    private static final MyState instance = new MyState();
+    TurnState state;
     public static MyState getInstance(){
         return instance;
     }
-    TurnState state;
+    private static MyState instance = new MyState();
+    private MyState(){
+        state= new NonActiveTurnState();
+    }
 
     public boolean canClaimRoute(Route route){
         return  state.canClaimRoute(route);

@@ -1,4 +1,4 @@
-package Model.InGameModels.State;
+package Model.State;
 
 /**
  * Created by Topper on 6/4/2018.

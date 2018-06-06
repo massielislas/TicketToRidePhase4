@@ -1,13 +1,11 @@
 package Model;
 
-import java.util.ArrayList;
 
 import Communication.Encoder;
 import Model.InGameModels.*;
 import Model.InGameModels.DestinationCard;
 import Results.LoginRegisterResult;
 import Results.Result;
-import sun.security.krb5.internal.crypto.Des;
 
 /**
  * Created by Lance on 5/15/2018.
@@ -263,17 +261,43 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
+    //TODO Possibly implement the sending of commands from here, depending on what info is needed
     Result claimRoute(String username, String gameID, Double routeID) {
+        Result toRet;
         Game game = Server.getSpecificActiveGame(gameID);
-        
+        toRet = game.claimRoute(username, routeID);
+        return toRet;
     }
     Result chooseFaceUpCard(String username, String gameID, Double cardID) {
         Game game = Server.getSpecificActiveGame(gameID);
+        updatePlayers(game);
+        return game.chooseFaceUpCard(username, cardID);
     }
     Result drawFromTrainDeck(String username, String gameID) {
         Game game = Server.getSpecificActiveGame(gameID);
+        updatePlayers(game);
+        return game.drawFromTrainDeck(username);
     }
     Result drawDestCards(String username, String gameID) {
         Game game = Server.getSpecificActiveGame(gameID);
+        updatePlayers(game);
+        return game.drawDestCards(username);
+    }
+
+    Result endTurn(String username, String gameID){
+        Game game = Server.getSpecificActiveGame(gameID);
+        Result result = game.updateTurn(); //or whatever the name of the game Method will be
+        if (result.isSuccess()) { //create commands for clients to see whose turn it is and act accordingly
+            String[] instanceParamTypeNames = new String[0];
+            Object[] instanceMethodArgs = new Object[0];
+            String[] methodParamTypeNames = {"java.lang.Double"};
+            Object[] methodArguments = {}; //TODO: get turn number corresponding to whose turn it is
+            Command command = new Command("Model.GameFacade", "getInstance",
+                    "changeTurn", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                    methodArguments);
+            CommandManager.getInstance().addCommandAllUsers(command);
+        }
+        return result;
+
     }
 }
