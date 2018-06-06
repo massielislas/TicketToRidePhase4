@@ -1,13 +1,11 @@
 package Model;
 
-import java.util.ArrayList;
 
 import Communication.Encoder;
 import Model.InGameModels.*;
 import Model.InGameModels.DestinationCard;
 import Results.LoginRegisterResult;
 import Results.Result;
-import sun.security.krb5.internal.crypto.Des;
 
 /**
  * Created by Lance on 5/15/2018.
@@ -264,8 +262,15 @@ public class TicketToRideFacade implements ITicketToRide {
     }
 
     Result claimRoute(String username, String gameID, Double routeID) {
+        Result toRet;
         Game game = Server.getSpecificActiveGame(gameID);
-        
+        toRet = game.claimRoute(username, routeID);
+        if (!toRet.isSuccess()) {
+            return toRet;
+        }
+        else {
+            game.
+        }
     }
     Result chooseFaceUpCard(String username, String gameID, Double cardID) {
         Game game = Server.getSpecificActiveGame(gameID);
