@@ -1,4 +1,4 @@
-package Model.InGameModels.State;
+package Model.State;
 
 import java.util.ArrayList;
 import java.util.Arrays;
