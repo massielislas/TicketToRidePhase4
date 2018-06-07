@@ -40,7 +40,7 @@ public class MyState {
     public Result drawFaceDownCard(){
         return state.drawFaceDownCard();
     }
-    public DestinationCard[] drawDestinationCards(){
+    public Result drawDestinationCards(){
         return state.drawDestinationCards();
     }
     public void activateTurn(){
