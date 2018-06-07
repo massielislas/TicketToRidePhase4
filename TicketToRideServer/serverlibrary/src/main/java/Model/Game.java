@@ -206,9 +206,15 @@ public class Game {
             return claimDoubleRoute(username, routeID.intValue());
         }
         if (toClaim.isClaimed()) {
-            return new Result(false, "That route is already claimed!");
+            return new Result(false, "That route is already claimed by" + toClaim.getClaimant() + "!");
         }
-        
+        else {
+            toClaim.setClaimed(true);
+            claimer.addRoute(toClaim);
+            return new Result(true, "You claimed route " +toClaim.getID() + " from "
+                    + toClaim.getCity1() + " to " + toClaim.getCity2());
+        }
+        //TODO finish this method
     }
 
     private Result claimDoubleRoute(String userName, int routeID) {
@@ -217,9 +223,22 @@ public class Game {
         if (toClaim.isDoubleClaimedl() && toClaim.isClaimed()) {
             return new Result(false, "Both of those routes are already claimed!");
         }
-        else if (toClaim.isClaimed() && !toClaim.isDoubleClaimedl()) {
-
+        else if (!toClaim.isClaimed() && routeID > 0) {
+            toClaim.setClaimed(true);
+            claimer.addRoute(toClaim);
+            return new Result(true, "You claimed route " +toClaim.getID() + " from "
+            + toClaim.getCity1() + " to " + toClaim.getCity2());
         }
+        else if (!toClaim.isDoubleClaimedl() && routeID < 0) {
+            toClaim.setDoubleClaimed(true);
+            claimer.addRoute(toClaim);
+            return new Result(true, "You claimed route " +toClaim.getID() + " from "
+                    + toClaim.getCity1() + " to " + toClaim.getCity2());
+        }
+        else {
+            return new Result(false, "That route is already claimed!");
+        }
+        //TODO finish this method
     }
 
     public Result chooseFaceUpCard(String username, Double cardID) {
@@ -245,6 +264,7 @@ public class Game {
         return new Result(true, toAdd.getType() + " drawn from deck");
         //TODO set up command to send cardID back to ClientSide
     }
+
     public Result drawDestCards(String username) {
         Player personDrawing = getPlayer(new UserPass(username));
         //If the destination card deck size is smaller than 3, draw all of the rest of the cards
@@ -269,6 +289,17 @@ public class Game {
             return new Result(true, "drew 3 destination cards");
         }
         //TODO create command to send Destination Card IDS back to Client
+    }
+
+    public Result updateTurn() {
+        if (turnNumber == playerList.size()) {
+            turnNumber = 0;
+        }
+        else {
+            turnNumber++;
+        }
+        Player whoseTurn = playerList.get(turnNumber);
+        return new Result(true, whoseTurn.getnameString());
     }
 
     private TrainCard getFromFaceUpByID(int ID) {
