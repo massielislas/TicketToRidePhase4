@@ -27,19 +27,39 @@ public class FirstActiveTurnState extends TurnState {
             }
             List<TrainCard> trainCards = UserData.getUserData().getCurrentPlayer().getTrainCards();
             String routeColor = route.getColor();
-            int numberOfRightColor = 0;
             //Do you have enough pieces left?
             if (UserData.getUserData().getCurrentPlayer().getTrainPiecesLeft() < route.getLength()) {
                 return false;
             }
             //Do you have the right color for it?
-            for (TrainCard t : trainCards) {
-                if (t.getColor() == routeColor || t.getColor() == "gray") {
-                    numberOfRightColor++;
+            if(routeColor.equals("gray")){
+                if(getNumberOfColor("red", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("blue", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("yellow", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("green", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("black", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("orange", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("white", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("pink", trainCards) >= route.getLength()){
+                    return true;
                 }
             }
-            if (numberOfRightColor < route.getLength()) {
-                return false;
+            if (getNumberOfColor(routeColor, trainCards) >= route.getLength()) {
+                return true;
             }
         }
         else{
@@ -79,10 +99,10 @@ public class FirstActiveTurnState extends TurnState {
                 }
             }
             if (getNumberOfColor(routeColor, trainCards) >= route.getLength()) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     @Override
