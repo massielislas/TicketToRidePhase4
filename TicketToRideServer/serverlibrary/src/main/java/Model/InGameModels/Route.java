@@ -126,16 +126,16 @@ public class Route {
         isDoubleClaimed = doubleClaimed;
     }
 
-    public City getCity1() {
-        return city1;
+    public String getCity1() {
+        return city1.getName();
     }
 
     public void setCity1(City city1) {
         this.city1 = city1;
     }
 
-    public City getCity2() {
-        return city2;
+    public String getCity2() {
+        return city2.getName();
     }
 
     public void setCity2(City city2) {
@@ -158,8 +158,8 @@ public class Route {
         isClaimed = claimed;
     }
 
-    public UserPass getClaimant() {
-        return claimant;
+    public String getClaimant() {
+        return claimant.getNameOrPassword();
     }
 
     public void setClaimant(UserPass claimant) {
