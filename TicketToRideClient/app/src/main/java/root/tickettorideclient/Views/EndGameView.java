@@ -81,7 +81,7 @@ public class EndGameView extends Fragment implements IEndGameView {
     }
 
     private void updateUI(){
-      //  addFakeData();
+        addFakeData();
         finalStatsAdapter = new PlayerFinalStatsAdapter(playerFinalStats);
         otherFinalStatsRecyclerView.setAdapter(finalStatsAdapter);
     }
