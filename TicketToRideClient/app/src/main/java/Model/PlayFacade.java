@@ -156,20 +156,20 @@ public class PlayFacade {
         return userData.getCurrentPlayer().getMyState().drawFaceDownCard();
     }
 
-    //method that gets called by command sent by server
+    /*//method that gets called by command sent by server
     public void getTrainCard(Double cardID)
     {
         TrainCard trainCardToAdd = trainCardDeck.getCardByID(cardID.intValue());
         userData.getCurrentPlayer().addToTrainCardHand(trainCardToAdd);
         boardData.setChange();
-    }
+    }*/
 
     public Result drawDestCards()
     {
         return userData.getCurrentPlayer().getMyState().drawDestinationCards();
     }
 
-    //method that gets called by command sent by server
+   /* //method that gets called by command sent by server
     public void getDestCards(Double cardOne, Double cardTwo, Double cardThree)
     {
         ArrayList<DestinationCard> destCardsToAdd = new ArrayList<DestinationCard>();
@@ -179,7 +179,7 @@ public class PlayFacade {
         userData.getCurrentPlayer().addToDestinationHand(destCardsToAdd);
         userData.getCurrentPlayer().setToChoose(destCardsToAdd);
         boardData.setChange();
-    }
+    }*/
 
     /*public void updateDeckSize(Double trainDeckSize, Double destDeckSize)
     {
@@ -191,6 +191,7 @@ public class PlayFacade {
     public void updateBoardData(String jsonString)
     {
         UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonString, UpdateInfo.class);
+        updatePlayerInfo(update);
         boardData.setFaceUpCards(update.getCurrentFaceUpCards());
         boardData.setDestDeckSize(update.getDestDeckSize());
         userData.getCurrentGame().setDestDeckSize(update.getDestDeckSize());
@@ -199,6 +200,12 @@ public class PlayFacade {
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
         boardData.setChange();
+    }
+
+    private void updatePlayerInfo(UpdateInfo update)
+    {
+        if (update.getToChoose() != null) userData.getCurrentPlayer().setToChoose(update.getToChoose());
+        if (update.getDrawn() != null) userData.getCurrentPlayer().addToTrainCardHand(update.getDrawn());
     }
 
     //method that gets called by command sent by server

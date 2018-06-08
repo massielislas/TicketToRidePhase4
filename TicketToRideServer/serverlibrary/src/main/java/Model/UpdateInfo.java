@@ -2,6 +2,7 @@ package Model;
 
 import java.util.List;
 
+import Model.InGameModels.DestinationCard;
 import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.Route;
 import Model.InGameModels.TrainCard;
@@ -14,6 +15,8 @@ public class UpdateInfo {
     private List<PlayerShallow> playerInfo;
     private TrainCard[] currentFaceUpCards;
     private Route[] routes;
+    private List<DestinationCard> toChoose;
+    private TrainCard drawn;
 
     public UpdateInfo(int turnNumber, List<PlayerShallow>otherplayers, TrainCard[] currentCards, int trainDeckSize, int destDeckSize) {
         this.turnNumber = turnNumber;
@@ -21,6 +24,22 @@ public class UpdateInfo {
         this.destDeckSize = destDeckSize;
         currentFaceUpCards = currentCards;
         playerInfo = otherplayers;
+    }
+
+    public List<DestinationCard> getToChoose() {
+        return toChoose;
+    }
+
+    public void setToChoose(List<DestinationCard> toChoose) {
+        this.toChoose = toChoose;
+    }
+
+    public TrainCard getDrawn() {
+        return drawn;
+    }
+
+    public void setDrawn(TrainCard drawn) {
+        this.drawn = drawn;
     }
 
     public Route[] getRoutes() {

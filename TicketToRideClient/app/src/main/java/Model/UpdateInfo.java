@@ -14,11 +14,29 @@ public class UpdateInfo {
     private List<PlayerShallow> playerInfo;
     private TrainCard[] currentFaceUpCards;
     private Route[] routes;
+    private List<DestinationCard> toChoose;
+    private TrainCard drawn;
 
     public UpdateInfo(int turnNumber, List<PlayerShallow>otherplayers, TrainCard[] currentCards) {
         this.turnNumber = turnNumber;
         currentFaceUpCards = currentCards;
         playerInfo = otherplayers;
+    }
+
+    public List<DestinationCard> getToChoose() {
+        return toChoose;
+    }
+
+    public void setToChoose(List<DestinationCard> toChoose) {
+        this.toChoose = toChoose;
+    }
+
+    public TrainCard getDrawn() {
+        return drawn;
+    }
+
+    public void setDrawn(TrainCard drawn) {
+        this.drawn = drawn;
     }
 
     public Route[] getRoutes() {
