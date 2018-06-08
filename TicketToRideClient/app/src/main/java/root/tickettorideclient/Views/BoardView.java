@@ -114,11 +114,12 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     ArrayList<City> cities = new ArrayList<>();
     ArrayList<Route> routes = new ArrayList<>();
     Map<City, Marker>markers = new HashMap<>();
-    Map<Polyline, Route>lines = new HashMap<>();
+    Map<Polyline, Integer>lines = new HashMap<>();
 
     private OtherPlayerAdapter playerAdapter;
 
     Route routeClicked = null;
+    int routeClickedID;
 
     final int LINE_WIDTH = 10;
 
@@ -337,14 +338,14 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        presenter.claimRoute(routeClicked);
+        presenter.claimRoute(routeClickedID);
     }
 
     public void polylineOnClickListener(){
         myGoogleMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
             @Override
             public void onPolylineClick(Polyline polyline) {
-                routeClicked = lines.get(polyline);
+                routeClickedID = lines.get(polyline);
                 Marker marker = markers.get(routeClicked.getCity1());
                 String addToClaim = "\nClick To Claim!";
                 String infoWindowText = routeClicked.getCity1().getName() + " to " + routeClicked.getCity2().getName() + "\n" +
@@ -753,15 +754,15 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         for(int i = 0; i < routes.size(); i++){
             Route route = routes.get(i);
             if(!route.isClaimed())
-                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0, dashedPattern), route);
+                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0, dashedPattern), route.getID());
             else
-                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0), route);
+                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0), route.getID());
 
             if(routes.get(i).isDouble()){
                 if(!route.isDoubleClaimed())
-                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset, dashedPattern), route);
+                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset, dashedPattern), route.getID() * -1);
                 else
-                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset), route);
+                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset), route.getID() * -1);
             }
         }
     }
