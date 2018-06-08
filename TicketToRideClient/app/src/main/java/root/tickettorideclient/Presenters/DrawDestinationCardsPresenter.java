@@ -9,7 +9,10 @@ import java.util.Observer;
 
 import Model.BoardData;
 import Model.InGameModels.DestinationCard;
+import Model.InGameModels.Player;
 import Model.PlayFacade;
+import Model.UserData;
+import Results.Result;
 import root.tickettorideclient.Views.IDrawDestinationPresenter;
 
 /**
@@ -30,13 +33,17 @@ public class DrawDestinationCardsPresenter implements IDrawDestinationPresenter,
     }
 
     @Override
-    public void setChoices () {
-        //TODO
-    }
-
-    @Override
     public void returnDestCards (DestinationCard[] cards) {
-        //TODO
+
+        if ((cards != null) && (cards.length != 0)) {
+            ArrayList<Integer> cardIDs = new ArrayList<>(cards.length);
+
+            for (int i = 0; i < cardIDs.size(); ++i) {
+                cardIDs.add(i, cards[i].getID());
+            }
+
+            Result result = facade.discardCards(cardIDs);
+        }
     }
 
     @Override
@@ -44,11 +51,15 @@ public class DrawDestinationCardsPresenter implements IDrawDestinationPresenter,
 
         final BoardData data = (BoardData) o;
 
+        UserData userData = UserData.getUserData();
+        Player currentPlayer = userData.getCurrentPlayer();
+        final ArrayList<DestinationCard> cards = new ArrayList<>(currentPlayer.getToChoose());
+
         mn.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
-                view.updateDestCards(data.getCurrentPlayer().getToChoose().toArray(new DestinationCard[data.getCurrentPlayer().getToChoose().size()]));
+               view.updateDestCards(cards);
             }
         });
     }
