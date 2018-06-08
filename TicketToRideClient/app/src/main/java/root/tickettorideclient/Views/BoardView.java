@@ -91,11 +91,13 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     LinearLayout availableCardsDisplay;
     TextView trainCardsDeck;
     TextView destinationCardsDeck;
+
     View faceUpCard1;
     View faceUpCard2;
     View faceUpCard3;
     View faceUpCard4;
     View faceUpCard5;
+    ArrayList<TrainCard> faceUpCards;
 
     TextView playersTurnText;
 
@@ -138,6 +140,9 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         setUpTopInputs();
         setUpBottomInputs();
         createRecyclerView();
+
+        faceUpCards = new ArrayList<>(5);
+
         return myView;
     }
 
@@ -229,6 +234,13 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         });
 
         trainCardsDeck = (TextView)myView.findViewById(R.id.trainCardsDeck);
+        trainCardsDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.drawFromTrainDeck();
+            }
+        });
+
         destinationCardsDeck = (TextView)myView.findViewById(R.id.destinationCardsDeck);
         destinationCardsDeck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,10 +250,50 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         });
 
         faceUpCard1 = (View) myView.findViewById(R.id.faceUpCard1);
+        faceUpCard1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (faceUpCards.size() > 0) {
+                    presenter.chooseFaceUpCard(faceUpCards.get(0));
+                }
+            }
+        });
         faceUpCard2 = (View) myView.findViewById(R.id.faceUpCard2);
+        faceUpCard2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (faceUpCards.size() > 1) {
+                    presenter.chooseFaceUpCard(faceUpCards.get(1));
+                }
+            }
+        });
         faceUpCard3 =  (View) myView.findViewById(R.id.faceUpCard3);
+        faceUpCard3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (faceUpCards.size() > 2) {
+                    presenter.chooseFaceUpCard(faceUpCards.get(2));
+                }
+            }
+        });
         faceUpCard4 =  (View) myView.findViewById(R.id.faceUpCard4);
+        faceUpCard4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (faceUpCards.size() > 3) {
+                    presenter.chooseFaceUpCard(faceUpCards.get(3));
+                }
+            }
+        });
         faceUpCard5 = (View) myView.findViewById(R.id.faceUpCard5);
+        faceUpCard5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (faceUpCards.size() > 4) {
+                    presenter.chooseFaceUpCard(faceUpCards.get(4));
+                }
+            }
+        });
 
         playersTurnText = (TextView) myView.findViewById(R.id.playersTurn);
 
@@ -501,6 +553,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void updateFaceUp(ArrayList<TrainCard> cards) {
+        faceUpCards = cards;
+
         String[] colors = new String[cards.size()];
         for (int i = 0; i < cards.size(); ++i) {
             colors[i] = cards.get(i).getColor();
