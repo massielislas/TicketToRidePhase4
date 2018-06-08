@@ -15,12 +15,20 @@ public class UpdateInfo {
     private TrainCard[] currentFaceUpCards;
     private Route[] routes;
     private List<DestinationCard> toChoose;
-    private TrainCard drawn;
+    private List<TrainCard> hand;
 
     public UpdateInfo(int turnNumber, List<PlayerShallow>otherplayers, TrainCard[] currentCards) {
         this.turnNumber = turnNumber;
         currentFaceUpCards = currentCards;
         playerInfo = otherplayers;
+    }
+
+    public List<TrainCard> getHand() {
+        return hand;
+    }
+
+    public void setHand(List<TrainCard> hand) {
+        this.hand = hand;
     }
 
     public List<DestinationCard> getToChoose() {
@@ -29,14 +37,6 @@ public class UpdateInfo {
 
     public void setToChoose(List<DestinationCard> toChoose) {
         this.toChoose = toChoose;
-    }
-
-    public TrainCard getDrawn() {
-        return drawn;
-    }
-
-    public void setDrawn(TrainCard drawn) {
-        this.drawn = drawn;
     }
 
     public Route[] getRoutes() {

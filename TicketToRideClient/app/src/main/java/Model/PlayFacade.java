@@ -91,14 +91,18 @@ public class PlayFacade {
         Double cardOne = new Double(discard.get(0));
         Double cardTwo = new Double(discard.get(1));
 
-        List<DestinationCard> currentHand = userData.getCurrentPlayer().getDestCards();
-        for (int i = 0; i < currentHand.size(); i ++)
+        Result result = proxy.discardCards(userData.getUsername().getNameOrPassword(), userData.getCurrentGame().getID(), cardOne, cardTwo);
+        if (result.isSuccess())
         {
-            if ((currentHand.get(i).getID() == cardOne)
-                    || (currentHand.get(i).getID() == cardTwo))
-                currentHand.remove(i);
+            List<DestinationCard> currentHand = userData.getCurrentPlayer().getDestCards();
+            for (int i = 0; i < currentHand.size(); i ++)
+            {
+                if ((currentHand.get(i).getID() == cardOne)
+                        || (currentHand.get(i).getID() == cardTwo))
+                    currentHand.remove(i);
+            }
         }
-        return proxy.discardCards(userData.getUsername().getNameOrPassword(), userData.getCurrentGame().getID(), cardOne, cardTwo);
+        return result;
     }
 
     /*public void addCards(Double one, Double two, Double three)
@@ -205,7 +209,7 @@ public class PlayFacade {
     private void updatePlayerInfo(UpdateInfo update)
     {
         if (update.getToChoose() != null) userData.getCurrentPlayer().setToChoose(update.getToChoose());
-        if (update.getDrawn() != null) userData.getCurrentPlayer().addToTrainCardHand(update.getDrawn());
+        if (update.getHand() != null) userData.getCurrentPlayer().setTrainCards(update.getHand());
     }
 
     //method that gets called by command sent by server
