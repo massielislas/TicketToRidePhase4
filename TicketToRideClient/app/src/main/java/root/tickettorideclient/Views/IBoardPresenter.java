@@ -10,7 +10,7 @@ import Model.InGameModels.TrainCard;
 
 public interface IBoardPresenter {
     public void sendChat(String message);
-    public void claimRoute(Route route);
+    public void claimRoute(Integer routeID);
     public void chooseFaceUpCard(TrainCard card);
     public void drawFromTrainDeck();
 }
