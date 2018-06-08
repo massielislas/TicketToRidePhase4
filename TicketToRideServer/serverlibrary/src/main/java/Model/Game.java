@@ -217,11 +217,10 @@ public class Game {
         else {
             toClaim.setClaimed(true);
             List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
-            //TODO figure out the logic for these
+            discardTrainCards(toDiscard);
             return new Result(true, "You claimed route " +toClaim.getID() + " from "
                     + toClaim.getCity1() + " to " + toClaim.getCity2());
         }
-        //TODO finish this method
     }
 
     private Result claimDoubleRoute(String userName, int routeID) {
@@ -233,14 +232,14 @@ public class Game {
         else if (!toClaim.isClaimed() && routeID > 0) {
             toClaim.setClaimed(true);
             List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
-            //TODO figure out the logic for these
+            discardTrainCards(toDiscard);
             return new Result(true, "You claimed route " +toClaim.getID() + " from "
             + toClaim.getCity1() + " to " + toClaim.getCity2());
         }
         else if (!toClaim.isDoubleClaimedl() && routeID < 0) {
             toClaim.setDoubleClaimed(true);
             List<TrainCard> toDiscard = claimer.addRoute(toClaim, true);
-            //TODO figure out the logic for these
+            discardTrainCards(toDiscard);
             return new Result(true, "You claimed route " +toClaim.getID() + " from "
                     + toClaim.getCity1() + " to " + toClaim.getCity2());
         }
@@ -297,6 +296,12 @@ public class Game {
                 destinationCardDeck.remove(0);
             }
             return new Result(true, "drew 3 destination cards");
+        }
+    }
+
+    private void discardTrainCards(List<TrainCard> toDiscard) {
+        for (TrainCard card : toDiscard) {
+            discardedTrainCards.add(card);
         }
     }
 

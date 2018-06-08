@@ -114,6 +114,10 @@ public class Route {
         return result;
     }
 
+    public String getDoubleColor() {
+        return doubleColor;
+    }
+
     public boolean isDouble() {
         return isDouble;
     }

@@ -3,7 +3,9 @@ package Model.InGameModels;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import Model.UserPass;
 
@@ -67,44 +69,135 @@ public class Player {
         return null;
     }
 
-    public List<TrainCard> addRoute(Route r, boolean isDouble) {
-        List<TrainCard> cardsToDiscard = new ArrayList<>();
-        List<Integer> indicesToDiscard = new ArrayList<>();
-        int cardCount = 0;
+    public List<TrainCard> addRoute(Route r, boolean isClaimingDouble) {
+        if (isClaimingDouble) {
+            routesClaimed.add(r);
+            return claimDoubleRoute(r);
+        }
         String color = r.getColor();
         if (color.equals("Gray")) {
-            return claimGrayRoute(r, isDouble);
+            routesClaimed.add(r);
+            return claimGrayRoute(r.getLength());
         }
+        else {
+            routesClaimed.add(r);
+            return removeClaimCards(color, r.getLength());
+        }
+    }
+
+    private List<TrainCard> claimGrayRoute(int routeLength) {
+        int redCount, blueCount,
+                yellowCount, greenCount,
+                pinkCount, whiteCount,
+                orangeCount, grayCount, blackCount = 0;
+        //get the counts of each color card the person has in their hand
+        redCount = getNumberOfColor("red");
+        blueCount = getNumberOfColor("blue");
+        yellowCount = getNumberOfColor("yellow");
+        greenCount = getNumberOfColor("green");
+        pinkCount = getNumberOfColor("pink");
+        whiteCount = getNumberOfColor("white");
+        orangeCount = getNumberOfColor("orange");
+        blackCount = getNumberOfColor("black");
+        grayCount = getNumberOfColor("gray");
+
+        Map<String, Integer> colorCounts = new TreeMap<>();
+        colorCounts.put("Red", redCount);
+        colorCounts.put("Blue", blueCount);
+        colorCounts.put("Yellow", yellowCount);
+        colorCounts.put("Green", greenCount);
+        colorCounts.put("Pink", pinkCount);
+        colorCounts.put("White", whiteCount);
+        colorCounts.put("Orange", orangeCount);
+        colorCounts.put("Black", blackCount);
+
+//        for (String key : colorCounts.keySet()) {
+//            if (colorCounts.get(key) == routeLength) {
+//                return removeClaimCards(key, routeLength);
+//            }
+//        }
+        int currentChoice = 0;
+        int maxValue = 0;
+        //find the largest value so we can work down from there
+        for (Integer counts : colorCounts.values()) {
+            if (counts > currentChoice) {
+                currentChoice = counts;
+                maxValue = counts;
+            }
+        }
+        //Then find the smallest value that is still greater than or equal to the routeLength
+        for (Integer counts : colorCounts.values()) {
+            if (counts >= routeLength && counts < currentChoice) {
+                currentChoice = counts;
+            }
+        }
+        //Then find the first color that we have that many cards of, and
+        for (String key : colorCounts.keySet()) {
+            //If we don't have enough color cards to pay for the route OR we just barely have enough
+            //of one color to pay for it then we will use wilds to claim the route
+            if (currentChoice == maxValue) {
+                if ((colorCounts.get(key) + grayCount) == currentChoice
+                        || colorCounts.get(key) + grayCount >= currentChoice) {
+                    return removeClaimCards(key, routeLength);
+                }
+            }
+            //Otherwise we will not use wilds
+            else {
+                if (colorCounts.get(key) == currentChoice) {
+                    return removeClaimCards(key, routeLength);
+                }
+            }
+        }
+        //This should be unreachable
+        return null;
+    }
+
+    private int getNumberOfColor(String color) {
+        int toRet = 0;
+        for (int i = 0; i < trainCards.size(); i ++) {
+            String cardColor = trainCards.get(i).getColor().toLowerCase();
+            if (cardColor.equals(color)) {
+                toRet++;
+            }
+        }
+        return toRet;
+    }
+
+    private List<TrainCard> claimDoubleRoute(Route r) {
+        String color = r.getDoubleColor();
+        if (color.equals("Gray")) {
+            return claimGrayRoute(r.getLength());
+        }
+        return removeClaimCards(color, r.getLength());
+    }
+
+    private List<TrainCard> removeClaimCards(String color, int routeLength) {
+        List<TrainCard> cardsToDiscard = new ArrayList<>();
+        int cardCount = 0;
         //Remove cards with the corresponding color until you have removed them all OR you have
         //enough cards to pay for the route
         for (int i = 0; i < trainCards.size(); i ++) {
             TrainCard checkColor = trainCards.get(i);
-            if (isDouble) {
-
-            }
-            else {
-                if (checkColor.getColor().equals(color) && cardCount < r.getLength())
-                {
-                    cardsToDiscard.add(checkColor);
-                    cardCount++;
-                }
+            if (checkColor.getColor().equals(color) && cardCount < routeLength)
+            {
+                cardsToDiscard.add(checkColor);
+                cardCount++;
             }
         }
         //Then if the count has not reached the length of the route, get wilds until you do
-        if (cardCount < r.getLength()) {
+        if (cardCount < routeLength) {
             for (int i = 0; i < trainCards.size(); i ++) {
                 TrainCard checkColor = trainCards.get(i);
-                if (checkColor.getColor().equals("Gray") && cardCount < r.getLength()) {
+                if (checkColor.getColor().equals("Gray") && cardCount < routeLength) {
                     cardsToDiscard.add(checkColor);
                     cardCount++;
                 }
             }
         }
-        routesClaimed.add(r);
-    }
-
-    private List<TrainCard> claimGrayRoute(Route r, boolean isDouble) {
-
+        for (TrainCard toDisc : cardsToDiscard) {
+            trainCards.remove(toDisc);
+        }
+        return cardsToDiscard;
     }
 
     public void addDestCardToChoose(DestinationCard toAdd) {
