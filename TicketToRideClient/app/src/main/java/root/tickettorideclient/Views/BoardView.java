@@ -347,7 +347,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             @Override
             public void onPolylineClick(Polyline polyline) {
                 routeClickedID = lines.get(polyline);
-                routeClicked = routes.get(routeClickedID);
+                routeClicked = allRoutesObject.getRoute(routeClickedID);
                 Marker marker = markers.get(routeClicked.getCity1());
                 String addToClaim = "\nClick To Claim!";
                 String infoWindowText = routeClicked.getCity1().getName() + " to " + routeClicked.getCity2().getName() + "\n" +
