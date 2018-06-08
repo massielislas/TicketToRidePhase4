@@ -202,9 +202,6 @@ public class FirstActiveTurnState extends TurnState {
     }
     public int getNumberOfColor(String color, List<TrainCard> hand){
         int numberFound = 0;
-        if(color.equals("gray")){
-
-        }
         for (TrainCard t : hand) {
             if (t.getColor().toLowerCase().equals(color) || t.getColor().toLowerCase().equals("gray")) {
                 numberFound = numberFound + 1;
