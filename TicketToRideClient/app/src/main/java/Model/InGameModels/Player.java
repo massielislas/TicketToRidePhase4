@@ -10,7 +10,7 @@ import java.util.Observer;
 import java.util.Set;
 import java.util.TreeSet;
 
-import Model.InGameModels.State.MyState;
+import Model.State.MyState;
 import Model.UserPass;
 
 public class Player extends Observable {
