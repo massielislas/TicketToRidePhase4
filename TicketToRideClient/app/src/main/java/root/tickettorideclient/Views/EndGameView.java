@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 import java.util.ArrayList;
 
 import root.tickettorideclient.R;
@@ -46,6 +47,7 @@ public class EndGameView extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_end_game, container, false);
         setUpInputs();
+        createList();
         return v;
     }
 
