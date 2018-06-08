@@ -1,6 +1,7 @@
 package Model.State;
 
 import Model.InGameModels.TrainCard;
+import Model.TicketToRideProxy;
 import Model.UserData;
 import Results.Result;
 
@@ -29,27 +30,39 @@ public class SecondActiveTurnState extends TurnState {
     }
     @Override
     public Result drawFaceUpCard(TrainCard trainCard) {
+        Result toReturn;
         if(!canDrawFaceUpCard(trainCard)){
-            return new Result(false, "CANT DO IT!");
+            return new Result(false, "No cards left! Your turn is over!");
         }
         else {
-            UserData.getUserData().getCurrentPlayer().getTrainCards().add(trainCard);
-            MyState.getInstance().state = new NonActiveTurnState();
-            return new Result(true, "good to go!");
+            toReturn = new TicketToRideProxy().chooseFaceUpCard(UserData.getUserData().getUsername().getNameOrPassword(),
+                    UserData.getUserData().getCurrentGame().getID(),Double.valueOf(trainCard.getID()));
+            if(toReturn.isSuccess()){
+                MyState.getInstance().state = new NonActiveTurnState();
+                new TicketToRideProxy().endTurn(UserData.getUserData().getUsername().getNameOrPassword(),
+                        UserData.getUserData().getCurrentGame().getID());
+            }
+            return toReturn;
         }
     }
 
     @Override
     public Result drawFaceDownCard() {
         if(!canDrawFaceDownCard()){
-            return new Result(false, "NO CAN DO!");
+            MyState.getInstance().state = new NonActiveTurnState();
+            new TicketToRideProxy().endTurn(UserData.getUserData().getUsername().getNameOrPassword(),
+                    UserData.getUserData().getCurrentGame().getID());
+            return new Result(true, "No cards left! Your turn is over!");
         }
         else{
-            //todo: replace drawnCard from TTRProxy method!
-            TrainCard drawnCard = null;
-            UserData.getUserData().getCurrentPlayer().getTrainCards().add(drawnCard);
-            MyState.getInstance().state = new NonActiveTurnState();
-            return new Result(true,drawnCard.getColor());
+            Result fromProxy = new TicketToRideProxy().drawFromTrainDeck(UserData.getUserData().getUsername().getNameOrPassword(),
+                    UserData.getUserData().getCurrentGame().getID());
+            if(fromProxy.isSuccess()) {
+                MyState.getInstance().state = new NonActiveTurnState();
+                new TicketToRideProxy().endTurn(UserData.getUserData().getUsername().getNameOrPassword(),
+                        UserData.getUserData().getCurrentGame().getID());
+            }
+            return fromProxy;
         }
     }
 }

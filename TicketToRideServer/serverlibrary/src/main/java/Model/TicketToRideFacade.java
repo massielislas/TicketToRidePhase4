@@ -242,7 +242,7 @@ public class TicketToRideFacade implements ITicketToRide {
             game.addDestCardBackIn(toDiscard);
         }
         updatePlayers(game);
-        addGameHistory(game,"<<"+username+" discarded " + numberdiscarded + " Destination Cards>>");
+        addGameHistory(game,"<<"+username+" kept " + (3 - numberdiscarded) + " Destination Cards>>");
         return new Result(true, "");
     }
 
@@ -263,25 +263,33 @@ public class TicketToRideFacade implements ITicketToRide {
 
     //TODO Possibly implement the sending of commands from here, depending on what info is needed
     Result claimRoute(String username, String gameID, Double routeID) {
-        Result toRet;
+        Result toReturn;
         Game game = Server.getSpecificActiveGame(gameID);
-        toRet = game.claimRoute(username, routeID);
-        return toRet;
+        toReturn = game.claimRoute(username, routeID);
+        addGameHistory(game, "<<"+ username + " claimed a route>>");
+        updatePlayers(game);
+        return toReturn;
     }
     Result chooseFaceUpCard(String username, String gameID, Double cardID) {
         Game game = Server.getSpecificActiveGame(gameID);
+        Result toReturn = game.chooseFaceUpCard(username,cardID);
+        addGameHistory(game,"<<" + username + " picked up a " + toReturn.getMessage()
+                + "card from the face up pile>>");
         updatePlayers(game);
-        return game.chooseFaceUpCard(username, cardID);
+        return toReturn;
     }
     Result drawFromTrainDeck(String username, String gameID) {
         Game game = Server.getSpecificActiveGame(gameID);
+        Result toReturn = game.drawFromTrainDeck(username);
+        addGameHistory(game, "<<" + username + "drew a card from the face down deck>>");
         updatePlayers(game);
-        return game.drawFromTrainDeck(username);
+        return toReturn;
     }
     Result drawDestCards(String username, String gameID) {
         Game game = Server.getSpecificActiveGame(gameID);
-        updatePlayers(game);
-        return game.drawDestCards(username);
+        Result toReturn = game.drawDestCards(username);
+        addGameHistory(game, "<<" + username + "drew new destination cards>>");
+        return toReturn;
     }
 
     Result endTurn(String username, String gameID){
@@ -295,9 +303,8 @@ public class TicketToRideFacade implements ITicketToRide {
             Command command = new Command("Model.GameFacade", "getInstance",
                     "changeTurn", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
-            CommandManager.getInstance().addCommandAllUsers(command);
+            CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(),command);
         }
         return result;
-
     }
 }
