@@ -5,7 +5,6 @@ import java.util.List;
 import Model.InGameModels.PlayerShallow;
 
 public class EndGameInfo {
-
     private String winner;
     private List<PlayerShallow> playerInfo;
     private String playerWithLongestRoute;
@@ -34,4 +33,3 @@ public class EndGameInfo {
         return pointsFromLongestRoute;
     }
 }
-
