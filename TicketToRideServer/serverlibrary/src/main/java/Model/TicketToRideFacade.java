@@ -312,7 +312,7 @@ public class TicketToRideFacade implements ITicketToRide {
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.Double"};
-            Object[] methodArguments = {game.getTurnNumber()}; //TODO: get turn number corresponding to whose turn it is
+            Object[] methodArguments = {game.getTurnNumber()};
             Command command = new Command("Model.GameFacade", "getInstance",
                     "changeTurn", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
