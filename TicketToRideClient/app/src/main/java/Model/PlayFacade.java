@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Observer;
 import Communication.Encoder;
@@ -159,12 +160,15 @@ public class PlayFacade {
         UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonString, UpdateInfo.class);
         updatePlayerInfo(update);
         boardData.setFaceUpCards(update.getCurrentFaceUpCards());
+        userData.getCurrentGame().setFaceUpTrainDeck(update.getCurrentFaceUpCards());
         boardData.setDestDeckSize(update.getDestDeckSize());
         userData.getCurrentGame().setDestDeckSize(update.getDestDeckSize());
         boardData.setOtherPlayerInfo(update.getPlayerInfo());
         userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
+        boardData.setRoutes(Arrays.asList(update.getRoutes()));
+        userData.getCurrentGame().setRoutes(Arrays.asList(update.getRoutes()));
         boardData.setChange();
     }
 
