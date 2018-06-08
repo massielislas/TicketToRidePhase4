@@ -24,6 +24,9 @@ public class FirstActiveTurnState extends TurnState {
         List<TrainCard> trainCards = UserData.getUserData().getCurrentPlayer().getTrainCards();
         String routeColor = route.getColor();
         int numberOfRightColor = 0;
+        if(UserData.getUserData().getCurrentPlayer().getTrainPiecesLeft() < route.getLength()){
+            return false;
+        }
         for(TrainCard t:trainCards){
             if(t.getColor() == routeColor || t.getColor() == "gray"){
                 numberOfRightColor++;
