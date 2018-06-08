@@ -28,7 +28,6 @@ public class DestinationCardsPresenter implements IDestinationCardsPresenter {
             return null;
         }
 
-
         return new ArrayList<>(currentPlayer.getDestCards());
     }
 
