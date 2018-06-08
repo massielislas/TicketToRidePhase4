@@ -16,12 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.TreeMap;
 
 import Model.InGameModels.City;
 import Model.InGameModels.DestinationCard;
 import root.tickettorideclient.Presenters.DrawDestinationCardsPresenter;
-import root.tickettorideclient.Presenters.IDestinationCardsView;
 import root.tickettorideclient.Presenters.IDrawDestinationCardsView;
 import root.tickettorideclient.R;
 
@@ -36,6 +38,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     ArrayList<DestinationCard> userDestinationCards = new ArrayList<>();
     int selectedColor;
     int nonSelectedColor;
+    Map<DestinationCard, Boolean> destinationCardsSelected = new HashMap<>();
 
     IDrawDestinationPresenter presenter;
 
@@ -61,9 +64,17 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
         updateUI();
     }
 
+    private void createDesinationCardsSelected(){
+        destinationCardsSelected = new HashMap<>();
+        for(int i = 0; i < userDestinationCards.size(); i++){
+            destinationCardsSelected.put(userDestinationCards.get(i), false);
+        }
+    }
+
     public void updateUI(){
        // userDestinationCards = presenter.getChoices();
        // addFakeDestinations();
+        createDesinationCardsSelected();
         destinationsAdapter = new DestinationsAdapter(userDestinationCards);
         cardListRecyclerView.setAdapter(destinationsAdapter);
     }
@@ -117,18 +128,16 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
                 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                 @Override
                 public void onClick(View view) {
-                    int a = destinationCardTextView.getSolidColor();
-                    int b = destinationCardTextView.getDrawingCacheBackgroundColor();
-                    int c = destinationCardTextView.getHighlightColor();
-                    int d = destinationCardTextView.getShadowColor();
-
                     ColorDrawable cd = (ColorDrawable) destinationCardTextView.getBackground();
                     int colorCode = cd.getColor();
                      if(colorCode == selectedColor){
                          destinationCardTextView.setBackgroundColor(nonSelectedColor);
+                         destinationCardsSelected.put(destinationCard, false);
                      }
-                     else
+                     else{
+                         destinationCardsSelected.put(destinationCard, true);
                          destinationCardTextView.setBackgroundColor(selectedColor);
+                     }
                 }
             });
             completion.setText("");
