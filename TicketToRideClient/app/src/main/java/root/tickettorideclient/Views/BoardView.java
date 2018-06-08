@@ -338,14 +338,14 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        presenter.claimRoute(routeClicked);
+        presenter.claimRoute(routeClickedID);
     }
 
     public void polylineOnClickListener(){
         myGoogleMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
             @Override
             public void onPolylineClick(Polyline polyline) {
-                routeClicked = lines.get(polyline);
+                routeClickedID = lines.get(polyline);
                 Marker marker = markers.get(routeClicked.getCity1());
                 String addToClaim = "\nClick To Claim!";
                 String infoWindowText = routeClicked.getCity1().getName() + " to " + routeClicked.getCity2().getName() + "\n" +
