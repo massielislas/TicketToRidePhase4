@@ -4,30 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_margin="20dp">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Winner: Massiel"
-            android:textSize="30dp"
-            android:id="@+id/winnerName"
+            android:text="Hey"
+            android:id="@+id/playerName"
             android:layout_gravity="center"
-            android:textColor="#000000"
-            android:padding="10dp"
-            android:layout_margin="10dp"
-            android:background="#e0b5ff"/>
+            android:textColor="#000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Points won for longest route:"
-            android:id="@+id/longestRouteWinner"
+            android:id="@+id/longestRoute"
             android:textColor="#000000"/>
 
 
@@ -35,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Points from claimed routes: #"
-            android:id="@+id/pointsFromClaimedRoutesWinner"
+            android:id="@+id/pointsFromClaimedRoutes"
             android:layout_gravity="center"
             android:textColor="#000000"/>
 
@@ -43,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Points from reached destinations: #"
-            android:id="@+id/pointsFromReachedDestinationsWinner"
+            android:id="@+id/pointsFromReachedDestinations"
             android:layout_gravity="center"
             android:textColor="#000000"/>
 
@@ -51,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Points lost for unreached destinations: #"
-            android:id="@+id/pointsLostFromUnreachedDestinationsWinner"
+            android:id="@+id/pointsLostFromUnreachedDestinations"
             android:layout_gravity="center"
             android:textColor="#000000" />
 
@@ -59,15 +48,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TOTAL POINTS #"
-            android:id="@+id/totalPointsWinner"
+            android:id="@+id/totalPoints"
             android:layout_gravity="center"
             android:textColor="#000000"/>
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/playerFinalStatsRecyclerView">
-    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
