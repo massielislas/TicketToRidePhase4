@@ -14,7 +14,8 @@ public class UpdateInfo {
     private int trainDeckSize;
     private List<PlayerShallow> playerInfo;
     private TrainCard[] currentFaceUpCards;
-    private Route[] routes;
+    private Route[] gameRoutes;
+    private Route[] playerRoutes;
     private List<DestinationCard> toChoose;
     private List<TrainCard> hand;
 
@@ -24,6 +25,22 @@ public class UpdateInfo {
         this.destDeckSize = destDeckSize;
         currentFaceUpCards = currentCards;
         playerInfo = otherplayers;
+    }
+
+    public Route[] getGameRoutes() {
+        return gameRoutes;
+    }
+
+    public void setGameRoutes(Route[] gameRoutes) {
+        this.gameRoutes = gameRoutes;
+    }
+
+    public Route[] getPlayerRoutes() {
+        return playerRoutes;
+    }
+
+    public void setPlayerRoutes(Route[] playerRoutes) {
+        this.playerRoutes = playerRoutes;
     }
 
     public List<TrainCard> getHand() {
@@ -40,14 +57,6 @@ public class UpdateInfo {
 
     public void setToChoose(List<DestinationCard> toChoose) {
         this.toChoose = toChoose;
-    }
-
-    public Route[] getRoutes() {
-        return routes;
-    }
-
-    public void setRoutes(Route[] routes) {
-        this.routes = routes;
     }
 
     public int getDestDeckSize() {

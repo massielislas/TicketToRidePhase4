@@ -18,7 +18,7 @@ public class Player extends Observable {
     private List<DestinationCard> destCards;
     private List<TrainCard> trainCards;
     private List<DestinationCard> toChoose;
-    private Set<Route> routesClaimed;
+    private List<Route> routesClaimed;
     private String color;
     private int trainPiecesLeft;
     private int currentScore;
@@ -32,7 +32,7 @@ public class Player extends Observable {
         this.turnNumber = queuePosition;
         trainCards = new ArrayList<>();
         destCards = new ArrayList<>();
-        routesClaimed = new HashSet<>();
+        routesClaimed = new ArrayList<>();
         trainPiecesLeft = 45;
         currentScore = 0;
         myState = MyState.getInstance();
@@ -101,11 +101,11 @@ public class Player extends Observable {
         this.destCards = destCards;
     }
 
-    public Set<Route> getRoutesClaimed() {
+    public List<Route> getRoutesClaimed() {
         return routesClaimed;
     }
 
-    public void setRoutesClaimed(Set<Route> routesClaimed) {
+    public void setRoutesClaimed(List<Route> routesClaimed) {
         this.routesClaimed = routesClaimed;
     }
 

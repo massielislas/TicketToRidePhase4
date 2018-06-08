@@ -167,9 +167,24 @@ public class PlayFacade {
         userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
-        boardData.setRoutes(Arrays.asList(update.getRoutes()));
-        userData.getCurrentGame().setRoutes(Arrays.asList(update.getRoutes()));
+        boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
+        userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
+        userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
+        checkDestCompleted();
         boardData.setChange();
+    }
+
+    public void checkDestCompleted()
+    {
+        for (Route route: userData.getCurrentPlayer().getRoutesClaimed())
+        {
+            RouteProcessor rp = new RouteProcessor();
+            if (rp.DestinationComplete(route.getCity1(), route.getCity2(),
+                    userData.getCurrentPlayer().getRoutesClaimed()));
+            {
+                route.setClaimed(true);
+            }
+        }
     }
 
     private void updatePlayerInfo(UpdateInfo update)
