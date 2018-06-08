@@ -366,7 +366,7 @@ public class Game {
         //Then if the count is greater than 2, discard all the cards and get 5 new cards from the
         //top of the face down deck
         if (count > 2) {
-            for (int i = 0; i <trainCardFaceupDeck.length; i++) {
+            for (int i = 0; i < trainCardFaceupDeck.length; i++) {
                 discardedTrainCards.add(trainCardFaceupDeck[i]);
                 trainCardFaceupDeck[i] = trainCardFacedownDeck.get(0);
                 trainCardFacedownDeck.remove(0);
@@ -374,8 +374,8 @@ public class Game {
                     reshuffleDiscardedTrains();
                 }
             }
+            checkAndResetFaceUp();
         }
-        checkAndResetFaceUp();
     }
 
     public int getTurnNumber() {

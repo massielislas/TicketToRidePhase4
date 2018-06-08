@@ -269,7 +269,7 @@ public class TicketToRideFacade implements ITicketToRide {
         addGameHistory(game, "<<"+ username + " claimed a route>>");
         updatePlayers(game);
         return toReturn;
-    }
+}
     public Result chooseFaceUpCard(String username, String gameID, Double cardID) {
         Game game = Server.getSpecificActiveGame(gameID);
         Result toReturn = game.chooseFaceUpCard(username,cardID);
