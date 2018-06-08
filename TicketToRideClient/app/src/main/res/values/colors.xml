@@ -15,10 +15,10 @@
     <color name="trainBlue">#1357c4</color>
     <color name="trainRed">#c41232</color>
     <color name="trainBlack">#3d3d3d</color>
-
     <color name="trainGreen">#12c486</color>
     <color name="trainWhite">#e8e8e8</color>
     <color name="trainYellow">#e8c414</color>
+
     <color name="trainWild">#ccccff</color>
 
 
@@ -27,5 +27,20 @@
     <color name="playerGreen">#00963c</color>
     <color name="playerRed">#960000</color>
     <color name="playerPurple">#700096</color>
+
+    <color name="lightText">#ffce7a</color>
+
+    <color name="lightTextOriginal">#ffe8ce</color>
+    <color name="darkBackgroundOriginal">#383838</color>
+    <color name="lightBackgroundOriginal">#ffe3af</color>
+    <color name="chatBackgroundOriginal">#cccccc</color>
+    <color name="destDeckBackgroundOriginal">#dbb930</color>
+    <color name="trainDeckBackgroundOriginal">#2f6fd6</color>
+
+    <color name="darkBackground">#535453</color>
+    <color name="lightBackground">#ffce7a</color>
+    <color name="chatBackground">#3ac192</color>
+    <color name="destDeckBackground">#f2bf68</color>
+    <color name="trainDeckBackground">#7fe8c3</color>
 
 </resources>

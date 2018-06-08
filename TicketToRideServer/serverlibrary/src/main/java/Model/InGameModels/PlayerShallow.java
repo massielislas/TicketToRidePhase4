@@ -11,6 +11,9 @@ public class PlayerShallow {
     private int piecesLeft;
     private int turnNumber;
     private int currentScore;
+    private int pointsFromRoutes;
+    private int pointsFromDest;
+    private int negativePoints;
 
     public PlayerShallow(String uName, int trainCardHand, int destCardHand, int piecesLeft, int turnNumber, int currentScore)
     {
@@ -20,6 +23,30 @@ public class PlayerShallow {
         this.piecesLeft = piecesLeft;
         this.turnNumber = turnNumber;
         this.currentScore = currentScore;
+    }
+
+    public int getPointsFromRoutes() {
+        return pointsFromRoutes;
+    }
+
+    public void setPointsFromRoutes(int pointsFromRoutes) {
+        this.pointsFromRoutes = pointsFromRoutes;
+    }
+
+    public int getPointsFromDest() {
+        return pointsFromDest;
+    }
+
+    public void setPointsFromDest(int pointsFromDest) {
+        this.pointsFromDest = pointsFromDest;
+    }
+
+    public int getNegativePoints() {
+        return negativePoints;
+    }
+
+    public void setNegativePoints(int negativePoints) {
+        this.negativePoints = negativePoints;
     }
 
     public int getCurrentScore() {

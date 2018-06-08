@@ -1,13 +1,11 @@
 package Model;
 
-import java.util.ArrayList;
 
 import Communication.Encoder;
 import Model.InGameModels.*;
 import Model.InGameModels.DestinationCard;
 import Results.LoginRegisterResult;
 import Results.Result;
-import sun.security.krb5.internal.crypto.Des;
 
 /**
  * Created by Lance on 5/15/2018.
@@ -244,7 +242,7 @@ public class TicketToRideFacade implements ITicketToRide {
             game.addDestCardBackIn(toDiscard);
         }
         updatePlayers(game);
-        addGameHistory(game,"<<"+username+" discarded " + numberdiscarded + " Destination Cards>>");
+        addGameHistory(game,"<<"+username+" kept " + (3 - numberdiscarded) + " Destination Cards>>");
         return new Result(true, "");
     }
 
@@ -261,5 +259,52 @@ public class TicketToRideFacade implements ITicketToRide {
                     methodArguments);
             CommandManager.getInstance().addCommand(p.getUserName(),command);
         }
+    }
+
+    //TODO Possibly implement the sending of commands from here, depending on what info is needed
+    public Result claimRoute(String username, String gameID, Double routeID) {
+        Result toReturn;
+        Game game = Server.getSpecificActiveGame(gameID);
+        toReturn = game.claimRoute(username, routeID);
+        addGameHistory(game, "<<"+ username + " claimed a route>>");
+        updatePlayers(game);
+        return toReturn;
+    }
+    public Result chooseFaceUpCard(String username, String gameID, Double cardID) {
+        Game game = Server.getSpecificActiveGame(gameID);
+        Result toReturn = game.chooseFaceUpCard(username,cardID);
+        addGameHistory(game,"<<" + username + " picked up a " + toReturn.getMessage()
+                + "card from the face up pile>>");
+        updatePlayers(game);
+        return toReturn;
+    }
+    public Result drawFromTrainDeck(String username, String gameID) {
+        Game game = Server.getSpecificActiveGame(gameID);
+        Result toReturn = game.drawFromTrainDeck(username);
+        addGameHistory(game, "<<" + username + "drew a card from the face down deck>>");
+        updatePlayers(game);
+        return toReturn;
+    }
+    public Result drawDestCards(String username, String gameID) {
+        Game game = Server.getSpecificActiveGame(gameID);
+        Result toReturn = game.drawDestCards(username);
+        addGameHistory(game, "<<" + username + "drew new destination cards>>");
+        return toReturn;
+    }
+
+    public Result endTurn(String username, String gameID){
+        Game game = Server.getSpecificActiveGame(gameID);
+        Result result = game.updateTurn(); //or whatever the name of the game Method will be
+        if (result.isSuccess()) { //create commands for clients to see whose turn it is and act accordingly
+            String[] instanceParamTypeNames = new String[0];
+            Object[] instanceMethodArgs = new Object[0];
+            String[] methodParamTypeNames = {"java.lang.Double"};
+            Object[] methodArguments = {}; //TODO: get turn number corresponding to whose turn it is
+            Command command = new Command("Model.GameFacade", "getInstance",
+                    "changeTurn", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                    methodArguments);
+            CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(),command);
+        }
+        return result;
     }
 }

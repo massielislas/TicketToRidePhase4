@@ -36,16 +36,66 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         facade = PlayFacade.getInstance();
         this.mn = mn;
         facade.addBoardObserver(this);
-     //   facade.addBoardObserver(this);
+        facade.addChatObserver(this);
     }
 
     public void sendChat (String message) {
         Result result = facade.sendChat(message);
 
-        //if result unsucessful,
+        //if result unsuccessful,
         //pop toast with error
         if (!result.isSuccess()) {
             view.popToast("Error sending chat message: " + result.getMessage());
+        }
+
+        //if result successful,
+        //do nothing
+    }
+
+    public void claimRoute(Route route) {
+        //if route already claimed
+        //pop toast with error
+        if (route.isClaimed()) {
+            view.popToast("Route is already claimed.");
+            return;
+        }
+
+        Result result = facade.claimRoute(route);
+
+        //if result unsuccessful,
+        //pop toast with error
+        if (!result.isSuccess()) {
+            view.popToast("Error claiming route: " + result.getMessage());
+            return;
+        }
+
+        //if result successful,
+        //pop toast with success
+        view.popToast("Route " + route.getCity1() + " to " + route.getCity2() + " successfully claimed.");
+    }
+
+    public void chooseFaceUpCard(TrainCard card) {
+        Result result = facade.chooseFaceUpCard(card);
+
+        //if result unsuccessful,
+        //pop toast with error
+        if (!result.isSuccess()) {
+            view.popToast("Error drawing face-up card: " + result.getMessage());
+            return;
+        }
+
+        //if result successful,
+        //do nothing
+    }
+
+    public void drawFromTrainDeck() {
+        Result result = facade.drawFromTrainDeck();
+
+        //if result unsuccessful,
+        //pop toast with error
+        if (!result.isSuccess()) {
+            view.popToast("Error drawing from deck: " + result.getMessage());
+            return;
         }
 
         //if result successful,
@@ -123,25 +173,6 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         });
     }
 
-    @Override
-    public void claimRoute (Route route) {
-        //if route is claimed
-        //pop toast
-        if (route.isClaimed()) {
-            view.popToast("Route has already been claimed, by " + route.getClaimant());
-            return;
-        }
 
-        //else claim route
-        //facade.claimRoute(route);
-        view.popToast("Claiming route underway!");
-
-    }
-
-    @Override
-    public void test () {
-        view.popToast("Starting Test");
-        facade.mockUpdate();
-    }
 
 }
