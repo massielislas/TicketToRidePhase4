@@ -280,6 +280,7 @@ public class Game {
             int size = destinationCardDeck.size();
             for (int i = 0; i < destinationCardDeck.size(); i++) {
                 personDrawing.addDestCard(destinationCardDeck.get(0));
+                personDrawing.addDestCardToChoose(destinationCardDeck.get(0));
                 destinationCardDeck.remove(0);
             }
             //if there are none, send a message saying so
@@ -292,6 +293,7 @@ public class Game {
         else {
             for (int i = 0; i < 3; i++) {
                 personDrawing.addDestCard(destinationCardDeck.get(0));
+                personDrawing.addDestCardToChoose(destinationCardDeck.get(0));
                 destinationCardDeck.remove(0);
             }
             return new Result(true, "drew 3 destination cards");

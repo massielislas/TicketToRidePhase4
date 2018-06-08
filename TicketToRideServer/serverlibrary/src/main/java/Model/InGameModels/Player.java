@@ -15,6 +15,7 @@ public class Player {
     private UserPass userName;
     private List<TrainCard> trainCards;
     private List<DestinationCard> destCards;
+    private List<DestinationCard> toChoose;
     private Set<Route> routesClaimed;
     private int turnNumber;
     private int trainPiecesLeft;
@@ -25,6 +26,7 @@ public class Player {
         trainCards = new ArrayList<>();
         destCards = new ArrayList<>();
         routesClaimed = new HashSet<>();
+        toChoose = new ArrayList<>();
         turnNumber = queuePosition;
         trainPiecesLeft = 45;
         currentScore = 0;
@@ -103,6 +105,13 @@ public class Player {
 
     private List<TrainCard> claimGrayRoute(Route r, boolean isDouble) {
 
+    }
+
+    public void addDestCardToChoose(DestinationCard toAdd) {
+        toChoose.add(toAdd);
+    }
+    public List<DestinationCard> getToChoose() {
+        return toChoose;
     }
 
     public void setUserName(UserPass userName) {
