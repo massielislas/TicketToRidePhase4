@@ -16,7 +16,7 @@ public class UpdateInfo {
     private TrainCard[] currentFaceUpCards;
     private Route[] gameRoutes;
     private Route[] playerRoutes;
-    private List<DestinationCard> toChoose;
+    //private List<DestinationCard> toChoose;
     private List<TrainCard> hand;
 
     public UpdateInfo(int turnNumber, List<PlayerShallow>otherplayers, TrainCard[] currentCards, int trainDeckSize, int destDeckSize) {
@@ -49,14 +49,6 @@ public class UpdateInfo {
 
     public void setHand(List<TrainCard> hand) {
         this.hand = hand;
-    }
-
-    public List<DestinationCard> getToChoose() {
-        return toChoose;
-    }
-
-    public void setToChoose(List<DestinationCard> toChoose) {
-        this.toChoose = toChoose;
     }
 
     public int getDestDeckSize() {

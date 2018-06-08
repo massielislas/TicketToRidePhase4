@@ -134,10 +134,9 @@ public class PlayFacade {
         chat.addChatMessage(message);
     }
 
-    public Result claimRoute(Route route)
+    public Result claimRoute(Double routeID)
     {
-        Double routeID = new Double(route.getID());
-        return userData.getCurrentPlayer().getMyState().ClaimRoute(route);
+        return userData.getCurrentPlayer().getMyState().ClaimRoute(routeID);
     }
 
     public Result chooseFaceUpCard(TrainCard card)
@@ -153,6 +152,17 @@ public class PlayFacade {
     public Result drawDestCards()
     {
         return userData.getCurrentPlayer().getMyState().drawDestinationCards();
+    }
+
+    public void getDestCards(Double cardOne, Double cardTwo, Double cardThree)
+    {
+        ArrayList<DestinationCard> destCardsToAdd = new ArrayList<DestinationCard>();
+        destCardsToAdd.add(destCardDeck.getDestinationCard(cardOne.intValue()));
+        destCardsToAdd.add(destCardDeck.getDestinationCard(cardTwo.intValue()));
+        destCardsToAdd.add(destCardDeck.getDestinationCard(cardThree.intValue()));
+        userData.getCurrentPlayer().addToDestinationHand(destCardsToAdd);
+        userData.getCurrentPlayer().setToChoose(destCardsToAdd);
+        boardData.setChange();
     }
 
     public void updateBoardData(String jsonString)
@@ -189,7 +199,7 @@ public class PlayFacade {
 
     private void updatePlayerInfo(UpdateInfo update)
     {
-        if (update.getToChoose() != null) userData.getCurrentPlayer().setToChoose(update.getToChoose());
+        //if (update.getToChoose() != null) userData.getCurrentPlayer().setToChoose(update.getToChoose());
         if (update.getHand() != null) userData.getCurrentPlayer().setTrainCards(update.getHand());
     }
 
