@@ -20,7 +20,7 @@ public class SecondActiveTurnState extends TurnState {
 
     @Override
     public boolean canDrawFaceUpCard(TrainCard trainCard) {
-        if(trainCard.getColor().equals("gray")){
+        if(trainCard.getColor().toLowerCase().equals("gray")){
             return false;
         }
         if(UserData.getUserData().getCurrentGame().getFaceUpTrainDeck().length < 1){
