@@ -59,7 +59,7 @@ public class PlayFacade {
     public void addBoardObserver(Observer o)
     {
         boardData.addObserver(o);
-        if (boardData != null) setBoardData();
+        //setBoardData();
     }
 
     public void addEndGameObserver(Observer o)

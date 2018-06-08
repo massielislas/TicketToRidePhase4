@@ -37,6 +37,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         this.mn = mn;
         facade.addBoardObserver(this);
         facade.addChatObserver(this);
+        facade.setBoardData();
     }
 
     public void sendChat (String message) {
