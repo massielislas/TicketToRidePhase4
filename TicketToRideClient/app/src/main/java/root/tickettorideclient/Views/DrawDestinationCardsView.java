@@ -17,9 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.TreeMap;
 
 import Model.InGameModels.City;
 import Model.InGameModels.DestinationCard;
@@ -64,7 +62,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
         updateUI();
     }
 
-    private void createDesinationCardsSelected(){
+    private void createDestinationCardsSelected(){
         destinationCardsSelected = new HashMap<>();
         for(int i = 0; i < userDestinationCards.size(); i++){
             destinationCardsSelected.put(userDestinationCards.get(i), false);
@@ -74,7 +72,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     public void updateUI(){
        // userDestinationCards = presenter.getChoices();
        // addFakeDestinations();
-        createDesinationCardsSelected();
+        createDestinationCardsSelected();
         destinationsAdapter = new DestinationsAdapter(userDestinationCards);
         cardListRecyclerView.setAdapter(destinationsAdapter);
     }
