@@ -371,6 +371,10 @@ public class Game {
         checkAndResetFaceUp();
     }
 
+    public int getTurnNumber() {
+        return turnNumber;
+    }
+
     public int getPlayerCount()
     {
         return playerCount;

@@ -77,9 +77,15 @@ public class Player {
         //enough cards to pay for the route
         for (int i = 0; i < trainCards.size(); i ++) {
             TrainCard checkColor = trainCards.get(i);
-            if (checkColor.getColor().equals(color) && cardCount < r.getLength()) {
-                cardsToDiscard.add(checkColor);
-                cardCount++;
+            if (isDouble) {
+
+            }
+            else {
+                if (checkColor.getColor().equals(color) && cardCount < r.getLength())
+                {
+                    cardsToDiscard.add(checkColor);
+                    cardCount++;
+                }
             }
         }
         //Then if the count has not reached the length of the route, get wilds until you do
