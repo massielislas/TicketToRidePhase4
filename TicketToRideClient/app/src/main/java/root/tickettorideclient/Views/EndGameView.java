@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.util.ArrayList;
 
 import root.tickettorideclient.Presenters.IEndGameView;
@@ -48,6 +49,7 @@ public class EndGameView extends Fragment implements IEndGameView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_end_game, container, false);
         setUpInputs();
+        createList();
         return v;
     }
 
@@ -79,7 +81,7 @@ public class EndGameView extends Fragment implements IEndGameView {
     }
 
     private void updateUI(){
-      //  addFakeData();
+        addFakeData();
         finalStatsAdapter = new PlayerFinalStatsAdapter(playerFinalStats);
         otherFinalStatsRecyclerView.setAdapter(finalStatsAdapter);
     }
