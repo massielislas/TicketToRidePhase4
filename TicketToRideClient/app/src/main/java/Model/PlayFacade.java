@@ -295,8 +295,10 @@ public class PlayFacade {
         boardData.setRoutes(userData.getCurrentGame().getRoutes());
         boardData.setCities(userData.getCurrentGame().getCities());
         boardData.setCurrentPlayer(userData.getCurrentPlayer());
-        if (userData.getCurrentPlayer().getTurnNumber() == 1)
+        if (userData.getCurrentPlayer().getTurnNumber() == 1) {
             boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
+            userData.getCurrentPlayer().getMyState().activateTurn();
+        }
         else {
             List<PlayerShallow> otherPlayerInfo = boardData.getOtherPlayerInfo();
             for (PlayerShallow player : otherPlayerInfo) {
