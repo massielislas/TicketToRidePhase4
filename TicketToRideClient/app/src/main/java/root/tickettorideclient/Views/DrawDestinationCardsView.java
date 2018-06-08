@@ -44,8 +44,6 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
         super.onCreate(savedInstanceState);
         selectedColor = ContextCompat.getColor(getContext(), R.color.selectedCardColor);
         nonSelectedColor = ContextCompat.getColor(getContext(), R.color.unselectedCardColor);
-
-        presenter = new DrawDestinationCardsPresenter(this, getActivity());
     }
 
     @Nullable
@@ -53,6 +51,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_destination_cards, container, false);
         createList();
+        presenter = new DrawDestinationCardsPresenter(this, getActivity());
         return v;
     }
 
@@ -89,8 +88,15 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     }
 
     @Override
-    public void updateDestCards(DestinationCard[] cards) {
-        userDestinationCards = new ArrayList<DestinationCard>(Arrays.asList(cards));
+    public void updateDestCards(ArrayList<DestinationCard> cards) {
+        userDestinationCards = cards;
+        createList();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        //presenter.returnDestCards();
     }
 
     public class DestinationCardHolder extends RecyclerView.ViewHolder{

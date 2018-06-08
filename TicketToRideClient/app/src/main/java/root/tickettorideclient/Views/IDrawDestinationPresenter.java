@@ -9,6 +9,5 @@ import Model.InGameModels.DestinationCard;
  */
 
 public interface IDrawDestinationPresenter {
-    public void setChoices ();
     public void returnDestCards (DestinationCard[] cards);
 }
