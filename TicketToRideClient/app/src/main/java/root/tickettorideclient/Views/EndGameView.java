@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.util.ArrayList;
 
 import root.tickettorideclient.Presenters.IEndGameView;
@@ -48,6 +49,7 @@ public class EndGameView extends Fragment implements IEndGameView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_end_game, container, false);
         setUpInputs();
+        createList();
         return v;
     }
 
@@ -75,11 +77,12 @@ public class EndGameView extends Fragment implements IEndGameView {
             finalStats.setLostDestinations(i);
             finalStats.setReachedDestinationsPoints(i);
             finalStats.setTotalPoints(i);
+            playerFinalStats.add(finalStats);
         }
     }
 
     private void updateUI(){
-      //  addFakeData();
+        addFakeData();
         finalStatsAdapter = new PlayerFinalStatsAdapter(playerFinalStats);
         otherFinalStatsRecyclerView.setAdapter(finalStatsAdapter);
     }
@@ -109,7 +112,7 @@ public class EndGameView extends Fragment implements IEndGameView {
         TextView totalPoints;
 
         public PlayerFinalStatsHolder(LayoutInflater inflater, ViewGroup parent){
-            super(inflater.inflate(R.layout.destination_card_item, parent, false));
+            super(inflater.inflate(R.layout.final_stats_item, parent, false));
             name = (TextView) itemView.findViewById(R.id.playerName);
             longestRoute = (TextView) itemView.findViewById(R.id.longestRoute);
             pointsFromClaimedRoutes = (TextView) itemView.findViewById(R.id.pointsFromClaimedRoutes);

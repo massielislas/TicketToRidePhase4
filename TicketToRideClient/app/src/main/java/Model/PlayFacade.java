@@ -134,10 +134,9 @@ public class PlayFacade {
         chat.addChatMessage(message);
     }
 
-    public Result claimRoute(Route route)
+    public Result claimRoute(Double routeID)
     {
-        Double routeID = new Double(route.getID());
-        return userData.getCurrentPlayer().getMyState().ClaimRoute(route);
+        return userData.getCurrentPlayer().getMyState().ClaimRoute(routeID);
     }
 
     public Result chooseFaceUpCard(TrainCard card)
@@ -155,6 +154,17 @@ public class PlayFacade {
         return userData.getCurrentPlayer().getMyState().drawDestinationCards();
     }
 
+    public void getDestCards(Double cardOne, Double cardTwo, Double cardThree)
+    {
+        ArrayList<DestinationCard> destCardsToAdd = new ArrayList<DestinationCard>();
+        destCardsToAdd.add(destCardDeck.getDestinationCard(cardOne.intValue()));
+        destCardsToAdd.add(destCardDeck.getDestinationCard(cardTwo.intValue()));
+        destCardsToAdd.add(destCardDeck.getDestinationCard(cardThree.intValue()));
+        userData.getCurrentPlayer().addToDestinationHand(destCardsToAdd);
+        userData.getCurrentPlayer().setToChoose(destCardsToAdd);
+        boardData.setChange();
+    }
+
     public void updateBoardData(String jsonString)
     {
         UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonString, UpdateInfo.class);
@@ -167,14 +177,29 @@ public class PlayFacade {
         userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
-        boardData.setRoutes(Arrays.asList(update.getRoutes()));
-        userData.getCurrentGame().setRoutes(Arrays.asList(update.getRoutes()));
+        boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
+        userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
+        userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
+        checkDestCompleted();
         boardData.setChange();
+    }
+
+    public void checkDestCompleted()
+    {
+        for (Route route: userData.getCurrentPlayer().getRoutesClaimed())
+        {
+            RouteProcessor rp = new RouteProcessor();
+            if (rp.DestinationComplete(route.getCity1(), route.getCity2(),
+                    userData.getCurrentPlayer().getRoutesClaimed()));
+            {
+                route.setClaimed(true);
+            }
+        }
     }
 
     private void updatePlayerInfo(UpdateInfo update)
     {
-        if (update.getToChoose() != null) userData.getCurrentPlayer().setToChoose(update.getToChoose());
+        //if (update.getToChoose() != null) userData.getCurrentPlayer().setToChoose(update.getToChoose());
         if (update.getHand() != null) userData.getCurrentPlayer().setTrainCards(update.getHand());
     }
 

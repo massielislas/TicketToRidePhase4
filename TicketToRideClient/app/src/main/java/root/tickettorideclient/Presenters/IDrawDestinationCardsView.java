@@ -1,5 +1,7 @@
 package root.tickettorideclient.Presenters;
 
+import java.util.ArrayList;
+
 import Model.InGameModels.DestinationCard;
 
 /**
@@ -8,5 +10,5 @@ import Model.InGameModels.DestinationCard;
 
 public interface IDrawDestinationCardsView {
     public void popToast(String message);
-    public void updateDestCards(DestinationCard[] cards);
+    public void updateDestCards(ArrayList<DestinationCard> cards);
 }
