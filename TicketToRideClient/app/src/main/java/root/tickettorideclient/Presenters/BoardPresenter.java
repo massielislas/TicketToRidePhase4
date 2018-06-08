@@ -97,6 +97,14 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         //do nothing
     }
 
+    public boolean drawFromDestDeck(){
+        Result result = facade.drawDestCards();
+        if (!result.isSuccess()) {
+            view.popToast("Error drawing from deck: " + result.getMessage());
+        }
+        return result.isSuccess();
+    }
+
 
     @Override
     public void update(Observable observable, Object o) {
