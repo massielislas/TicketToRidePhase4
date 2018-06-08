@@ -134,9 +134,9 @@ public class PlayFacade {
         chat.addChatMessage(message);
     }
 
-    public Result claimRoute(Double routeID)
+    public Result claimRoute(int routeID)
     {
-        return userData.getCurrentPlayer().getMyState().ClaimRoute(routeID.intValue());
+        return userData.getCurrentPlayer().getMyState().ClaimRoute(routeID);
     }
 
     public Result chooseFaceUpCard(TrainCard card)
