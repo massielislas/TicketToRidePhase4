@@ -19,8 +19,8 @@ public class MyState {
         state= new NonActiveTurnState();
     }
 
-    public boolean canClaimRoute(Route route){
-        return  state.canClaimRoute(route);
+    public boolean canClaimRoute(int ID){
+        return  state.canClaimRoute(ID);
     }
     public boolean canDrawFaceUpCard(TrainCard trainCard){
         return state.canDrawFaceUpCard(trainCard);
@@ -31,8 +31,8 @@ public class MyState {
     public boolean canDrawDestinationCards(){
         return state.canDrawDestinationCards();
     }
-    public Result ClaimRoute(Route route){
-        return state.claimRoute(route);
+    public Result ClaimRoute(int ID){
+        return state.claimRoute(ID);
     }
     public Result DrawFaceUpCard(TrainCard trainCard){
         return state.drawFaceUpCard(trainCard);

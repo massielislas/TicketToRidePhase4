@@ -6,6 +6,7 @@ import java.util.List;
 
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Route;
+import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
 import Model.TicketToRideProxy;
 import Model.UserData;
@@ -17,23 +18,69 @@ import Results.Result;
 
 public class FirstActiveTurnState extends TurnState {
     @Override
-    public boolean canClaimRoute(Route route) {
-        if(route.isClaimed()){
-            return false;
-        }
-        List<TrainCard> trainCards = UserData.getUserData().getCurrentPlayer().getTrainCards();
-        String routeColor = route.getColor();
-        int numberOfRightColor = 0;
-        if(UserData.getUserData().getCurrentPlayer().getTrainPiecesLeft() < route.getLength()){
-            return false;
-        }
-        for(TrainCard t:trainCards){
-            if(t.getColor() == routeColor || t.getColor() == "gray"){
-                numberOfRightColor++;
+    public boolean canClaimRoute(int ID) {
+        Route route = new Routes().getRoute(ID);
+        if(ID > 0) {
+            //Is it claimed?
+            if (route.isClaimed()) {
+                return false;
+            }
+            List<TrainCard> trainCards = UserData.getUserData().getCurrentPlayer().getTrainCards();
+            String routeColor = route.getColor();
+            int numberOfRightColor = 0;
+            //Do you have enough pieces left?
+            if (UserData.getUserData().getCurrentPlayer().getTrainPiecesLeft() < route.getLength()) {
+                return false;
+            }
+            //Do you have the right color for it?
+            for (TrainCard t : trainCards) {
+                if (t.getColor() == routeColor || t.getColor() == "gray") {
+                    numberOfRightColor++;
+                }
+            }
+            if (numberOfRightColor < route.getLength()) {
+                return false;
             }
         }
-        if(numberOfRightColor < route.getLength()){
-            return false;
+        else{
+            //Its a double route!
+            if (route.isDoubleClaimed()) {
+                return false;
+            }
+            List<TrainCard> trainCards = UserData.getUserData().getCurrentPlayer().getTrainCards();
+            String routeColor = route.getDoubleColor();
+            if (UserData.getUserData().getCurrentPlayer().getTrainPiecesLeft() < route.getLength()) {
+                return false;
+            }
+            if(routeColor.equals("gray")){
+                if(getNumberOfColor("red", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("blue", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("yellow", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("green", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("black", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("orange", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("white", trainCards) >= route.getLength()){
+                    return true;
+                }
+                if(getNumberOfColor("pink", trainCards) >= route.getLength()){
+                    return true;
+                }
+            }
+            if (getNumberOfColor(routeColor, trainCards) >= route.getLength()) {
+                return false;
+            }
         }
         return true;
     }
@@ -63,12 +110,12 @@ public class FirstActiveTurnState extends TurnState {
     }
 
     @Override
-    public Result claimRoute(Route route) {
-        if(!canClaimRoute(route)){
+    public Result claimRoute(int ID) {
+        if(!canClaimRoute(ID)){
             return new Result(false, "Cant claim route!");
         }
         Result toReturn = new TicketToRideProxy().claimRoute(UserData.getUserData().getUsername().getNameOrPassword(),
-                UserData.getUserData().getCurrentGame().getID(),Double.valueOf(route.getID()));
+                UserData.getUserData().getCurrentGame().getID(),Double.valueOf(ID));
         if(toReturn.isSuccess()) {
             MyState.getInstance().state = new NonActiveTurnState();
             Result endTurnResult = new TicketToRideProxy().endTurn(UserData.getUserData().getUsername().getNameOrPassword(),
@@ -89,7 +136,6 @@ public class FirstActiveTurnState extends TurnState {
                 UserData.getUserData().getCurrentGame().getID());
         if(toReturn.isSuccess()){
             MyState.getInstance().state = new NonActiveTurnState();
-            //todo: We need to make sure that the person's turn ends when they discard
         }
         return toReturn;
     }
@@ -133,5 +179,17 @@ public class FirstActiveTurnState extends TurnState {
             }
             return fromProxy;
         }
+    }
+    public int getNumberOfColor(String color, List<TrainCard> hand){
+        int numberFound = 0;
+        if(color.equals("gray")){
+
+        }
+        for (TrainCard t : hand) {
+            if (t.getColor().equals(color) || t.getColor().equals("gray")) {
+                numberFound = numberFound + 1;
+            }
+        }
+        return numberFound;
     }
 }

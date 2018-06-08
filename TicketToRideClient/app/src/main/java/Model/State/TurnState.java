@@ -10,7 +10,7 @@ import Results.Result;
  */
 
 public class TurnState {
-    public boolean canClaimRoute(Route route){
+    public boolean canClaimRoute(int ID){
         return false;
     }
     public boolean canDrawFaceUpCard(TrainCard trainCard){
@@ -22,7 +22,7 @@ public class TurnState {
     public boolean canDrawDestinationCards(){
         return false;
     }
-    public Result claimRoute(Route route){
+    public Result claimRoute(int ID){
         return new Result(false, "FAIL");
     }
     public Result drawFaceUpCard(TrainCard trainCard){

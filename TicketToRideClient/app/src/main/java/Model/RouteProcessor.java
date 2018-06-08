@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.InGameModels.City;
-import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Route;
 
 /**
