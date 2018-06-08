@@ -287,9 +287,21 @@ public class TicketToRideFacade implements ITicketToRide {
     }
     public Result drawDestCards(String username, String gameID) {
         Game game = Server.getSpecificActiveGame(gameID);
+        Player player = game.getPlayer(new UserPass(username));
         Result toReturn = game.drawDestCards(username);
-        addGameHistory(game, "<<" + username + "drew new destination cards>>");
-        updatePlayers(game);
+        if (toReturn.isSuccess()) {
+            addGameHistory(game, "<<" + username + "drew new destination cards>>");
+            String[] instanceParamTypeNames = new String[0];
+            Object[] instanceMethodArgs = new Object[0];
+            String[] methodParamTypeNames = {"java.lang.Double", "java.lang.Double", "java.lang.Double"};
+            Object[] methodArguments = {player.getToChoose().get(0).getID(), player.getToChoose().get(1).getID()
+                    , player.getToChoose().get(2).getID()};
+            Command command = new Command("Model.GameFacade", "getInstance",
+                    "getDestCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                    methodArguments);
+            UserPass user = new UserPass(username);
+            CommandManager.getInstance().addCommand(user,command);
+        }
         return toReturn;
     }
 
@@ -300,7 +312,7 @@ public class TicketToRideFacade implements ITicketToRide {
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.Double"};
-            Object[] methodArguments = {}; //TODO: get turn number corresponding to whose turn it is
+            Object[] methodArguments = {game.getTurnNumber()}; //TODO: get turn number corresponding to whose turn it is
             Command command = new Command("Model.GameFacade", "getInstance",
                     "changeTurn", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
