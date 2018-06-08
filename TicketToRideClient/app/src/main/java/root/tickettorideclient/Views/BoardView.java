@@ -245,7 +245,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         destinationCardsDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((IDrawDestinationsCallback) getActivity()).goToDrawDestinations();
+                if(presenter.drawFromDestDeck())
+                    ((IDrawDestinationsCallback) getActivity()).goToDrawDestinations();
             }
         });
 

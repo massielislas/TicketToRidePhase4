@@ -97,6 +97,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         //do nothing
     }
 
+    @Override
     public boolean drawFromDestDeck(){
         Result result = facade.drawDestCards();
         if (!result.isSuccess()) {

@@ -13,4 +13,5 @@ public interface IBoardPresenter {
     public void claimRoute(Integer routeID);
     public void chooseFaceUpCard(TrainCard card);
     public void drawFromTrainDeck();
+    public boolean drawFromDestDeck();
 }
