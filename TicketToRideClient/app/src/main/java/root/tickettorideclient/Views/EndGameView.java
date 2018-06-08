@@ -77,6 +77,7 @@ public class EndGameView extends Fragment implements IEndGameView {
             finalStats.setLostDestinations(i);
             finalStats.setReachedDestinationsPoints(i);
             finalStats.setTotalPoints(i);
+            playerFinalStats.add(finalStats);
         }
     }
 
@@ -111,7 +112,7 @@ public class EndGameView extends Fragment implements IEndGameView {
         TextView totalPoints;
 
         public PlayerFinalStatsHolder(LayoutInflater inflater, ViewGroup parent){
-            super(inflater.inflate(R.layout.destination_card_item, parent, false));
+            super(inflater.inflate(R.layout.final_stats_item, parent, false));
             name = (TextView) itemView.findViewById(R.id.playerName);
             longestRoute = (TextView) itemView.findViewById(R.id.longestRoute);
             pointsFromClaimedRoutes = (TextView) itemView.findViewById(R.id.pointsFromClaimedRoutes);
