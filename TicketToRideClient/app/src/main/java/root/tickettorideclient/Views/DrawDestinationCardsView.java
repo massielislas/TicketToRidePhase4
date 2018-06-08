@@ -51,8 +51,8 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_destination_cards, container, false);
-        createList();
         presenter = new DrawDestinationCardsPresenter(this, getActivity());
+        createList();
         return v;
     }
 
