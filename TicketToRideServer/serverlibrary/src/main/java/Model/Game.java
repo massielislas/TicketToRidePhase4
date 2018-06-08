@@ -208,7 +208,7 @@ public class Game {
         if (toClaim.isClaimed()) {
             return new Result(false, "That route is already claimed!");
         }
-        
+
     }
 
     private Result claimDoubleRoute(String userName, int routeID) {
