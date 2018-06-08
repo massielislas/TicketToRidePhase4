@@ -4,14 +4,14 @@ import java.util.List;
 
 import Model.InGameModels.PlayerShallow;
 
-public class endGameInfo {
+public class EndGameInfo {
 
     private String winner;
     private List<PlayerShallow> playerInfo;
     private String playerWithLongestRoute;
     private int pointsFromLongestRoute;
 
-    public endGameInfo(String winner, List<PlayerShallow> playerInfo, String playerWithLongestRoute, int pointsFromLongestRoute) {
+    public EndGameInfo(String winner, List<PlayerShallow> playerInfo, String playerWithLongestRoute, int pointsFromLongestRoute) {
         this.winner = winner;
         this.playerInfo = playerInfo;
         this.playerWithLongestRoute = playerWithLongestRoute;

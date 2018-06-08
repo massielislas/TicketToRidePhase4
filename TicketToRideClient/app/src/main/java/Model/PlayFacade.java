@@ -230,6 +230,12 @@ public class PlayFacade {
         boardData.setChange();
     }
 
+    public void endGame(String jsonString)
+    {
+        EndGameInfo endGame = (EndGameInfo) Encoder.Decode(jsonString, EndGameInfo.class);
+        
+    }
+
     //public void updateOtherPlayer()
 
     public void setStartInfo(String jsonString){
