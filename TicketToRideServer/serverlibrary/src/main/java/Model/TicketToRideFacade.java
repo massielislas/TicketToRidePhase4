@@ -262,7 +262,7 @@ public class TicketToRideFacade implements ITicketToRide {
     }
 
     //TODO Possibly implement the sending of commands from here, depending on what info is needed
-    Result claimRoute(String username, String gameID, Double routeID) {
+    public Result claimRoute(String username, String gameID, Double routeID) {
         Result toReturn;
         Game game = Server.getSpecificActiveGame(gameID);
         toReturn = game.claimRoute(username, routeID);
@@ -270,7 +270,7 @@ public class TicketToRideFacade implements ITicketToRide {
         updatePlayers(game);
         return toReturn;
     }
-    Result chooseFaceUpCard(String username, String gameID, Double cardID) {
+    public Result chooseFaceUpCard(String username, String gameID, Double cardID) {
         Game game = Server.getSpecificActiveGame(gameID);
         Result toReturn = game.chooseFaceUpCard(username,cardID);
         addGameHistory(game,"<<" + username + " picked up a " + toReturn.getMessage()
@@ -278,21 +278,21 @@ public class TicketToRideFacade implements ITicketToRide {
         updatePlayers(game);
         return toReturn;
     }
-    Result drawFromTrainDeck(String username, String gameID) {
+    public Result drawFromTrainDeck(String username, String gameID) {
         Game game = Server.getSpecificActiveGame(gameID);
         Result toReturn = game.drawFromTrainDeck(username);
         addGameHistory(game, "<<" + username + "drew a card from the face down deck>>");
         updatePlayers(game);
         return toReturn;
     }
-    Result drawDestCards(String username, String gameID) {
+    public Result drawDestCards(String username, String gameID) {
         Game game = Server.getSpecificActiveGame(gameID);
         Result toReturn = game.drawDestCards(username);
         addGameHistory(game, "<<" + username + "drew new destination cards>>");
         return toReturn;
     }
 
-    Result endTurn(String username, String gameID){
+    public Result endTurn(String username, String gameID){
         Game game = Server.getSpecificActiveGame(gameID);
         Result result = game.updateTurn(); //or whatever the name of the game Method will be
         if (result.isSuccess()) { //create commands for clients to see whose turn it is and act accordingly
