@@ -18,10 +18,10 @@ public interface ITicketToRide {
     Result createNewGame(Integer playerCount, Integer currentPlayers, Integer gameNumber, String ID);
     Result startGame(String ID);
     Result sendChat(String username, String message, String gameID);
-    /*Result claimRoute(String username, String gameID, Double routeID);
+    Result claimRoute(String username, String gameID, Double routeID);
     Result chooseFaceUpCard(String username, String gameID, Double cardID);
     Result drawFromTrainDeck(String username, String gameID);
-    Result drawDestCards(String username, String gameID);*/
+    Result drawDestCards(String username, String gameID);
 //    Result discardDestCards(String username, String gameID, ArrayList<Integer> destinationCards);
 //    void updateFaceUpCards(Game game);
 
