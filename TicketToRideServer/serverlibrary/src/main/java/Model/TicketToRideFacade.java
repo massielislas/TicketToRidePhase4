@@ -294,8 +294,10 @@ public class TicketToRideFacade implements ITicketToRide {
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.Double", "java.lang.Double", "java.lang.Double"};
-            Object[] methodArguments = {player.getToChoose().get(0).getID(), player.getToChoose().get(1).getID()
-                    , player.getToChoose().get(2).getID()};
+            Double one = new Double (player.getToChoose().get(0).getID());
+            Double two = new Double(player.getToChoose().get(1).getID());
+            Double three = new Double(player.getToChoose().get(2).getID());
+            Object[] methodArguments = {one, two, three};
             Command command = new Command("Model.GameFacade", "getInstance",
                     "getDestCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
