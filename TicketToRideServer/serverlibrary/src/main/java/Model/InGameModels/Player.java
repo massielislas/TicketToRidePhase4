@@ -65,9 +65,40 @@ public class Player {
         return null;
     }
 
-    public void addRoute(Route r) {
+    public List<TrainCard> addRoute(Route r, boolean isDouble) {
+        List<TrainCard> cardsToDiscard = new ArrayList<>();
+        List<Integer> indicesToDiscard = new ArrayList<>();
+        int cardCount = 0;
+        String color = r.getColor();
+        if (color.equals("Gray")) {
+            return claimGrayRoute(r, isDouble);
+        }
+        //Remove cards with the corresponding color until you have removed them all OR you have
+        //enough cards to pay for the route
+        for (int i = 0; i < trainCards.size(); i ++) {
+            TrainCard checkColor = trainCards.get(i);
+            if (checkColor.getColor().equals(color) && cardCount < r.getLength()) {
+                cardsToDiscard.add(checkColor);
+                cardCount++;
+            }
+        }
+        //Then if the count has not reached the length of the route, get wilds until you do
+        if (cardCount < r.getLength()) {
+            for (int i = 0; i < trainCards.size(); i ++) {
+                TrainCard checkColor = trainCards.get(i);
+                if (checkColor.getColor().equals("Gray") && cardCount < r.getLength()) {
+                    cardsToDiscard.add(checkColor);
+                    cardCount++;
+                }
+            }
+        }
         routesClaimed.add(r);
     }
+
+    private List<TrainCard> claimGrayRoute(Route r, boolean isDouble) {
+
+    }
+
     public void setUserName(UserPass userName) {
         this.userName = userName;
     }

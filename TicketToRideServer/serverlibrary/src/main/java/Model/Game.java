@@ -35,6 +35,7 @@ public class Game {
     //Max number of players
     private int playerCount;
     private int currentPlayers;
+    private boolean isLastRound;
     //UUID for this specific game
     private String ID;
     //List of players in the game
@@ -61,6 +62,7 @@ public class Game {
         destinationCardDeck = deck.getDestinationCards();
         chat = new ArrayList<>();
         turnNumber = 1;
+        isLastRound = false;
     }
 
     public Game(int playerCount, int currentPlayers, int gameNumber, String ID)
@@ -78,6 +80,7 @@ public class Game {
         destinationCardDeck = deck.getDestinationCards();
         chat = new ArrayList<>();
         turnNumber = 1;
+        isLastRound = false;
         initializeTrainCards();
     }
 
@@ -202,15 +205,19 @@ public class Game {
     public Result claimRoute(String username, Double routeID) {
         Route toClaim = routes.getRoute(routeID.intValue());
         Player claimer = getPlayer(new UserPass(username));
+        //If the route is a double route, use a different function
         if (toClaim.isDouble()) {
             return claimDoubleRoute(username, routeID.intValue());
         }
+        //If it's not a double route but it's already claimed, return false
         if (toClaim.isClaimed()) {
             return new Result(false, "That route is already claimed by" + toClaim.getClaimant() + "!");
         }
+        //otherwise update the route's claimant, set its claimed bool as true, and return true
         else {
             toClaim.setClaimed(true);
-            claimer.addRoute(toClaim);
+            List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
+            //TODO figure out the logic for these
             return new Result(true, "You claimed route " +toClaim.getID() + " from "
                     + toClaim.getCity1() + " to " + toClaim.getCity2());
         }
@@ -225,13 +232,15 @@ public class Game {
         }
         else if (!toClaim.isClaimed() && routeID > 0) {
             toClaim.setClaimed(true);
-            claimer.addRoute(toClaim);
+            List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
+            //TODO figure out the logic for these
             return new Result(true, "You claimed route " +toClaim.getID() + " from "
             + toClaim.getCity1() + " to " + toClaim.getCity2());
         }
         else if (!toClaim.isDoubleClaimedl() && routeID < 0) {
             toClaim.setDoubleClaimed(true);
-            claimer.addRoute(toClaim);
+            List<TrainCard> toDiscard = claimer.addRoute(toClaim, true);
+            //TODO figure out the logic for these
             return new Result(true, "You claimed route " +toClaim.getID() + " from "
                     + toClaim.getCity1() + " to " + toClaim.getCity2());
         }
@@ -262,7 +271,6 @@ public class Game {
         personDrawing.addTrainCard(toAdd);
         trainCardFacedownDeck.remove(0);
         return new Result(true, toAdd.getType() + " drawn from deck");
-        //TODO set up command to send cardID back to ClientSide
     }
 
     public Result drawDestCards(String username) {
@@ -288,7 +296,6 @@ public class Game {
             }
             return new Result(true, "drew 3 destination cards");
         }
-        //TODO create command to send Destination Card IDS back to Client
     }
 
     public Result updateTurn() {
@@ -299,6 +306,9 @@ public class Game {
             turnNumber++;
         }
         Player whoseTurn = playerList.get(turnNumber);
+        if (isLastRound = false && whoseTurn.getTrainPiecesLeft() <= 3) {
+            isLastRound = true;
+        }
         return new Result(true, whoseTurn.getnameString());
     }
 

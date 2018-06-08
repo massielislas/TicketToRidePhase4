@@ -289,6 +289,7 @@ public class TicketToRideFacade implements ITicketToRide {
         Game game = Server.getSpecificActiveGame(gameID);
         Result toReturn = game.drawDestCards(username);
         addGameHistory(game, "<<" + username + "drew new destination cards>>");
+        updatePlayers(game);
         return toReturn;
     }
 
