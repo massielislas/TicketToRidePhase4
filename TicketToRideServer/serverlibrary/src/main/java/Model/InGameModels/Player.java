@@ -64,6 +64,10 @@ public class Player {
         }
         return null;
     }
+
+    public void addRoute(Route r) {
+        routesClaimed.add(r);
+    }
     public void setUserName(UserPass userName) {
         this.userName = userName;
     }

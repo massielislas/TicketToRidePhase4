@@ -64,35 +64,17 @@ public class FirstActiveTurnState extends TurnState {
         if(!canClaimRoute(route)){
             return new Result(false, "Cant claim route!");
         }
-        //Make sure that the Server returned that it gor recorded on the server side.
-        //TicketToRideProxy.getInstance.claimRoute(...)
-        String color = route.getColor();
-        int numberNeeded = route.getLength();
-        while(numberNeeded > 0) {
-            boolean cardFound = false;
-            for (TrainCard t : UserData.getUserData().getCurrentPlayer().getTrainCards()){
-                //First Remove those with the right color
-                if(t.getColor().equals(color)){
-                    UserData.getUserData().getCurrentPlayer().getTrainCards().remove(t);
-                    numberNeeded = numberNeeded - 1;
-                    cardFound = true;
-                    break;
-                }
-            }
-
-            if(!cardFound){
-                for (TrainCard t : UserData.getUserData().getCurrentPlayer().getTrainCards()) {
-                    //Then, if needed, get the wilds!
-                    if(t.getColor().equals("gray")){
-                        UserData.getUserData().getCurrentPlayer().getTrainCards().remove(t);
-                        numberNeeded = numberNeeded - 1;
-                        break;
-                    }
-                }
+        Result toReturn = new TicketToRideProxy().claimRoute(UserData.getUserData().getUsername().getNameOrPassword(),
+                UserData.getUserData().getCurrentGame().getID(),Double.valueOf(route.getID()));
+        if(toReturn.isSuccess()) {
+            MyState.getInstance().state = new NonActiveTurnState();
+            Result endTurnResult = new TicketToRideProxy().endTurn(UserData.getUserData().getUsername().getNameOrPassword(),
+                    UserData.getUserData().getCurrentGame().getID());
+            if(!endTurnResult.isSuccess()){
+                System.out.println("YOU DONE MESSED UP A-ARON!");
             }
         }
-        MyState.getInstance().state = new NonActiveTurnState();
-        return new Result(true, "Route Claimed");
+        return toReturn;
     }
 
     @Override
@@ -100,26 +82,38 @@ public class FirstActiveTurnState extends TurnState {
         if(!canDrawDestinationCards()){
             return new Result(false, "cant do it!");
         }
-        //toDo: get the 3 cards from the TTRProxy
-        MyState.getInstance().state = new NonActiveTurnState();
-        return new Result(true, "wait for the cards!");
-        //Note, the user will have to discard some of them, the same way as they did before.
+        Result toReturn = new TicketToRideProxy().drawDestCards(UserData.getUserData().getUsername().getNameOrPassword(),
+                UserData.getUserData().getCurrentGame().getID());
+        if(toReturn.isSuccess()){
+            MyState.getInstance().state = new NonActiveTurnState();
+            //todo: We need to make sure that the person's turn ends when they discard
+        }
+        return toReturn;
     }
 
     @Override
     public Result drawFaceUpCard(TrainCard trainCard) {
+        Result toReturn = null;
         if(!canDrawFaceUpCard(trainCard)){
             return new Result(false, "CANT DO IT!");
         }
         else if(!trainCard.getColor().equals("gray")){
-            UserData.getUserData().getCurrentPlayer().getTrainCards().add(trainCard);
-            MyState.getInstance().state = new SecondActiveTurnState();
-            return new Result(true, "good to go!");
+            toReturn = new TicketToRideProxy().chooseFaceUpCard(UserData.getUserData().getUsername().getNameOrPassword(),
+                    UserData.getUserData().getCurrentGame().getID(),Double.valueOf(trainCard.getID()));
+            if(toReturn.isSuccess()){
+                MyState.getInstance().state = new SecondActiveTurnState();
+            }
+            return toReturn;
         }
         else {
-            UserData.getUserData().getCurrentPlayer().getTrainCards().add(trainCard);
-            MyState.getInstance().state = new NonActiveTurnState();
-            return new Result(true, "good to go!");
+            toReturn = new TicketToRideProxy().chooseFaceUpCard(UserData.getUserData().getUsername().getNameOrPassword(),
+                    UserData.getUserData().getCurrentGame().getID(),Double.valueOf(trainCard.getID()));
+            if(toReturn.isSuccess()){
+                MyState.getInstance().state = new NonActiveTurnState();
+                new TicketToRideProxy().endTurn(UserData.getUserData().getUsername().getNameOrPassword(),
+                        UserData.getUserData().getCurrentGame().getID());
+            }
+            return toReturn;
         }
     }
 
@@ -131,10 +125,10 @@ public class FirstActiveTurnState extends TurnState {
         else{
             Result fromProxy = new TicketToRideProxy().drawFromTrainDeck(UserData.getUserData().getUsername().getNameOrPassword(),
                     UserData.getUserData().getCurrentGame().getID());
-            TrainCard drawnCard = null;
-            UserData.getUserData().getCurrentPlayer().getTrainCards().add(drawnCard);
-            MyState.getInstance().state = new SecondActiveTurnState();
-            return new Result(true,drawnCard.getColor());
+            if(fromProxy.isSuccess()) {
+                MyState.getInstance().state = new SecondActiveTurnState();
+            }
+            return fromProxy;
         }
     }
 }
