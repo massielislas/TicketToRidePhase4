@@ -52,15 +52,9 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         //do nothing
     }
 
-    public void claimRoute(Route route) {
-        //if route already claimed
-        //pop toast with error
-        if (route.isClaimed()) {
-            view.popToast("Route is already claimed.");
-            return;
-        }
+    public void claimRoute(Integer routeID) {
 
-        Result result = facade.claimRoute(route);
+        Result result = facade.claimRoute(routeID);
 
         //if result unsuccessful,
         //pop toast with error
@@ -71,7 +65,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
         //if result successful,
         //pop toast with success
-        view.popToast("Route " + route.getCity1() + " to " + route.getCity2() + " successfully claimed.");
+        view.popToast("Route successfully claimed.");
     }
 
     public void chooseFaceUpCard(TrainCard card) {
