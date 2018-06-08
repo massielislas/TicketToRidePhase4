@@ -117,18 +117,6 @@ public class PlayFacade {
         return result;
     }
 
-    /*public void addCards(Double one, Double two, Double three)
-    {
-        ArrayList<Double> cards = new ArrayList<Double>() {
-        };
-        cards.add(0, one);
-        cards.add(1, two);
-        cards.add(2, three);
-        Game currentGame = userData.getCurrentGame();
-        ArrayList<DestinationCard> toAdd = currentGame.getSelectedDestinationCards(cards);
-        userData.getCurrentPlayer().addToDestinationHand(toAdd);
-    }*/
-
     public void updateFaceUpCards(Double cardOne, Double cardTwo, Double cardThree, Double cardFour, Double cardFive)
     {
         TrainCard[] cards = {};
@@ -151,19 +139,8 @@ public class PlayFacade {
         return userData.getCurrentPlayer().getMyState().ClaimRoute(route);
     }
 
-    /*//Do we need this method for server to make a command for?
-    //Or can we just check result object of claimRoute?
-    public void getRouteChange(Double routeID){
-        //if needed eventually we'll...
-        boardData.setChange();
-    }*/
-
     public Result chooseFaceUpCard(TrainCard card)
     {
-        /*Double cardID = new Double(card.getID());
-        if (card.getType().equals("Locomotive")){
-            //TODO change state of players turn!
-        }*/
         return userData.getCurrentPlayer().getMyState().DrawFaceUpCard(card);
     }
 
@@ -172,37 +149,10 @@ public class PlayFacade {
         return userData.getCurrentPlayer().getMyState().drawFaceDownCard();
     }
 
-    /*//method that gets called by command sent by server
-    public void getTrainCard(Double cardID)
-    {
-        TrainCard trainCardToAdd = trainCardDeck.getCardByID(cardID.intValue());
-        userData.getCurrentPlayer().addToTrainCardHand(trainCardToAdd);
-        boardData.setChange();
-    }*/
-
     public Result drawDestCards()
     {
         return userData.getCurrentPlayer().getMyState().drawDestinationCards();
     }
-
-   /* //method that gets called by command sent by server
-    public void getDestCards(Double cardOne, Double cardTwo, Double cardThree)
-    {
-        ArrayList<DestinationCard> destCardsToAdd = new ArrayList<DestinationCard>();
-        destCardsToAdd.add(destCardDeck.getDestinationCard(cardOne.intValue()));
-        destCardsToAdd.add(destCardDeck.getDestinationCard(cardTwo.intValue()));
-        destCardsToAdd.add(destCardDeck.getDestinationCard(cardThree.intValue()));
-        userData.getCurrentPlayer().addToDestinationHand(destCardsToAdd);
-        userData.getCurrentPlayer().setToChoose(destCardsToAdd);
-        boardData.setChange();
-    }*/
-
-    /*public void updateDeckSize(Double trainDeckSize, Double destDeckSize)
-    {
-        boardData.setTrainDeckSize(trainDeckSize.intValue());
-        boardData.setDestDeckSize(destDeckSize.intValue());
-        boardData.setChange();
-    }*/
 
     public void updateBoardData(String jsonString)
     {
@@ -251,8 +201,6 @@ public class PlayFacade {
         endGameData.setWinner(endGame.getWinner());
         endGameData.setChange();
     }
-
-    //public void updateOtherPlayer()
 
     public void setStartInfo(String jsonString){
         SinglePlayerStartInfo fromGson = (SinglePlayerStartInfo) Encoder.Decode(jsonString,SinglePlayerStartInfo.class);
@@ -357,4 +305,53 @@ public class PlayFacade {
         boardData.setFaceUpCards(newFaceUpCards);
         boardData.setChange();
     }
+
+     /* //method that gets called by command sent by server
+    public void getDestCards(Double cardOne, Double cardTwo, Double cardThree)
+    {
+        ArrayList<DestinationCard> destCardsToAdd = new ArrayList<DestinationCard>();
+        destCardsToAdd.add(destCardDeck.getDestinationCard(cardOne.intValue()));
+        destCardsToAdd.add(destCardDeck.getDestinationCard(cardTwo.intValue()));
+        destCardsToAdd.add(destCardDeck.getDestinationCard(cardThree.intValue()));
+        userData.getCurrentPlayer().addToDestinationHand(destCardsToAdd);
+        userData.getCurrentPlayer().setToChoose(destCardsToAdd);
+        boardData.setChange();
+    }*/
+
+    /*public void updateDeckSize(Double trainDeckSize, Double destDeckSize)
+    {
+        boardData.setTrainDeckSize(trainDeckSize.intValue());
+        boardData.setDestDeckSize(destDeckSize.intValue());
+        boardData.setChange();
+    }*/
+
+    /*//method that gets called by command sent by server
+    public void getTrainCard(Double cardID)
+    {
+        TrainCard trainCardToAdd = trainCardDeck.getCardByID(cardID.intValue());
+        userData.getCurrentPlayer().addToTrainCardHand(trainCardToAdd);
+        boardData.setChange();
+    }*/
+
+    /*public void addCards(Double one, Double two, Double three)
+    {
+        ArrayList<Double> cards = new ArrayList<Double>() {
+        };
+        cards.add(0, one);
+        cards.add(1, two);
+        cards.add(2, three);
+        Game currentGame = userData.getCurrentGame();
+        ArrayList<DestinationCard> toAdd = currentGame.getSelectedDestinationCards(cards);
+        userData.getCurrentPlayer().addToDestinationHand(toAdd);
+    }*/
+
+    /*//Do we need this method for server to make a command for?
+    //Or can we just check result object of claimRoute?
+    public void getRouteChange(Double routeID){
+        //if needed eventually we'll...
+        boardData.setChange();
+    }*/
+
+    //public void updateOtherPlayer()
+
 }
