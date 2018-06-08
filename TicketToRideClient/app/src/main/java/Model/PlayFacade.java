@@ -31,6 +31,7 @@ public class PlayFacade {
     SinglePlayerStartInfo info;
     BoardData boardData;
     SetUpData setUpData;
+    EndGameData endGameData;
     TrainCardDeck trainCardDeck;
 
     private PlayFacade()
@@ -38,6 +39,7 @@ public class PlayFacade {
         trainCardDeck = new TrainCardDeck();
         setUpData = new SetUpData();
         boardData = new BoardData();
+        endGameData = new EndGameData();
         destCardDeck = new DestinationCardDeck();
         routes = new Routes();
         cities = Cities.getInstance();
@@ -57,6 +59,16 @@ public class PlayFacade {
     {
         boardData.addObserver(o);
         setBoardData();
+    }
+
+    public void addEndGameObserver(Observer o)
+    {
+        endGameData.addAnObserver(o);
+    }
+
+    public void desRegisterEndGameObserver(Observer o)
+    {
+        endGameData.removeAnObserver(o);
     }
 
     public void addChatObserver(Observer o)
@@ -233,7 +245,11 @@ public class PlayFacade {
     public void endGame(String jsonString)
     {
         EndGameInfo endGame = (EndGameInfo) Encoder.Decode(jsonString, EndGameInfo.class);
-        
+        endGameData.setPlayerInfo(endGame.getPlayerInfo());
+        endGameData.setPlayerWithLongestRoute(endGame.getPlayerWithLongestRoute());
+        endGameData.setPointsFromLongestRoute(endGame.getPointsFromLongestRoute());
+        endGameData.setWinner(endGame.getWinner());
+        endGameData.setChange();
     }
 
     //public void updateOtherPlayer()
