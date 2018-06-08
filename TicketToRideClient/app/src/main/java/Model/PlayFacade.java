@@ -136,7 +136,7 @@ public class PlayFacade {
 
     public Result claimRoute(Double routeID)
     {
-        return userData.getCurrentPlayer().getMyState().ClaimRoute(routeID);
+        return userData.getCurrentPlayer().getMyState().ClaimRoute(routeID.intValue());
     }
 
     public Result chooseFaceUpCard(TrainCard card)
