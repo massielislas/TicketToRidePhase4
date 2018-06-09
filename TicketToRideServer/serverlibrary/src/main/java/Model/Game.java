@@ -328,7 +328,7 @@ public class Game {
         else {
             turnNumber++;
         }
-        Player whoseTurn = playerList.get(turnNumber);
+        Player whoseTurn = playerList.get(turnNumber - 1);
         if (isLastRound = false && whoseTurn.getTrainPiecesLeft() <= 3) {
             isLastRound = true;
         }
