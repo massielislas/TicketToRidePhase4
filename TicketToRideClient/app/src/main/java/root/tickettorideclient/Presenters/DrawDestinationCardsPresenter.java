@@ -8,6 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Model.BoardData;
+import Model.DrawDestCardData;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Player;
 import Model.PlayFacade;
@@ -29,7 +30,7 @@ public class DrawDestinationCardsPresenter implements IDrawDestinationPresenter,
         this.view = view;
         this.mn = mn;
         facade = PlayFacade.getInstance();
-        facade.addBoardObserver(this);
+        facade.addDestCardObserver(this);
     }
 
     @Override
@@ -49,11 +50,9 @@ public class DrawDestinationCardsPresenter implements IDrawDestinationPresenter,
     @Override
     public void update(Observable observable, Object o) {
 
-        final BoardData data = (BoardData) o;
+        final DrawDestCardData data = (DrawDestCardData) o;
 
-        UserData userData = UserData.getUserData();
-        Player currentPlayer = userData.getCurrentPlayer();
-        final ArrayList<DestinationCard> cards = new ArrayList<>(currentPlayer.getToChoose());
+        final ArrayList<DestinationCard> cards = new ArrayList<>(data.getToChoose());
 
         mn.runOnUiThread(new Runnable() {
 
