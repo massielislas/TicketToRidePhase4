@@ -228,6 +228,7 @@ public class Game {
             //otherwise update the route's claimant, set its claimed bool as true, and return true
             else {
                 toClaim.setClaimed(true);
+                toClaim.setClaimant(claimer.getUserName().getNameOrPassword());
                 List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
                 discardTrainCards(toDiscard);
                 return new Result(true, "You claimed route " + toClaim.getID() + " from "
@@ -252,6 +253,7 @@ public class Game {
 //        }
         if (!toClaim.isDoubleClaimed()) {
             toClaim.setDoubleClaimed(true);
+            toClaim.setDoubleClaimant(claimer.getUserName().getNameOrPassword());
             List<TrainCard> toDiscard = claimer.addRoute(toClaim, true);
             discardTrainCards(toDiscard);
             return new Result(true, "You claimed route " +toClaim.getID() + " from "

@@ -14,6 +14,7 @@ public class Route {
     private boolean isDouble;
     private boolean isDoubleClaimed;
     private String claimant;
+    private String doubleClaimant;
     private int scoreValue;
     private int ID;
     private int doubleID;
@@ -134,6 +135,14 @@ public class Route {
 
     public void setClaimant(String claimant) {
         this.claimant = claimant;
+    }
+
+    public String getDoubleClaimant() {
+        return doubleClaimant;
+    }
+
+    public void setDoubleClaimant(String doubleClaimant) {
+        this.doubleClaimant = doubleClaimant;
     }
 
     public int getScoreValue() {
