@@ -240,7 +240,7 @@ public class PlayFacade {
     //method that gets called by command sent by server
     public void changeTurn(Double turnNumber)
     {
-        if (turnNumber == userData.getCurrentPlayer().getTurnNumber()) {
+        if (turnNumber.intValue() == userData.getCurrentPlayer().getTurnNumber()) {
             userData.getCurrentPlayer().getMyState().activateTurn();
             boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
         }

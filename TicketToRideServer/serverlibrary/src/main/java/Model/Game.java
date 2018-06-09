@@ -329,7 +329,7 @@ public class Game {
         if (isLastRound = false && whoseTurn.getTrainPiecesLeft() <= 3) {
             isLastRound = true;
         }
-        return new Result(true, whoseTurn.getnameString());
+        return new Result(true, "" + whoseTurn.getTurnNumber());
     }
 
     private TrainCard getFromFaceUpByID(int ID) {
