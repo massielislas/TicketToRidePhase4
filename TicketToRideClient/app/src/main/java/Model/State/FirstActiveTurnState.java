@@ -154,9 +154,7 @@ public class FirstActiveTurnState extends TurnState {
         }
         Result toReturn = new TicketToRideProxy().drawDestCards(UserData.getUserData().getUsername().getNameOrPassword(),
                 UserData.getUserData().getCurrentGame().getID());
-        if(toReturn.isSuccess()){
-            MyState.getInstance().state = new NonActiveTurnState();
-        }
+        MyState.getInstance().state = new NonActiveTurnState();
         return toReturn;
     }
 
