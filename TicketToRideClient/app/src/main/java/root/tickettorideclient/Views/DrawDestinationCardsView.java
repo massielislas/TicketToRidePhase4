@@ -15,11 +15,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.Polyline;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
-import java.util.TreeMap;
 
 import Model.InGameModels.City;
 import Model.InGameModels.DestinationCard;
@@ -53,8 +54,8 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_destination_cards, container, false);
-        createList();
         presenter = new DrawDestinationCardsPresenter(this, getActivity());
+        createList();
         return v;
     }
 
@@ -64,7 +65,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
         updateUI();
     }
 
-    private void createDesinationCardsSelected(){
+    private void createDestinationCardsSelected(){
         destinationCardsSelected = new HashMap<>();
         for(int i = 0; i < userDestinationCards.size(); i++){
             destinationCardsSelected.put(userDestinationCards.get(i), false);
@@ -74,7 +75,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     public void updateUI(){
        // userDestinationCards = presenter.getChoices();
        // addFakeDestinations();
-        createDesinationCardsSelected();
+        createDestinationCardsSelected();
         destinationsAdapter = new DestinationsAdapter(userDestinationCards);
         cardListRecyclerView.setAdapter(destinationsAdapter);
     }
@@ -107,7 +108,17 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //presenter.returnDestCards();
+        
+        ArrayList<DestinationCard>destinationCardsDiscarded = new ArrayList<>();
+
+        Iterator it = destinationCardsSelected.keySet().iterator();
+
+        while(it.hasNext()){
+            DestinationCard currentKey = (DestinationCard) it.next();
+            if(destinationCardsSelected.get(currentKey) == false)
+                destinationCardsDiscarded.add(currentKey);
+        }
+        presenter.returnDestCards(destinationCardsDiscarded);
     }
 
     public class DestinationCardHolder extends RecyclerView.ViewHolder{

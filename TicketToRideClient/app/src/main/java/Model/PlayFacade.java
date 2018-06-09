@@ -15,6 +15,8 @@ import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
 import Model.InGameModels.TrainCardDeck;
+import Model.State.MyState;
+import Model.State.NonActiveTurnState;
 import Results.Result;
 
 public class PlayFacade {
@@ -32,6 +34,7 @@ public class PlayFacade {
     SinglePlayerStartInfo info;
     BoardData boardData;
     SetUpData setUpData;
+    DrawDestCardData drawDestCardData;
     EndGameData endGameData;
     TrainCardDeck trainCardDeck;
 
@@ -40,6 +43,7 @@ public class PlayFacade {
         trainCardDeck = new TrainCardDeck();
         setUpData = new SetUpData();
         boardData = new BoardData();
+        drawDestCardData = new DrawDestCardData();
         endGameData = new EndGameData();
         destCardDeck = new DestinationCardDeck();
         routes = new Routes();
@@ -59,7 +63,19 @@ public class PlayFacade {
     public void addBoardObserver(Observer o)
     {
         boardData.addObserver(o);
-        if (boardData != null) setBoardData();
+        //if (boardData!=null) boardData.setChange();
+        //setBoardData();
+    }
+
+    public void addDestCardObserver(Observer o)
+    {
+        drawDestCardData.addAnObserver(o);
+        if (drawDestCardData.getToChoose() != null) drawDestCardData.setChange();
+    }
+
+    public void deRegisterDrawDestCardObserver(Observer o)
+    {
+        drawDestCardData.removeAnObserver(o);
     }
 
     public void addEndGameObserver(Observer o)
@@ -67,7 +83,7 @@ public class PlayFacade {
         endGameData.addAnObserver(o);
     }
 
-    public void desRegisterEndGameObserver(Observer o)
+    public void deRegisterEndGameObserver(Observer o)
     {
         endGameData.removeAnObserver(o);
     }
@@ -161,12 +177,17 @@ public class PlayFacade {
         destCardsToAdd.add(destCardDeck.getDestinationCard(cardTwo.intValue()));
         destCardsToAdd.add(destCardDeck.getDestinationCard(cardThree.intValue()));
         userData.getCurrentPlayer().addToDestinationHand(destCardsToAdd);
-        userData.getCurrentPlayer().setToChoose(destCardsToAdd);
-        boardData.setChange();
+        drawDestCardData.setToChoose(destCardsToAdd);
+        drawDestCardData.setChange();
+        if (userData.getCurrentPlayer().getUserName().getNameOrPassword().equals(boardData.getUserPlaying()))
+            userData.getCurrentPlayer().getMyState().getInstance().state = new NonActiveTurnState();
+        proxy.endTurn(UserData.getUserData().getUsername().getNameOrPassword(),
+                UserData.getUserData().getCurrentGame().getID());
     }
 
     public void updateBoardData(String jsonString)
     {
+
         UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonString, UpdateInfo.class);
         updatePlayerInfo(update);
         boardData.setFaceUpCards(update.getCurrentFaceUpCards());
@@ -177,10 +198,30 @@ public class PlayFacade {
         userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
+<<<<<<< HEAD
         boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
         userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
         userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));\
+=======
+
+        if (update.getGameRoutes() != null) {
+            boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
+            userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
+        }
+
+        if (update.getPlayerRoutes() != null) {
+            userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
+
+        }
+
+>>>>>>> 4f60de00a437737742a44b9bf96049eb8202848e
         checkDestCompleted();
+        boardData.setChange();
+    }
+
+
+    public void pollerUpdate()
+    {
         boardData.setChange();
     }
 
@@ -200,7 +241,9 @@ public class PlayFacade {
     private void updatePlayerInfo(UpdateInfo update)
     {
         //if (update.getToChoose() != null) userData.getCurrentPlayer().setToChoose(update.getToChoose());
-        if (update.getHand() != null) userData.getCurrentPlayer().setTrainCards(update.getHand());
+        if (update.getHand() != null) {
+            userData.getCurrentPlayer().setTrainCards(update.getHand());
+        }
     }
 
     //method that gets called by command sent by server

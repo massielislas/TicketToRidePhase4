@@ -262,7 +262,7 @@ public class Game {
         else {
             addToHand.addTrainCard(toAdd);
             updateFaceUpDeck();
-            return new Result(true,toAdd.getType() +" card successfully drawn");
+            return new Result(true,toAdd.getType() +" card");
         }
     }
     public Result drawFromTrainDeck(String username) {

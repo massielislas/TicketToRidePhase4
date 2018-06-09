@@ -8,6 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Model.BoardData;
+import Model.DrawDestCardData;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Player;
 import Model.PlayFacade;
@@ -29,18 +30,22 @@ public class DrawDestinationCardsPresenter implements IDrawDestinationPresenter,
         this.view = view;
         this.mn = mn;
         facade = PlayFacade.getInstance();
-        facade.addBoardObserver(this);
+        facade.addDestCardObserver(this);
     }
 
     @Override
-    public void returnDestCards (DestinationCard[] cards) {
+    public void returnDestCards (ArrayList<DestinationCard> cards) {
 
-        if ((cards != null) && (cards.length != 0)) {
-            ArrayList<Integer> cardIDs = new ArrayList<>(cards.length);
+        if ((cards != null) && (cards.size() != 0)) {
+            ArrayList<Integer> cardIDs = new ArrayList<>(cards.size());
 
-            for (int i = 0; i < cardIDs.size(); ++i) {
-                cardIDs.add(i, cards[i].getID());
-            }
+
+            cardIDs.add(cards.get(0).getID());
+
+            if(cardIDs.size() > 1)
+                cardIDs.add(cards.get(1).getID());
+            else
+                cardIDs.add(-1);
 
             Result result = facade.discardCards(cardIDs);
         }
@@ -49,11 +54,9 @@ public class DrawDestinationCardsPresenter implements IDrawDestinationPresenter,
     @Override
     public void update(Observable observable, Object o) {
 
-        final BoardData data = (BoardData) o;
+        final DrawDestCardData data = (DrawDestCardData) o;
 
-        UserData userData = UserData.getUserData();
-        Player currentPlayer = userData.getCurrentPlayer();
-        final ArrayList<DestinationCard> cards = new ArrayList<>(currentPlayer.getToChoose());
+        final ArrayList<DestinationCard> cards = new ArrayList<>(data.getToChoose());
 
         mn.runOnUiThread(new Runnable() {
 

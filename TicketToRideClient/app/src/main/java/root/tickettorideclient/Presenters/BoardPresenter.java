@@ -37,6 +37,7 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         this.mn = mn;
         facade.addBoardObserver(this);
         facade.addChatObserver(this);
+        facade.setBoardData();
     }
 
     public void sendChat (String message) {
@@ -94,6 +95,15 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
         //if result successful,
         //do nothing
+    }
+
+    @Override
+    public boolean drawFromDestDeck(){
+        Result result = facade.drawDestCards();
+        if (!result.isSuccess()) {
+            view.popToast("Error drawing from deck: " + result.getMessage());
+        }
+        return result.isSuccess();
     }
 
 
