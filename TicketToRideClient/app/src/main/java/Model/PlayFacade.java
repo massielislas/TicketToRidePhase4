@@ -68,7 +68,7 @@ public class PlayFacade {
     public void addDestCardObserver(Observer o)
     {
         drawDestCardData.addAnObserver(o);
-        if (drawDestCardData != null) drawDestCardData.setChange();
+        if (drawDestCardData.getToChoose() != null) drawDestCardData.setChange();
     }
 
     public void deRegisterDrawDestCardObserver(Observer o)
