@@ -42,6 +42,12 @@ public class TicketToRideProxy implements ITicketToRide {
                 System.out.println("Json is null in proxy");
                 return new LoginRegisterResult(false, "Null result from server");
             }
+
+            else if (json.equals("null")) {
+                System.out.println("Json is null in proxy");
+                return new LoginRegisterResult(false, "Null result from server");
+            }
+
             Object result = Encoder.Decode(json, LoginRegisterResult.class);
             return (LoginRegisterResult)result;
         }
@@ -73,6 +79,11 @@ public class TicketToRideProxy implements ITicketToRide {
             objects[2] = "";
             String json = client.post(objects);
             if (json == null) {
+                System.out.println("json is null");
+                return new LoginRegisterResult(false, "Null result from server");
+            }
+
+            else if (json.equals("null")) {
                 System.out.println("json is null");
                 return new LoginRegisterResult(false, "Null result from server");
             }
@@ -109,6 +120,12 @@ public class TicketToRideProxy implements ITicketToRide {
                 System.out.println("json is null");
                 return new Result(false, "Null result from server");
             }
+
+            else if (json.equals("null")) {
+                System.out.println("json is null");
+                return new Result(false, "Null result from server");
+            }
+
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
         }
@@ -143,6 +160,12 @@ public class TicketToRideProxy implements ITicketToRide {
                 System.out.println("json is null");
                 return new Result(false, "Null result from server");
             }
+
+            else if (json.equals("null")) {
+                System.out.println("json is null");
+                return new Result(false, "Null result from server");
+            }
+
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
         }
@@ -177,6 +200,12 @@ public class TicketToRideProxy implements ITicketToRide {
                 System.out.println("json is null");
                 return new Result(false, "Null result from server");
             }
+
+            else if (json.equals("null")) {
+                System.out.println("json is null");
+                return new Result(false, "Null result from server");
+            }
+
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
         }
@@ -211,6 +240,12 @@ public class TicketToRideProxy implements ITicketToRide {
                 System.out.println("json is null");
                 return new Result(false, "Null result from server");
             }
+
+            else if (json.equals("null")) {
+                System.out.println("json is null");
+                return new Result(false, "Null result from server");
+            }
+
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
         }
@@ -282,6 +317,12 @@ public class TicketToRideProxy implements ITicketToRide {
                 System.out.println("json is null");
                 return new Result(false, "Null result from server");
             }
+
+            else if (json.equals("null")) {
+                System.out.println("json is null");
+                return new Result(false, "Null result from server");
+            }
+
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
         }
@@ -312,6 +353,11 @@ public class TicketToRideProxy implements ITicketToRide {
             objects[2] = "";
             String json = client.post(objects);
             if (json == null) {
+                System.out.println("json is null");
+                return new Result(false, "Null result from server");
+            }
+
+            if (json.equals("null")) {
                 System.out.println("json is null");
                 return new Result(false, "Null result from server");
             }
@@ -348,6 +394,12 @@ public class TicketToRideProxy implements ITicketToRide {
                 System.out.println("json is null");
                 return new Result(false, "Null result from server");
             }
+
+            if (json.equals("null")) {
+                System.out.println("json is null");
+                return new Result(false, "Null result from server");
+            }
+
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
         }
@@ -381,6 +433,12 @@ public class TicketToRideProxy implements ITicketToRide {
                 System.out.println("json is null");
                 return new Result(false, "Null result from server");
             }
+
+            if (json.equals("null")) {
+                System.out.println("json is null");
+                return new Result(false, "Null result from server");
+            }
+
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
         }
@@ -411,6 +469,10 @@ public class TicketToRideProxy implements ITicketToRide {
             objects[2] = "";
             String json = client.post(objects);
             if (json == null) {
+                System.out.println("json is null");
+                return new Result(false, "Null result from server");
+            }
+            if (json.equals("null")) {
                 System.out.println("json is null");
                 return new Result(false, "Null result from server");
             }
