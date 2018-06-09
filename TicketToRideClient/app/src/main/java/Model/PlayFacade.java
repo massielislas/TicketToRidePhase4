@@ -32,6 +32,7 @@ public class PlayFacade {
     SinglePlayerStartInfo info;
     BoardData boardData;
     SetUpData setUpData;
+    DrawDestCardData drawDestCardData;
     EndGameData endGameData;
     TrainCardDeck trainCardDeck;
 
@@ -40,6 +41,7 @@ public class PlayFacade {
         trainCardDeck = new TrainCardDeck();
         setUpData = new SetUpData();
         boardData = new BoardData();
+        drawDestCardData = new DrawDestCardData();
         endGameData = new EndGameData();
         destCardDeck = new DestinationCardDeck();
         routes = new Routes();
@@ -59,7 +61,19 @@ public class PlayFacade {
     public void addBoardObserver(Observer o)
     {
         boardData.addObserver(o);
+        //if (boardData!=null) boardData.setChange();
         //setBoardData();
+    }
+
+    public void addDestCardObserver(Observer o)
+    {
+        drawDestCardData.addAnObserver(o);
+        if (drawDestCardData != null) drawDestCardData.setChange();
+    }
+
+    public void deRegisterDrawDestCardObserver(Observer o)
+    {
+        drawDestCardData.removeAnObserver(o);
     }
 
     public void addEndGameObserver(Observer o)
@@ -67,7 +81,7 @@ public class PlayFacade {
         endGameData.addAnObserver(o);
     }
 
-    public void desRegisterEndGameObserver(Observer o)
+    public void deRegisterEndGameObserver(Observer o)
     {
         endGameData.removeAnObserver(o);
     }
@@ -161,8 +175,8 @@ public class PlayFacade {
         destCardsToAdd.add(destCardDeck.getDestinationCard(cardTwo.intValue()));
         destCardsToAdd.add(destCardDeck.getDestinationCard(cardThree.intValue()));
         userData.getCurrentPlayer().addToDestinationHand(destCardsToAdd);
-        userData.getCurrentPlayer().setToChoose(destCardsToAdd);
-        boardData.setChange();
+        drawDestCardData.setToChoose(destCardsToAdd);
+        drawDestCardData.setChange();
     }
 
     public void updateBoardData(String jsonString)
