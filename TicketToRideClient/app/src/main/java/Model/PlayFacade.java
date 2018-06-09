@@ -198,6 +198,10 @@ public class PlayFacade {
         userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
+        boardData.getCurrentPlayer().setTrainPiecesLeft(update.getPiecesLeft());
+        userData.getCurrentPlayer().setTrainPiecesLeft(update.getPiecesLeft());
+        boardData.getCurrentPlayer().setCurrentScore(update.getPoints());
+        userData.getCurrentPlayer().setCurrentScore(update.getPoints());
         if (update.getGameRoutes() != null) {
             checkForRouteColorChange(Arrays.asList(update.getGameRoutes()));
             boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
