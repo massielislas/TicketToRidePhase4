@@ -233,6 +233,8 @@ public class Game {
                 toClaim.setClaimant(claimer.getUserName().getNameOrPassword());
                 List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
                 discardTrainCards(toDiscard);
+                claimer.setTrainPiecesLeft(claimer.getTrainPiecesLeft()-toClaim.getLength());
+                claimer.setCurrentScore(claimer.getCurrentScore()+toClaim.getScoreValue());
                 return new Result(true, "You claimed route " + toClaim.getID() + " from "
                         + toClaim.getCity1() + " to " + toClaim.getCity2());
             }
@@ -258,6 +260,8 @@ public class Game {
             toClaim.setDoubleClaimant(claimer.getUserName().getNameOrPassword());
             List<TrainCard> toDiscard = claimer.addRoute(toClaim, true);
             discardTrainCards(toDiscard);
+            claimer.setTrainPiecesLeft(claimer.getTrainPiecesLeft()-toClaim.getLength());
+            claimer.setCurrentScore(claimer.getCurrentScore()+toClaim.getScoreValue());
             return new Result(true, "You claimed route " +toClaim.getID() + " from "
                     + toClaim.getCity1() + " to " + toClaim.getCity2());
         }
