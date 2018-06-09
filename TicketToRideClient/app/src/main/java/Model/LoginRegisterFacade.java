@@ -80,13 +80,18 @@ public class LoginRegisterFacade
     {
         LoginRegisterResult result = proxy.registerUser(username.getNameOrPassword(), password.getNameOrPassword(),
                 host.data, port.data);
-        if (result.isSuccess())
+        if ( (result != null ) &&  (result.isSuccess()))
         {
             userData.setUsername(username);
             userData.setHost(host);
             userData.setPort(port);
             Poller.getInstance().run();
         }
+
+        if (result == null) {
+            return new LoginRegisterResult(false, "Returned null result");
+        }
+        
         System.out.println("Msg: " + result.getMessage());
         return result;
     }

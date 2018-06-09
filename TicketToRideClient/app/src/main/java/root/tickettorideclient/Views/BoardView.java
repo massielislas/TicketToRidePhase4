@@ -599,11 +599,11 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         }
 
         if (cards.size() > 0) {
-            faceUpCard5.setBackgroundColor(colorInts[0]);
+            faceUpCard1.setBackgroundColor(colorInts[0]);
 
         }
         if (cards.size() > 1) {
-            faceUpCard4.setBackgroundColor(colorInts[1]);
+            faceUpCard2.setBackgroundColor(colorInts[1]);
 
         }
         if (cards.size() > 2) {
@@ -611,10 +611,10 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
         }
         if (cards.size() > 3) {
-            faceUpCard2.setBackgroundColor(colorInts[3]);
+            faceUpCard4.setBackgroundColor(colorInts[3]);
         }
         if (cards.size() > 4) {
-            faceUpCard1.setBackgroundColor(colorInts[4]);
+            faceUpCard5.setBackgroundColor(colorInts[4]);
 
         }
 
