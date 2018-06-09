@@ -40,7 +40,7 @@ public class TicketToRideProxy implements ITicketToRide {
 
             if (json == null) {
                 System.out.println("Json is null in proxy");
-                return null;
+                return new LoginRegisterResult(false, "Null result from server");
             }
             Object result = Encoder.Decode(json, LoginRegisterResult.class);
             return (LoginRegisterResult)result;
@@ -48,7 +48,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return null;
+            return new LoginRegisterResult(false, "Malformed URL Exception");
         }
     }
 
@@ -74,7 +74,7 @@ public class TicketToRideProxy implements ITicketToRide {
             String json = client.post(objects);
             if (json == null) {
                 System.out.println("json is null");
-                return null;
+                return new LoginRegisterResult(false, "Null result from server");
             }
             Object result = Encoder.Decode(json, LoginRegisterResult.class);
             return (LoginRegisterResult)result;
@@ -82,7 +82,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return null;
+            return new LoginRegisterResult(false, "Malformed URL Exception");
         }
     }
 
@@ -107,7 +107,7 @@ public class TicketToRideProxy implements ITicketToRide {
             String json = client.post(objects);
             if (json == null) {
                 System.out.println("json is null");
-                return null;
+                return new Result(false, "Null result from server");
             }
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
@@ -115,7 +115,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return null;
+            return new Result(false, "Malformed URL Exception"); null;
         }
     }
 
@@ -141,7 +141,7 @@ public class TicketToRideProxy implements ITicketToRide {
             String json = client.post(objects);
             if (json == null) {
                 System.out.println("json is null");
-                return null;
+                return new Result(false, "Null result from server");
             }
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
@@ -149,7 +149,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return null;
+            return new Result(false, "Malformed URL Exception"); null;
         }
     }
 
@@ -175,7 +175,7 @@ public class TicketToRideProxy implements ITicketToRide {
             String json = client.post(objects);
             if (json == null) {
                 System.out.println("json is null");
-                return null;
+                return new Result(false, "Null result from server");
             }
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
@@ -183,7 +183,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return null;
+            return new Result(false, "Malformed URL Exception");
         }
     }
 
@@ -209,7 +209,7 @@ public class TicketToRideProxy implements ITicketToRide {
             String json = client.post(objects);
             if (json == null) {
                 System.out.println("json is null");
-                return null;
+                return new Result(false, "Null result from server");
             }
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
@@ -217,7 +217,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return null;
+            return new Result(false, "Malformed URL Exception");
         }
     }
 
@@ -243,7 +243,7 @@ public class TicketToRideProxy implements ITicketToRide {
             String json = client.post(objects);
             if (json == null) {
                 System.out.println("json is null");
-                return null;
+                return new Result(false, "Null result from server");
             }
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
@@ -251,7 +251,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return null;
+            return new Result(false, "Malformed URL Exception");
         }
     }
     public Result claimRoute(String username, String gameID, Double routeID)
@@ -276,7 +276,7 @@ public class TicketToRideProxy implements ITicketToRide {
             String json = client.post(objects);
             if (json == null) {
                 System.out.println("json is null");
-                return null;
+                return new Result(false, "Null result from server");
             }
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
@@ -284,7 +284,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return null;
+            return new Result(false, "Malformed URL Exception"); null;
         }
     }
     public Result chooseFaceUpCard(String username, String gameID, Double cardID)
@@ -309,7 +309,7 @@ public class TicketToRideProxy implements ITicketToRide {
             String json = client.post(objects);
             if (json == null) {
                 System.out.println("json is null");
-                return null;
+                return new Result(false, "Null result from server");
             }
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
@@ -317,7 +317,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return null;
+            return new Result(false, "Malformed URL Exception");
         }
     }
     public Result drawFromTrainDeck(String username, String gameID)
@@ -342,7 +342,7 @@ public class TicketToRideProxy implements ITicketToRide {
             String json = client.post(objects);
             if (json == null) {
                 System.out.println("json is null");
-                return null;
+                return new Result(false, "Null result from server");
             }
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
@@ -350,7 +350,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return null;
+            return new Result(false, "Malformed URL Exception");
         }
     }
     public Result drawDestCards(String username, String gameID)
@@ -375,7 +375,7 @@ public class TicketToRideProxy implements ITicketToRide {
             String json = client.post(objects);
             if (json == null) {
                 System.out.println("json is null");
-                return null;
+                return new Result(false, "Null result from server");
             }
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
@@ -383,7 +383,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return null;
+            return new Result(false, "Malformed URL Exception");
         }
     }
     public Result endTurn(String username, String gameID)
@@ -408,7 +408,7 @@ public class TicketToRideProxy implements ITicketToRide {
             String json = client.post(objects);
             if (json == null) {
                 System.out.println("json is null");
-                return null;
+                return new Result(false, "Null result from server");
             }
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
@@ -416,7 +416,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return null;
+            return new Result(false, "Malformed URL Exception");
         }
     }
 }
