@@ -17,14 +17,14 @@ public class MainActivity extends AppCompatActivity implements ILoginCallback, I
     @Override
     public void onLoginSuccess() {
         Fragment gamesFragment = new GamesView();
-        fragmentManager.beginTransaction().replace(R.id.main_acttivity_container, gamesFragment).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(R.id.main_acttivity_container, gamesFragment).commit();
     }
 
     @Override
     public void onGameCreated(Bundle bundleFromGames) {
         Fragment waitingFragment = new WaitingView();
         waitingFragment.setArguments(bundleFromGames);
-        fragmentManager.beginTransaction().replace(R.id.main_acttivity_container, waitingFragment).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(R.id.main_acttivity_container, waitingFragment).commit();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements ILoginCallback, I
 
         if(fragment == null){
             fragment = new LoginView();
-            fragmentManager.beginTransaction().add(R.id.main_acttivity_container, fragment).addToBackStack(null).commit();
+            fragmentManager.beginTransaction().add(R.id.main_acttivity_container, fragment).commit();
         }
     }
 }

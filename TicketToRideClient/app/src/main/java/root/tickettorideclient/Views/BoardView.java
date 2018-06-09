@@ -599,11 +599,11 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         }
 
         if (cards.size() > 0) {
-            faceUpCard5.setBackgroundColor(colorInts[0]);
+            faceUpCard1.setBackgroundColor(colorInts[0]);
 
         }
         if (cards.size() > 1) {
-            faceUpCard4.setBackgroundColor(colorInts[1]);
+            faceUpCard2.setBackgroundColor(colorInts[1]);
 
         }
         if (cards.size() > 2) {
@@ -611,10 +611,10 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
         }
         if (cards.size() > 3) {
-            faceUpCard2.setBackgroundColor(colorInts[3]);
+            faceUpCard4.setBackgroundColor(colorInts[3]);
         }
         if (cards.size() > 4) {
-            faceUpCard1.setBackgroundColor(colorInts[4]);
+            faceUpCard5.setBackgroundColor(colorInts[4]);
 
         }
 
@@ -767,33 +767,22 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                 new LatLng(city2.getLatitude() + offset, city2.getLongitude() + offset));
         polylineOptions.width(LINE_WIDTH);
         polylineOptions.clickable(true);
-        switch (color) {
-            case "Gray":
-                polylineOptions.color(Color.GRAY);
+
+        switch (color.toLowerCase()) {
+            case "yellow":
+                polylineOptions.color(ContextCompat.getColor(getContext(), R.color.playerYellow));
                 break;
-            case "Yellow":
-                polylineOptions.color(Color.YELLOW);
+            case "blue":
+                polylineOptions.color(ContextCompat.getColor(getContext(), R.color.playerBlue));
                 break;
-            case "Blue":
-                polylineOptions.color(Color.BLUE);
+            case "green":
+                polylineOptions.color(ContextCompat.getColor(getContext(), R.color.playerGreen));
                 break;
-            case "Green":
-                polylineOptions.color(Color.GREEN);
+            case "purple":
+                polylineOptions.color(ContextCompat.getColor(getContext(), R.color.playerPurple));
                 break;
-            case "Pink":
-                polylineOptions.color(Color.MAGENTA);
-                break;
-            case "Black":
-                polylineOptions.color(Color.BLACK);
-                break;
-            case "Orange":
-                polylineOptions.color(Color.rgb(255, 175, 58));
-                break;
-            case "White":
-                polylineOptions.color(Color.WHITE);
-                break;
-            case "Red":
-                polylineOptions.color(Color.RED);
+            case "red":
+                polylineOptions.color(ContextCompat.getColor(getContext(), R.color.playerRed));
                 break;
             default:
                 polylineOptions.color(Color.CYAN);

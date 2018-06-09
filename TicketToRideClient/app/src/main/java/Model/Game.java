@@ -23,15 +23,20 @@ public class Game extends Observable
 {
     int gameNumber;
 
+    UserData userData;
+
     String ID;
 
     int playerCount; //player count set for game
 
     int currentPlayers; //current in game
 
+    private String userPlaying;
+
     ArrayList<DestinationCard> destinationDeck;
     int destDeckSize;
     int trainDeckSize;
+
     ArrayList<Player> players;
     List<PlayerShallow> otherPlayers;
     List<Route> routes;
@@ -41,6 +46,7 @@ public class Game extends Observable
     Chat chat;
 
     Game(int playerCount, int currentPlayers, int gameNumber) {
+        userData = UserData.getUserData();
         this.playerCount = playerCount;
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
@@ -50,6 +56,7 @@ public class Game extends Observable
     }
 
     Game(int playerCount, int currentPlayers, int gameNumber, String ID) {
+        userData = UserData.getUserData();
         this.playerCount = playerCount;
         this.currentPlayers = currentPlayers;
         this.gameNumber = gameNumber;
@@ -57,6 +64,48 @@ public class Game extends Observable
         this.destinationDeck = new DestinationCardDeck().getDestinationCards();
         trainDeckSize = 110;
         destDeckSize = 30;
+    }
+
+    public String getPlayerColorByUsername(String username)
+    {
+        String error = "-1";
+        if (username.equals(userData.getCurrentPlayer().getUserName().getNameOrPassword()))
+            return userData.getCurrentPlayer().getColor();
+        else
+        {
+            for (PlayerShallow otherPlayer: otherPlayers)
+            {
+                if (otherPlayer.getuName().equals(username)) {
+                    switch (otherPlayer.getTurnNumber()) //set color
+                    {
+                        case 1: {
+                            return "Blue";
+                        }
+                        case 2: {
+                            return "Yellow";
+                        }
+                        case 3: {
+                            return "Green";
+                        }
+                        case 4: {
+                            return "Red";
+                        }
+                        case 5: {
+                            return "Purple";
+                        }
+                    }
+                }
+            }
+        }
+        return error;
+    }
+
+    public String getUserPlaying() {
+        return userPlaying;
+    }
+
+    public void setUserPlaying(String userPlaying) {
+        this.userPlaying = userPlaying;
     }
 
     public int getDestDeckSize() {

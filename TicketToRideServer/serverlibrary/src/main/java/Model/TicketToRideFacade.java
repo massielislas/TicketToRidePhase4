@@ -87,7 +87,6 @@ public class TicketToRideFacade implements ITicketToRide {
                         "addPlayer", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                         methodArguments);
                 CommandManager.getInstance().addCommandAllUsers(command);
-
                 if (game.getCurrentPlayers() == game.getPlayerCount()) {
                     Server.activateGame(game);
                     startGame(game.getID());
@@ -235,14 +234,14 @@ public class TicketToRideFacade implements ITicketToRide {
         }
         if (card2 != -1) {
             numberdiscarded++;
-            DestinationCard toDiscard = player.removeDestCard(card1.intValue());
+            DestinationCard toDiscard = player.removeDestCard(card2.intValue());
             if (toDiscard == null) {
                 return new Result(false, "That card isn't in that players hand!");
             }
             game.addDestCardBackIn(toDiscard);
         }
-        updatePlayers(game);
         addGameHistory(game,"<<"+username+" kept " + (3 - numberdiscarded) + " Destination Cards>>");
+        updatePlayers(game);
         return new Result(true, "");
     }
 
@@ -274,14 +273,14 @@ public class TicketToRideFacade implements ITicketToRide {
         Game game = Server.getSpecificActiveGame(gameID);
         Result toReturn = game.chooseFaceUpCard(username,cardID);
         addGameHistory(game,"<<" + username + " picked up a " + toReturn.getMessage()
-                + "card from the face up pile>>");
+                + " from the face up pile>>");
         updatePlayers(game);
         return toReturn;
     }
     public Result drawFromTrainDeck(String username, String gameID) {
         Game game = Server.getSpecificActiveGame(gameID);
         Result toReturn = game.drawFromTrainDeck(username);
-        addGameHistory(game, "<<" + username + "drew a card from the face down deck>>");
+        addGameHistory(game, "<<" + username + " drew a card from the face down deck>>");
         updatePlayers(game);
         return toReturn;
     }
@@ -290,13 +289,13 @@ public class TicketToRideFacade implements ITicketToRide {
         Player player = game.getPlayer(new UserPass(username));
         Result toReturn = game.drawDestCards(username);
         if (toReturn.isSuccess()) {
-            addGameHistory(game, "<<" + username + "drew new destination cards>>");
+            addGameHistory(game, "<<" + username + " drew new destination cards>>");
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.Double", "java.lang.Double", "java.lang.Double"};
-            Double one = new Double (player.getToChoose().get(0).getID());
-            Double two = new Double(player.getToChoose().get(1).getID());
-            Double three = new Double(player.getToChoose().get(2).getID());
+            Double one = new Double (player.getDestCards().get(player.getDestCards().size()-1).getID());
+            Double two = new Double(player.getDestCards().get(player.getDestCards().size()-2).getID());
+            Double three = new Double(player.getDestCards().get(player.getDestCards().size()-3).getID());
             Object[] methodArguments = {one, two, three};
             Command command = new Command("Model.PlayFacade", "getInstance",
                     "getDestCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
@@ -310,17 +309,15 @@ public class TicketToRideFacade implements ITicketToRide {
 
     public Result endTurn(String username, String gameID){
         Game game = Server.getSpecificActiveGame(gameID);
-        Result result = game.updateTurn(); //or whatever the name of the game Method will be
-        if (result.isSuccess()) { //create commands for clients to see whose turn it is and act accordingly
+        int turn = game.updateTurn(); //or whatever the name of the game Method will be
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.Double"};
-            Object[] methodArguments = {game.getTurnNumber()};
+            Object[] methodArguments = {Double.valueOf(turn)};
             Command command = new Command("Model.PlayFacade", "getInstance",
                     "changeTurn", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(),command);
-        }
-        return result;
+        return new Result(true,"its player " + turn +"s turn");
     }
 }

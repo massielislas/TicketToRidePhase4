@@ -81,6 +81,7 @@ public class Game {
         chat = new ArrayList<>();
         turnNumber = 1;
         isLastRound = false;
+        routes = new Routes();
         initializeTrainCards();
     }
 
@@ -170,8 +171,14 @@ public class Game {
     }
 
     public UpdateInfo getUpdateInfo(Player p){
-        return new UpdateInfo(turnNumber,getPlayerShallows(p),getTrainCardFaceupDeck(),new Double(getTrainCardDeckSize()).intValue(),
+        UpdateInfo toReturn = new UpdateInfo(turnNumber,getPlayerShallows(p),getTrainCardFaceupDeck(),new Double(getTrainCardDeckSize()).intValue(),
                     new Double(getDestCardDeckSize()).intValue());
+        toReturn.setHand(p.getTrainCards());
+        toReturn.setPlayerRoutes(p.getRoutesClaimed().toArray(new Route[0]));
+        toReturn.setGameRoutes(routes.getRouteList().toArray(new Route[0]));
+        toReturn.setPiecesLeft(p.getTrainPiecesLeft());
+        toReturn.setPoints(p.getCurrentScore());
+        return toReturn;
     }
 
     public void addChat(String msg, String userName) {
@@ -203,43 +210,58 @@ public class Game {
     }
 
     public Result claimRoute(String username, Double routeID) {
-        Route toClaim = routes.getRoute(routeID.intValue());
-        Player claimer = getPlayer(new UserPass(username));
-        //If the route is a double route, use a different function
-        if (toClaim.isDouble()) {
-            return claimDoubleRoute(username, routeID.intValue());
+        if(routeID < 0){
+            int realID = (routeID.intValue())*(-1);
+            Route toClaim = routes.getRoute(realID);
+            return claimDoubleRoute(username,realID);
+            //Claim the double route
         }
-        //If it's not a double route but it's already claimed, return false
-        if (toClaim.isClaimed()) {
-            return new Result(false, "That route is already claimed by" + toClaim.getClaimant() + "!");
-        }
-        //otherwise update the route's claimant, set its claimed bool as true, and return true
         else {
-            toClaim.setClaimed(true);
-            List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
-            discardTrainCards(toDiscard);
-            return new Result(true, "You claimed route " +toClaim.getID() + " from "
-                    + toClaim.getCity1() + " to " + toClaim.getCity2());
+            Route toClaim = routes.getRoute(routeID.intValue());
+            Player claimer = getPlayer(new UserPass(username));
+            //If the route is a double route, use a different function
+//            if (toClaim.isDouble()) {
+//                return claimDoubleRoute(username, routeID.intValue());
+//            }
+            //If it's not a double route but it's already claimed, return false
+            if (toClaim.isClaimed()) {
+                return new Result(false, "That route is already claimed by" + toClaim.getClaimant() + "!");
+            }
+            //otherwise update the route's claimant, set its claimed bool as true, and return true
+            else {
+                toClaim.setClaimed(true);
+                toClaim.setClaimant(claimer.getUserName().getNameOrPassword());
+                List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
+                discardTrainCards(toDiscard);
+                claimer.setTrainPiecesLeft(claimer.getTrainPiecesLeft()-toClaim.getLength());
+                claimer.setCurrentScore(claimer.getCurrentScore()+toClaim.getScoreValue());
+                return new Result(true, "You claimed route " + toClaim.getID() + " from "
+                        + toClaim.getCity1() + " to " + toClaim.getCity2());
+            }
         }
     }
 
     private Result claimDoubleRoute(String userName, int routeID) {
         Route toClaim = routes.getRoute(routeID);
         Player claimer = getPlayer(new UserPass(userName));
-        if (toClaim.isDoubleClaimedl() && toClaim.isClaimed()) {
-            return new Result(false, "Both of those routes are already claimed!");
-        }
-        else if (!toClaim.isClaimed() && routeID > 0) {
-            toClaim.setClaimed(true);
-            List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
-            discardTrainCards(toDiscard);
-            return new Result(true, "You claimed route " +toClaim.getID() + " from "
-            + toClaim.getCity1() + " to " + toClaim.getCity2());
-        }
-        else if (!toClaim.isDoubleClaimedl() && routeID < 0) {
+//        if (toClaim.isDoubleClaimedl() && toClaim.isClaimed()) {
+//            return new Result(false, "Both of those routes are already claimed!");
+//            return new Result(false, "Both of those routes are already claimed!");
+//        }
+//        else if (!toClaim.isClaimed() && routeID > 0) {
+//            toClaim.setClaimed(true);
+//            List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
+//            discardTrainCards(toDiscard);
+//            return new Result(true, "You claimed route " +toClaim.getID() + " from "
+//            + toClaim.getCity1() + " to " + toClaim.getCity2());
+//        }
+        if (!toClaim.isDoubleClaimed()) {
             toClaim.setDoubleClaimed(true);
+            toClaim.setDoubleClaimant(claimer.getUserName().getNameOrPassword());
             List<TrainCard> toDiscard = claimer.addRoute(toClaim, true);
             discardTrainCards(toDiscard);
+            claimer.setTrainPiecesLeft(claimer.getTrainPiecesLeft()-toClaim.getLength());
+            claimer.setCurrentScore(claimer.getCurrentScore()+toClaim.getScoreValue());
             return new Result(true, "You claimed route " +toClaim.getID() + " from "
                     + toClaim.getCity1() + " to " + toClaim.getCity2());
         }
@@ -253,12 +275,12 @@ public class Game {
         Player addToHand = getPlayer(new UserPass(username));
         TrainCard toAdd = getFromFaceUpByID(cardID.intValue());
         if (toAdd == null) {
-            return new Result(false, "That card isn't in the faceup cards!");
+            return new Result(false, "That Spot is Empty!!");
         }
         else {
             addToHand.addTrainCard(toAdd);
             updateFaceUpDeck();
-            return new Result(true,toAdd.getType() +" card successfully drawn");
+            return new Result(true,toAdd.getType() +" card");
         }
     }
     public Result drawFromTrainDeck(String username) {
@@ -279,7 +301,7 @@ public class Game {
             int size = destinationCardDeck.size();
             for (int i = 0; i < destinationCardDeck.size(); i++) {
                 personDrawing.addDestCard(destinationCardDeck.get(0));
-                personDrawing.addDestCardToChoose(destinationCardDeck.get(0));
+                //personDrawing.addDestCardToChoose(destinationCardDeck.get(0));
                 destinationCardDeck.remove(0);
             }
             //if there are none, send a message saying so
@@ -292,7 +314,7 @@ public class Game {
         else {
             for (int i = 0; i < 3; i++) {
                 personDrawing.addDestCard(destinationCardDeck.get(0));
-                personDrawing.addDestCardToChoose(destinationCardDeck.get(0));
+                //personDrawing.addDestCardToChoose(destinationCardDeck.get(0));
                 destinationCardDeck.remove(0);
             }
             return new Result(true, "drew 3 destination cards");
@@ -305,28 +327,30 @@ public class Game {
         }
     }
 
-    public Result updateTurn() {
+    public int updateTurn() {
         if (turnNumber == playerList.size()) {
-            turnNumber = 0;
+            turnNumber = 1;
         }
         else {
             turnNumber++;
         }
-        Player whoseTurn = playerList.get(turnNumber);
+        Player whoseTurn = playerList.get(turnNumber - 1);
         if (isLastRound = false && whoseTurn.getTrainPiecesLeft() <= 3) {
             isLastRound = true;
         }
-        return new Result(true, whoseTurn.getnameString());
+        return turnNumber;
     }
 
     private TrainCard getFromFaceUpByID(int ID) {
         //Find the card by its ID number in the face up deck. Set the corresponding slot to null
         //then return it
         for (int i = 0; i < trainCardFaceupDeck.length; i ++) {
-            if (trainCardFaceupDeck[i].getID() == ID) {
-                TrainCard toRet = trainCardFaceupDeck[i];
-                trainCardFaceupDeck[i] = null;
-                return toRet;
+            if(trainCardFaceupDeck[i] != null) {
+                if (trainCardFaceupDeck[i].getID() == ID) {
+                    TrainCard toRet = trainCardFaceupDeck[i];
+                    trainCardFaceupDeck[i] = null;
+                    return toRet;
+                }
             }
         }
         return null;

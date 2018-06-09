@@ -22,8 +22,8 @@ public class WaitingPresenter implements IWaitingPresenter, Observer {
 
         this.view = view;
         this.facade = new WaitingFacade();
-        this.facade.addObserver(this);
         this.mn = mn;
+        this.facade.addObserver(this);
     }
 
     @Override

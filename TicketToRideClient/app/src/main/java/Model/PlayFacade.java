@@ -179,14 +179,15 @@ public class PlayFacade {
         userData.getCurrentPlayer().addToDestinationHand(destCardsToAdd);
         drawDestCardData.setToChoose(destCardsToAdd);
         drawDestCardData.setChange();
-        if (userData.getCurrentPlayer().getUserName().getNameOrPassword().equals(boardData.getUserPlaying()))
-            userData.getCurrentPlayer().getMyState().getInstance().state = new NonActiveTurnState();
+        /*if (userData.getCurrentPlayer().getUserName().getNameOrPassword().equals(boardData.getUserPlaying()))
+            userData.getCurrentPlayer().getMyState().getInstance().state = new NonActiveTurnState();*/
         proxy.endTurn(UserData.getUserData().getUsername().getNameOrPassword(),
                 UserData.getUserData().getCurrentGame().getID());
     }
 
     public void updateBoardData(String jsonString)
     {
+
         UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonString, UpdateInfo.class);
         updatePlayerInfo(update);
         boardData.setFaceUpCards(update.getCurrentFaceUpCards());
@@ -197,28 +198,58 @@ public class PlayFacade {
         userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
-        boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
-        userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
-        userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
+        boardData.getCurrentPlayer().setTrainPiecesLeft(update.getPiecesLeft());
+        userData.getCurrentPlayer().setTrainPiecesLeft(update.getPiecesLeft());
+        boardData.getCurrentPlayer().setCurrentScore(update.getPoints());
+        userData.getCurrentPlayer().setCurrentScore(update.getPoints());
+        if (update.getGameRoutes() != null) {
+            checkForRouteColorChange(Arrays.asList(update.getGameRoutes()));
+            boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
+            userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
+        }
+
+        if (update.getPlayerRoutes() != null) {
+            checkForRouteColorChange(Arrays.asList(update.getPlayerRoutes()));
+            userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
+        }
         checkDestCompleted();
         boardData.setChange();
     }
 
-
-    public void pollerUpdate()
+    void checkForRouteColorChange(List<Route> routes)
     {
-        boardData.setChange();
+        for (Route route: routes)
+        {
+            if (route.isDouble()) {
+                if (route.isDoubleClaimed()) {
+                    String playerName = route.getDoubleClaimant();
+                    String playerColor = userData.getCurrentGame().getPlayerColorByUsername(playerName);
+                    route.setDoubleColor(playerColor);
+                }
+            }
+            if (route.isClaimed())
+            {
+                String playerName = route.getClaimant();
+                String playerColor = userData.getCurrentGame().getPlayerColorByUsername(playerName);
+                route.setColor(playerColor);
+            }
+        }
     }
+
+//    public void pollerUpdate()
+//    {
+//        boardData.setChange();
+//    }
 
     public void checkDestCompleted()
     {
-        for (Route route: userData.getCurrentPlayer().getRoutesClaimed())
+        for (DestinationCard destCard: userData.getCurrentPlayer().getDestCards())
         {
             RouteProcessor rp = new RouteProcessor();
-            if (rp.DestinationComplete(route.getCity1(), route.getCity2(),
+            if (rp.DestinationComplete(destCard.getCity1(), destCard.getCity2(),
                     userData.getCurrentPlayer().getRoutesClaimed()));
             {
-                route.setClaimed(true);
+                destCard.setComplete(true);
             }
         }
     }
@@ -226,22 +257,27 @@ public class PlayFacade {
     private void updatePlayerInfo(UpdateInfo update)
     {
         //if (update.getToChoose() != null) userData.getCurrentPlayer().setToChoose(update.getToChoose());
-        if (update.getHand() != null) userData.getCurrentPlayer().setTrainCards(update.getHand());
+        if (update.getHand() != null) {
+            userData.getCurrentPlayer().setTrainCards(update.getHand());
+        }
     }
 
     //method that gets called by command sent by server
     public void changeTurn(Double turnNumber)
     {
-        if (turnNumber == userData.getCurrentPlayer().getTurnNumber()) {
+        if (turnNumber.intValue() == userData.getCurrentPlayer().getTurnNumber()) {
             userData.getCurrentPlayer().getMyState().activateTurn();
             boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
+            userData.getCurrentGame().setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
         }
         else{
             List<PlayerShallow> otherPlayers = userData.getCurrentGame().getOtherPlayers();
             for (PlayerShallow player: otherPlayers)
             {
-                if (player.getTurnNumber() == turnNumber.intValue())
+                if (player.getTurnNumber() == turnNumber.intValue()) {
                     boardData.setUserPlaying(player.getuName());
+                    userData.getCurrentGame().setUserPlaying(player.getuName());
+                }
             }
         }
         boardData.setChange();
@@ -321,17 +357,31 @@ public class PlayFacade {
         boardData.setRoutes(userData.getCurrentGame().getRoutes());
         boardData.setCities(userData.getCurrentGame().getCities());
         boardData.setCurrentPlayer(userData.getCurrentPlayer());
-        if (userData.getCurrentPlayer().getTurnNumber() == 1) {
+        if ((userData.getCurrentGame().getUserPlaying() == null) &&
+                (userData.getCurrentPlayer().getTurnNumber() == 1)) {
             boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
             userData.getCurrentPlayer().getMyState().activateTurn();
         }
-        else {
+        else if ((userData.getCurrentGame().getUserPlaying() == null) &&
+                (userData.getCurrentPlayer().getTurnNumber() != 1))
+        {
             List<PlayerShallow> otherPlayerInfo = boardData.getOtherPlayerInfo();
             for (PlayerShallow player : otherPlayerInfo) {
                 if (player.getTurnNumber() == 1) boardData.setUserPlaying(player.getuName());
             }
         }
+        else boardData.setUserPlaying(userData.getCurrentGame().getUserPlaying());
         boardData.setChange();
+        /*if ((userData.getCurrentGame().getUserPlaying() == null) &&
+                (userData.getCurrentPlayer().getTurnNumber() == 1))
+        {
+            boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
+            userData.getCurrentGame().setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
+            userData.getCurrentPlayer().getMyState().activateTurn();
+        }
+        else boardData.setUserPlaying(userData.getCurrentGame().getUserPlaying());*/
+
+        /**/
     }
 
     public void mockUpdate()
