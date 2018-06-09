@@ -274,14 +274,14 @@ public class TicketToRideFacade implements ITicketToRide {
         Game game = Server.getSpecificActiveGame(gameID);
         Result toReturn = game.chooseFaceUpCard(username,cardID);
         addGameHistory(game,"<<" + username + " picked up a " + toReturn.getMessage()
-                + "from the face up pile>>");
+                + " from the face up pile>>");
         updatePlayers(game);
         return toReturn;
     }
     public Result drawFromTrainDeck(String username, String gameID) {
         Game game = Server.getSpecificActiveGame(gameID);
         Result toReturn = game.drawFromTrainDeck(username);
-        addGameHistory(game, "<<" + username + "drew a card from the face down deck>>");
+        addGameHistory(game, "<<" + username + " drew a card from the face down deck>>");
         updatePlayers(game);
         return toReturn;
     }
@@ -290,7 +290,7 @@ public class TicketToRideFacade implements ITicketToRide {
         Player player = game.getPlayer(new UserPass(username));
         Result toReturn = game.drawDestCards(username);
         if (toReturn.isSuccess()) {
-            addGameHistory(game, "<<" + username + "drew new destination cards>>");
+            addGameHistory(game, "<<" + username + " drew new destination cards>>");
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.Double", "java.lang.Double", "java.lang.Double"};
