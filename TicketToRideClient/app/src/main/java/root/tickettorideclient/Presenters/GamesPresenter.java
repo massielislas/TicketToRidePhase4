@@ -29,8 +29,8 @@ public class GamesPresenter implements IGamesPresenter, Observer {
     public GamesPresenter(IGamesView view, FragmentActivity mn) {
         this.view = view;
         this.facade = new GameFacade();
-        this.facade.addObserver(this);
         this.mn = mn;
+        this.facade.addObserver(this);
     }
 
     public void createGame(Integer numPlayers) {
