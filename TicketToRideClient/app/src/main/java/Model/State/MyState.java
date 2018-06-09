@@ -10,7 +10,7 @@ import Results.Result;
  */
 
 public class MyState {
-    TurnState state;
+    public TurnState state;
     public static MyState getInstance(){
         return instance;
     }
