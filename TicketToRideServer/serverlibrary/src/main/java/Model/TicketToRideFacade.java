@@ -274,7 +274,7 @@ public class TicketToRideFacade implements ITicketToRide {
         Game game = Server.getSpecificActiveGame(gameID);
         Result toReturn = game.chooseFaceUpCard(username,cardID);
         addGameHistory(game,"<<" + username + " picked up a " + toReturn.getMessage()
-                + "card from the face up pile>>");
+                + "from the face up pile>>");
         updatePlayers(game);
         return toReturn;
     }
