@@ -767,20 +767,20 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                 new LatLng(city2.getLatitude() + offset, city2.getLongitude() + offset));
         polylineOptions.width(LINE_WIDTH);
         polylineOptions.clickable(true);
-        switch (color) {
-            case "playerYellow":
+        switch (color.toLowerCase()) {
+            case "yellow":
                 polylineOptions.color(R.color.playerYellow);
                 break;
-            case "playerBlue":
+            case "blue":
                 polylineOptions.color(R.color.playerBlue);
                 break;
-            case "playerGreen":
+            case "green":
                 polylineOptions.color(R.color.playerGreen);
                 break;
-            case "playerPurple":
+            case "purple":
                 polylineOptions.color(R.color.playerPurple);
                 break;
-            case "playerRed":
+            case "red":
                 polylineOptions.color(R.color.playerRed);
                 break;
             default:
