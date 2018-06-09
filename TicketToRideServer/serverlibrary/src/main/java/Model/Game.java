@@ -81,6 +81,7 @@ public class Game {
         chat = new ArrayList<>();
         turnNumber = 1;
         isLastRound = false;
+        routes = new Routes();
         initializeTrainCards();
     }
 
