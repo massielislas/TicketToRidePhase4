@@ -198,6 +198,12 @@ public class PlayFacade {
         boardData.setChange();
     }
 
+
+    public void pollerUpdate()
+    {
+        boardData.setChange();
+    }
+
     public void checkDestCompleted()
     {
         for (Route route: userData.getCurrentPlayer().getRoutesClaimed())
