@@ -42,7 +42,7 @@ public class DrawDestinationCardsPresenter implements IDrawDestinationPresenter,
 
             cardIDs.add(cards.get(0).getID());
 
-            if(cardIDs.size() > 1)
+            if(cards.size() > 1)
                 cardIDs.add(cards.get(1).getID());
             else
                 cardIDs.add(-1);
