@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import root.tickettorideclient.R;
 public class DestinationCardsView extends Fragment implements IDestinationCardsView {
     View v;
     RecyclerView cardListRecyclerView;
+    Button button;
     DestinationsAdapter destinationsAdapter;
     ArrayList<DestinationCard>userDestinationCards = new ArrayList<>();
 
@@ -34,7 +36,6 @@ public class DestinationCardsView extends Fragment implements IDestinationCardsV
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         presenter = new DestinationCardsPresenter();
     }
 
@@ -43,6 +44,8 @@ public class DestinationCardsView extends Fragment implements IDestinationCardsV
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_destination_cards, container, false);
         createList();
+        button = (Button) v.findViewById(R.id.doneSelectingButton);
+        button.setVisibility(View.GONE);
         return v;
     }
 

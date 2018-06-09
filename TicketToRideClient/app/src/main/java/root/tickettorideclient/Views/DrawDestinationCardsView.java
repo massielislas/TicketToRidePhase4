@@ -9,9 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     ArrayList<DestinationCard> userDestinationCards = new ArrayList<>();
     int selectedColor;
     int nonSelectedColor;
+    Button doneButton;
     Map<DestinationCard, Boolean> destinationCardsSelected = new HashMap<>();
 
     IDrawDestinationPresenter presenter;
@@ -56,7 +59,59 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
         v = inflater.inflate(R.layout.fragment_destination_cards, container, false);
         presenter = new DrawDestinationCardsPresenter(this, getActivity());
         createList();
+        setUpButton();
         return v;
+    }
+
+    public void setUpButton(){
+        doneButton = (Button) v.findViewById(R.id.doneSelectingButton);
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList<DestinationCard>destinationCardsDiscarded = new ArrayList<>();
+
+                Iterator it = destinationCardsSelected.keySet().iterator();
+
+                while(it.hasNext()){
+                    DestinationCard currentKey = (DestinationCard) it.next();
+                    if(destinationCardsSelected.get(currentKey) == false)
+                        destinationCardsDiscarded.add(currentKey);
+                }
+                presenter.returnDestCards(destinationCardsDiscarded);
+//                backButtonCall();
+//                callOnDestroy();
+                backButtonReplacement();
+            }
+        });
+        doneButton.setEnabled(false);
+    }
+
+    public void backButtonReplacement(){
+        getActivity().onBackPressed();
+    }
+
+    public void callOnDestroy(){
+        this.onDestroyView();
+    }
+
+    public void backButtonCall(){
+        getActivity().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+    }
+
+    public void checkButtonEnabled(){
+        Iterator it = destinationCardsSelected.keySet().iterator();
+        int cardsSelected = 0;
+
+        while(it.hasNext()){
+            if(destinationCardsSelected.get(it.next()))
+                cardsSelected++;
+        }
+        if(cardsSelected > 0){
+            doneButton.setEnabled(true);
+        }
+        else
+            doneButton.setEnabled(false);
     }
 
     public void createList(){
@@ -108,17 +163,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        
-        ArrayList<DestinationCard>destinationCardsDiscarded = new ArrayList<>();
 
-        Iterator it = destinationCardsSelected.keySet().iterator();
-
-        while(it.hasNext()){
-            DestinationCard currentKey = (DestinationCard) it.next();
-            if(destinationCardsSelected.get(currentKey) == false)
-                destinationCardsDiscarded.add(currentKey);
-        }
-        presenter.returnDestCards(destinationCardsDiscarded);
     }
 
     public class DestinationCardHolder extends RecyclerView.ViewHolder{
@@ -149,6 +194,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
                          destinationCardsSelected.put(destinationCard, true);
                          destinationCardTextView.setBackgroundColor(selectedColor);
                      }
+                     checkButtonEnabled();
                 }
             });
             completion.setText("");
@@ -178,5 +224,6 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
         public int getItemCount() {
             return destinationCards.size();
         }
+
     }
 }
