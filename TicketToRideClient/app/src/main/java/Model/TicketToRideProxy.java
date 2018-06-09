@@ -245,6 +245,10 @@ public class TicketToRideProxy implements ITicketToRide {
                 System.out.println("json is null");
                 return new Result(false, "Null result from server");
             }
+            else if (json.equals("null")) {
+                System.out.println("json is null");
+                return new Result(false, "Null result from server");
+            }
             Object result = Encoder.Decode(json, Result.class);
             return (Result)result;
         }
