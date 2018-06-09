@@ -284,7 +284,7 @@ public class TicketToRideProxy implements ITicketToRide {
         catch (MalformedURLException exception)
         {
             System.out.println("Invalid URL!");
-            return new Result(false, "Malformed URL Exception"); null;
+            return new Result(false, "Malformed URL Exception");
         }
     }
     public Result chooseFaceUpCard(String username, String gameID, Double cardID)
