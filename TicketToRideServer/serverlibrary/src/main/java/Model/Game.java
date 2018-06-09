@@ -81,6 +81,7 @@ public class Game {
         chat = new ArrayList<>();
         turnNumber = 1;
         isLastRound = false;
+        routes = new Routes();
         initializeTrainCards();
     }
 
@@ -248,7 +249,7 @@ public class Game {
 //            return new Result(true, "You claimed route " +toClaim.getID() + " from "
 //            + toClaim.getCity1() + " to " + toClaim.getCity2());
 //        }
-        if (!toClaim.isDoubleClaimedl()) {
+        if (!toClaim.isDoubleClaimed()) {
             toClaim.setDoubleClaimed(true);
             List<TrainCard> toDiscard = claimer.addRoute(toClaim, true);
             discardTrainCards(toDiscard);

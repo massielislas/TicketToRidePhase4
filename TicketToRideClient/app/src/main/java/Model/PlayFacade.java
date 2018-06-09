@@ -205,7 +205,6 @@ public class PlayFacade {
 
         if (update.getPlayerRoutes() != null) {
             userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
-
         }
         checkDestCompleted();
         boardData.setChange();

@@ -29,7 +29,7 @@ public class GameActivity extends AppCompatActivity implements IGoToBoardCallbac
 
         if(fragment == null){
             fragment = new SetupView();
-            fragmentManager.beginTransaction().add(R.id.game_activity_container, fragment).addToBackStack(null).commit();
+            fragmentManager.beginTransaction().add(R.id.game_activity_container, fragment).commit();
         }
     }
 
