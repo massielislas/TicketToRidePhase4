@@ -212,10 +212,10 @@ public class PlayFacade {
     }
 
 
-    public void pollerUpdate()
-    {
-        boardData.setChange();
-    }
+//    public void pollerUpdate()
+//    {
+//        boardData.setChange();
+//    }
 
     public void checkDestCompleted()
     {
