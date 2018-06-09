@@ -264,13 +264,16 @@ public class PlayFacade {
         if (turnNumber.intValue() == userData.getCurrentPlayer().getTurnNumber()) {
             userData.getCurrentPlayer().getMyState().activateTurn();
             boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
+            userData.getCurrentGame().setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
         }
         else{
             List<PlayerShallow> otherPlayers = userData.getCurrentGame().getOtherPlayers();
             for (PlayerShallow player: otherPlayers)
             {
-                if (player.getTurnNumber() == turnNumber.intValue())
+                if (player.getTurnNumber() == turnNumber.intValue()) {
                     boardData.setUserPlaying(player.getuName());
+                    userData.getCurrentGame().setUserPlaying(player.getuName());
+                }
             }
         }
         boardData.setChange();
@@ -350,17 +353,31 @@ public class PlayFacade {
         boardData.setRoutes(userData.getCurrentGame().getRoutes());
         boardData.setCities(userData.getCurrentGame().getCities());
         boardData.setCurrentPlayer(userData.getCurrentPlayer());
-        if (userData.getCurrentPlayer().getTurnNumber() == 1) {
+        if ((userData.getCurrentGame().getUserPlaying() == null) &&
+                (userData.getCurrentPlayer().getTurnNumber() == 1)) {
             boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
             userData.getCurrentPlayer().getMyState().activateTurn();
         }
-        else {
+        else if ((userData.getCurrentGame().getUserPlaying() == null) &&
+                (userData.getCurrentPlayer().getTurnNumber() != 1))
+        {
             List<PlayerShallow> otherPlayerInfo = boardData.getOtherPlayerInfo();
             for (PlayerShallow player : otherPlayerInfo) {
                 if (player.getTurnNumber() == 1) boardData.setUserPlaying(player.getuName());
             }
         }
+        else boardData.setUserPlaying(userData.getCurrentGame().getUserPlaying());
         boardData.setChange();
+        /*if ((userData.getCurrentGame().getUserPlaying() == null) &&
+                (userData.getCurrentPlayer().getTurnNumber() == 1))
+        {
+            boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
+            userData.getCurrentGame().setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
+            userData.getCurrentPlayer().getMyState().activateTurn();
+        }
+        else boardData.setUserPlaying(userData.getCurrentGame().getUserPlaying());*/
+
+        /**/
     }
 
     public void mockUpdate()

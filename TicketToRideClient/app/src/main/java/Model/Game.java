@@ -31,9 +31,12 @@ public class Game extends Observable
 
     int currentPlayers; //current in game
 
+    private String userPlaying;
+
     ArrayList<DestinationCard> destinationDeck;
     int destDeckSize;
     int trainDeckSize;
+
     ArrayList<Player> players;
     List<PlayerShallow> otherPlayers;
     List<Route> routes;
@@ -96,6 +99,15 @@ public class Game extends Observable
         }
         return error;
     }
+
+    public String getUserPlaying() {
+        return userPlaying;
+    }
+
+    public void setUserPlaying(String userPlaying) {
+        this.userPlaying = userPlaying;
+    }
+
     public int getDestDeckSize() {
         return destDeckSize;
     }
