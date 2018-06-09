@@ -179,8 +179,8 @@ public class PlayFacade {
         userData.getCurrentPlayer().addToDestinationHand(destCardsToAdd);
         drawDestCardData.setToChoose(destCardsToAdd);
         drawDestCardData.setChange();
-        if (userData.getCurrentPlayer().getUserName().getNameOrPassword().equals(boardData.getUserPlaying()))
-            userData.getCurrentPlayer().getMyState().getInstance().state = new NonActiveTurnState();
+        /*if (userData.getCurrentPlayer().getUserName().getNameOrPassword().equals(boardData.getUserPlaying()))
+            userData.getCurrentPlayer().getMyState().getInstance().state = new NonActiveTurnState();*/
         proxy.endTurn(UserData.getUserData().getUsername().getNameOrPassword(),
                 UserData.getUserData().getCurrentGame().getID());
     }
