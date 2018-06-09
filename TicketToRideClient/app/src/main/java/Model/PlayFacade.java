@@ -243,13 +243,13 @@ public class PlayFacade {
 
     public void checkDestCompleted()
     {
-        for (Route route: userData.getCurrentPlayer().getRoutesClaimed())
+        for (DestinationCard destCard: userData.getCurrentPlayer().getDestCards())
         {
             RouteProcessor rp = new RouteProcessor();
-            if (rp.DestinationComplete(route.getCity1(), route.getCity2(),
+            if (rp.DestinationComplete(destCard.getCity1(), destCard.getCity2(),
                     userData.getCurrentPlayer().getRoutesClaimed()));
             {
-                route.setClaimed(true);
+                destCard.setComplete(true);
             }
         }
     }
