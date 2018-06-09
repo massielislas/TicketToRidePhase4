@@ -387,6 +387,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         this.cities = new ArrayList<>(Cities.getInstance().getCities());
         this.routes = new ArrayList<>(new Routes().getRouteList());
         drawCities();
+        myGoogleMap.setOnInfoWindowClickListener(this);
         presenter = new BoardPresenter(this, getActivity());
     }
 
