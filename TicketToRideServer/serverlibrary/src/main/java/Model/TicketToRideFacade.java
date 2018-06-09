@@ -234,14 +234,14 @@ public class TicketToRideFacade implements ITicketToRide {
         }
         if (card2 != -1) {
             numberdiscarded++;
-            DestinationCard toDiscard = player.removeDestCard(card1.intValue());
+            DestinationCard toDiscard = player.removeDestCard(card2.intValue());
             if (toDiscard == null) {
                 return new Result(false, "That card isn't in that players hand!");
             }
             game.addDestCardBackIn(toDiscard);
         }
-        updatePlayers(game);
         addGameHistory(game,"<<"+username+" kept " + (3 - numberdiscarded) + " Destination Cards>>");
+        updatePlayers(game);
         return new Result(true, "");
     }
 
