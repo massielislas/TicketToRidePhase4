@@ -15,6 +15,8 @@ import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
 import Model.InGameModels.TrainCardDeck;
+import Model.State.MyState;
+import Model.State.NonActiveTurnState;
 import Results.Result;
 
 public class PlayFacade {
@@ -177,6 +179,9 @@ public class PlayFacade {
         userData.getCurrentPlayer().addToDestinationHand(destCardsToAdd);
         drawDestCardData.setToChoose(destCardsToAdd);
         drawDestCardData.setChange();
+        userData.getCurrentPlayer().getMyState().getInstance().state = new NonActiveTurnState();
+        proxy.endTurn(UserData.getUserData().getUsername().getNameOrPassword(),
+                UserData.getUserData().getCurrentGame().getID());
     }
 
     public void updateBoardData(String jsonString)
