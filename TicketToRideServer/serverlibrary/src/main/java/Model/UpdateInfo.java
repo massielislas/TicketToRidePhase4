@@ -16,7 +16,6 @@ public class UpdateInfo {
     private TrainCard[] currentFaceUpCards;
     private Route[] gameRoutes;
     private Route[] playerRoutes;
-    //private List<DestinationCard> toChoose;
     private List<TrainCard> hand;
 
     public UpdateInfo(int turnNumber, List<PlayerShallow>otherplayers, TrainCard[] currentCards, int trainDeckSize, int destDeckSize) {

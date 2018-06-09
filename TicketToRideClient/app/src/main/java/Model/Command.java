@@ -82,15 +82,26 @@ public class Command {
                 methodParamTypes[i] = Class.forName(methodParamTypeNames[i]);
             }
 
+            System.out.println("Starting reflection");
+
             Method instM = C.getMethod(instanceMethodName, instanceParamTypes);
             Object targetInst = instM.invoke(null, instanceMethodArgs);
 
+            System.out.println("Halfway through reflection process");
+
             Method M = C.getMethod(methodName, methodParamTypes);
+
+            System.out.println("Almost done with reflection");
+
             Object obj = M.invoke(targetInst, methodArguments);
+
+            System.out.println("Finished with reflection");
+
             return obj;
         }
         catch (Exception exc)
         {
+            System.out.println("Exception caught- return null");
             exc.printStackTrace();
             return null;
         }

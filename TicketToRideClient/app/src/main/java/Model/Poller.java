@@ -46,9 +46,8 @@ public class Poller {
     private void Poll()
     {
         if(running) {
-
-            PlayFacade facade = PlayFacade.getInstance();
-            facade.pollerUpdate();
+//            PlayFacade facade = PlayFacade.getInstance();
+//            facade.pollerUpdate();
 
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
