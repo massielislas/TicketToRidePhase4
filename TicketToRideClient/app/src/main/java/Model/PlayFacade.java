@@ -199,17 +199,31 @@ public class PlayFacade {
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
         if (update.getGameRoutes() != null) {
+            checkForRouteColorChange(Arrays.asList(update.getGameRoutes()));
             boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
             userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
         }
 
         if (update.getPlayerRoutes() != null) {
+            checkForRouteColorChange(Arrays.asList(update.getPlayerRoutes()));
             userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
         }
         checkDestCompleted();
         boardData.setChange();
     }
 
+    void checkForRouteColorChange(List<Route> routes)
+    {
+        for (Route route: routes)
+        {
+            if (route.isClaimed())
+            {
+                String playerName = route.getClaimant();
+                String playerColor = userData.getCurrentGame().getPlayerColorByUsername(playerName);
+                route.setColor(playerColor);
+            }
+        }
+    }
 
 //    public void pollerUpdate()
 //    {
