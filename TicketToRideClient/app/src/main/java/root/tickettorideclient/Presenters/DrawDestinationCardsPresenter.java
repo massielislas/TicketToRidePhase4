@@ -34,13 +34,13 @@ public class DrawDestinationCardsPresenter implements IDrawDestinationPresenter,
     }
 
     @Override
-    public void returnDestCards (DestinationCard[] cards) {
+    public void returnDestCards (ArrayList<DestinationCard> cards) {
 
-        if ((cards != null) && (cards.length != 0)) {
-            ArrayList<Integer> cardIDs = new ArrayList<>(cards.length);
+        if ((cards != null) && (cards.size() != 0)) {
+            ArrayList<Integer> cardIDs = new ArrayList<>(cards.size());
 
             for (int i = 0; i < cardIDs.size(); ++i) {
-                cardIDs.add(i, cards[i].getID());
+                cardIDs.add(i, cards.get(i).getID());
             }
 
             Result result = facade.discardCards(cardIDs);
