@@ -187,6 +187,7 @@ public class PlayFacade {
 
     public void updateBoardData(String jsonString)
     {
+
         UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonString, UpdateInfo.class);
         updatePlayerInfo(update);
         boardData.setFaceUpCards(update.getCurrentFaceUpCards());
@@ -197,9 +198,17 @@ public class PlayFacade {
         userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
-        boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
-        userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
-        userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
+
+        if (update.getGameRoutes() != null) {
+            boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
+            userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
+        }
+
+        if (update.getPlayerRoutes() != null) {
+            userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
+
+        }
+
         checkDestCompleted();
         boardData.setChange();
     }
@@ -226,7 +235,9 @@ public class PlayFacade {
     private void updatePlayerInfo(UpdateInfo update)
     {
         //if (update.getToChoose() != null) userData.getCurrentPlayer().setToChoose(update.getToChoose());
-        if (update.getHand() != null) userData.getCurrentPlayer().setTrainCards(update.getHand());
+        if (update.getHand() != null) {
+            userData.getCurrentPlayer().setTrainCards(update.getHand());
+        }
     }
 
     //method that gets called by command sent by server

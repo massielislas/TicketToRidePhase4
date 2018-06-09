@@ -102,7 +102,7 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     @Override
     public void updateDestCards(ArrayList<DestinationCard> cards) {
         userDestinationCards = cards;
-        updateUI();
+        createList();
     }
 
     @Override
