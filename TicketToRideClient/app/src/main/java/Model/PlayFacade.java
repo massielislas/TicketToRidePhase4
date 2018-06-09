@@ -216,14 +216,14 @@ public class PlayFacade {
     {
         for (Route route: routes)
         {
-            if (route.isDouble())
+            if (route.isDouble()) {
                 if (route.isDoubleClaimed()) {
                     String playerName = route.getDoubleClaimant();
                     String playerColor = userData.getCurrentGame().getPlayerColorByUsername(playerName);
                     route.setDoubleColor(playerColor);
                 }
-
-            else if (route.isClaimed())
+            }
+            if (route.isClaimed())
             {
                 String playerName = route.getClaimant();
                 String playerColor = userData.getCurrentGame().getPlayerColorByUsername(playerName);
