@@ -298,12 +298,13 @@ public class TicketToRideFacade implements ITicketToRide {
             Double two = new Double(player.getToChoose().get(1).getID());
             Double three = new Double(player.getToChoose().get(2).getID());
             Object[] methodArguments = {one, two, three};
-            Command command = new Command("Model.GameFacade", "getInstance",
+            Command command = new Command("Model.PlayFacade", "getInstance",
                     "getDestCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             UserPass user = new UserPass(username);
             CommandManager.getInstance().addCommand(user,command);
         }
+        updatePlayers(game);
         return toReturn;
     }
 
@@ -315,7 +316,7 @@ public class TicketToRideFacade implements ITicketToRide {
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.Double"};
             Object[] methodArguments = {game.getTurnNumber()};
-            Command command = new Command("Model.GameFacade", "getInstance",
+            Command command = new Command("Model.PlayFacade", "getInstance",
                     "changeTurn", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(),command);
