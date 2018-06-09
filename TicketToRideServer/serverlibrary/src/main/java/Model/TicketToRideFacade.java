@@ -304,6 +304,7 @@ public class TicketToRideFacade implements ITicketToRide {
             UserPass user = new UserPass(username);
             CommandManager.getInstance().addCommand(user,command);
         }
+        updatePlayers(game);
         return toReturn;
     }
 
