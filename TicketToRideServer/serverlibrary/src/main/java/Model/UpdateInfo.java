@@ -17,6 +17,8 @@ public class UpdateInfo {
     private Route[] gameRoutes;
     private Route[] playerRoutes;
     private List<TrainCard> hand;
+    private int points;
+    private int piecesLeft;
 
     public UpdateInfo(int turnNumber, List<PlayerShallow>otherplayers, TrainCard[] currentCards, int trainDeckSize, int destDeckSize) {
         this.turnNumber = turnNumber;
@@ -24,6 +26,22 @@ public class UpdateInfo {
         this.destDeckSize = destDeckSize;
         currentFaceUpCards = currentCards;
         playerInfo = otherplayers;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public int getPiecesLeft() {
+        return piecesLeft;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setPiecesLeft(int trainCards) {
+        this.piecesLeft = trainCards;
     }
 
     public Route[] getGameRoutes() {

@@ -176,6 +176,8 @@ public class Game {
         toReturn.setHand(p.getTrainCards());
         toReturn.setPlayerRoutes(p.getRoutesClaimed().toArray(new Route[0]));
         toReturn.setGameRoutes(routes.getRouteList().toArray(new Route[0]));
+        toReturn.setPiecesLeft(p.getTrainPiecesLeft());
+        toReturn.setPoints(p.getCurrentScore());
         return toReturn;
     }
 
@@ -269,7 +271,7 @@ public class Game {
         Player addToHand = getPlayer(new UserPass(username));
         TrainCard toAdd = getFromFaceUpByID(cardID.intValue());
         if (toAdd == null) {
-            return new Result(false, "That card isn't in the faceup cards!");
+            return new Result(false, "That Spot is Empty!!");
         }
         else {
             addToHand.addTrainCard(toAdd);
@@ -339,10 +341,12 @@ public class Game {
         //Find the card by its ID number in the face up deck. Set the corresponding slot to null
         //then return it
         for (int i = 0; i < trainCardFaceupDeck.length; i ++) {
-            if (trainCardFaceupDeck[i].getID() == ID) {
-                TrainCard toRet = trainCardFaceupDeck[i];
-                trainCardFaceupDeck[i] = null;
-                return toRet;
+            if(trainCardFaceupDeck[i] != null) {
+                if (trainCardFaceupDeck[i].getID() == ID) {
+                    TrainCard toRet = trainCardFaceupDeck[i];
+                    trainCardFaceupDeck[i] = null;
+                    return toRet;
+                }
             }
         }
         return null;
