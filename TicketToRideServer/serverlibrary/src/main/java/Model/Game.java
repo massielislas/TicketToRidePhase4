@@ -207,40 +207,48 @@ public class Game {
     }
 
     public Result claimRoute(String username, Double routeID) {
-        Route toClaim = routes.getRoute(routeID.intValue());
-        Player claimer = getPlayer(new UserPass(username));
-        //If the route is a double route, use a different function
-        if (toClaim.isDouble()) {
-            return claimDoubleRoute(username, routeID.intValue());
+        if(routeID < 0){
+            int realID = (routeID.intValue())*(-1);
+            Route toClaim = routes.getRoute(realID);
+            return claimDoubleRoute(username,realID);
+            //Claim the double route
         }
-        //If it's not a double route but it's already claimed, return false
-        if (toClaim.isClaimed()) {
-            return new Result(false, "That route is already claimed by" + toClaim.getClaimant() + "!");
-        }
-        //otherwise update the route's claimant, set its claimed bool as true, and return true
         else {
-            toClaim.setClaimed(true);
-            List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
-            discardTrainCards(toDiscard);
-            return new Result(true, "You claimed route " +toClaim.getID() + " from "
-                    + toClaim.getCity1() + " to " + toClaim.getCity2());
+            Route toClaim = routes.getRoute(routeID.intValue());
+            Player claimer = getPlayer(new UserPass(username));
+            //If the route is a double route, use a different function
+//            if (toClaim.isDouble()) {
+//                return claimDoubleRoute(username, routeID.intValue());
+//            }
+            //If it's not a double route but it's already claimed, return false
+            if (toClaim.isClaimed()) {
+                return new Result(false, "That route is already claimed by" + toClaim.getClaimant() + "!");
+            }
+            //otherwise update the route's claimant, set its claimed bool as true, and return true
+            else {
+                toClaim.setClaimed(true);
+                List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
+                discardTrainCards(toDiscard);
+                return new Result(true, "You claimed route " + toClaim.getID() + " from "
+                        + toClaim.getCity1() + " to " + toClaim.getCity2());
+            }
         }
     }
 
     private Result claimDoubleRoute(String userName, int routeID) {
         Route toClaim = routes.getRoute(routeID);
         Player claimer = getPlayer(new UserPass(userName));
-        if (toClaim.isDoubleClaimedl() && toClaim.isClaimed()) {
-            return new Result(false, "Both of those routes are already claimed!");
-        }
-        else if (!toClaim.isClaimed() && routeID > 0) {
-            toClaim.setClaimed(true);
-            List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
-            discardTrainCards(toDiscard);
-            return new Result(true, "You claimed route " +toClaim.getID() + " from "
-            + toClaim.getCity1() + " to " + toClaim.getCity2());
-        }
-        else if (!toClaim.isDoubleClaimedl() && routeID < 0) {
+//        if (toClaim.isDoubleClaimedl() && toClaim.isClaimed()) {
+//            return new Result(false, "Both of those routes are already claimed!");
+//        }
+//        else if (!toClaim.isClaimed() && routeID > 0) {
+//            toClaim.setClaimed(true);
+//            List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
+//            discardTrainCards(toDiscard);
+//            return new Result(true, "You claimed route " +toClaim.getID() + " from "
+//            + toClaim.getCity1() + " to " + toClaim.getCity2());
+//        }
+        if (!toClaim.isDoubleClaimedl()) {
             toClaim.setDoubleClaimed(true);
             List<TrainCard> toDiscard = claimer.addRoute(toClaim, true);
             discardTrainCards(toDiscard);

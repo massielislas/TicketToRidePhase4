@@ -198,12 +198,6 @@ public class PlayFacade {
         userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
-<<<<<<< HEAD
-        boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
-        userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
-        userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));\
-=======
-
         if (update.getGameRoutes() != null) {
             boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
             userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
@@ -213,8 +207,6 @@ public class PlayFacade {
             userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
 
         }
-
->>>>>>> 4f60de00a437737742a44b9bf96049eb8202848e
         checkDestCompleted();
         boardData.setChange();
     }
