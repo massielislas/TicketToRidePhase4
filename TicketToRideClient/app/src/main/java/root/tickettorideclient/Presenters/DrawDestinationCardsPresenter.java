@@ -39,9 +39,13 @@ public class DrawDestinationCardsPresenter implements IDrawDestinationPresenter,
         if ((cards != null) && (cards.size() != 0)) {
             ArrayList<Integer> cardIDs = new ArrayList<>(cards.size());
 
-            for (int i = 0; i < cardIDs.size(); ++i) {
-                cardIDs.add(i, cards.get(i).getID());
-            }
+
+            cardIDs.add(cards.get(0).getID());
+
+            if(cardIDs.size() > 1)
+                cardIDs.add(cards.get(1).getID());
+            else
+                cardIDs.add(-1);
 
             Result result = facade.discardCards(cardIDs);
         }
