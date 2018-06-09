@@ -241,6 +241,7 @@ public class Game {
         Player claimer = getPlayer(new UserPass(userName));
 //        if (toClaim.isDoubleClaimedl() && toClaim.isClaimed()) {
 //            return new Result(false, "Both of those routes are already claimed!");
+//            return new Result(false, "Both of those routes are already claimed!");
 //        }
 //        else if (!toClaim.isClaimed() && routeID > 0) {
 //            toClaim.setClaimed(true);
@@ -318,9 +319,9 @@ public class Game {
         }
     }
 
-    public Result updateTurn() {
+    public int updateTurn() {
         if (turnNumber == playerList.size()) {
-            turnNumber = 0;
+            turnNumber = 1;
         }
         else {
             turnNumber++;
@@ -329,7 +330,7 @@ public class Game {
         if (isLastRound = false && whoseTurn.getTrainPiecesLeft() <= 3) {
             isLastRound = true;
         }
-        return new Result(true, "" + whoseTurn.getTurnNumber());
+        return turnNumber;
     }
 
     private TrainCard getFromFaceUpByID(int ID) {
