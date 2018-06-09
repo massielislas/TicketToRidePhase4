@@ -170,8 +170,12 @@ public class Game {
     }
 
     public UpdateInfo getUpdateInfo(Player p){
-        return new UpdateInfo(turnNumber,getPlayerShallows(p),getTrainCardFaceupDeck(),new Double(getTrainCardDeckSize()).intValue(),
+        UpdateInfo toReturn = new UpdateInfo(turnNumber,getPlayerShallows(p),getTrainCardFaceupDeck(),new Double(getTrainCardDeckSize()).intValue(),
                     new Double(getDestCardDeckSize()).intValue());
+        toReturn.setHand(p.getTrainCards());
+        toReturn.setPlayerRoutes((Route[])p.getRoutesClaimed().toArray());
+        toReturn.setGameRoutes((Route[]) routes.getRouteList().toArray());
+        return toReturn;
     }
 
     public void addChat(String msg, String userName) {

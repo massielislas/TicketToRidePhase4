@@ -179,7 +179,7 @@ public class PlayFacade {
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
         boardData.setRoutes(Arrays.asList(update.getGameRoutes()));
         userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
-        userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
+        userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));\
         checkDestCompleted();
         boardData.setChange();
     }
