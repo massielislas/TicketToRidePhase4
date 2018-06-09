@@ -87,7 +87,6 @@ public class TicketToRideFacade implements ITicketToRide {
                         "addPlayer", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                         methodArguments);
                 CommandManager.getInstance().addCommandAllUsers(command);
-
                 if (game.getCurrentPlayers() == game.getPlayerCount()) {
                     Server.activateGame(game);
                     startGame(game.getID());
