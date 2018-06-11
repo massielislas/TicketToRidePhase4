@@ -23,6 +23,8 @@ import root.tickettorideclient.R;
  */
 
 public class EndGameView extends Fragment implements IEndGameView {
+    final String WINNER_TAG = "WINNER: ";
+    final String LONGEST_ROUTE_POINTS = "Longest route points: ";
     final String POINTS_FROM_CLAIMED_ROUTES = "Points from claimed routes: ";
     final String POINTS_FROM_REACHED_DESTINATIONS = "Points from reached destinations: ";
     final String POINTS_FROM_UNREACHED_DESTINATIONS = "Points from unreached destinations: ";
@@ -101,13 +103,17 @@ public class EndGameView extends Fragment implements IEndGameView {
 
     @Override
     public void updateWinner(PlayerFinalStats winner) {
-        nameWinner.setText(winner.getName());
-        longestRouteWinner.setText( ((Integer) winner.getLongestRoutePoints()).toString());
-        pointsFromClaimedRoutesWinner.setText( ((Integer) winner.getClaimedRoutesPoints()).toString());
-        pointsFromReachedDestinationsWinner.setText( ((Integer) winner.getReachedDestinationsPoints()).toString());
-        pointsLostFromDestinationsWinner.setText( ((Integer) winner.getLostDestinations()).toString());
-        totalPointsWinner.setText( ((Integer) winner.getTotalPoints()).toString());
+        final String POINTS_FROM_CLAIMED_ROUTES = "Points from claimed routes: ";
+        final String POINTS_FROM_REACHED_DESTINATIONS = "Points from reached destinations: ";
+        final String POINTS_FROM_UNREACHED_DESTINATIONS = "Points from unreached destinations: ";
+        final String TOTAL_POINTS = "TOTAL POINTS: ";
 
+        nameWinner.setText( WINNER_TAG + winner.getName());
+        longestRouteWinner.setText( LONGEST_ROUTE_POINTS +  ((Integer) winner.getLongestRoutePoints()).toString());
+        pointsFromClaimedRoutesWinner.setText( POINTS_FROM_CLAIMED_ROUTES + ((Integer) winner.getClaimedRoutesPoints()).toString());
+        pointsFromReachedDestinationsWinner.setText( POINTS_FROM_REACHED_DESTINATIONS + ((Integer) winner.getReachedDestinationsPoints()).toString());
+        pointsLostFromDestinationsWinner.setText( POINTS_FROM_UNREACHED_DESTINATIONS + ((Integer) winner.getLostDestinations()).toString());
+        totalPointsWinner.setText( TOTAL_POINTS + ((Integer) winner.getTotalPoints()).toString());
     }
 
     @Override
@@ -135,6 +141,7 @@ public class EndGameView extends Fragment implements IEndGameView {
 
         public void bind(final PlayerFinalStats playerFinalStats){
             name.setText(playerFinalStats.getName());
+            longestRoute.setText(LONGEST_ROUTE_POINTS + playerFinalStats.getName());
             pointsFromClaimedRoutes.setText(POINTS_FROM_CLAIMED_ROUTES + playerFinalStats.getClaimedRoutesPoints());
             pointsLostFromDestinations.setText(POINTS_FROM_UNREACHED_DESTINATIONS + playerFinalStats.getLostDestinations());
             pointsFromReachedDestinations.setText(POINTS_FROM_REACHED_DESTINATIONS + playerFinalStats.getReachedDestinationsPoints());
