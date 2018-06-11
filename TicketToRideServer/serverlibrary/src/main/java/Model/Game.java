@@ -335,6 +335,7 @@ public class Game {
     public int updateTurn() {
         //If the game is not in its last round, iterate normally through turns and don't do anything
         //else
+        Player whoseTurn = playerList.get(turnNumber - 1);
             if (turnNumber == playerList.size()) {
                 turnNumber = 1;
             }
@@ -349,10 +350,9 @@ public class Game {
                     return 0;
                 }
             }
-        Player whoseTurn = playerList.get(turnNumber - 1);
         if (isLastRound == false && whoseTurn.getTrainPiecesLeft() <= 3) {
             isLastRound = true;
-            finalCountdown = playerCount + 1;
+            finalCountdown = playerCount;
         }
         return turnNumber;
     }

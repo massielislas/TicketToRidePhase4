@@ -319,6 +319,7 @@ public class TicketToRideFacade implements ITicketToRide {
                     "changeTurn", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(),command);
+            updatePlayers(game);
         return new Result(true,"its player " + turn +"s turn");
     }
 }
