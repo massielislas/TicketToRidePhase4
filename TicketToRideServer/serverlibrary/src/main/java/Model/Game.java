@@ -182,6 +182,7 @@ public class Game {
         toReturn.setGameRoutes(routes.getRouteList().toArray(new Route[0]));
         toReturn.setPiecesLeft(p.getTrainPiecesLeft());
         toReturn.setPoints(p.getCurrentScore());
+        toReturn.setGameComplete(gameIsOver);
         return toReturn;
     }
 
