@@ -214,7 +214,7 @@ public class PlayFacade {
             checkForRouteColorChange(Arrays.asList(update.getPlayerRoutes()));
             userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
         }
-        checkDestCompleted();
+        //checkDestCompleted();
         boardData.setChange();
     }
 
@@ -243,17 +243,19 @@ public class PlayFacade {
 //        boardData.setChange();
 //    }
 
-    public void checkDestCompleted()
+    //Functionality added to server side instead
+
+    /*public void checkDestCompleted()
     {
         for (DestinationCard destCard: userData.getCurrentPlayer().getDestCards())
         {
             if (RouteProcessor.DestinationComplete(destCard.getCity1(), destCard.getCity2(),
-                    userData.getCurrentPlayer().getRoutesClaimed()));
+                    userData.getCurrentPlayer().getRoutesClaimed()))
             {
                 destCard.setComplete(true);
             }
         }
-    }
+    }*/
 
     private void updatePlayerInfo(UpdateInfo update)
     {

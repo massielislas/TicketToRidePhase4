@@ -15,6 +15,7 @@ public class DestinationCard {
         this.city2 = city2;
         this.pointValue = pointValue;
         this.ID = ID;
+        complete = false;
     }
 
     public boolean isComplete() {
