@@ -13,32 +13,49 @@ import Model.InGameModels.Route;
 public class RouteProcessor {
     public static int LongestRoute(List<Route> routeList){
         int bestLengthSoFar = 0;
-        Route r = routeList.get(0);
-        int currentLength = r.getLength();
-        List<Route> copyList = new ArrayList<>(routeList);
-        copyList.remove(r);
-        for(Route r2:copyList){
-            if(r2.getCity1().equals(r.getCity1())
-                    ||r2.getCity2().equals(r.getCity2())
-                    ||r2.getCity2().equals(r.getCity1())
-                    ||r2.getCity1().equals(r.getCity2())){
-                currentLength = currentLength + LongestRoute(copyList);
+        for(Route r: routeList) {
+            List<Route> copyList = new ArrayList<>(routeList);
+            copyList.remove(r);
+
+            int currentLength = r.getLength() + LongestRouteRec(copyList,r.getCity2());
+
+            if (currentLength > bestLengthSoFar) {
+                bestLengthSoFar = currentLength;
             }
         }
-        if(currentLength > bestLengthSoFar){
-            bestLengthSoFar = currentLength;
+        return bestLengthSoFar;
+    }
+
+    private static int LongestRouteRec(List<Route> routeList, City start){
+        int bestLengthSoFar = 0;
+        for(Route r:routeList){
+            if(r.getCity1().equals(start)){
+                List<Route> copyList = new ArrayList<>(routeList);
+                copyList.remove(r);
+                int currentLength = r.getLength() + LongestRouteRec(copyList, r.getCity2());
+                if(currentLength > bestLengthSoFar){
+                    bestLengthSoFar = currentLength;
+                }
+            }
+            if(r.getCity2().equals(start)){
+                List<Route> copyList = new ArrayList<>(routeList);
+                copyList.remove(r);
+                int currentLength = r.getLength() + LongestRouteRec(copyList, r.getCity1());
+                if(currentLength > bestLengthSoFar){
+                    bestLengthSoFar = currentLength;
+                }
+            }
         }
         return bestLengthSoFar;
     }
 
     public static boolean DestinationComplete(City start, City end, List<Route> claimedRoutes){
-        List<Route> copyList = new ArrayList<>(claimedRoutes);
-        List<Route> possibleRoutes = new ArrayList<>();
-        for(Route r:copyList) {
+        for(Route r:claimedRoutes) {
             if (r.getCity1().equals(start) || r.getCity2().equals(start)) {
                 if (r.getCity1().equals(end) || r.getCity2().equals(end)) {
                     return true;
                 } else {
+                    List<Route> copyList = new ArrayList<>(claimedRoutes);
                     copyList.remove(r);
                     if (DestinationComplete(r.getCity2(), end, copyList)) {
                         return true;
