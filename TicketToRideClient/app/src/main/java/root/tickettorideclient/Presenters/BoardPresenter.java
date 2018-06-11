@@ -80,7 +80,8 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         }
 
         //if result successful,
-        //do nothing
+        //pop toast with success
+        view.popToast("Face-up card successfully drawn.");
     }
 
     public void drawFromTrainDeck() {
