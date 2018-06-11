@@ -11,22 +11,41 @@ public class UserPassTest {
     @Test
     public void verify() throws Exception {
         UserPass test = new UserPass("good");
-        assert (test.verify());
+        assertEquals(test.verify(), true);
     }
     @Test
     public void verify2() throws Exception {
         UserPass test = new UserPass("!good");
-        assert (!test.verify());
+        assertEquals(test.verify(),false);
     }
 
     @Test
     public void verify3() throws Exception {
         UserPass test = new UserPass("0123456789012345678901234567890123456789111991911919191991919191919191911911");
-        assert (test.verify());
+        assertEquals (test.verify(), false);
+    }
+
+    @Test
+    public void verify4() throws Exception {
+        UserPass test = new UserPass("0123456789012345678901234567890123456789");
+        assertEquals (test.verify(), true);
+    }
+
+    @Test
+    public void verify5() throws Exception {
+        UserPass test = new UserPass("");
+        assertEquals (test.verify(), true);
+    }
+
+    @Test
+    public void verify6() throws Exception {
+        UserPass test = new UserPass(null);
+        assertEquals (test.verify(), false);
     }
 
     @Test
     public void equals() throws Exception {
+
 
     }
 

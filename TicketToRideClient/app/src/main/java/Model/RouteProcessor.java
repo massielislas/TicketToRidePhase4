@@ -50,13 +50,12 @@ public class RouteProcessor {
     }
 
     public static boolean DestinationComplete(City start, City end, List<Route> claimedRoutes){
-        List<Route> copyList = new ArrayList<>(claimedRoutes);
-        List<Route> possibleRoutes = new ArrayList<>();
-        for(Route r:copyList) {
+        for(Route r:claimedRoutes) {
             if (r.getCity1().equals(start) || r.getCity2().equals(start)) {
                 if (r.getCity1().equals(end) || r.getCity2().equals(end)) {
                     return true;
                 } else {
+                    List<Route> copyList = new ArrayList<>(claimedRoutes);
                     copyList.remove(r);
                     if (DestinationComplete(r.getCity2(), end, copyList)) {
                         return true;
