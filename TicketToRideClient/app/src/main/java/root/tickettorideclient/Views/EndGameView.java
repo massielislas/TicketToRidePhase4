@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import root.tickettorideclient.Presenters.EndGamePresenter;
 import root.tickettorideclient.Presenters.IEndGameView;
 import root.tickettorideclient.R;
 
@@ -39,6 +40,8 @@ public class EndGameView extends Fragment implements IEndGameView {
 
     PlayerFinalStatsAdapter finalStatsAdapter;
 
+    IEndGamePresenter presenter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,9 @@ public class EndGameView extends Fragment implements IEndGameView {
         v = inflater.inflate(R.layout.fragment_end_game, container, false);
         setUpInputs();
         createList();
+
+        presenter = new EndGamePresenter(this, getActivity());
+
         return v;
     }
 
