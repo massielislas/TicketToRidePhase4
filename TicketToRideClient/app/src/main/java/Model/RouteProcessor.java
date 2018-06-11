@@ -26,7 +26,7 @@ public class RouteProcessor {
         return bestLengthSoFar;
     }
 
-    public static int LongestRouteRec(List<Route> routeList, City start){
+    private static int LongestRouteRec(List<Route> routeList, City start){
         int bestLengthSoFar = 0;
         for(Route r:routeList){
             if(r.getCity1().equals(start)){
