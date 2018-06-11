@@ -45,7 +45,9 @@ public class UserPassTest {
 
     @Test
     public void equals() throws Exception {
-
+        UserPass test1 = new UserPass("notNull");
+        UserPass test2 = new UserPass("notNull");
+        assertEquals(test1, test2);
 
     }
 
