@@ -440,6 +440,13 @@ public class Game {
         }
     }
 
+    public void calculateScores(){
+        for (Player player: playerList)
+        {
+            player.setCurrentScore(player.getCurrentScore()-player.tallyLostPoints());
+        }
+    }
+
     public EndGameInfo getEndGameInfo() {
 
         EndGameInfo toRet = new EndGameInfo();

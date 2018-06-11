@@ -328,6 +328,7 @@ public class TicketToRideFacade implements ITicketToRide {
     }
     private void endGame(Game game)
     {
+        game.calculateScores();
         EndGameInfo endInfo = game.getEndGameInfo();
         String gsonString = new Encoder().Encode(endInfo);
         String[] instanceParamTypeNames = new String[0];
