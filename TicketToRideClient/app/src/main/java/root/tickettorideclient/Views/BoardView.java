@@ -179,6 +179,11 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         }
     }
 
+    @Override
+    public void goToEndGameView(){
+        ((IEndGameCallback) getActivity()).goToEndGame();
+    }
+
     public void setUpTopInputs(){
         userPointsBanner = (TextView) myView.findViewById(R.id.pointsDisplay);
      /*   userPointsBanner.setOnClickListener(new View.OnClickListener() {
