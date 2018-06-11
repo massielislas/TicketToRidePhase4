@@ -167,7 +167,12 @@ public class Game {
             if (!other.getUserName().equals(p.getUserName())) {
                 PlayerShallow copy = new PlayerShallow(other.getnameString(),
                         other.getTrainHandSize(), other.getDestHandSize(),
-                        other.getTrainPiecesLeft(),other.getTurnNumber(),other.getCurrentScore());
+                        other.getTrainPiecesLeft(),other.getTurnNumber(), other.getCurrentScore());
+                if (gameIsOver) {
+                    copy.setPointsFromDest(other.tallyDestPoints());
+                    copy.setNegativePoints(other.tallyLostPoints());
+                    copy.setPointsFromRoutes(other.tallyRoutePoints());
+                }
                 list.add(copy);
             }
         }
@@ -432,6 +437,13 @@ public class Game {
                 destCard.setComplete(true);
             }
         }
+    }
+
+    public EndGameInfo getEndGameInfo() {
+        EndGameInfo toRet = new EndGameInfo();
+        Player dummy = new Player(new UserPass(""), 6);
+        List<PlayerShallow> playerInfo = getPlayerShallows(dummy);
+        
     }
 
     public int getTurnNumber() {

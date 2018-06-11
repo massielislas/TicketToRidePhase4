@@ -209,6 +209,34 @@ public class Player {
 //        return toChoose;
 //    }
 
+    public int tallyDestPoints() {
+        int toRet = 0;
+        for (DestinationCard toTally : destCards) {
+            if (toTally.isComplete()) {
+                toRet+=toTally.getPointValue();
+            }
+        }
+        return toRet;
+    }
+
+    public int tallyLostPoints() {
+        int toRet = 0;
+        for (DestinationCard toTally :destCards) {
+            if (!toTally.isComplete()) {
+                toRet+=toTally.getPointValue();
+            }
+        }
+        return toRet;
+    }
+
+    public int tallyRoutePoints() {
+        int toRet = 0;
+        for (Route toTally : routesClaimed) {
+            toRet += toTally.getScoreValue();
+        }
+        return toRet;
+    }
+
     public void setUserName(UserPass userName) {
         this.userName = userName;
     }
