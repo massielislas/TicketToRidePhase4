@@ -18,8 +18,10 @@ public class RouteProcessor {
         List<Route> copyList = new ArrayList<>(routeList);
         copyList.remove(r);
         for(Route r2:copyList){
-            if(r2.getCity1().equals(r.getCity1())||r2.getCity2().equals(r.getCity2())
-                    ||r2.getCity2().equals(r.getCity1())||r2.getCity2().equals(r.getCity2())){
+            if(r2.getCity1().equals(r.getCity1())
+                    ||r2.getCity2().equals(r.getCity2())
+                    ||r2.getCity2().equals(r.getCity1())
+                    ||r2.getCity1().equals(r.getCity2())){
                 currentLength = currentLength + LongestRoute(copyList);
             }
         }
@@ -32,16 +34,16 @@ public class RouteProcessor {
     public static boolean DestinationComplete(City start, City end, List<Route> claimedRoutes){
         List<Route> copyList = new ArrayList<>(claimedRoutes);
         List<Route> possibleRoutes = new ArrayList<>();
-        for(Route r2:copyList) {
-            if (r2.getCity1().equals(start) || r2.getCity2().equals(start)) {
-                if (r2.getCity1().equals(end) || r2.getCity2().equals(end)) {
+        for(Route r:copyList) {
+            if (r.getCity1().equals(start) || r.getCity2().equals(start)) {
+                if (r.getCity1().equals(end) || r.getCity2().equals(end)) {
                     return true;
                 } else {
-                    copyList.remove(r2);
-                    if (DestinationComplete(r2.getCity2(), end, copyList)) {
+                    copyList.remove(r);
+                    if (DestinationComplete(r.getCity2(), end, copyList)) {
                         return true;
                     }
-                    if (DestinationComplete(r2.getCity1(), end, copyList)) {
+                    if (DestinationComplete(r.getCity1(), end, copyList)) {
                         return true;
                     }
                 }
