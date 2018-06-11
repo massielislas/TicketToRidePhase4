@@ -81,6 +81,7 @@ public class PlayFacade {
     public void addEndGameObserver(Observer o)
     {
         endGameData.addAnObserver(o);
+        if (endGameData!=null) endGameData.setChange();
     }
 
     public void deRegisterEndGameObserver(Observer o)
