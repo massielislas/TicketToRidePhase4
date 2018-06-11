@@ -110,6 +110,10 @@ public class PlayFacade {
         boardData.removeAnObserver(o);
     }
 
+    public BoardData getBoardData() {
+        return boardData;
+    }
+
     public Result sendChat(String message)
     {
         return proxy.sendChat(userData.getUsername().getNameOrPassword(), message, userData.getCurrentGame().getID());
