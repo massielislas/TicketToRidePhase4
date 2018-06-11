@@ -266,6 +266,7 @@ public class TicketToRideFacade implements ITicketToRide {
         Game game = Server.getSpecificActiveGame(gameID);
         toReturn = game.claimRoute(username, routeID);
         addGameHistory(game, "<<"+ username + " claimed a route>>");
+        game.checkDestCompleted(username);
         updatePlayers(game);
         return toReturn;
 }
@@ -318,6 +319,7 @@ public class TicketToRideFacade implements ITicketToRide {
                     "changeTurn", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(),command);
+            updatePlayers(game);
         return new Result(true,"its player " + turn +"s turn");
     }
 }

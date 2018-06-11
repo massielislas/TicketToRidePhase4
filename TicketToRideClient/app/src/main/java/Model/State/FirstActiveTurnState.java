@@ -20,6 +20,9 @@ public class FirstActiveTurnState extends TurnState {
     @Override
     public boolean canClaimRoute(int ID) {
         Route route = new Routes().getRoute(ID);
+        if(!canClaimDoubleRoute(route)){
+            return false;
+        }
         if(ID > 0) {
             //Is it claimed?
             if (route.isClaimed()) {
@@ -103,6 +106,27 @@ public class FirstActiveTurnState extends TurnState {
             }
         }
         return false;
+    }
+
+    private boolean canClaimDoubleRoute(Route route){
+        if(route.isDouble()) {
+            if (UserData.getUserData().getCurrentGame().getCurrentPlayers() < 4) {
+                if (route.isClaimed()) {
+                    return false;
+                }
+                if (route.isDoubleClaimed()) {
+                    return false;
+                }
+            } else {
+                if (route.isDoubleClaimed() && route.isClaimed()) {
+                    return false;
+                }
+                if(UserData.getUserData().getCurrentPlayer().getRoutesClaimed().contains(route)){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override

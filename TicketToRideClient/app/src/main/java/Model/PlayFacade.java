@@ -198,6 +198,8 @@ public class PlayFacade {
         userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
+        boardData.setGameComplete(update.isGameComplete());
+        userData.getCurrentGame().setGameComplete(update.isGameComplete());
         boardData.getCurrentPlayer().setTrainPiecesLeft(update.getPiecesLeft());
         userData.getCurrentPlayer().setTrainPiecesLeft(update.getPiecesLeft());
         boardData.getCurrentPlayer().setCurrentScore(update.getPoints());
@@ -212,7 +214,7 @@ public class PlayFacade {
             checkForRouteColorChange(Arrays.asList(update.getPlayerRoutes()));
             userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
         }
-        checkDestCompleted();
+        //checkDestCompleted();
         boardData.setChange();
     }
 
@@ -241,18 +243,19 @@ public class PlayFacade {
 //        boardData.setChange();
 //    }
 
-    public void checkDestCompleted()
+    //Functionality added to server side instead
+
+    /*public void checkDestCompleted()
     {
         for (DestinationCard destCard: userData.getCurrentPlayer().getDestCards())
         {
-            RouteProcessor rp = new RouteProcessor();
-            if (rp.DestinationComplete(destCard.getCity1(), destCard.getCity2(),
-                    userData.getCurrentPlayer().getRoutesClaimed()));
+            if (RouteProcessor.DestinationComplete(destCard.getCity1(), destCard.getCity2(),
+                    userData.getCurrentPlayer().getRoutesClaimed()))
             {
                 destCard.setComplete(true);
             }
         }
-    }
+    }*/
 
     private void updatePlayerInfo(UpdateInfo update)
     {
