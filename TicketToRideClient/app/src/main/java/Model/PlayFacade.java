@@ -245,7 +245,6 @@ public class PlayFacade {
     {
         for (DestinationCard destCard: userData.getCurrentPlayer().getDestCards())
         {
-//            RouteProcessor rp = new RouteProcessor();
             if (RouteProcessor.DestinationComplete(destCard.getCity1(), destCard.getCity2(),
                     userData.getCurrentPlayer().getRoutesClaimed()));
             {
