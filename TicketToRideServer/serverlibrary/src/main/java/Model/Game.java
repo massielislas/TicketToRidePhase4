@@ -365,12 +365,14 @@ public class Game {
         //place
         for (int i = 0; i < trainCardFaceupDeck.length; i++) {
             if (trainCardFaceupDeck[i] == null) {
-                TrainCard workWith = trainCardFacedownDeck.get(0);
-                trainCardFaceupDeck[i] = workWith;
-                trainCardFacedownDeck.remove(0);
-                //always check and reshuffle if needed
-                if (trainCardFacedownDeck.isEmpty()) {
-                    reshuffleDiscardedTrains();
+                if (!trainCardFacedownDeck.isEmpty() || (discardedTrainCards.size() != 0)) {
+                    TrainCard workWith = trainCardFacedownDeck.get(0);
+                    trainCardFaceupDeck[i] = workWith;
+                    trainCardFacedownDeck.remove(0);
+                    //always check and reshuffle if needed
+                    if (trainCardFacedownDeck.isEmpty()) {
+                        reshuffleDiscardedTrains();
+                    }
                 }
             }
         }
@@ -383,7 +385,7 @@ public class Game {
         //count of locomotives in the face up deck
         int count = 0;
         for (int i = 0; i < trainCardFaceupDeck.length; i++) {
-            if (trainCardFaceupDeck[i].getType().equals("Locomotive")) {
+            if ((trainCardFaceupDeck[i] != null) && (trainCardFaceupDeck[i].getType().equals("Locomotive"))) {
                 count++;
             }
         }
