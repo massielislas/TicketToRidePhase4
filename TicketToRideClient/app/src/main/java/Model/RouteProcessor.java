@@ -28,11 +28,9 @@ public class RouteProcessor {
         }
         return bestLengthSoFar;
     }
+
     public static boolean DestinationComplete(City start, City end, List<Route> claimedRoutes){
-        int bestLengthSoFar = 0;
-        Route r = claimedRoutes.get(0);
         List<Route> copyList = new ArrayList<>(claimedRoutes);
-        copyList.remove(r);
         List<Route> possibleRoutes = new ArrayList<>();
         for(Route r2:copyList){
             if(r2.getCity1().equals(start)||r2.getCity2().equals(start)){
@@ -41,13 +39,14 @@ public class RouteProcessor {
                 }
                 else
                 {
+                    copyList.remove(r2);
                     if(r2.getCity1().equals(start)){
-                        if(DestinationComplete(r2.getCity1(),end, copyList)){
+                        if(DestinationComplete(r2.getCity2(),end, copyList)){
                             return true;
                         }
                     }
                     else{
-                        if(DestinationComplete(r2.getCity2(),end, copyList)){
+                        if(DestinationComplete(r2.getCity1(),end, copyList)){
                             return true;
                         }
                     }
