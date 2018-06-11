@@ -14,6 +14,8 @@ import Model.UserPass;
  */
 
 public class Player {
+    //TODO make sure this number is 45 before starting full game testing
+    private final int trainPieces = 10;
     private UserPass userName;
     private List<TrainCard> trainCards;
     private List<DestinationCard> destCards;
@@ -30,7 +32,7 @@ public class Player {
         routesClaimed = new HashSet<>();
         //toChoose = new ArrayList<>();
         turnNumber = queuePosition;
-        trainPiecesLeft = 45;
+        trainPiecesLeft = trainPieces;
         currentScore = 0;
     }
 
