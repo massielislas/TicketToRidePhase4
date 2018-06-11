@@ -35,7 +35,7 @@ public class EndGameView extends Fragment implements IEndGameView {
     TextView totalPointsWinner;
     View v;
     RecyclerView otherFinalStatsRecyclerView;
-    ArrayList<PlayerFinalStats>playerFinalStats = new ArrayList<>();
+    ArrayList<PlayerFinalStats> playerFinalStats = new ArrayList<>();
 
     PlayerFinalStatsAdapter finalStatsAdapter;
 
@@ -88,14 +88,20 @@ public class EndGameView extends Fragment implements IEndGameView {
     }
 
     @Override
-    public void updatePlayerScoresView(String playerID, int score) {
-        for (int i = 0; i < playerFinalStats.size(); ++i) {
-            if (playerFinalStats.get(i).getName().equals(playerID)) {
-                playerFinalStats.get(i).setTotalPoints(score);
-                i = playerFinalStats.size();
-            }
-        }
+    public void updatePlayers(ArrayList<PlayerFinalStats> players) {
+        playerFinalStats = players;
         updateUI();
+    }
+
+    @Override
+    public void updateWinner(PlayerFinalStats winner) {
+        nameWinner.setText(winner.getName());
+        longestRouteWinner.setText(winner.getLongestRoutePoints());
+        pointsFromClaimedRoutesWinner.setText(winner.getClaimedRoutesPoints());
+        pointsFromReachedDestinationsWinner.setText(winner.getReachedDestinationsPoints());
+        pointsLostFromDestinationsWinner.setText(winner.getLostDestinations());
+        totalPointsWinner.setText(winner.getTotalPoints());
+
     }
 
     @Override
