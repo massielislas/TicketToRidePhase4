@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import Model.BoardData;
+import Model.GameFacade;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
+import Model.PlayFacade;
 import Model.TicketToRideProxy;
 import Model.UserData;
 import Results.Result;
@@ -19,7 +22,7 @@ import Results.Result;
 public class FirstActiveTurnState extends TurnState {
     @Override
     public boolean canClaimRoute(int ID) {
-        Route route = new Routes().getRoute(ID);
+        Route route = PlayFacade.getInstance().;
         if(!canClaimDoubleRoute(route)){
             return false;
         }

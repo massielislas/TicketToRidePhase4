@@ -52,7 +52,7 @@ public class PlayFacade {
         chat = Chat.getInstance();
         proxy = new TicketToRideProxy();
     }
-
+    
     public void addSetUpObserver(Observer o)
     {
         //chat.addAnObserver(o);
