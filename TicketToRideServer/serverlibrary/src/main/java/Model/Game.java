@@ -35,7 +35,9 @@ public class Game {
     //Max number of players
     private int playerCount;
     private int currentPlayers;
+    private int finalCountdown;
     private boolean isLastRound;
+    private boolean gameIsOver;
     //UUID for this specific game
     private String ID;
     //List of players in the game
@@ -63,6 +65,7 @@ public class Game {
         chat = new ArrayList<>();
         turnNumber = 1;
         isLastRound = false;
+        gameIsOver = false;
     }
 
     public Game(int playerCount, int currentPlayers, int gameNumber, String ID)
@@ -81,6 +84,7 @@ public class Game {
         chat = new ArrayList<>();
         turnNumber = 1;
         isLastRound = false;
+        gameIsOver = false;
         routes = new Routes();
         initializeTrainCards();
     }
@@ -328,15 +332,26 @@ public class Game {
     }
 
     public int updateTurn() {
-        if (turnNumber == playerList.size()) {
-            turnNumber = 1;
-        }
-        else {
-            turnNumber++;
-        }
+        //If the game is not in its last round, iterate normally through turns and don't do anything
+        //else
+            if (turnNumber == playerList.size()) {
+                turnNumber = 1;
+            }
+            else {
+                turnNumber++;
+            }
+        //If it is the last round, each player gets one more turn
+            if (isLastRound) {
+                finalCountdown--;
+                if (finalCountdown == 0) {
+                    gameIsOver = true;
+                    return 0;
+                }
+            }
         Player whoseTurn = playerList.get(turnNumber - 1);
-        if (isLastRound = false && whoseTurn.getTrainPiecesLeft() <= 3) {
+        if (isLastRound == false && whoseTurn.getTrainPiecesLeft() <= 3) {
             isLastRound = true;
+            finalCountdown = playerCount + 1;
         }
         return turnNumber;
     }
