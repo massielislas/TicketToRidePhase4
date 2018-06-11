@@ -102,11 +102,11 @@ public class EndGameView extends Fragment implements IEndGameView {
     @Override
     public void updateWinner(PlayerFinalStats winner) {
         nameWinner.setText(winner.getName());
-        longestRouteWinner.setText(winner.getLongestRoutePoints());
-        pointsFromClaimedRoutesWinner.setText(winner.getClaimedRoutesPoints());
-        pointsFromReachedDestinationsWinner.setText(winner.getReachedDestinationsPoints());
-        pointsLostFromDestinationsWinner.setText(winner.getLostDestinations());
-        totalPointsWinner.setText(winner.getTotalPoints());
+        longestRouteWinner.setText( ((Integer) winner.getLongestRoutePoints()).toString());
+        pointsFromClaimedRoutesWinner.setText( ((Integer) winner.getClaimedRoutesPoints()).toString());
+        pointsFromReachedDestinationsWinner.setText( ((Integer) winner.getReachedDestinationsPoints()).toString());
+        pointsLostFromDestinationsWinner.setText( ((Integer) winner.getLostDestinations()).toString());
+        totalPointsWinner.setText( ((Integer) winner.getTotalPoints()).toString());
 
     }
 
