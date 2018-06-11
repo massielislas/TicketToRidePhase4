@@ -111,10 +111,7 @@ public class FirstActiveTurnState extends TurnState {
     private boolean canClaimDoubleRoute(Route route){
         if(route.isDouble()) {
             if (UserData.getUserData().getCurrentGame().getCurrentPlayers() < 4) {
-                if (route.isClaimed()) {
-                    return false;
-                }
-                if (route.isDoubleClaimed()) {
+                if (route.isClaimed()||route.isDoubleClaimed()) {
                     return false;
                 }
             } else {
