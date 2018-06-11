@@ -180,22 +180,9 @@ public class Route {
         if (o == null || getClass() != o.getClass()) return false;
 
         Route route = (Route) o;
-
-        if (length != route.length) return false;
-        if (isClaimed != route.isClaimed) return false;
-        if (isDouble != route.isDouble) return false;
-        if (isDoubleClaimed != route.isDoubleClaimed) return false;
-        if (scoreValue != route.scoreValue) return false;
+        
         if (ID != route.ID) return false;
-        if (doubleID != route.doubleID) return false;
-        if (!city1.equals(route.city1)) return false;
-        if (!city2.equals(route.city2)) return false;
-        if (claimant != null ? !claimant.equals(route.claimant) : route.claimant != null)
-            return false;
-        if (doubleClaimant != null ? !doubleClaimant.equals(route.doubleClaimant) : route.doubleClaimant != null)
-            return false;
-        if (!color.equals(route.color)) return false;
-        return doubleColor.equals(route.doubleColor);
+        return true;
     }
 
     @Override
