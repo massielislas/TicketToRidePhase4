@@ -67,7 +67,7 @@ public class EndGamePresenter implements IEndGamePresenter, Observer {
                         view.updateWinner(player);
                     }
                     else {
-                        players.add(i, player);
+                        players.add(player);
                     }
                 }
 
