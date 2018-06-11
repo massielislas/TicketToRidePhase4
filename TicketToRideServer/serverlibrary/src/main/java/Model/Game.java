@@ -171,7 +171,7 @@ public class Game {
                 if (gameIsOver) {
                     copy.setPointsFromDest(other.tallyDestPoints());
                     copy.setNegativePoints(other.tallyLostPoints());
-                    copy.setCurrentScore(other.getCurrentScore()- copy.getNegativePoints());
+                    copy.setCurrentScore(other.getCurrentScore());
                     copy.setPointsFromRoutes(other.tallyRoutePoints());
                 }
                 list.add(copy);
