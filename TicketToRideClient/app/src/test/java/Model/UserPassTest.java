@@ -21,8 +21,8 @@ public class UserPassTest {
 
     @Test
     public void verify3() throws Exception {
-        UserPass test = new UserPass("01234567890123456789012345678901234567891");
-        assert (!test.verify());
+        UserPass test = new UserPass("0123456789012345678901234567890123456789111991911919191991919191919191911911");
+        assert (test.verify());
     }
 
     @Test
