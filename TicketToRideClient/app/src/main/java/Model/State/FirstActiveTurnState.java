@@ -22,7 +22,9 @@ import Results.Result;
 public class FirstActiveTurnState extends TurnState {
     @Override
     public boolean canClaimRoute(int ID) {
-        Route route = PlayFacade.getInstance().;
+        Routes routes = new Routes();
+        routes.setRouteList(PlayFacade.getInstance().getBoardData().getRoutes());
+        Route route = routes.getRoute(ID);
         if(!canClaimDoubleRoute(route)){
             return false;
         }

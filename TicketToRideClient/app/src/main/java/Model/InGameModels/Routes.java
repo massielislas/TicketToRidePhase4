@@ -91,8 +91,12 @@ public class Routes
         }
         return null;
     }
+
+    public void setRouteList(List<Route> routeList) {
+        this.routeList = routeList;
+    }
+
     public List<Route> getRouteList() {
         return routeList;
     }
-
 }
