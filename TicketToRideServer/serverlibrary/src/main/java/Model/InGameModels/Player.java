@@ -15,7 +15,7 @@ import Model.UserPass;
 
 public class Player {
     //TODO make sure this number is 45 before starting full game testing
-    private final int trainPieces = 10;
+    private final int trainPieces = 4;
     private UserPass userName;
     private List<TrainCard> trainCards;
     private List<DestinationCard> destCards;
