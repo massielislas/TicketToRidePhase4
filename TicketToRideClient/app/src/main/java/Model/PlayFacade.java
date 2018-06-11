@@ -219,6 +219,7 @@ public class PlayFacade {
             checkForRouteColorChange(Arrays.asList(update.getPlayerRoutes()));
             userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
         }
+        userData.getCurrentPlayer().setDestCards(update.getDestHand());
         //checkDestCompleted();
         boardData.setChange();
     }

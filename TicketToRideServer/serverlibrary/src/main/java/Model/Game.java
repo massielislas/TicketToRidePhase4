@@ -184,6 +184,7 @@ public class Game {
         UpdateInfo toReturn = new UpdateInfo(turnNumber,getPlayerShallows(p),getTrainCardFaceupDeck(),new Double(getTrainCardDeckSize()).intValue(),
                     new Double(getDestCardDeckSize()).intValue());
         toReturn.setHand(p.getTrainCards());
+        toReturn.setDestHand(p.getDestCards());
         toReturn.setPlayerRoutes(p.getRoutesClaimed().toArray(new Route[0]));
         toReturn.setGameRoutes(routes.getRouteList().toArray(new Route[0]));
         toReturn.setPiecesLeft(p.getTrainPiecesLeft());

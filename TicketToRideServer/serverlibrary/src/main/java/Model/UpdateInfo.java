@@ -20,6 +20,7 @@ public class UpdateInfo {
     private int points;
     private int piecesLeft;
     private boolean isGameComplete;
+    private List<DestinationCard> destHand;
 
     public UpdateInfo(int turnNumber, List<PlayerShallow>otherplayers, TrainCard[] currentCards, int trainDeckSize, int destDeckSize) {
         this.turnNumber = turnNumber;
@@ -27,6 +28,14 @@ public class UpdateInfo {
         this.destDeckSize = destDeckSize;
         currentFaceUpCards = currentCards;
         playerInfo = otherplayers;
+    }
+
+    public List<DestinationCard> getDestHand() {
+        return destHand;
+    }
+
+    public void setDestHand(List<DestinationCard> destHand) {
+        this.destHand = destHand;
     }
 
     public boolean isGameComplete() {
