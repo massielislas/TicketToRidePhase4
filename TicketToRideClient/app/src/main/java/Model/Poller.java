@@ -41,7 +41,7 @@ public class Poller {
             public void run() {
                 Poll();
             }
-        },0, 3000);
+        },0, 500);
     }
     private void Poll()
     {
