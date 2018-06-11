@@ -40,4 +40,6 @@ public interface IBoardView {
     public Integer getNumCities();
     public Integer getNumPlayers();
     public Integer getNumRoutes();
+
+    public void goToEndGameView();
 }
