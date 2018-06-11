@@ -266,6 +266,7 @@ public class TicketToRideFacade implements ITicketToRide {
         Game game = Server.getSpecificActiveGame(gameID);
         toReturn = game.claimRoute(username, routeID);
         addGameHistory(game, "<<"+ username + " claimed a route>>");
+        game.checkDestCompleted(username);
         updatePlayers(game);
         return toReturn;
 }

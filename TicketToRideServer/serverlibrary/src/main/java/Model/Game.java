@@ -417,6 +417,20 @@ public class Game {
         }
     }
 
+    public void checkDestCompleted(String userName)
+    {
+        Player toCheck = getPlayer(new UserPass(userName));
+        List<Route> routesToCheck = new ArrayList<>(toCheck.getRoutesClaimed());
+
+        for (DestinationCard destCard: toCheck.getDestCards()) {
+            if (RouteProcessor.DestinationComplete(destCard.getCity1(),
+                    destCard.getCity2(),
+                    routesToCheck)) {
+                destCard.setComplete(true);
+            }
+        }
+    }
+
     public int getTurnNumber() {
         return turnNumber;
     }
