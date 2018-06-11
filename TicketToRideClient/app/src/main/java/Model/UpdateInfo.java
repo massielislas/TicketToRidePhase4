@@ -2,6 +2,7 @@ package Model;
 
 import java.util.List;
 
+import Model.InGameModels.DestinationCard;
 import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.Route;
 import Model.InGameModels.TrainCard;
@@ -16,6 +17,7 @@ public class UpdateInfo {
     private Route[] gameRoutes;
     private Route[] playerRoutes;
     private List<TrainCard> hand;
+    private List<DestinationCard> destHand;
     private int points;
     private int piecesLeft;
     private boolean isGameComplete;
@@ -26,6 +28,14 @@ public class UpdateInfo {
         this.destDeckSize = destDeckSize;
         currentFaceUpCards = currentCards;
         playerInfo = otherplayers;
+    }
+
+    public List<DestinationCard> getDestHand() {
+        return destHand;
+    }
+
+    public void setDestHand(List<DestinationCard> destHand) {
+        this.destHand = destHand;
     }
 
     public boolean isGameComplete() {
