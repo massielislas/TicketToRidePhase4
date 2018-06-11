@@ -32,23 +32,17 @@ public class RouteProcessor {
     public static boolean DestinationComplete(City start, City end, List<Route> claimedRoutes){
         List<Route> copyList = new ArrayList<>(claimedRoutes);
         List<Route> possibleRoutes = new ArrayList<>();
-        for(Route r2:copyList){
-            if(r2.getCity1().equals(start)||r2.getCity2().equals(start)){
-                if(r2.getCity1().equals(end)|| r2.getCity2().equals(end)){
+        for(Route r2:copyList) {
+            if (r2.getCity1().equals(start) || r2.getCity2().equals(start)) {
+                if (r2.getCity1().equals(end) || r2.getCity2().equals(end)) {
                     return true;
-                }
-                else
-                {
+                } else {
                     copyList.remove(r2);
-                    if(r2.getCity1().equals(start)){
-                        if(DestinationComplete(r2.getCity2(),end, copyList)){
-                            return true;
-                        }
+                    if (DestinationComplete(r2.getCity2(), end, copyList)) {
+                        return true;
                     }
-                    else{
-                        if(DestinationComplete(r2.getCity1(),end, copyList)){
-                            return true;
-                        }
+                    if (DestinationComplete(r2.getCity1(), end, copyList)) {
+                        return true;
                     }
                 }
             }
