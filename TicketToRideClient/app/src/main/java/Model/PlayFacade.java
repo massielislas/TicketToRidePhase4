@@ -198,6 +198,8 @@ public class PlayFacade {
         userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
         boardData.setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
+        boardData.setGameComplete(update.isGameComplete());
+        userData.getCurrentGame().setGameComplete(update.isGameComplete());
         boardData.getCurrentPlayer().setTrainPiecesLeft(update.getPiecesLeft());
         userData.getCurrentPlayer().setTrainPiecesLeft(update.getPiecesLeft());
         boardData.getCurrentPlayer().setCurrentScore(update.getPoints());
