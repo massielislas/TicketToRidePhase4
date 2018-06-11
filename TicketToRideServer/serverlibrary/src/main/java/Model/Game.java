@@ -440,10 +440,26 @@ public class Game {
     }
 
     public EndGameInfo getEndGameInfo() {
+
         EndGameInfo toRet = new EndGameInfo();
+        RouteProcessor rp = new RouteProcessor();
         Player dummy = new Player(new UserPass(""), 6);
         List<PlayerShallow> playerInfo = getPlayerShallows(dummy);
-        
+        toRet.setPlayerInfo(playerInfo);
+        Player highestScoringPlayer = playerList.get(0);
+        int longestRoute = -1;
+        for (Player player: playerList)
+        {
+            List<Route> routesToCheck = new ArrayList<>(player.getRoutesClaimed());
+
+            if (player.getCurrentScore() > highestScoringPlayer.getCurrentScore())
+                highestScoringPlayer = player;
+            if (rp.LongestRoute(routesToCheck) > longestRoute)
+                toRet.setPlayerWithLongestRoute(player.getUserName().getNameOrPassword());
+        }
+        toRet.setPointsFromLongestRoute(10);
+        toRet.setWinner(highestScoringPlayer.getUserName().getNameOrPassword());
+        return toRet;
     }
 
     public int getTurnNumber() {
