@@ -364,6 +364,5 @@ public class TicketToRideFacade implements ITicketToRide {
         else {
             return new Result(false, "That user is not currently in an active game");
         }
-
     }
 }

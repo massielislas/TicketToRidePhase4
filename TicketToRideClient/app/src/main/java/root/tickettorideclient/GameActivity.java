@@ -41,8 +41,7 @@ public class GameActivity extends AppCompatActivity implements IGoToBoardCallbac
         }
 
         else if(fragment == null && rejoiningGame){
-            fragment = new BoardView();
-            fragmentManager.beginTransaction().add(R.id.game_activity_container, fragment).commit();
+            goToBoard();
         }
     }
 
