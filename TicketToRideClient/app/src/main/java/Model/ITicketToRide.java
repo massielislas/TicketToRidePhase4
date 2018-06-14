@@ -27,4 +27,5 @@ public interface ITicketToRide {
     Result chooseFaceUpCard(String username, String gameID, Double cardID);
     Result drawFromTrainDeck(String username, String gameID);
     Result drawDestCards(String username, String gameID);
+    Result rejoinGame(String username);
 }

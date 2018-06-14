@@ -57,6 +57,17 @@ public class GameFacade
         return result;
     }
 
+    public Result rejoinGame()
+    {
+        return proxy.rejoinGame(userData.getUsername().getNameOrPassword());
+    }
+
+    public void restoreClientGame(String ID, Double playerCount)
+    {
+        Game game = new Game(playerCount.intValue(), playerCount.intValue(), ID);
+        UserData.getUserData().setCurrentGame(game);
+    }
+
     public void addObserver(Observer o)
     {
         gameList.addAnObserver(o);
