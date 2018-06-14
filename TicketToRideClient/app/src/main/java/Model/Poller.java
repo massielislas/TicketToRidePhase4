@@ -41,14 +41,11 @@ public class Poller {
             public void run() {
                 Poll();
             }
-        },0, 500);
+        },0, 3000);
     }
     private void Poll()
     {
         if(running) {
-//            PlayFacade facade = PlayFacade.getInstance();
-//            facade.pollerUpdate();
-
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.String","java.lang.Double"};
@@ -74,6 +71,10 @@ public class Poller {
             catch (MalformedURLException exception)
             {
                 System.out.println("Invalid URL!");
+            }
+            catch (Exception e){
+                lastCommand = 0;
+
             }
             // ClientCommunicator.SINGLETON().testSend();
         }
