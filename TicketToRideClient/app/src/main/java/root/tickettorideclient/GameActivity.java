@@ -19,16 +19,29 @@ public class GameActivity extends AppCompatActivity implements IGoToBoardCallbac
 
     FragmentManager fragmentManager;
 
+    public void setRejoiningGame(boolean rejoiningGame) {
+        this.rejoiningGame = rejoiningGame;
+    }
+
+    boolean rejoiningGame;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        rejoiningGame = getIntent().getBooleanExtra("rejoining", false);
+
         setContentView(R.layout.activity_game);
 
         fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.game_activity_container);
 
-        if(fragment == null){
+        if(fragment == null && !rejoiningGame){
             fragment = new SetupView();
+            fragmentManager.beginTransaction().add(R.id.game_activity_container, fragment).commit();
+        }
+
+        else if(fragment == null && rejoiningGame){
+            fragment = new BoardView();
             fragmentManager.beginTransaction().add(R.id.game_activity_container, fragment).commit();
         }
     }

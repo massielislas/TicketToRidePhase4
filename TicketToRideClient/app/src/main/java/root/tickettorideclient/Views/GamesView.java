@@ -157,6 +157,7 @@ public class GamesView extends Fragment implements IGamesView {
     public void switchToBoardView(){
         Toast.makeText(getContext(), "Game is now full- switch to game setup", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getActivity(), GameActivity.class);
+        intent.putExtra("rejoining", true);
         startActivity(intent);
     }
 
