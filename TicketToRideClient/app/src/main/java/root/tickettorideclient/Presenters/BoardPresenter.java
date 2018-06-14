@@ -36,13 +36,14 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         facade = PlayFacade.getInstance();
         this.mn = mn;
         facade.addBoardObserver(this);
-     //   facade.addBoardObserver(this);
+        facade.addChatObserver(this);
+        facade.setBoardData();
     }
 
     public void sendChat (String message) {
         Result result = facade.sendChat(message);
 
-        //if result unsucessful,
+        //if result unsuccessful,
         //pop toast with error
         if (!result.isSuccess()) {
             view.popToast("Error sending chat message: " + result.getMessage());
@@ -50,6 +51,60 @@ public class BoardPresenter implements IBoardPresenter, Observer {
 
         //if result successful,
         //do nothing
+    }
+
+    public void claimRoute(Integer routeID) {
+
+        Result result = facade.claimRoute(routeID);
+
+        //if result unsuccessful,
+        //pop toast with error
+        if (!result.isSuccess()) {
+            view.popToast("Error claiming route: " + result.getMessage());
+            return;
+        }
+
+        //if result successful,
+        //pop toast with success
+        view.popToast("Route successfully claimed.");
+    }
+
+    public void chooseFaceUpCard(TrainCard card) {
+        Result result = facade.chooseFaceUpCard(card);
+
+        //if result unsuccessful,
+        //pop toast with error
+        if (!result.isSuccess()) {
+            view.popToast("Error drawing face-up card: " + result.getMessage());
+            return;
+        }
+
+        //if result successful,
+        //pop toast with success
+        view.popToast("Face-up card successfully drawn.");
+    }
+
+    public void drawFromTrainDeck() {
+        Result result = facade.drawFromTrainDeck();
+
+        //if result unsuccessful,
+        //pop toast with error
+        if (!result.isSuccess()) {
+            view.popToast("Error drawing from deck: " + result.getMessage());
+            return;
+        }
+
+        //if result successful,
+        //do nothing
+    }
+
+    @Override
+    public boolean drawFromDestDeck(){
+        Result result = facade.drawDestCards();
+        if (!result.isSuccess()) {
+            view.popToast("Error drawing from deck: " + result.getMessage());
+        }
+        return result.isSuccess();
     }
 
 
@@ -74,74 +129,60 @@ public class BoardPresenter implements IBoardPresenter, Observer {
             @Override
             public void run() {
 
-                if (view.getNumCities() != data.getCities().size()) {
-                    view.addAllCities(new ArrayList<City>(data.getCities()));
-                }
+                if (data.isGameComplete()) view.switchToEndView();
 
-                view.addAllRoutes(new ArrayList<Route>(data.getRoutes()));
-
-                if (view.getNumPlayers() != data.getOtherPlayerInfo().size()) {
-
-                    ArrayList<PlayerStats> playerStats = new ArrayList<>();
-                    for (int i = 0; i < data.getOtherPlayerInfo().size(); ++i) {
-                        PlayerShallow player = data.getOtherPlayerInfo().get(i);
-                        PlayerStats newPlayer = new PlayerStats();
-
-                        newPlayer.setDestinationCards(player.getDestCardHand());
-                        newPlayer.setTrainCards(player.getTrainCardHand());
-                        newPlayer.setTrainPieces(player.getPiecesLeft());
-                        newPlayer.setUsername(player.getuName());
-
-                        playerStats.add(newPlayer);
+                else {
+                    if (view.getNumCities() != data.getCities().size()) {
+                        view.addAllCities(new ArrayList<City>(data.getCities()));
                     }
 
-                    view.addAllPlayers(playerStats);
+                    view.addAllRoutes(new ArrayList<Route>(data.getRoutes()));
+
+                    if (view.getNumPlayers() != data.getOtherPlayerInfo().size()) {
+
+                        ArrayList<PlayerStats> playerStats = new ArrayList<>();
+                        for (int i = 0; i < data.getOtherPlayerInfo().size(); ++i) {
+                            PlayerShallow player = data.getOtherPlayerInfo().get(i);
+                            PlayerStats newPlayer = new PlayerStats();
+
+                            newPlayer.setDestinationCards(player.getDestCardHand());
+                            newPlayer.setTrainCards(player.getTrainCardHand());
+                            newPlayer.setTrainPieces(player.getPiecesLeft());
+                            newPlayer.setUsername(player.getuName());
+
+                            playerStats.add(newPlayer);
+                        }
+
+                        view.addAllPlayers(playerStats);
+                    }
+
+                    view.addAllHistory(data.getChat().getChat());
+
+                    view.updateTrainDeck(data.getTrainDeckSize());
+                    view.updateDestinationDeck(data.getDestDeckSize());
+                    view.updateFaceUp(new ArrayList<TrainCard>(Arrays.asList(data.getFaceUpCards())));
+
+                    Player thisPlayer = data.getCurrentPlayer();
+                    view.updatePlayerPoints(thisPlayer.getUserName().getNameOrPassword(), thisPlayer.getCurrentScore());
+                    view.updateHand(new ArrayList<TrainCard>(thisPlayer.getTrainCards()));
+                    view.updatePlayerPieces(thisPlayer.getUserName().getNameOrPassword(), thisPlayer.getTrainPiecesLeft());
+                    //  view.updateDestCards(new ArrayList<DestinationCard>(thisPlayer.getDestCards()));
+
+                    for (int i = 0; i < data.getOtherPlayerInfo().size(); ++i) {
+                        PlayerShallow player = data.getOtherPlayerInfo().get(i);
+                        view.updatePlayerPoints(player.getuName(), player.getCurrentScore());
+                        view.updatePlayerPieces(player.getuName(), player.getPiecesLeft());
+                        view.updatePlayerDestCards(player.getuName(), player.getDestCardHand());
+                        view.updatePlayerTrainCards(player.getuName(), player.getTrainCardHand());
+                    }
+
+                    view.updateTurn(data.getUserPlaying());
+
                 }
-
-                view.addAllHistory(data.getChat().getChat());
-
-                view.updateTrainDeck(data.getTrainDeckSize());
-                view.updateDestinationDeck(data.getDestDeckSize());
-                view.updateFaceUp(new ArrayList<TrainCard>(Arrays.asList(data.getFaceUpCards())));
-
-                Player thisPlayer = data.getCurrentPlayer();
-                view.updatePlayerPoints(thisPlayer.getUserName().getNameOrPassword(), thisPlayer.getCurrentScore());
-                view.updateHand(new ArrayList<TrainCard>(thisPlayer.getTrainCards()));
-                view.updatePlayerPieces(thisPlayer.getUserName().getNameOrPassword(), thisPlayer.getTrainPiecesLeft());
-              //  view.updateDestCards(new ArrayList<DestinationCard>(thisPlayer.getDestCards()));
-
-                for (int i = 0; i < data.getOtherPlayerInfo().size(); ++i) {
-                    PlayerShallow player = data.getOtherPlayerInfo().get(i);
-                    view.updatePlayerPoints(player.getuName(), player.getCurrentScore());
-                    view.updatePlayerPieces(player.getuName(), player.getPiecesLeft());
-                    view.updatePlayerDestCards(player.getuName(), player.getDestCardHand());
-                    view.updatePlayerTrainCards(player.getuName(), player.getTrainCardHand());
-                }
-
-                view.updateTurn(data.getUserPlaying());
             }
         });
     }
 
-    @Override
-    public void claimRoute (Route route) {
-        //if route is claimed
-        //pop toast
-        if (route.isClaimed()) {
-            view.popToast("Route has already been claimed, by " + route.getClaimant());
-            return;
-        }
 
-        //else claim route
-        //facade.claimRoute(route);
-        view.popToast("Claiming route underway!");
-
-    }
-
-    @Override
-    public void test () {
-        view.popToast("Starting Test");
-        facade.mockUpdate();
-    }
 
 }

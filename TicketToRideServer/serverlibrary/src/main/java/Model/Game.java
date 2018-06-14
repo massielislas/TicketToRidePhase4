@@ -35,6 +35,9 @@ public class Game {
     //Max number of players
     private int playerCount;
     private int currentPlayers;
+    private int finalCountdown;
+    private boolean isLastRound;
+    private boolean gameIsOver;
     //UUID for this specific game
     private String ID;
     //List of players in the game
@@ -61,6 +64,8 @@ public class Game {
         destinationCardDeck = deck.getDestinationCards();
         chat = new ArrayList<>();
         turnNumber = 1;
+        isLastRound = false;
+        gameIsOver = false;
     }
 
     public Game(int playerCount, int currentPlayers, int gameNumber, String ID)
@@ -78,6 +83,9 @@ public class Game {
         destinationCardDeck = deck.getDestinationCards();
         chat = new ArrayList<>();
         turnNumber = 1;
+        isLastRound = false;
+        gameIsOver = false;
+        routes = new Routes();
         initializeTrainCards();
     }
 
@@ -159,7 +167,13 @@ public class Game {
             if (!other.getUserName().equals(p.getUserName())) {
                 PlayerShallow copy = new PlayerShallow(other.getnameString(),
                         other.getTrainHandSize(), other.getDestHandSize(),
-                        other.getTrainPiecesLeft(),other.getTurnNumber(),other.getCurrentScore());
+                        other.getTrainPiecesLeft(),other.getTurnNumber(), other.getCurrentScore());
+                if (gameIsOver) {
+                    copy.setPointsFromDest(other.tallyDestPoints());
+                    copy.setNegativePoints(other.tallyLostPoints());
+                    copy.setCurrentScore(other.getCurrentScore());
+                    copy.setPointsFromRoutes(other.tallyRoutePoints());
+                }
                 list.add(copy);
             }
         }
@@ -167,8 +181,16 @@ public class Game {
     }
 
     public UpdateInfo getUpdateInfo(Player p){
-        return new UpdateInfo(turnNumber,getPlayerShallows(p),getTrainCardFaceupDeck(),new Double(getTrainCardDeckSize()).intValue(),
+        UpdateInfo toReturn = new UpdateInfo(turnNumber,getPlayerShallows(p),getTrainCardFaceupDeck(),new Double(getTrainCardDeckSize()).intValue(),
                     new Double(getDestCardDeckSize()).intValue());
+        toReturn.setHand(p.getTrainCards());
+        toReturn.setDestHand(p.getDestCards());
+        toReturn.setPlayerRoutes(p.getRoutesClaimed().toArray(new Route[0]));
+        toReturn.setGameRoutes(routes.getRouteList().toArray(new Route[0]));
+        toReturn.setPiecesLeft(p.getTrainPiecesLeft());
+        toReturn.setPoints(p.getCurrentScore());
+        toReturn.setGameComplete(gameIsOver);
+        return toReturn;
     }
 
     public void addChat(String msg, String userName) {
@@ -200,38 +222,58 @@ public class Game {
     }
 
     public Result claimRoute(String username, Double routeID) {
-        Route toClaim = routes.getRoute(routeID.intValue());
-        Player claimer = getPlayer(new UserPass(username));
-        if (toClaim.isDouble()) {
-            return claimDoubleRoute(username, routeID.intValue());
-        }
-        if (toClaim.isClaimed()) {
-            return new Result(false, "That route is already claimed by" + toClaim.getClaimant() + "!");
+        if(routeID < 0){
+            int realID = (routeID.intValue())*(-1);
+            Route toClaim = routes.getRoute(realID);
+            return claimDoubleRoute(username,realID);
+            //Claim the double route
         }
         else {
-            toClaim.setClaimed(true);
-            claimer.addRoute(toClaim);
-            return new Result(true, "You claimed route " +toClaim.getID() + " from "
-                    + toClaim.getCity1() + " to " + toClaim.getCity2());
+            Route toClaim = routes.getRoute(routeID.intValue());
+            Player claimer = getPlayer(new UserPass(username));
+            //If the route is a double route, use a different function
+//            if (toClaim.isDouble()) {
+//                return claimDoubleRoute(username, routeID.intValue());
+//            }
+            //If it's not a double route but it's already claimed, return false
+            if (toClaim.isClaimed()) {
+                return new Result(false, "That route is already claimed by" + toClaim.getClaimant() + "!");
+            }
+            //otherwise update the route's claimant, set its claimed bool as true, and return true
+            else {
+                toClaim.setClaimed(true);
+                toClaim.setClaimant(claimer.getUserName().getNameOrPassword());
+                List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
+                discardTrainCards(toDiscard);
+                claimer.setTrainPiecesLeft(claimer.getTrainPiecesLeft()-toClaim.getLength());
+                claimer.setCurrentScore(claimer.getCurrentScore()+toClaim.getScoreValue());
+                return new Result(true, "You claimed route " + toClaim.getID() + " from "
+                        + toClaim.getCity1() + " to " + toClaim.getCity2());
+            }
         }
-        //TODO finish this method
     }
 
     private Result claimDoubleRoute(String userName, int routeID) {
         Route toClaim = routes.getRoute(routeID);
         Player claimer = getPlayer(new UserPass(userName));
-        if (toClaim.isDoubleClaimedl() && toClaim.isClaimed()) {
-            return new Result(false, "Both of those routes are already claimed!");
-        }
-        else if (!toClaim.isClaimed() && routeID > 0) {
-            toClaim.setClaimed(true);
-            claimer.addRoute(toClaim);
-            return new Result(true, "You claimed route " +toClaim.getID() + " from "
-            + toClaim.getCity1() + " to " + toClaim.getCity2());
-        }
-        else if (!toClaim.isDoubleClaimedl() && routeID < 0) {
+//        if (toClaim.isDoubleClaimedl() && toClaim.isClaimed()) {
+//            return new Result(false, "Both of those routes are already claimed!");
+//            return new Result(false, "Both of those routes are already claimed!");
+//        }
+//        else if (!toClaim.isClaimed() && routeID > 0) {
+//            toClaim.setClaimed(true);
+//            List<TrainCard> toDiscard = claimer.addRoute(toClaim, false);
+//            discardTrainCards(toDiscard);
+//            return new Result(true, "You claimed route " +toClaim.getID() + " from "
+//            + toClaim.getCity1() + " to " + toClaim.getCity2());
+//        }
+        if (!toClaim.isDoubleClaimed()) {
             toClaim.setDoubleClaimed(true);
-            claimer.addRoute(toClaim);
+            toClaim.setDoubleClaimant(claimer.getUserName().getNameOrPassword());
+            List<TrainCard> toDiscard = claimer.addRoute(toClaim, true);
+            discardTrainCards(toDiscard);
+            claimer.setTrainPiecesLeft(claimer.getTrainPiecesLeft()-toClaim.getLength());
+            claimer.setCurrentScore(claimer.getCurrentScore()+toClaim.getScoreValue());
             return new Result(true, "You claimed route " +toClaim.getID() + " from "
                     + toClaim.getCity1() + " to " + toClaim.getCity2());
         }
@@ -245,12 +287,12 @@ public class Game {
         Player addToHand = getPlayer(new UserPass(username));
         TrainCard toAdd = getFromFaceUpByID(cardID.intValue());
         if (toAdd == null) {
-            return new Result(false, "That card isn't in the faceup cards!");
+            return new Result(false, "That Spot is Empty!!");
         }
         else {
             addToHand.addTrainCard(toAdd);
             updateFaceUpDeck();
-            return new Result(true,toAdd.getType() +" card successfully drawn");
+            return new Result(true,toAdd.getType() +" card");
         }
     }
     public Result drawFromTrainDeck(String username) {
@@ -262,7 +304,6 @@ public class Game {
         personDrawing.addTrainCard(toAdd);
         trainCardFacedownDeck.remove(0);
         return new Result(true, toAdd.getType() + " drawn from deck");
-        //TODO set up command to send cardID back to ClientSide
     }
 
     public Result drawDestCards(String username) {
@@ -272,6 +313,7 @@ public class Game {
             int size = destinationCardDeck.size();
             for (int i = 0; i < destinationCardDeck.size(); i++) {
                 personDrawing.addDestCard(destinationCardDeck.get(0));
+                //personDrawing.addDestCardToChoose(destinationCardDeck.get(0));
                 destinationCardDeck.remove(0);
             }
             //if there are none, send a message saying so
@@ -284,32 +326,54 @@ public class Game {
         else {
             for (int i = 0; i < 3; i++) {
                 personDrawing.addDestCard(destinationCardDeck.get(0));
+                //personDrawing.addDestCardToChoose(destinationCardDeck.get(0));
                 destinationCardDeck.remove(0);
             }
             return new Result(true, "drew 3 destination cards");
         }
-        //TODO create command to send Destination Card IDS back to Client
     }
 
-    public Result updateTurn() {
-        if (turnNumber == playerList.size()) {
-            turnNumber = 0;
+    private void discardTrainCards(List<TrainCard> toDiscard) {
+        for (TrainCard card : toDiscard) {
+            discardedTrainCards.add(card);
         }
-        else {
-            turnNumber++;
+    }
+
+    public int updateTurn() {
+        //If the game is not in its last round, iterate normally through turns and don't do anything
+        //else
+        Player whoseTurn = playerList.get(turnNumber - 1);
+            if (turnNumber == playerList.size()) {
+                turnNumber = 1;
+            }
+            else {
+                turnNumber++;
+            }
+        //If it is the last round, each player gets one more turn
+            if (isLastRound) {
+                finalCountdown--;
+                if (finalCountdown == 0) {
+                    gameIsOver = true;
+                    return 0;
+                }
+            }
+        if (isLastRound == false && whoseTurn.getTrainPiecesLeft() <= 3) {
+            isLastRound = true;
+            finalCountdown = playerCount;
         }
-        Player whoseTurn = playerList.get(turnNumber);
-        return new Result(true, whoseTurn.getnameString());
+        return turnNumber;
     }
 
     private TrainCard getFromFaceUpByID(int ID) {
         //Find the card by its ID number in the face up deck. Set the corresponding slot to null
         //then return it
         for (int i = 0; i < trainCardFaceupDeck.length; i ++) {
-            if (trainCardFaceupDeck[i].getID() == ID) {
-                TrainCard toRet = trainCardFaceupDeck[i];
-                trainCardFaceupDeck[i] = null;
-                return toRet;
+            if(trainCardFaceupDeck[i] != null) {
+                if (trainCardFaceupDeck[i].getID() == ID) {
+                    TrainCard toRet = trainCardFaceupDeck[i];
+                    trainCardFaceupDeck[i] = null;
+                    return toRet;
+                }
             }
         }
         return null;
@@ -324,12 +388,14 @@ public class Game {
         //place
         for (int i = 0; i < trainCardFaceupDeck.length; i++) {
             if (trainCardFaceupDeck[i] == null) {
-                TrainCard workWith = trainCardFacedownDeck.get(0);
-                trainCardFaceupDeck[i] = workWith;
-                trainCardFacedownDeck.remove(0);
-                //always check and reshuffle if needed
-                if (trainCardFacedownDeck.isEmpty()) {
-                    reshuffleDiscardedTrains();
+                if (!trainCardFacedownDeck.isEmpty() || (discardedTrainCards.size() != 0)) {
+                    TrainCard workWith = trainCardFacedownDeck.get(0);
+                    trainCardFaceupDeck[i] = workWith;
+                    trainCardFacedownDeck.remove(0);
+                    //always check and reshuffle if needed
+                    if (trainCardFacedownDeck.isEmpty()) {
+                        reshuffleDiscardedTrains();
+                    }
                 }
             }
         }
@@ -342,14 +408,14 @@ public class Game {
         //count of locomotives in the face up deck
         int count = 0;
         for (int i = 0; i < trainCardFaceupDeck.length; i++) {
-            if (trainCardFaceupDeck[i].getType().equals("Locomotive")) {
+            if ((trainCardFaceupDeck[i] != null) && (trainCardFaceupDeck[i].getType().equals("Locomotive"))) {
                 count++;
             }
         }
         //Then if the count is greater than 2, discard all the cards and get 5 new cards from the
         //top of the face down deck
         if (count > 2) {
-            for (int i = 0; i <trainCardFaceupDeck.length; i++) {
+            for (int i = 0; i < trainCardFaceupDeck.length; i++) {
                 discardedTrainCards.add(trainCardFaceupDeck[i]);
                 trainCardFaceupDeck[i] = trainCardFacedownDeck.get(0);
                 trainCardFacedownDeck.remove(0);
@@ -357,8 +423,56 @@ public class Game {
                     reshuffleDiscardedTrains();
                 }
             }
+            checkAndResetFaceUp();
         }
-        checkAndResetFaceUp();
+    }
+
+    public void checkDestCompleted(String userName)
+    {
+        Player toCheck = getPlayer(new UserPass(userName));
+        List<Route> routesToCheck = new ArrayList<>(toCheck.getRoutesClaimed());
+
+        for (DestinationCard destCard: toCheck.getDestCards()) {
+            if (RouteProcessor.DestinationComplete(destCard.getCity1(),
+                    destCard.getCity2(),
+                    routesToCheck)) {
+                destCard.setComplete(true);
+            }
+        }
+    }
+
+    public void calculateScores(){
+        for (Player player: playerList)
+        {
+            player.setCurrentScore(player.getCurrentScore()-player.tallyLostPoints());
+        }
+    }
+
+    public EndGameInfo getEndGameInfo() {
+
+        EndGameInfo toRet = new EndGameInfo();
+        RouteProcessor rp = new RouteProcessor();
+        Player dummy = new Player(new UserPass(""), 6);
+        List<PlayerShallow> playerInfo = getPlayerShallows(dummy);
+        toRet.setPlayerInfo(playerInfo);
+        Player highestScoringPlayer = playerList.get(0);
+        int longestRoute = -1;
+        for (Player player: playerList)
+        {
+            List<Route> routesToCheck = new ArrayList<>(player.getRoutesClaimed());
+
+            if (player.getCurrentScore() > highestScoringPlayer.getCurrentScore())
+                highestScoringPlayer = player;
+            if (rp.LongestRoute(routesToCheck) > longestRoute)
+                toRet.setPlayerWithLongestRoute(player.getUserName().getNameOrPassword());
+        }
+        toRet.setPointsFromLongestRoute(10);
+        toRet.setWinner(highestScoringPlayer.getUserName().getNameOrPassword());
+        return toRet;
+    }
+
+    public int getTurnNumber() {
+        return turnNumber;
     }
 
     public int getPlayerCount()

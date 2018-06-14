@@ -32,7 +32,6 @@ public class SetUpPresenter implements ISetUpPresenter, Observer {
     public SetUpPresenter (ISetUpView view, FragmentActivity mn) {
         this.view = view;
         this.facade = PlayFacade.getInstance();
-//        this.facade.addObserver(this);
         this.mn = mn;
         this.facade.addSetUpObserver(this);
     }

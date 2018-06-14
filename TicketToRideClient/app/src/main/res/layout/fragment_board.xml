@@ -30,8 +30,8 @@
                 android:text="@string/points"
                 android:textAlignment="center"
                 android:padding="8dp"
-                android:textColor="#ffe8ce"
-                android:background="#383838"
+                android:textColor="@color/lightText"
+                android:background="@color/darkBackground"
                 android:textSize="14dp"
                 android:id="@+id/pointsDisplay"/>
 
@@ -46,8 +46,8 @@
                 android:text="@string/trains"
                 android:textAlignment="center"
                 android:padding="8dp"
-                android:textColor="#ffe8ce"
-                android:background="#383838"
+                android:textColor="@color/lightText"
+                android:background="@color/darkBackground"
                 android:textSize="14dp"
                 android:id="@+id/trainDisplay"/>
 
@@ -62,7 +62,7 @@
                 android:text="@string/yourHand"
                 android:textAlignment="center"
                 android:textColor="#000000"
-                android:background="#ffe3af"
+                android:background="@color/lightBackground"
                 android:padding="8dp"
                 android:textSize="14dp"
                 android:id="@+id/yourHandBanner"/>
@@ -217,7 +217,7 @@
                 android:text="@string/otherPlayers"
                 android:textAlignment="center"
                 android:textColor="#000000"
-                android:background="#ffe3af"
+                android:background="@color/lightBackground"
                 android:padding="8dp"
                 android:textSize="14dp"
                 android:id="@+id/otherPlayersBanner"/>
@@ -259,7 +259,7 @@
                 android:textAlignment="center"
                 android:padding="8dp"
                 android:textColor="#000000"
-                android:background="#ffe3af"
+                android:background="@color/lightBackground"
                 android:textSize="14dp"
                 android:id="@+id/availableCardsBanner"/>
 
@@ -283,7 +283,7 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:background="#2f6fd6"
+                        android:background="@color/trainDeckBackground"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:text="Train Cards: #"
@@ -294,7 +294,7 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:background="#dbb930"
+                        android:background="@color/destDeckBackground"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:text="Destination Cards: #"
@@ -376,7 +376,7 @@
                     android:padding="10dp"
                     android:textColor="#000000"
                     android:textSize="14dp"
-                    android:background="#ffe3af"
+                    android:background="@color/lightBackground"
                     android:id="@+id/viewYourDestinationCardsBanner"/>
 
                 <View
@@ -408,7 +408,7 @@
             android:textAlignment="center"
             android:padding="13dp"
             android:textColor="#000000"
-            android:background="#ffe3af"
+            android:background="@color/lightBackground"
             android:textSize="14dp"
             android:id="@+id/chatAndHistoryBanner"/>
 
@@ -439,7 +439,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="bottom"
-                android:background="#cccccc">
+                android:background="@color/chatBackground">
                 <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

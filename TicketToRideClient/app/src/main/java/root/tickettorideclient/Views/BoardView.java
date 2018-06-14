@@ -91,11 +91,13 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     LinearLayout availableCardsDisplay;
     TextView trainCardsDeck;
     TextView destinationCardsDeck;
+
     View faceUpCard1;
     View faceUpCard2;
     View faceUpCard3;
     View faceUpCard4;
     View faceUpCard5;
+    ArrayList<TrainCard> faceUpCards;
 
     TextView playersTurnText;
 
@@ -114,11 +116,13 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     ArrayList<City> cities = new ArrayList<>();
     ArrayList<Route> routes = new ArrayList<>();
     Map<City, Marker>markers = new HashMap<>();
-    Map<Polyline, Route>lines = new HashMap<>();
+    Map<Polyline, Integer>lines = new HashMap<>();
+    Routes allRoutesObject = new Routes();
 
     private OtherPlayerAdapter playerAdapter;
 
     Route routeClicked = null;
+    int routeClickedID;
 
     final int LINE_WIDTH = 10;
 
@@ -136,6 +140,9 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         setUpTopInputs();
         setUpBottomInputs();
         createRecyclerView();
+
+        faceUpCards = new ArrayList<>(5);
+
         return myView;
     }
 
@@ -174,12 +181,13 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     public void setUpTopInputs(){
         userPointsBanner = (TextView) myView.findViewById(R.id.pointsDisplay);
-        userPointsBanner.setOnClickListener(new View.OnClickListener() {
+     /*   userPointsBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 presenter.test();
             }
         });
+    */
         userTrainsBanner = (TextView) myView.findViewById(R.id.trainDisplay);
         userTrainsBanner.setOnClickListener(new View.OnClickListener() {
             //Secret button to take you to end view
@@ -226,19 +234,67 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         });
 
         trainCardsDeck = (TextView)myView.findViewById(R.id.trainCardsDeck);
+        trainCardsDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.drawFromTrainDeck();
+            }
+        });
+
         destinationCardsDeck = (TextView)myView.findViewById(R.id.destinationCardsDeck);
         destinationCardsDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((IDrawDestinationsCallback) getActivity()).goToDrawDestinations();
+                if(presenter.drawFromDestDeck())
+                    ((IDrawDestinationsCallback) getActivity()).goToDrawDestinations();
             }
         });
 
         faceUpCard1 = (View) myView.findViewById(R.id.faceUpCard1);
+        faceUpCard1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (faceUpCards.size() > 0) {
+                    presenter.chooseFaceUpCard(faceUpCards.get(0));
+                }
+            }
+        });
         faceUpCard2 = (View) myView.findViewById(R.id.faceUpCard2);
+        faceUpCard2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (faceUpCards.size() > 1) {
+                    presenter.chooseFaceUpCard(faceUpCards.get(1));
+                }
+            }
+        });
         faceUpCard3 =  (View) myView.findViewById(R.id.faceUpCard3);
+        faceUpCard3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (faceUpCards.size() > 2) {
+                    presenter.chooseFaceUpCard(faceUpCards.get(2));
+                }
+            }
+        });
         faceUpCard4 =  (View) myView.findViewById(R.id.faceUpCard4);
+        faceUpCard4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (faceUpCards.size() > 3) {
+                    presenter.chooseFaceUpCard(faceUpCards.get(3));
+                }
+            }
+        });
         faceUpCard5 = (View) myView.findViewById(R.id.faceUpCard5);
+        faceUpCard5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (faceUpCards.size() > 4) {
+                    presenter.chooseFaceUpCard(faceUpCards.get(4));
+                }
+            }
+        });
 
         playersTurnText = (TextView) myView.findViewById(R.id.playersTurn);
 
@@ -331,19 +387,21 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         this.cities = new ArrayList<>(Cities.getInstance().getCities());
         this.routes = new ArrayList<>(new Routes().getRouteList());
         drawCities();
+        myGoogleMap.setOnInfoWindowClickListener(this);
         presenter = new BoardPresenter(this, getActivity());
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        presenter.claimRoute(routeClicked);
+        presenter.claimRoute(routeClickedID);
     }
 
     public void polylineOnClickListener(){
         myGoogleMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
             @Override
             public void onPolylineClick(Polyline polyline) {
-                routeClicked = lines.get(polyline);
+                routeClickedID = lines.get(polyline);
+                routeClicked = allRoutesObject.getRoute(routeClickedID);
                 Marker marker = markers.get(routeClicked.getCity1());
                 String addToClaim = "\nClick To Claim!";
                 String infoWindowText = routeClicked.getCity1().getName() + " to " + routeClicked.getCity2().getName() + "\n" +
@@ -497,6 +555,8 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void updateFaceUp(ArrayList<TrainCard> cards) {
+        faceUpCards = cards;
+
         String[] colors = new String[cards.size()];
         for (int i = 0; i < cards.size(); ++i) {
             colors[i] = cards.get(i).getColor();
@@ -557,7 +617,28 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
             faceUpCard5.setBackgroundColor(colorInts[4]);
 
         }
+
+        clearFaceUpCards(5 - cards.size());
+
         updateUI();
+    }
+
+    public void clearFaceUpCards (int numEmptySlots) {
+        if (numEmptySlots > 0) {
+            faceUpCard1.setBackgroundColor(0);
+        }
+        if (numEmptySlots > 1) {
+            faceUpCard2.setBackgroundColor(0);
+        }
+        if (numEmptySlots > 2) {
+            faceUpCard3.setBackgroundColor(0);
+        }
+        if (numEmptySlots > 3) {
+            faceUpCard4.setBackgroundColor(0);
+        }
+        if (numEmptySlots > 4) {
+            faceUpCard5.setBackgroundColor(0);
+        }
     }
 
 
@@ -607,8 +688,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     @Override
     public void switchToEndView() {
-        //TODO: implement in next phase
-        popToast("Game ended: switch to end view");
+        ((IEndGameCallback) getActivity()).goToEndGame();
     }
 
     @Override
@@ -686,33 +766,22 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
                 new LatLng(city2.getLatitude() + offset, city2.getLongitude() + offset));
         polylineOptions.width(LINE_WIDTH);
         polylineOptions.clickable(true);
-        switch (color) {
-            case "Gray":
-                polylineOptions.color(Color.GRAY);
+
+        switch (color.toLowerCase()) {
+            case "yellow":
+                polylineOptions.color(ContextCompat.getColor(getContext(), R.color.playerYellow));
                 break;
-            case "Yellow":
-                polylineOptions.color(Color.YELLOW);
+            case "blue":
+                polylineOptions.color(ContextCompat.getColor(getContext(), R.color.playerBlue));
                 break;
-            case "Blue":
-                polylineOptions.color(Color.BLUE);
+            case "green":
+                polylineOptions.color(ContextCompat.getColor(getContext(), R.color.playerGreen));
                 break;
-            case "Green":
-                polylineOptions.color(Color.GREEN);
+            case "purple":
+                polylineOptions.color(ContextCompat.getColor(getContext(), R.color.playerPurple));
                 break;
-            case "Pink":
-                polylineOptions.color(Color.MAGENTA);
-                break;
-            case "Black":
-                polylineOptions.color(Color.BLACK);
-                break;
-            case "Orange":
-                polylineOptions.color(Color.rgb(255, 175, 58));
-                break;
-            case "White":
-                polylineOptions.color(Color.WHITE);
-                break;
-            case "Red":
-                polylineOptions.color(Color.RED);
+            case "red":
+                polylineOptions.color(ContextCompat.getColor(getContext(), R.color.playerRed));
                 break;
             default:
                 polylineOptions.color(Color.CYAN);
@@ -731,15 +800,15 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
         for(int i = 0; i < routes.size(); i++){
             Route route = routes.get(i);
             if(!route.isClaimed())
-                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0, dashedPattern), route);
+                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0, dashedPattern), route.getID());
             else
-                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0), route);
+                lines.put(drawLine(route.getCity1(), route.getCity2(), route.getColor(), 0), route.getID());
 
             if(routes.get(i).isDouble()){
                 if(!route.isDoubleClaimed())
-                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset, dashedPattern), route);
+                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset, dashedPattern), route.getID() * -1);
                 else
-                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset), route);
+                    lines.put(drawLine(route.getCity1(), route.getCity2(), route.getDoubleColor(), doubleRouteOffset), route.getID() * -1);
             }
         }
     }

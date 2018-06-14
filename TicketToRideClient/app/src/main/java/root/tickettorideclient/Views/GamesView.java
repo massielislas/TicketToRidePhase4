@@ -29,6 +29,7 @@ import root.tickettorideclient.R;
 public class GamesView extends Fragment implements IGamesView {
     private Spinner playerNumberSpinner;
     private Button createGameButton;
+    private Button rejoinGameButton;
     private RecyclerView gamesRecyclerView;
     private ArrayList<GameListItem>gameListItems = new ArrayList<>();
     private GamesListAdapter gamesListAdapter;
@@ -109,6 +110,14 @@ public class GamesView extends Fragment implements IGamesView {
 //                joinedGameMaxPlayers = numberOfPlayersSelected;
 //                joinedGameJoinedPlayers = 1;
                 presenter.createGame(numberOfPlayersSelected);
+            }
+        });
+
+        rejoinGameButton = (Button) view.findViewById(R.id.rejoinButton);
+        rejoinGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
             }
         });
     }

@@ -9,18 +9,24 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.Polyline;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import Model.InGameModels.City;
 import Model.InGameModels.DestinationCard;
 import root.tickettorideclient.Presenters.DrawDestinationCardsPresenter;
-import root.tickettorideclient.Presenters.IDestinationCardsView;
 import root.tickettorideclient.Presenters.IDrawDestinationCardsView;
 import root.tickettorideclient.R;
 
@@ -35,6 +41,8 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
     ArrayList<DestinationCard> userDestinationCards = new ArrayList<>();
     int selectedColor;
     int nonSelectedColor;
+    Button doneButton;
+    Map<DestinationCard, Boolean> destinationCardsSelected = new HashMap<>();
 
     IDrawDestinationPresenter presenter;
 
@@ -43,16 +51,67 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
         super.onCreate(savedInstanceState);
         selectedColor = ContextCompat.getColor(getContext(), R.color.selectedCardColor);
         nonSelectedColor = ContextCompat.getColor(getContext(), R.color.unselectedCardColor);
-
-        presenter = new DrawDestinationCardsPresenter();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_destination_cards, container, false);
+        presenter = new DrawDestinationCardsPresenter(this, getActivity());
         createList();
+        setUpButton();
         return v;
+    }
+
+    public void setUpButton(){
+        doneButton = (Button) v.findViewById(R.id.doneSelectingButton);
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList<DestinationCard>destinationCardsDiscarded = new ArrayList<>();
+
+                Iterator it = destinationCardsSelected.keySet().iterator();
+
+                while(it.hasNext()){
+                    DestinationCard currentKey = (DestinationCard) it.next();
+                    if(destinationCardsSelected.get(currentKey) == false)
+                        destinationCardsDiscarded.add(currentKey);
+                }
+                presenter.returnDestCards(destinationCardsDiscarded);
+//                backButtonCall();
+//                callOnDestroy();
+                backButtonReplacement();
+            }
+        });
+        doneButton.setEnabled(false);
+    }
+
+    public void backButtonReplacement(){
+        getActivity().onBackPressed();
+    }
+
+    public void callOnDestroy(){
+        this.onDestroyView();
+    }
+
+    public void backButtonCall(){
+        getActivity().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+    }
+
+    public void checkButtonEnabled(){
+        Iterator it = destinationCardsSelected.keySet().iterator();
+        int cardsSelected = 0;
+
+        while(it.hasNext()){
+            if(destinationCardsSelected.get(it.next()))
+                cardsSelected++;
+        }
+        if(cardsSelected > 0){
+            doneButton.setEnabled(true);
+        }
+        else
+            doneButton.setEnabled(false);
     }
 
     public void createList(){
@@ -61,9 +120,17 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
         updateUI();
     }
 
+    private void createDestinationCardsSelected(){
+        destinationCardsSelected = new HashMap<>();
+        for(int i = 0; i < userDestinationCards.size(); i++){
+            destinationCardsSelected.put(userDestinationCards.get(i), false);
+        }
+    }
+
     public void updateUI(){
-        userDestinationCards = presenter.getChoices();
-        addFakeDestinations();
+       // userDestinationCards = presenter.getChoices();
+       // addFakeDestinations();
+        createDestinationCardsSelected();
         destinationsAdapter = new DestinationsAdapter(userDestinationCards);
         cardListRecyclerView.setAdapter(destinationsAdapter);
     }
@@ -87,6 +154,17 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void updateDestCards(ArrayList<DestinationCard> cards) {
+        userDestinationCards = cards;
+        createList();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+    }
 
     public class DestinationCardHolder extends RecyclerView.ViewHolder{
         TextView destinationCardTextView;
@@ -106,18 +184,17 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
                 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                 @Override
                 public void onClick(View view) {
-                    int a = destinationCardTextView.getSolidColor();
-                    int b = destinationCardTextView.getDrawingCacheBackgroundColor();
-                    int c = destinationCardTextView.getHighlightColor();
-                    int d = destinationCardTextView.getShadowColor();
-
                     ColorDrawable cd = (ColorDrawable) destinationCardTextView.getBackground();
                     int colorCode = cd.getColor();
                      if(colorCode == selectedColor){
                          destinationCardTextView.setBackgroundColor(nonSelectedColor);
+                         destinationCardsSelected.put(destinationCard, false);
                      }
-                     else
+                     else{
+                         destinationCardsSelected.put(destinationCard, true);
                          destinationCardTextView.setBackgroundColor(selectedColor);
+                     }
+                     checkButtonEnabled();
                 }
             });
             completion.setText("");
@@ -147,5 +224,6 @@ public class DrawDestinationCardsView extends Fragment implements IDrawDestinati
         public int getItemCount() {
             return destinationCards.size();
         }
+
     }
 }

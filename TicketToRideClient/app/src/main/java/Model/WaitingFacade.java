@@ -31,7 +31,7 @@ public class WaitingFacade
     }
     public void addObserver(Observer o)
     {
-        currentGame.addAnObserver(o);
+        if (currentGame!= null) currentGame.addAnObserver(o);
     }
 
     public void deRegisterObserver(Observer o)

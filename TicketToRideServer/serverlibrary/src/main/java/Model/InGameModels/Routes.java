@@ -44,7 +44,7 @@ public class Routes
                 "Miami", "Atlanta", "Atlanta", "Nashville", "Saint Louis", "Nashville", "Pittsburgh",
                 "Chicago", "Chicago", "Montreal", "Toronto", "Toronto", "Pittsburgh", "Pittsburgh",
                 "Atlanta", "Raleigh", "Pittsburgh", "Miami", "Charleston", "Raleigh", "Raleigh",
-                "Raleigh", "Washington DC", "New York", "New Yost", "Montreal", "Charleston", "Washington DC",
+                "Raleigh", "Washington DC", "New York", "New York", "Montreal", "Charleston", "Washington DC",
                 "Washington DC", "Miami", "New York", "New York", "Boston", "Boston", "Montreal", "Boston",
                 "Boston"};
         int[] lengths = {3, 1, 1, 1, 1, 4, 6, 6, 6, 6, 5, 5, 3, 3, 2, 3, 6, 3, 3, 3, 3, 4, 4, 5, 6,
@@ -62,13 +62,13 @@ public class Routes
                 "Gray", "Gray", "Gray", "Green", "White", "Gray", "Gray", "Gray", "Gray", "Pink",
                 "Orange", "Black", "Yellow", "Red", "Blue", "Gray", "Gray"};
         routeList = new ArrayList<>();
-        int id = 0;
+        int id = 1;
         for(int i = 0; i < startCities.length; i++){
             if(i != startCities.length-1){
-                if(startCities[i].equals(startCities[i+1])&&endCities[i].equals(endCities[i+1]))
+                if(startCities[i].equals(startCities[i+1]) && endCities[i].equals(endCities[i+1]))
                 {
                     routeList.add(new Route(Cities.getInstance().findCity(startCities[i]),
-                            Cities.getInstance().findCity(endCities[i]),lengths[i],colors[i],id++,colors[i+1]));
+                            Cities.getInstance().findCity(endCities[i]),lengths[i],colors[i],id++,colors[i+1], id++));
                     i++;
                 }
                 else{
@@ -81,6 +81,7 @@ public class Routes
                         Cities.getInstance().findCity(endCities[i]),lengths[i],colors[i],id++));
             }
         }
+
     }
 
     public Route getRoute(int ID) {

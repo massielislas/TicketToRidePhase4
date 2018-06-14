@@ -6,7 +6,7 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:id="@+id/destinationCardItem"
         android:padding="15dp"
         android:layout_weight="1"
@@ -18,7 +18,7 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textColor="#000000"
         android:id="@+id/completion"

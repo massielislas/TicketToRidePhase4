@@ -58,7 +58,7 @@ public class Routes
                 "Gray", "Gray", "Gray", "Green", "White", "Gray", "Gray", "Gray", "Gray", "Pink",
                 "Orange", "Black", "Yellow", "Red", "Blue", "Gray", "Gray"};
         routeList = new ArrayList<>();
-        int id = 0;
+        int id = 1;
         for(int i = 0; i < startCities.length; i++){
             if(i != startCities.length-1){
                 if(startCities[i].equals(startCities[i+1])&&endCities[i].equals(endCities[i+1]))
@@ -83,9 +83,20 @@ public class Routes
     /*public static Routes getInstance() {
         return instance;
     }*/
+    public Route getRoute(int ID) {
+        for (Route toRet : routeList) {
+            if ((toRet.getID() == ID) || (toRet.getID() * -1 == ID)) {
+                return toRet;
+            }
+        }
+        return null;
+    }
+
+    public void setRouteList(List<Route> routeList) {
+        this.routeList = routeList;
+    }
 
     public List<Route> getRouteList() {
         return routeList;
     }
-
 }

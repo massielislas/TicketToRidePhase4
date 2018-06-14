@@ -5,6 +5,14 @@
     android:orientation="vertical"
     android:layout_margin="20dp">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rejoin"
+        android:layout_gravity="left"
+        android:id="@+id/rejoinButton"
+        android:layout_marginVertical="20dp"/>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

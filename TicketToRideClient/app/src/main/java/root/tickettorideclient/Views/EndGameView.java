@@ -9,16 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import java.util.ArrayList;
 
+import root.tickettorideclient.Presenters.EndGamePresenter;
+import root.tickettorideclient.Presenters.IEndGameView;
 import root.tickettorideclient.R;
 
 /**
  * Created by Massiel on 6/4/2018.
  */
 
-public class EndGameView extends Fragment{
+public class EndGameView extends Fragment implements IEndGameView {
+    final String WINNER_TAG = "WINNER: ";
+    final String LONGEST_ROUTE_POINTS = "Longest route points: ";
     final String POINTS_FROM_CLAIMED_ROUTES = "Points from claimed routes: ";
     final String POINTS_FROM_REACHED_DESTINATIONS = "Points from reached destinations: ";
     final String POINTS_FROM_UNREACHED_DESTINATIONS = "Points from unreached destinations: ";
@@ -32,9 +38,11 @@ public class EndGameView extends Fragment{
     TextView totalPointsWinner;
     View v;
     RecyclerView otherFinalStatsRecyclerView;
-    ArrayList<PlayerFinalStats>playerFinalStats;
+    ArrayList<PlayerFinalStats> playerFinalStats = new ArrayList<>();
 
     PlayerFinalStatsAdapter finalStatsAdapter;
+
+    IEndGamePresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +54,10 @@ public class EndGameView extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_end_game, container, false);
         setUpInputs();
+        createList();
+
+        presenter = new EndGamePresenter(this, getActivity());
+
         return v;
     }
 
@@ -73,15 +85,40 @@ public class EndGameView extends Fragment{
             finalStats.setLostDestinations(i);
             finalStats.setReachedDestinationsPoints(i);
             finalStats.setTotalPoints(i);
+            playerFinalStats.add(finalStats);
         }
     }
 
     private void updateUI(){
-        //TODO set here by presenter
-        playerFinalStats = new ArrayList<>();
-        addFakeData();
+       // addFakeData();
         finalStatsAdapter = new PlayerFinalStatsAdapter(playerFinalStats);
         otherFinalStatsRecyclerView.setAdapter(finalStatsAdapter);
+    }
+
+    @Override
+    public void updatePlayers(ArrayList<PlayerFinalStats> players) {
+        playerFinalStats = players;
+        updateUI();
+    }
+
+    @Override
+    public void updateWinner(PlayerFinalStats winner) {
+        final String POINTS_FROM_CLAIMED_ROUTES = "Points from claimed routes: ";
+        final String POINTS_FROM_REACHED_DESTINATIONS = "Points from reached destinations: ";
+        final String POINTS_FROM_UNREACHED_DESTINATIONS = "Points from unreached destinations: ";
+        final String TOTAL_POINTS = "TOTAL POINTS: ";
+
+        nameWinner.setText( WINNER_TAG + winner.getName());
+        longestRouteWinner.setText( LONGEST_ROUTE_POINTS +  ((Integer) winner.getLongestRoutePoints()).toString());
+        pointsFromClaimedRoutesWinner.setText( POINTS_FROM_CLAIMED_ROUTES + ((Integer) winner.getClaimedRoutesPoints()).toString());
+        pointsFromReachedDestinationsWinner.setText( POINTS_FROM_REACHED_DESTINATIONS + ((Integer) winner.getReachedDestinationsPoints()).toString());
+        pointsLostFromDestinationsWinner.setText( POINTS_FROM_UNREACHED_DESTINATIONS + ((Integer) winner.getLostDestinations()).toString());
+        totalPointsWinner.setText( TOTAL_POINTS + ((Integer) winner.getTotalPoints()).toString());
+    }
+
+    @Override
+    public void popErrorToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     public class PlayerFinalStatsHolder extends RecyclerView.ViewHolder{
@@ -93,7 +130,7 @@ public class EndGameView extends Fragment{
         TextView totalPoints;
 
         public PlayerFinalStatsHolder(LayoutInflater inflater, ViewGroup parent){
-            super(inflater.inflate(R.layout.destination_card_item, parent, false));
+            super(inflater.inflate(R.layout.final_stats_item, parent, false));
             name = (TextView) itemView.findViewById(R.id.playerName);
             longestRoute = (TextView) itemView.findViewById(R.id.longestRoute);
             pointsFromClaimedRoutes = (TextView) itemView.findViewById(R.id.pointsFromClaimedRoutes);
@@ -104,6 +141,7 @@ public class EndGameView extends Fragment{
 
         public void bind(final PlayerFinalStats playerFinalStats){
             name.setText(playerFinalStats.getName());
+            longestRoute.setText(LONGEST_ROUTE_POINTS + playerFinalStats.getName());
             pointsFromClaimedRoutes.setText(POINTS_FROM_CLAIMED_ROUTES + playerFinalStats.getClaimedRoutesPoints());
             pointsLostFromDestinations.setText(POINTS_FROM_UNREACHED_DESTINATIONS + playerFinalStats.getLostDestinations());
             pointsFromReachedDestinations.setText(POINTS_FROM_REACHED_DESTINATIONS + playerFinalStats.getReachedDestinationsPoints());

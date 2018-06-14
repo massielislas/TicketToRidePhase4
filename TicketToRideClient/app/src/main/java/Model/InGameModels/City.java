@@ -35,4 +35,30 @@ public class City {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        City city = (City) o;
+
+        if (Double.compare(city.latitude, latitude) != 0) return false;
+        if (Double.compare(city.longitude, longitude) != 0) return false;
+        return name.equals(city.name);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result;
+        long temp;
+        result = name.hashCode();
+        temp = Double.doubleToLongBits(latitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(longitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

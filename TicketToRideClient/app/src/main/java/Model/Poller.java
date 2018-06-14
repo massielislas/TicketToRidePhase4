@@ -41,11 +41,14 @@ public class Poller {
             public void run() {
                 Poll();
             }
-        },0, 3000);
+        },0, 500);
     }
     private void Poll()
     {
         if(running) {
+//            PlayFacade facade = PlayFacade.getInstance();
+//            facade.pollerUpdate();
+
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.String","java.lang.Double"};
@@ -65,7 +68,7 @@ public class Poller {
                 String json = ClientCommunicator.getClient().post(objects);
                 if (json == null) return;
                 PollResult result =(PollResult) Encoder.Decode(json, PollResult.class);
-                lastCommand = lastCommand + result.getCommands().length;
+                if (result.getCommands() != null) lastCommand = lastCommand + result.getCommands().length;
                 ClientFacade.getInstance().executeCommands(result.getCommands());
             }
             catch (MalformedURLException exception)

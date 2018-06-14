@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.List;
+
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.Route;
@@ -13,14 +14,68 @@ public class UpdateInfo {
     private int trainDeckSize;
     private List<PlayerShallow> playerInfo;
     private TrainCard[] currentFaceUpCards;
-    private Route[] routes;
-    private List<DestinationCard> toChoose;
+    private Route[] gameRoutes;
+    private Route[] playerRoutes;
     private List<TrainCard> hand;
+    private List<DestinationCard> destHand;
+    private int points;
+    private int piecesLeft;
+    private boolean isGameComplete;
 
-    public UpdateInfo(int turnNumber, List<PlayerShallow>otherplayers, TrainCard[] currentCards) {
+    public UpdateInfo(int turnNumber, List<PlayerShallow>otherplayers, TrainCard[] currentCards, int trainDeckSize, int destDeckSize) {
         this.turnNumber = turnNumber;
+        this.trainDeckSize = trainDeckSize;
+        this.destDeckSize = destDeckSize;
         currentFaceUpCards = currentCards;
         playerInfo = otherplayers;
+    }
+
+    public List<DestinationCard> getDestHand() {
+        return destHand;
+    }
+
+    public void setDestHand(List<DestinationCard> destHand) {
+        this.destHand = destHand;
+    }
+
+    public boolean isGameComplete() {
+        return isGameComplete;
+    }
+
+    public void setGameComplete(boolean gameComplete) {
+        isGameComplete = gameComplete;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public int getPiecesLeft() {
+        return piecesLeft;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setPiecesLeft(int trainCards) {
+        this.piecesLeft = trainCards;
+    }
+
+    public Route[] getGameRoutes() {
+        return gameRoutes;
+    }
+
+    public void setGameRoutes(Route[] gameRoutes) {
+        this.gameRoutes = gameRoutes;
+    }
+
+    public Route[] getPlayerRoutes() {
+        return playerRoutes;
+    }
+
+    public void setPlayerRoutes(Route[] playerRoutes) {
+        this.playerRoutes = playerRoutes;
     }
 
     public List<TrainCard> getHand() {
@@ -29,22 +84,6 @@ public class UpdateInfo {
 
     public void setHand(List<TrainCard> hand) {
         this.hand = hand;
-    }
-
-    public List<DestinationCard> getToChoose() {
-        return toChoose;
-    }
-
-    public void setToChoose(List<DestinationCard> toChoose) {
-        this.toChoose = toChoose;
-    }
-
-    public Route[] getRoutes() {
-        return routes;
-    }
-
-    public void setRoutes(Route[] routes) {
-        this.routes = routes;
     }
 
     public int getDestDeckSize() {
