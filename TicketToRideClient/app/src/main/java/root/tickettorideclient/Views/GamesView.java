@@ -151,6 +151,11 @@ public class GamesView extends Fragment implements IGamesView {
         ((IGameJoinedCallback) getActivity()).onGameCreated(bundle);
     }
 
+    @Override
+    public void switchToBoardView(){
+        //TODO
+    }
+
 
     @Override
     public void popToast(String message) {
