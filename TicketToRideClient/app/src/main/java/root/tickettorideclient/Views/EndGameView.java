@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import root.tickettorideclient.Presenters.EndGamePresenter;
 import root.tickettorideclient.Presenters.IEndGameView;
 import root.tickettorideclient.R;
 
@@ -22,6 +23,8 @@ import root.tickettorideclient.R;
  */
 
 public class EndGameView extends Fragment implements IEndGameView {
+    final String WINNER_TAG = "WINNER: ";
+    final String LONGEST_ROUTE_POINTS = "Longest route points: ";
     final String POINTS_FROM_CLAIMED_ROUTES = "Points from claimed routes: ";
     final String POINTS_FROM_REACHED_DESTINATIONS = "Points from reached destinations: ";
     final String POINTS_FROM_UNREACHED_DESTINATIONS = "Points from unreached destinations: ";
@@ -35,9 +38,11 @@ public class EndGameView extends Fragment implements IEndGameView {
     TextView totalPointsWinner;
     View v;
     RecyclerView otherFinalStatsRecyclerView;
-    ArrayList<PlayerFinalStats>playerFinalStats = new ArrayList<>();
+    ArrayList<PlayerFinalStats> playerFinalStats = new ArrayList<>();
 
     PlayerFinalStatsAdapter finalStatsAdapter;
+
+    IEndGamePresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +55,9 @@ public class EndGameView extends Fragment implements IEndGameView {
         v = inflater.inflate(R.layout.fragment_end_game, container, false);
         setUpInputs();
         createList();
+
+        presenter = new EndGamePresenter(this, getActivity());
+
         return v;
     }
 
@@ -82,20 +90,30 @@ public class EndGameView extends Fragment implements IEndGameView {
     }
 
     private void updateUI(){
-        addFakeData();
+       // addFakeData();
         finalStatsAdapter = new PlayerFinalStatsAdapter(playerFinalStats);
         otherFinalStatsRecyclerView.setAdapter(finalStatsAdapter);
     }
 
     @Override
-    public void updatePlayerScoresView(String playerID, int score) {
-        for (int i = 0; i < playerFinalStats.size(); ++i) {
-            if (playerFinalStats.get(i).getName().equals(playerID)) {
-                playerFinalStats.get(i).setTotalPoints(score);
-                i = playerFinalStats.size();
-            }
-        }
+    public void updatePlayers(ArrayList<PlayerFinalStats> players) {
+        playerFinalStats = players;
         updateUI();
+    }
+
+    @Override
+    public void updateWinner(PlayerFinalStats winner) {
+        final String POINTS_FROM_CLAIMED_ROUTES = "Points from claimed routes: ";
+        final String POINTS_FROM_REACHED_DESTINATIONS = "Points from reached destinations: ";
+        final String POINTS_FROM_UNREACHED_DESTINATIONS = "Points from unreached destinations: ";
+        final String TOTAL_POINTS = "TOTAL POINTS: ";
+
+        nameWinner.setText( WINNER_TAG + winner.getName());
+        longestRouteWinner.setText( LONGEST_ROUTE_POINTS +  ((Integer) winner.getLongestRoutePoints()).toString());
+        pointsFromClaimedRoutesWinner.setText( POINTS_FROM_CLAIMED_ROUTES + ((Integer) winner.getClaimedRoutesPoints()).toString());
+        pointsFromReachedDestinationsWinner.setText( POINTS_FROM_REACHED_DESTINATIONS + ((Integer) winner.getReachedDestinationsPoints()).toString());
+        pointsLostFromDestinationsWinner.setText( POINTS_FROM_UNREACHED_DESTINATIONS + ((Integer) winner.getLostDestinations()).toString());
+        totalPointsWinner.setText( TOTAL_POINTS + ((Integer) winner.getTotalPoints()).toString());
     }
 
     @Override
@@ -123,6 +141,7 @@ public class EndGameView extends Fragment implements IEndGameView {
 
         public void bind(final PlayerFinalStats playerFinalStats){
             name.setText(playerFinalStats.getName());
+            longestRoute.setText(LONGEST_ROUTE_POINTS + playerFinalStats.getName());
             pointsFromClaimedRoutes.setText(POINTS_FROM_CLAIMED_ROUTES + playerFinalStats.getClaimedRoutesPoints());
             pointsLostFromDestinations.setText(POINTS_FROM_UNREACHED_DESTINATIONS + playerFinalStats.getLostDestinations());
             pointsFromReachedDestinations.setText(POINTS_FROM_REACHED_DESTINATIONS + playerFinalStats.getReachedDestinationsPoints());

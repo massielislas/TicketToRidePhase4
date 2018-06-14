@@ -62,10 +62,10 @@ public class Routes
                 "Gray", "Gray", "Gray", "Green", "White", "Gray", "Gray", "Gray", "Gray", "Pink",
                 "Orange", "Black", "Yellow", "Red", "Blue", "Gray", "Gray"};
         routeList = new ArrayList<>();
-        int id = 0;
+        int id = 1;
         for(int i = 0; i < startCities.length; i++){
             if(i != startCities.length-1){
-                if(startCities[i].equals(startCities[i+1])&&endCities[i].equals(endCities[i+1]))
+                if(startCities[i].equals(startCities[i+1]) && endCities[i].equals(endCities[i+1]))
                 {
                     routeList.add(new Route(Cities.getInstance().findCity(startCities[i]),
                             Cities.getInstance().findCity(endCities[i]),lengths[i],colors[i],id++,colors[i+1], id++));

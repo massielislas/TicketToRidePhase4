@@ -266,6 +266,7 @@ public class TicketToRideFacade implements ITicketToRide {
         Game game = Server.getSpecificActiveGame(gameID);
         toReturn = game.claimRoute(username, routeID);
         addGameHistory(game, "<<"+ username + " claimed a route>>");
+        game.checkDestCompleted(username);
         updatePlayers(game);
         return toReturn;
 }
@@ -310,6 +311,9 @@ public class TicketToRideFacade implements ITicketToRide {
     public Result endTurn(String username, String gameID){
         Game game = Server.getSpecificActiveGame(gameID);
         int turn = game.updateTurn(); //or whatever the name of the game Method will be
+        if (turn == 0) endGame(game);
+        else
+        {
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.Double"};
@@ -317,7 +321,24 @@ public class TicketToRideFacade implements ITicketToRide {
             Command command = new Command("Model.PlayFacade", "getInstance",
                     "changeTurn", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
-            CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(),command);
+            CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(), command);
+            updatePlayers(game);
+        }
         return new Result(true,"its player " + turn +"s turn");
+    }
+    private void endGame(Game game)
+    {
+        game.calculateScores();
+        EndGameInfo endInfo = game.getEndGameInfo();
+        String gsonString = new Encoder().Encode(endInfo);
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.String"};
+        Object[] methodArguments = {gsonString};
+        Command command = new Command("Model.PlayFacade", "getInstance",
+                "endGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+        CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(), command);
+        updatePlayers(game);
     }
 }

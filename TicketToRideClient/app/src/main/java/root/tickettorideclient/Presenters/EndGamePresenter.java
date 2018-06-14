@@ -2,12 +2,16 @@ package root.tickettorideclient.Presenters;
 
 import android.support.v4.app.FragmentActivity;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import Model.EndGameData;
+import Model.InGameModels.PlayerShallow;
 import Model.PlayFacade;
 import root.tickettorideclient.Views.IEndGamePresenter;
+import root.tickettorideclient.Views.PlayerFinalStats;
+import root.tickettorideclient.Views.PlayerStats;
 
 /**
  * Created by madeleineaydelotte on 6/4/18.
@@ -30,13 +34,44 @@ public class EndGamePresenter implements IEndGamePresenter, Observer {
     @Override
     public void update(Observable observable, Object o) {
 
-        EndGameData data = (EndGameData) o;
+        final EndGameData data = (EndGameData) o;
 
         mn.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
-               // view.updatePlayerScoresView();
+                String winnerName = data.getWinner();
+                String longestRoutePlayer = data.getPlayerWithLongestRoute();
+                Integer longestRoutePoints = data.getPointsFromLongestRoute();
+
+                ArrayList<PlayerFinalStats> players = new ArrayList<>();
+                for (int i = 0; i < data.getPlayerInfo().size(); ++i) {
+                    PlayerShallow playerShallow = data.getPlayerInfo().get(i);
+                    PlayerFinalStats player = new PlayerFinalStats();
+
+                    player.setName(playerShallow.getuName());
+                    player.setTotalPoints(playerShallow.getCurrentScore());
+                    player.setClaimedRoutesPoints(playerShallow.getPointsFromRoutes());
+                    player.setReachedDestinationsPoints(playerShallow.getPointsFromDest());
+                    player.setLostDestinations(playerShallow.getNegativePoints());
+
+                    if (player.getName().equals(longestRoutePlayer)) {
+                        player.setLongestRoutePoints(longestRoutePoints);
+                    }
+                    else {
+                        player.setLongestRoutePoints(0);
+                    }
+
+
+                    if (player.getName().equals(winnerName)) {
+                        view.updateWinner(player);
+                    }
+                    else {
+                        players.add(player);
+                    }
+                }
+
+                view.updatePlayers(players);
             }
         });
     }
