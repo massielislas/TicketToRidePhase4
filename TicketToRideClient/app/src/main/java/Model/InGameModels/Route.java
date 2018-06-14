@@ -172,4 +172,35 @@ public class Route {
     public boolean isDoubleClaimed() {
         return isDoubleClaimed;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Route route = (Route) o;
+        
+        if (ID != route.ID) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = city1.hashCode();
+        result = 31 * result + city2.hashCode();
+        result = 31 * result + length;
+        result = 31 * result + (isClaimed ? 1 : 0);
+        result = 31 * result + (isDouble ? 1 : 0);
+        result = 31 * result + (isDoubleClaimed ? 1 : 0);
+        result = 31 * result + (claimant != null ? claimant.hashCode() : 0);
+        result = 31 * result + (doubleClaimant != null ? doubleClaimant.hashCode() : 0);
+        result = 31 * result + scoreValue;
+        result = 31 * result + ID;
+        result = 31 * result + doubleID;
+        result = 31 * result + color.hashCode();
+        result = 31 * result + doubleColor.hashCode();
+        return result;
+    }
 }

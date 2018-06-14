@@ -21,6 +21,8 @@ import Model.InGameModels.TrainCardDeck;
 
 public class Game extends Observable
 {
+    private boolean isGameComplete;
+
     int gameNumber;
 
     UserData userData;
@@ -53,6 +55,7 @@ public class Game extends Observable
         this.ID = UUID.randomUUID().toString();
         trainDeckSize = 110;
         destDeckSize = 30;
+        isGameComplete = false;
     }
 
     Game(int playerCount, int currentPlayers, int gameNumber, String ID) {
@@ -64,6 +67,7 @@ public class Game extends Observable
         this.destinationDeck = new DestinationCardDeck().getDestinationCards();
         trainDeckSize = 110;
         destDeckSize = 30;
+        isGameComplete = false;
     }
 
     public String getPlayerColorByUsername(String username)
@@ -98,6 +102,14 @@ public class Game extends Observable
             }
         }
         return error;
+    }
+
+    public boolean isGameComplete() {
+        return isGameComplete;
+    }
+
+    public void setGameComplete(boolean gameComplete) {
+        isGameComplete = gameComplete;
     }
 
     public String getUserPlaying() {

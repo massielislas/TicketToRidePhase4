@@ -14,6 +14,8 @@ import Model.UserPass;
  */
 
 public class Player {
+    //TODO make sure this number is 45 before starting full game testing
+    private final int trainPieces = 4;
     private UserPass userName;
     private List<TrainCard> trainCards;
     private List<DestinationCard> destCards;
@@ -30,7 +32,7 @@ public class Player {
         routesClaimed = new HashSet<>();
         //toChoose = new ArrayList<>();
         turnNumber = queuePosition;
-        trainPiecesLeft = 45;
+        trainPiecesLeft = trainPieces;
         currentScore = 0;
     }
 
@@ -206,6 +208,34 @@ public class Player {
 //    public List<DestinationCard> getToChoose() {
 //        return toChoose;
 //    }
+
+    public int tallyDestPoints() {
+        int toRet = 0;
+        for (DestinationCard toTally : destCards) {
+            if (toTally.isComplete()) {
+                toRet+=toTally.getPointValue();
+            }
+        }
+        return toRet;
+    }
+
+    public int tallyLostPoints() {
+        int toRet = 0;
+        for (DestinationCard toTally :destCards) {
+            if (!toTally.isComplete()) {
+                toRet+=toTally.getPointValue();
+            }
+        }
+        return toRet;
+    }
+
+    public int tallyRoutePoints() {
+        int toRet = 0;
+        for (Route toTally : routesClaimed) {
+            toRet += toTally.getScoreValue();
+        }
+        return toRet;
+    }
 
     public void setUserName(UserPass userName) {
         this.userName = userName;

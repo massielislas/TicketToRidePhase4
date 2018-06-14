@@ -24,12 +24,21 @@ public class BoardData extends Observable{
     private TrainCard[] faceUpCards;
     private List<City> cities;
     private List<Route> routes;
+    private boolean isGameComplete;
 
     public void setChange()
     {
         setChanged(); //set change has occurred
         notifyObservers(this); //notify observers we have a change and give them new playercount
         clearChanged(); //no longer have a change!
+    }
+
+    public boolean isGameComplete() {
+        return isGameComplete;
+    }
+
+    public void setGameComplete(boolean gameComplete) {
+        isGameComplete = gameComplete;
     }
 
     public void setCurrentPlayer(Player currentPlayer) {

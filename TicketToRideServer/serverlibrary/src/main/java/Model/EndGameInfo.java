@@ -10,7 +10,12 @@ public class EndGameInfo {
     private String playerWithLongestRoute;
     private int pointsFromLongestRoute;
 
-    public EndGameInfo(String winner, List<PlayerShallow> playerInfo, String playerWithLongestRoute, int pointsFromLongestRoute) {
+    public EndGameInfo() {
+
+    }
+
+    public EndGameInfo(String winner, List<PlayerShallow> playerInfo,
+                       String playerWithLongestRoute, int pointsFromLongestRoute) {
         this.winner = winner;
         this.playerInfo = playerInfo;
         this.playerWithLongestRoute = playerWithLongestRoute;
@@ -31,5 +36,25 @@ public class EndGameInfo {
 
     public int getPointsFromLongestRoute() {
         return pointsFromLongestRoute;
+    }
+
+    public void setWinner(String winner)
+    {
+        this.winner = winner;
+    }
+
+    public void setPlayerInfo(List<PlayerShallow> playerInfo)
+    {
+        this.playerInfo = playerInfo;
+    }
+
+    public void setPlayerWithLongestRoute(String playerWithLongestRoute)
+    {
+        this.playerWithLongestRoute = playerWithLongestRoute;
+    }
+
+    public void setPointsFromLongestRoute(int pointsFromLongestRoute)
+    {
+        this.pointsFromLongestRoute = pointsFromLongestRoute;
     }
 }

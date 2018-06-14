@@ -688,8 +688,7 @@ public class BoardView extends Fragment implements OnMapReadyCallback, IBoardVie
 
     @Override
     public void switchToEndView() {
-        //TODO: implement in next phase
-        popToast("Game ended: switch to end view");
+        ((IEndGameCallback) getActivity()).goToEndGame();
     }
 
     @Override

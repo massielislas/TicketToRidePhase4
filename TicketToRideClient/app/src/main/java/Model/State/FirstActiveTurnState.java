@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import Model.BoardData;
+import Model.GameFacade;
 import Model.InGameModels.DestinationCard;
 import Model.InGameModels.Route;
 import Model.InGameModels.Routes;
 import Model.InGameModels.TrainCard;
+import Model.PlayFacade;
 import Model.TicketToRideProxy;
 import Model.UserData;
 import Results.Result;
@@ -19,7 +22,12 @@ import Results.Result;
 public class FirstActiveTurnState extends TurnState {
     @Override
     public boolean canClaimRoute(int ID) {
-        Route route = new Routes().getRoute(ID);
+        Routes routes = new Routes();
+        routes.setRouteList(PlayFacade.getInstance().getBoardData().getRoutes());
+        Route route = routes.getRoute(ID);
+        if(!canClaimDoubleRoute(route)){
+            return false;
+        }
         if(ID > 0) {
             //Is it claimed?
             if (route.isClaimed()) {
@@ -103,6 +111,24 @@ public class FirstActiveTurnState extends TurnState {
             }
         }
         return false;
+    }
+
+    private boolean canClaimDoubleRoute(Route route){
+        if(route.isDouble()) {
+            if (UserData.getUserData().getCurrentGame().getCurrentPlayers() < 4) {
+                if (route.isClaimed()||route.isDoubleClaimed()) {
+                    return false;
+                }
+            } else {
+                if (route.isDoubleClaimed() && route.isClaimed()) {
+                    return false;
+                }
+                if(UserData.getUserData().getCurrentPlayer().getRoutesClaimed().contains(route)){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override

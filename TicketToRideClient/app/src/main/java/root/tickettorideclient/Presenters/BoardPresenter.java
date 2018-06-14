@@ -80,7 +80,8 @@ public class BoardPresenter implements IBoardPresenter, Observer {
         }
 
         //if result successful,
-        //do nothing
+        //pop toast with success
+        view.popToast("Face-up card successfully drawn.");
     }
 
     public void drawFromTrainDeck() {
@@ -128,51 +129,56 @@ public class BoardPresenter implements IBoardPresenter, Observer {
             @Override
             public void run() {
 
-                if (view.getNumCities() != data.getCities().size()) {
-                    view.addAllCities(new ArrayList<City>(data.getCities()));
-                }
+                if (data.isGameComplete()) view.switchToEndView();
 
-                view.addAllRoutes(new ArrayList<Route>(data.getRoutes()));
-
-                if (view.getNumPlayers() != data.getOtherPlayerInfo().size()) {
-
-                    ArrayList<PlayerStats> playerStats = new ArrayList<>();
-                    for (int i = 0; i < data.getOtherPlayerInfo().size(); ++i) {
-                        PlayerShallow player = data.getOtherPlayerInfo().get(i);
-                        PlayerStats newPlayer = new PlayerStats();
-
-                        newPlayer.setDestinationCards(player.getDestCardHand());
-                        newPlayer.setTrainCards(player.getTrainCardHand());
-                        newPlayer.setTrainPieces(player.getPiecesLeft());
-                        newPlayer.setUsername(player.getuName());
-
-                        playerStats.add(newPlayer);
+                else {
+                    if (view.getNumCities() != data.getCities().size()) {
+                        view.addAllCities(new ArrayList<City>(data.getCities()));
                     }
 
-                    view.addAllPlayers(playerStats);
+                    view.addAllRoutes(new ArrayList<Route>(data.getRoutes()));
+
+                    if (view.getNumPlayers() != data.getOtherPlayerInfo().size()) {
+
+                        ArrayList<PlayerStats> playerStats = new ArrayList<>();
+                        for (int i = 0; i < data.getOtherPlayerInfo().size(); ++i) {
+                            PlayerShallow player = data.getOtherPlayerInfo().get(i);
+                            PlayerStats newPlayer = new PlayerStats();
+
+                            newPlayer.setDestinationCards(player.getDestCardHand());
+                            newPlayer.setTrainCards(player.getTrainCardHand());
+                            newPlayer.setTrainPieces(player.getPiecesLeft());
+                            newPlayer.setUsername(player.getuName());
+
+                            playerStats.add(newPlayer);
+                        }
+
+                        view.addAllPlayers(playerStats);
+                    }
+
+                    view.addAllHistory(data.getChat().getChat());
+
+                    view.updateTrainDeck(data.getTrainDeckSize());
+                    view.updateDestinationDeck(data.getDestDeckSize());
+                    view.updateFaceUp(new ArrayList<TrainCard>(Arrays.asList(data.getFaceUpCards())));
+
+                    Player thisPlayer = data.getCurrentPlayer();
+                    view.updatePlayerPoints(thisPlayer.getUserName().getNameOrPassword(), thisPlayer.getCurrentScore());
+                    view.updateHand(new ArrayList<TrainCard>(thisPlayer.getTrainCards()));
+                    view.updatePlayerPieces(thisPlayer.getUserName().getNameOrPassword(), thisPlayer.getTrainPiecesLeft());
+                    //  view.updateDestCards(new ArrayList<DestinationCard>(thisPlayer.getDestCards()));
+
+                    for (int i = 0; i < data.getOtherPlayerInfo().size(); ++i) {
+                        PlayerShallow player = data.getOtherPlayerInfo().get(i);
+                        view.updatePlayerPoints(player.getuName(), player.getCurrentScore());
+                        view.updatePlayerPieces(player.getuName(), player.getPiecesLeft());
+                        view.updatePlayerDestCards(player.getuName(), player.getDestCardHand());
+                        view.updatePlayerTrainCards(player.getuName(), player.getTrainCardHand());
+                    }
+
+                    view.updateTurn(data.getUserPlaying());
+
                 }
-
-                view.addAllHistory(data.getChat().getChat());
-
-                view.updateTrainDeck(data.getTrainDeckSize());
-                view.updateDestinationDeck(data.getDestDeckSize());
-                view.updateFaceUp(new ArrayList<TrainCard>(Arrays.asList(data.getFaceUpCards())));
-
-                Player thisPlayer = data.getCurrentPlayer();
-                view.updatePlayerPoints(thisPlayer.getUserName().getNameOrPassword(), thisPlayer.getCurrentScore());
-                view.updateHand(new ArrayList<TrainCard>(thisPlayer.getTrainCards()));
-                view.updatePlayerPieces(thisPlayer.getUserName().getNameOrPassword(), thisPlayer.getTrainPiecesLeft());
-              //  view.updateDestCards(new ArrayList<DestinationCard>(thisPlayer.getDestCards()));
-
-                for (int i = 0; i < data.getOtherPlayerInfo().size(); ++i) {
-                    PlayerShallow player = data.getOtherPlayerInfo().get(i);
-                    view.updatePlayerPoints(player.getuName(), player.getCurrentScore());
-                    view.updatePlayerPieces(player.getuName(), player.getPiecesLeft());
-                    view.updatePlayerDestCards(player.getuName(), player.getDestCardHand());
-                    view.updatePlayerTrainCards(player.getuName(), player.getTrainCardHand());
-                }
-
-                view.updateTurn(data.getUserPlaying());
             }
         });
     }
