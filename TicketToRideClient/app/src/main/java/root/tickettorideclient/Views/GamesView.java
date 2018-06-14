@@ -1,5 +1,6 @@
 package root.tickettorideclient.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import root.tickettorideclient.Callbacks.IGameJoinedCallback;
+import root.tickettorideclient.GameActivity;
 import root.tickettorideclient.Presenters.GamesPresenter;
 import root.tickettorideclient.Presenters.IGamesView;
 import root.tickettorideclient.R;
@@ -153,7 +155,9 @@ public class GamesView extends Fragment implements IGamesView {
 
     @Override
     public void switchToBoardView(){
-        //TODO
+        Toast.makeText(getContext(), "Game is now full- switch to game setup", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getActivity(), GameActivity.class);
+        startActivity(intent);
     }
 
 
