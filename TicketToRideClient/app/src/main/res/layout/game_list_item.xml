@@ -7,6 +7,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/gameListItemText"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:text="Test"
+        android:textSize="16dp"
+        android:textColor="#000000"/>
 
 </LinearLayout>
