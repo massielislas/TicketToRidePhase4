@@ -70,6 +70,17 @@ public class Game extends Observable
         isGameComplete = false;
     }
 
+    Game(int playerCount, int currentPlayers, String ID) {
+        userData = UserData.getUserData();
+        this.playerCount = playerCount;
+        this.currentPlayers = currentPlayers;
+        this.ID = ID;
+        this.destinationDeck = new DestinationCardDeck().getDestinationCards();
+        trainDeckSize = 110;
+        destDeckSize = 30;
+        isGameComplete = false;
+    }
+
     public String getPlayerColorByUsername(String username)
     {
         String error = "-1";
