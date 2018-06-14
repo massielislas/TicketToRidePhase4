@@ -40,6 +40,8 @@ public class ServerCommunicator {
 
         server.createContext("/command", new CommandHandler());
 
+        createDAOs(storageType);
+
         server.start();
 
     }
