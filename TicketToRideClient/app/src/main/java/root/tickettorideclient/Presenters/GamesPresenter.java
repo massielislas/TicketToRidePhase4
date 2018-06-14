@@ -73,7 +73,7 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         return;
     }
 
-    public void rejoinGame(String gameID) {
+    public void rejoinGame() {
         Result result = facade.rejoinGame();
         if (!result.isSuccess()){
             view.popToast(result.getMessage());
