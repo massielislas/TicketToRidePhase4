@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Model.InGameModels.Player;
 import Results.Result;
 
 /**
@@ -57,7 +58,7 @@ class TicketToRideServer {
     }
 
     boolean doesGameExist(Game toCheck) {
-        if (notYetActiveGames.contains(toCheck)) {
+        if (notYetActiveGames.contains(toCheck) || activeGames.contains(toCheck)) {
             return true;
         }
         else {
@@ -124,6 +125,16 @@ class TicketToRideServer {
     public Game getInactiveGame(String ID) {
         for (Game g : notYetActiveGames) {
             if (g.getID().equals(ID)) {
+                return g;
+            }
+        }
+        return null;
+    }
+
+    public Game findActiveGameByUser(UserPass user) {
+        for (Game g : activeGames) {
+            Player p = g.getPlayer(user);
+            if (p != null) {
                 return g;
             }
         }

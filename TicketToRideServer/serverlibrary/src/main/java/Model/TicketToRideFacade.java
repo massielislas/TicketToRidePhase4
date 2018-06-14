@@ -269,7 +269,7 @@ public class TicketToRideFacade implements ITicketToRide {
         game.checkDestCompleted(username);
         updatePlayers(game);
         return toReturn;
-}
+    }
     public Result chooseFaceUpCard(String username, String gameID, Double cardID) {
         Game game = Server.getSpecificActiveGame(gameID);
         Result toReturn = game.chooseFaceUpCard(username,cardID);
@@ -326,6 +326,7 @@ public class TicketToRideFacade implements ITicketToRide {
         }
         return new Result(true,"its player " + turn +"s turn");
     }
+
     private void endGame(Game game)
     {
         game.calculateScores();
@@ -340,5 +341,29 @@ public class TicketToRideFacade implements ITicketToRide {
                 methodArguments);
         CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(), command);
         updatePlayers(game);
+    }
+
+    public Result rejoinGame(String userName) {
+        UserPass user = new UserPass(userName);
+        TicketToRideServer server = TicketToRideServer.getInstance();
+        Game toRet = server.findActiveGameByUser(user);
+        if (toRet != null) {
+            CommandManager manager = CommandManager.getInstance();
+            manager.reAddUser(user);
+            String[] instanceParamTypeNames = new String[0];
+            Object[] instanceMethodArgs = new Object[0];
+            String[] methodParamTypeNames = {"java.lang.String", "java.lang.Double"};
+            Object[] methodArguments = {toRet.getID(), Double.valueOf(toRet.getPlayerCount())};
+            Command command = new Command("Model.GameFacade", "getInstance",
+                    "restoreClientGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                    methodArguments);
+            manager.addCommand(user, command);
+            updatePlayers(toRet);
+            return new Result(true, "rejoined Game successfully");
+        }
+        else {
+            return new Result(false, "That user is not currently in an active game");
+        }
+
     }
 }
