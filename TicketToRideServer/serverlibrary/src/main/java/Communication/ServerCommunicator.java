@@ -1,9 +1,16 @@
 package Communication;
 
 import com.sun.net.httpserver.HttpServer;
+import com.sun.security.ntlm.Server;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+
+import DataPersistence.FileDAOFactory;
+import DataPersistence.IDAOFactory;
+import DataPersistence.IGameDAO;
+import DataPersistence.IUserDAO;
+import DataPersistence.SQLiteDAOFactory;
 
 /**
  * Created by Topper on 5/14/2018.
@@ -11,8 +18,13 @@ import java.net.InetSocketAddress;
 
 public class ServerCommunicator {
 
+    private static final ServerCommunicator instance = new ServerCommunicator();
     private final int MAX_WAITING = 20;
     private HttpServer server;
+    IGameDAO gameDAO;
+    IUserDAO userDAO;
+
+    public static ServerCommunicator getInstance(){ return instance; }
 
     private void run(String portNum, String storageType) {
         try {
@@ -30,6 +42,27 @@ public class ServerCommunicator {
 
         server.start();
 
+    }
+
+    private void createDAOs(String storageType)
+    {
+        IDAOFactory daoFactory = null;
+        if (storageType.equals("flat")) {
+            daoFactory = new FileDAOFactory();
+        }
+        if (storageType.equals("sql")){
+            daoFactory = new SQLiteDAOFactory();
+        }
+        gameDAO = daoFactory.createGameDAO();
+        userDAO = daoFactory.createUserDAO();
+    }
+
+    public IGameDAO getGameDAO() {
+        return gameDAO;
+    }
+
+    public IUserDAO getUserDAO() {
+        return userDAO;
     }
 
     public static void main(String[] args) {
