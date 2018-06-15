@@ -1,5 +1,6 @@
 package DataPersistence;
 
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
@@ -35,7 +36,7 @@ public class FileUserDAO implements IUserDAO {
             for (String line; (line = br.readLine()) != null; response += line);
             br.close();
 
-            ArrayList<User> users = (ArrayList<User>) encoder.Decode(response, new TypeToken<ArrayList<User>>(){}.getClass());
+            List<User> users = (ArrayList<User>) encoder.Decode(response, new TypeToken<ArrayList<User>>(){}.getType());
 
             if (users == null) {
                 return new ArrayList<User>(0);
@@ -59,7 +60,7 @@ public class FileUserDAO implements IUserDAO {
             for (String line; (line = br.readLine()) != null; response += line);
             br.close();
 
-            ArrayList<User> users = (ArrayList<User>) encoder.Decode(response, new TypeToken<ArrayList<User>>(){}.getClass());
+            List<User> users = (ArrayList<User>) encoder.Decode(response, new TypeToken<ArrayList<User>>(){}.getType());
 
             if (users == null) {
                 users = new ArrayList<User>(0);
@@ -83,17 +84,13 @@ public class FileUserDAO implements IUserDAO {
         }
     }
 
-
-    public boolean testWrite(String message) {
+    @Override
+    public boolean clearUsers() {
         try {
-            BufferedWriter b = new BufferedWriter(new FileWriter(userFileName));
-            b.write(message);
-            b.close();
 
-            return true;
         }
-        catch(Exception e) {
-            System.out.println("Exception adding user in FileUserDAO");
+        catch (Exception e) {
+            System.out.println("Exception clearing users in FileUserDAO");
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
             return false;

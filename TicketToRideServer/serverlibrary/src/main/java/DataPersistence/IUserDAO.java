@@ -11,4 +11,6 @@ import Model.User;
 public interface IUserDAO {
     public List<User> loadUsers();
     public boolean addUser(User user);
+
+    public boolean clearUsers();
 }
