@@ -40,7 +40,7 @@ public class ServerCommunicator {
 
         createDAOs(storageType);
 
-        //todo: get sigma from args[]
+        //todo: get sigma and clear from args[]
 
         TicketToRideFacade.getInstance().setSigma(10);
 
@@ -58,6 +58,10 @@ public class ServerCommunicator {
             daoFactory = new SQLiteDAOFactory();
         }
         TicketToRideFacade.getInstance().initializeServer(daoFactory.createGameDAO(),daoFactory.createUserDAO());
+    }
+
+    private void clearDAOs(){
+        
     }
 
     public static void main(String[] args) {
