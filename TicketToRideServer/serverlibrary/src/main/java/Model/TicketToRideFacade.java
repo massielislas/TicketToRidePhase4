@@ -444,8 +444,8 @@ public class TicketToRideFacade implements ITicketToRide {
             manager.reAddUser(user);
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
-            String[] methodParamTypeNames = {"java.lang.String", "java.lang.Double", "java.lang.String"};
-            Object[] methodArguments = {toRet.getID(), Double.valueOf(toRet.getPlayerCount()), jsonUpdate};
+            String[] methodParamTypeNames = {"java.lang.String", "java.lang.Double", "java.lang.String", "java.lang.Double"};
+            Object[] methodArguments = {toRet.getID(), Double.valueOf(toRet.getPlayerCount()), jsonUpdate, p.getTurnNumber()};
             Command command = new Command("Model.GameFacade", "getInstance",
                     "restoreClientGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);

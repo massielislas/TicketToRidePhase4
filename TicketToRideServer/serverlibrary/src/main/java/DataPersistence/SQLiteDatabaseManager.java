@@ -9,6 +9,14 @@ import java.sql.SQLException;
  */
 
 public class SQLiteDatabaseManager {
+    static {
+        try{
+            final String driver = "org.sqlite.JDBC";
+            Class.forName(driver);
+        } catch(ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
 
     public static SQLiteDatabaseManager databaseManager = null;
 
