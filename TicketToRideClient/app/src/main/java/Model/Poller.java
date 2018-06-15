@@ -65,6 +65,7 @@ public class Poller {
                 String json = ClientCommunicator.getClient().post(objects);
                 if (json == null) return;
                 PollResult result =(PollResult) Encoder.Decode(json, PollResult.class);
+                if (result == null) return;
                 if (result.getCommands() != null) lastCommand = lastCommand + result.getCommands().length;
                 ClientFacade.getInstance().executeCommands(result.getCommands());
             }
@@ -79,6 +80,11 @@ public class Poller {
             // ClientCommunicator.SINGLETON().testSend();
         }
     }
+
+    public void setLastCommand(Integer lastCommand) {
+        this.lastCommand = lastCommand;
+    }
+
     public void stop()
     {
         System.out.println("DONE!");

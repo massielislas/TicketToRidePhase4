@@ -40,6 +40,10 @@ public class ServerCommunicator {
 
         createDAOs(storageType);
 
+        //todo: get sigma from args[]
+
+        TicketToRideFacade.getInstance().setSigma(10);
+
         server.start();
 
     }
