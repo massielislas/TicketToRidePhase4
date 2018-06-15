@@ -139,7 +139,7 @@ class TicketToRideServer {
         return null;
     }
 
-    public Game findActiveGameByUser(UserPass user) {
+    public Game findGameByUser(UserPass user) {
         for (Game g : games) {
             Player p = g.getPlayer(user);
             if (p != null) {
