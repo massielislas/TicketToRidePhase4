@@ -345,15 +345,18 @@ public class TicketToRideFacade implements ITicketToRide {
 
     public Result rejoinGame(String userName) {
         UserPass user = new UserPass(userName);
-        TicketToRideServer server = TicketToRideServer.getInstance();
-        Game toRet = server.findActiveGameByUser(user);
+        Game toRet = Server.findActiveGameByUser(user);
+        Player p = toRet.getPlayer(user);
+        UpdateInfo updateInfo = toRet.getUpdateInfo(p);
+        Encoder encoder = new Encoder();
+        String jsonUpdate = encoder.Encode(updateInfo);
         if (toRet != null) {
             CommandManager manager = CommandManager.getInstance();
             manager.reAddUser(user);
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
-            String[] methodParamTypeNames = {"java.lang.String", "java.lang.Double"};
-            Object[] methodArguments = {toRet.getID(), Double.valueOf(toRet.getPlayerCount())};
+            String[] methodParamTypeNames = {"java.lang.String", "java.lang.Double", "java.lang.String"};
+            Object[] methodArguments = {toRet.getID(), Double.valueOf(toRet.getPlayerCount()), jsonUpdate};
             Command command = new Command("Model.GameFacade", "getInstance",
                     "restoreClientGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
