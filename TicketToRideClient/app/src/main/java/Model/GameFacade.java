@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Observer;
 
 import Communication.Encoder;
+import Model.InGameModels.Player;
 import Model.InGameModels.Route;
 import Results.GameResult;
 import Results.Result;
@@ -67,14 +68,41 @@ public class GameFacade
     {
         poller.setLastCommand(0);
         Result result = proxy.rejoinGame(userData.getUsername().getNameOrPassword());
+
         return result;
     }
 
-    public void restoreClientGame(String ID, Double playerCount, String jsonUpdateInfo)
+    public void restoreClientGame(String ID, Double playerCount, String jsonUpdateInfo, Double turnNumber)
     {
         UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonUpdateInfo, UpdateInfo.class);
+        String color = null;
+        switch(turnNumber.intValue()) //set color
+        {
+            case 1: {
+                color = "Blue";
+                break;
+            }
+            case 2: {
+                color = "Yellow";
+                break;
+            }
+            case 3: {
+                color = "Green";
+                break;
+            }
+            case 4: {
+                color = "Red";
+                break;
+            }
+            case 5: {
+                color = "Purple";
+                break;
+            }
+        }
+        Player currentPlayer = new Player(userData.getUsername(), turnNumber.intValue(), color);
+        userData.setCurrentPlayer(currentPlayer);
         Game game = new Game(playerCount.intValue(), playerCount.intValue(), ID);
-        UserData.getUserData().setCurrentGame(game);
+        userData.getUserData().setCurrentGame(game);
         updateGame(update);
     }
 
