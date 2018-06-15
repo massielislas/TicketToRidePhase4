@@ -80,6 +80,11 @@ public class Poller {
             // ClientCommunicator.SINGLETON().testSend();
         }
     }
+
+    public void setLastCommand(Integer lastCommand) {
+        this.lastCommand = lastCommand;
+    }
+
     public void stop()
     {
         System.out.println("DONE!");
