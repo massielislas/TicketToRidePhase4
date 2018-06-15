@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import DataPersistence.IGameDAO;
+import DataPersistence.IUserDAO;
 import Model.InGameModels.Player;
 import Results.Result;
 
@@ -18,7 +20,6 @@ class TicketToRideServer {
 
     private List<Game> games;
     private Map<UserPass,UserPass> userPasswordMap;
-
     static TicketToRideServer getInstance(){
         return instance;
     }
@@ -26,6 +27,14 @@ class TicketToRideServer {
     private TicketToRideServer() {
         games = new ArrayList<>();
         userPasswordMap = new HashMap<>();
+    }
+
+    void setGames(List<Game> games) {
+        this.games = games;
+    }
+
+    public void setUserPasswordMap(Map<UserPass, UserPass> userPasswordMap) {
+        this.userPasswordMap = userPasswordMap;
     }
 
     //Check whether the Username and Password supplied match and correspond to a user

@@ -18,6 +18,14 @@ public class User {
         ID = UUID.randomUUID().toString();
     }
 
+    public UserPass getUserName() {
+        return userName;
+    }
+
+    public UserPass getPassword() {
+        return password;
+    }
+
     @Override
     public boolean equals(Object obj)
     {

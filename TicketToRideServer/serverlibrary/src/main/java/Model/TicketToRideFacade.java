@@ -1,7 +1,11 @@
 package Model;
 
 
+import java.util.List;
+
 import Communication.Encoder;
+import DataPersistence.IGameDAO;
+import DataPersistence.IUserDAO;
 import Model.InGameModels.*;
 import Model.InGameModels.DestinationCard;
 import Results.LoginRegisterResult;
@@ -15,8 +19,26 @@ public class TicketToRideFacade implements ITicketToRide {
 
     private static final TicketToRideFacade instance = new TicketToRideFacade();
     private TicketToRideServer Server = TicketToRideServer.getInstance();
+    private IUserDAO userDAO;
+    private IGameDAO gameDAO;
 
     public static TicketToRideFacade getInstance(){ return instance; }
+
+    public void initializeServer(IGameDAO gameDAO, IUserDAO userDAO){
+        this.gameDAO = gameDAO;
+        this.userDAO = userDAO;
+        for(User u:userDAO.loadUsers()){
+            Server.addUserPass(u.getUserName(), u.getPassword());
+        }
+        List<Game> games = gameDAO.loadGames();
+        Server.setGames(games);
+        for(Game g:games){
+            List<Command> commands = gameDAO.loadCommands(g);
+            for(Command c : commands){
+                c.Execute();
+            }
+        }
+    }
 
     public LoginRegisterResult registerUser(String username, String password, String host, String port){
         //Check if the user already exists in the system
@@ -367,5 +389,9 @@ public class TicketToRideFacade implements ITicketToRide {
         else {
             return new Result(false, "That user is not currently in an active game");
         }
+    }
+
+    public boolean storeCommand(Game game, Command command){
+        return true;
     }
 }

@@ -10,6 +10,7 @@ import DataPersistence.IDAOFactory;
 import DataPersistence.IGameDAO;
 import DataPersistence.IUserDAO;
 import DataPersistence.SQLiteDAOFactory;
+import Model.TicketToRideFacade;
 
 /**
  * Created by Topper on 5/14/2018.
@@ -20,8 +21,6 @@ public class ServerCommunicator {
     private static final ServerCommunicator instance = new ServerCommunicator();
     private final int MAX_WAITING = 20;
     private HttpServer server;
-    IGameDAO gameDAO;
-    IUserDAO userDAO;
 
     public static ServerCommunicator getInstance(){ return instance; }
 
@@ -54,16 +53,7 @@ public class ServerCommunicator {
         if (storageType.equals("sql")){
             daoFactory = new SQLiteDAOFactory();
         }
-        gameDAO = daoFactory.createGameDAO();
-        userDAO = daoFactory.createUserDAO();
-    }
-
-    public IGameDAO getGameDAO() {
-        return gameDAO;
-    }
-
-    public IUserDAO getUserDAO() {
-        return userDAO;
+        TicketToRideFacade.getInstance().initializeServer(daoFactory.createGameDAO(),daoFactory.createUserDAO());
     }
 
     public static void main(String[] args) {
