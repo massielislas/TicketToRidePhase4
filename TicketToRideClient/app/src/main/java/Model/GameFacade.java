@@ -1,7 +1,12 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Observer;
+
+import Communication.Encoder;
+import Model.InGameModels.Route;
 import Results.GameResult;
 import Results.Result;
 import root.tickettorideclient.Views.GameListItem;
@@ -62,10 +67,56 @@ public class GameFacade
         return proxy.rejoinGame(userData.getUsername().getNameOrPassword());
     }
 
-    public void restoreClientGame(String ID, Double playerCount)
+    public void restoreClientGame(String ID, Double playerCount, String jsonUpdateInfo)
     {
+        UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonUpdateInfo, UpdateInfo.class);
+        updateGame(update);
         Game game = new Game(playerCount.intValue(), playerCount.intValue(), ID);
         UserData.getUserData().setCurrentGame(game);
+    }
+
+    private void updateGame(UpdateInfo update)
+    {
+        userData.getCurrentGame().setFaceUpTrainDeck(update.getCurrentFaceUpCards());
+        userData.getCurrentGame().setDestDeckSize(update.getDestDeckSize());
+        userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
+        userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
+        userData.getCurrentGame().setGameComplete(update.isGameComplete());
+        userData.getCurrentPlayer().setTrainPiecesLeft(update.getPiecesLeft());
+        userData.getCurrentPlayer().setCurrentScore(update.getPoints());
+        if (update.getGameRoutes() != null) {
+            checkForRouteColorChange(Arrays.asList(update.getGameRoutes()));
+            userData.getCurrentGame().setRoutes(Arrays.asList(update.getGameRoutes()));
+        }
+
+        if (update.getPlayerRoutes() != null) {
+            checkForRouteColorChange(Arrays.asList(update.getPlayerRoutes()));
+            userData.getCurrentPlayer().setRoutesClaimed(Arrays.asList(update.getPlayerRoutes()));
+        }
+        if (update.getHand() != null) {
+            userData.getCurrentPlayer().setTrainCards(update.getHand());
+        }
+        userData.getCurrentPlayer().setDestCards(update.getDestHand());
+    }
+
+    private void checkForRouteColorChange(List<Route> routes)
+    {
+        for (Route route: routes)
+        {
+            if (route.isDouble()) {
+                if (route.isDoubleClaimed()) {
+                    String playerName = route.getDoubleClaimant();
+                    String playerColor = userData.getCurrentGame().getPlayerColorByUsername(playerName);
+                    route.setDoubleColor(playerColor);
+                }
+            }
+            if (route.isClaimed())
+            {
+                String playerName = route.getClaimant();
+                String playerColor = userData.getCurrentGame().getPlayerColorByUsername(playerName);
+                route.setColor(playerColor);
+            }
+        }
     }
 
     public void addObserver(Observer o)
