@@ -33,14 +33,13 @@ public class CommandHandler implements HttpHandler {
             Gson gs = new Gson();
             Command toExecute = (Command) gs.fromJson(JSON, Command.class);
 
-           //// Command toExecute = (Command) encode.Decode(JSON, Command.class);
+            //// Command toExecute = (Command) encode.Decode(JSON, Command.class);
             Object o = toExecute.Execute();
             IResult resultO = (IResult) o;
 
             exchange.sendResponseHeaders(HTTP_OK, 0);
             /*{
                 System.out.println("Success");
-
                 resultO.setSuccess(true);
                 resultO.setMessage("yay");
             }

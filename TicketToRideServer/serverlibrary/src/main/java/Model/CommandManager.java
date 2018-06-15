@@ -69,7 +69,14 @@ public class CommandManager {
             addCommand(key, command);
         }
     }
+
     public void addAllCommandsNewUser(String username){
         commandMap.put(new UserPass(username),allCommands.toArray(new Command[allCommands.size()]));
+    }
+
+    public void reAddUser(UserPass user) {
+        if (commandMap.containsKey(user)) {
+            commandMap.put(user, new Command[0]);
+        }
     }
 }

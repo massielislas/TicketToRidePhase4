@@ -491,4 +491,41 @@ public class TicketToRideProxy implements ITicketToRide {
             return new Result(false, "Malformed URL Exception");
         }
     }
+    public Result rejoinGame(String username)
+    {
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.String"};
+        Object[] methodArguments = {username};
+
+        Command command = new Command("Model.TicketToRideFacade", "getInstance",
+                "rejoinGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+
+        String jsonStr = Encoder.Encode(command);
+        try
+        {
+            URL url = new URL("http://" + userData.getHost().data + ":" + userData.getPort().data + "/command");
+            Object[] objects = new Object[3];
+            objects[0] = url;
+            objects[1] = jsonStr;
+            objects[2] = "";
+            String json = client.post(objects);
+            if (json == null) {
+                System.out.println("json is null");
+                return new Result(false, "Null result from server in endTurn");
+            }
+            if (json.equals("null")) {
+                System.out.println("json == null");
+                return new Result(false, "Null result from server in endTurn");
+            }
+            Object result = Encoder.Decode(json, Result.class);
+            return (Result)result;
+        }
+        catch (MalformedURLException exception)
+        {
+            System.out.println("Invalid URL!");
+            return new Result(false, "Malformed URL Exception");
+        }
+    }
 }

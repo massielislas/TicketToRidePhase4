@@ -73,6 +73,18 @@ public class GamesPresenter implements IGamesPresenter, Observer {
         return;
     }
 
+    public void rejoinGame() {
+        Result result = facade.rejoinGame();
+        if (!result.isSuccess()){
+            view.popToast(result.getMessage());
+        }
+
+        if (result.isSuccess()){
+            facade.deRegisterObserver(this);
+            view.switchToBoardView();
+        }
+    }
+
     @Override
     public void update(Observable observable, Object o) {
         //update Game List

@@ -1,5 +1,6 @@
 package root.tickettorideclient.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import Model.UserData;
 import root.tickettorideclient.Callbacks.IGameJoinedCallback;
+import root.tickettorideclient.GameActivity;
 import root.tickettorideclient.Presenters.GamesPresenter;
 import root.tickettorideclient.Presenters.IGamesView;
 import root.tickettorideclient.R;
@@ -117,7 +120,7 @@ public class GamesView extends Fragment implements IGamesView {
         rejoinGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                presenter.rejoinGame();
             }
         });
     }
@@ -149,6 +152,14 @@ public class GamesView extends Fragment implements IGamesView {
         bundle.putInt(MAX_PLAYERS_KEY, joinedGameMaxPlayers);
         bundle.putInt(PLAYERS_JOINED_KEY, joinedGameJoinedPlayers);
         ((IGameJoinedCallback) getActivity()).onGameCreated(bundle);
+    }
+
+    @Override
+    public void switchToBoardView(){
+        Toast.makeText(getContext(), "Rejoining Game....", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getActivity(), GameActivity.class);
+        intent.putExtra("rejoining", true);
+        startActivity(intent);
     }
 
 
