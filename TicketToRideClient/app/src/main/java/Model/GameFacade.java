@@ -70,9 +70,9 @@ public class GameFacade
     public void restoreClientGame(String ID, Double playerCount, String jsonUpdateInfo)
     {
         UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonUpdateInfo, UpdateInfo.class);
-        updateGame(update);
         Game game = new Game(playerCount.intValue(), playerCount.intValue(), ID);
         UserData.getUserData().setCurrentGame(game);
+        updateGame(update);
     }
 
     private void updateGame(UpdateInfo update)
