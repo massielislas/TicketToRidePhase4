@@ -7,11 +7,11 @@ package DataPersistence;
 public class SQLiteDAOFactory implements IDAOFactory {
     @Override
     public IGameDAO createGameDAO() {
-        return null;
+        return  new SQLiteGameDAO();
     }
 
     @Override
     public IUserDAO createUserDAO() {
-        return null;
+        return new SQLiteUserDAO();
     }
 }
