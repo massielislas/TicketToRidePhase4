@@ -359,6 +359,12 @@ public class PlayFacade {
 
     public void setBoardData()
     {
+        while (userData.getCurrentGame() == null)
+        {
+            try {
+                Thread.sleep(1000);  // Sleep while waiting for condition to be satisfied
+            } catch (InterruptedException e) { }
+        }
         boardData.setDestDeckSize(userData.getCurrentGame().getDestDeckSize());
         boardData.setTrainDeckSize(userData.getCurrentGame().getTrainDeckSize());
         boardData.setOtherPlayerInfo(userData.getCurrentGame().getOtherPlayers());

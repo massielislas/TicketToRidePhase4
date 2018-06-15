@@ -87,7 +87,10 @@ public class FileUserDAO implements IUserDAO {
     @Override
     public boolean clearUsers() {
         try {
-
+            BufferedWriter bw = new BufferedWriter(new FileWriter(userFileName));
+            bw.write("");
+            bw.close();
+            return true;
         }
         catch (Exception e) {
             System.out.println("Exception clearing users in FileUserDAO");

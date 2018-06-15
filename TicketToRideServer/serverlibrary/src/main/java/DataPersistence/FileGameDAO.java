@@ -38,7 +38,7 @@ public class FileGameDAO implements IGameDAO {
             for (String line; (line = br.readLine()) != null; response += line);
             br.close();
 
-            ArrayList<Game> games = (ArrayList<Game>) encoder.Decode(response, new TypeToken<ArrayList<Game>>(){}.getClass());
+            List<Game> games = (ArrayList<Game>) encoder.Decode(response, new TypeToken<ArrayList<Game>>(){}.getType());
 
             if (games == null) {
                 return new ArrayList<Game>(0);
@@ -125,7 +125,7 @@ public class FileGameDAO implements IGameDAO {
             for (String line; (line = br.readLine()) != null; response += line);
             br.close();
 
-            ArrayList<Game> games = (ArrayList<Game>) encoder.Decode(response, new TypeToken<ArrayList<Game>>(){}.getClass());
+            ArrayList<Game> games = (ArrayList<Game>) encoder.Decode(response, new TypeToken<ArrayList<Game>>(){}.getType());
 
             if (games == null) {
                 games = new ArrayList<Game>(0);
@@ -133,7 +133,8 @@ public class FileGameDAO implements IGameDAO {
 
             for (int i = 0; i < games.size(); ++i) {
                 if (games.get(i).getID().equals(game.getID())) {
-                    games.add(i, game);
+                    games.set(i, game);
+                    i = games.size() + 1;
                 }
             }
 
@@ -162,17 +163,25 @@ public class FileGameDAO implements IGameDAO {
             br.close();
 
 
-            ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>> commandList = (ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>) encoder.Decode(response, new TypeToken<ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>>(){}.getClass());
+            ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>> commandList = (ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>) encoder.Decode(response, new TypeToken<ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>>(){}.getType());
 
             if (commandList == null) {
                 commandList = new ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>(0);
             }
 
+            boolean found = false;
             for (int i = 0; i < commandList.size(); ++i) {
                 if (commandList.get(i).getKey().equals(game.getID())) {
                     ArrayList<Command> newCommands = new ArrayList<>(commands);
-                    commandList.add(i, new AbstractMap.SimpleEntry<String, ArrayList<Command>>(game.getID(), newCommands));
+                    commandList.set(i, new AbstractMap.SimpleEntry<String, ArrayList<Command>>(game.getID(), newCommands));
+                    found = true;
+                    i = commandList.size() + 1;
                 }
+            }
+
+            if (found == false) {
+                ArrayList<Command> newCommands = new ArrayList<>(commands);
+                commandList.add(new AbstractMap.SimpleEntry<String, ArrayList<Command>>(game.getID(), newCommands));
             }
 
             String commandsJSON = encoder.Encode(commandList);
@@ -185,6 +194,27 @@ public class FileGameDAO implements IGameDAO {
 
         } catch (Exception e) {
             System.out.println("Exception updating game in FileGameDAO");
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean clearGames() {
+        try {
+            BufferedWriter gameBW = new BufferedWriter(new FileWriter(gameFileName));
+            gameBW.write("");
+            gameBW.close();
+
+            BufferedWriter commandBW = new BufferedWriter(new FileWriter(commandFileName));
+            commandBW.write("");
+            commandBW.close();
+
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println("Exception clearing games in FileGameDAO");
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
             return false;

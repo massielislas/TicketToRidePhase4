@@ -3,6 +3,10 @@ package root.tickettorideserver;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 import DataPersistence.SQLiteUserDAO;
 import Model.User;
 import Model.UserPass;
@@ -26,7 +30,23 @@ public class testSqlUserDAO {
         UserPass password = new UserPass("password");
         User user = new User(username, password);
 
-        dao.addUser(user);
-        assertTrue(true);
+
+        assertTrue(dao.addUser(user));
     }
+
+    @Test
+    public void getUser(){
+        UserPass username = new UserPass("massiel");
+        UserPass password = new UserPass("password");
+        User user = new User(username, password);
+
+
+        assertTrue(dao.addUser(user));
+
+        List<User> users = dao.loadUsers();
+
+        assertTrue(users.contains(user));
+
+    }
+
 }

@@ -100,7 +100,7 @@ public class SQLiteUserDAO implements IUserDAO {
         String json = encoder.Encode(user);
 
         sqlStatement += "INSERT INTO User(username, user)" + '\n';
-        sqlStatement += "Values('" + user.getUserName()+ "',";
+        sqlStatement += "Values('" + user.getUserName().getNameOrPassword()+ "',";
         sqlStatement += "'" + json + "')";
 
         try{
