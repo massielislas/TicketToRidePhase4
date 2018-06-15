@@ -39,10 +39,11 @@ public class ServerCommunicator {
         server.createContext("/command", new CommandHandler());
 
         createDAOs(storageType);
-
         //todo: get sigma and clear from args[]
 
         TicketToRideFacade.getInstance().setSigma(10);
+
+       // TicketToRideFacade.getInstance().clearTables();
 
         server.start();
 
@@ -60,9 +61,6 @@ public class ServerCommunicator {
         TicketToRideFacade.getInstance().initializeServer(daoFactory.createGameDAO(),daoFactory.createUserDAO());
     }
 
-    private void clearDAOs(){
-        
-    }
 
     public static void main(String[] args) {
         String port = "";
