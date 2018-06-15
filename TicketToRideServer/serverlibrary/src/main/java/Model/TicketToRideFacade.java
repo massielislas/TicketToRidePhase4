@@ -1,6 +1,7 @@
 package Model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Communication.Encoder;
@@ -21,6 +22,7 @@ public class TicketToRideFacade implements ITicketToRide {
     private TicketToRideServer Server = TicketToRideServer.getInstance();
     private IUserDAO userDAO;
     private IGameDAO gameDAO;
+    private int sigma = 10;
 
     public static TicketToRideFacade getInstance(){ return instance; }
 
@@ -38,6 +40,10 @@ public class TicketToRideFacade implements ITicketToRide {
                 c.Execute();
             }
         }
+    }
+
+    public void setSigma(int sigma) {
+        this.sigma = sigma;
     }
 
     public LoginRegisterResult registerUser(String username, String password, String host, String port){
@@ -113,6 +119,16 @@ public class TicketToRideFacade implements ITicketToRide {
                     Server.activateGame(game);
                     startGame(game.getID());
                 }
+                //STORE THE COMMAND!
+                String[] instanceParamTypeNames2 = new String[0];
+                Object[] instanceMethodArgs2 = new Object[0];
+                String[] methodParamTypeNames2 = {"java.lang.String", "java.lang.Double", "java.lang.Double", "java.lang.Double", "java.lang.String"};
+                Object[] methodArguments2 = {userPass, playerCount, currentPlayers, gameNumber, ID};
+
+                Command command2 = new Command("Model.TicketToRideFacade", "getInstance",
+                        "addPlayerToGame", instanceParamTypeNames2, instanceMethodArgs2, methodParamTypeNames2,
+                        methodArguments2);
+                storeCommand(game, command2);
             }
             return check;
         }
@@ -131,6 +147,7 @@ public class TicketToRideFacade implements ITicketToRide {
             return new Result(false, "That game already exists!");
         }
         else {
+            gameDAO.addGame(newGame);
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
             String[] methodParamTypeNames = {"java.lang.Double", "java.lang.String"};
@@ -141,16 +158,13 @@ public class TicketToRideFacade implements ITicketToRide {
             CommandManager.getInstance().addCommandAllUsers(command);
             Server.addGameToQueue(newGame);
             return new Result(true, "successfully created new Game");
+
         }
     }
 
-//    public GameStartResult startGame (Double playerCount, Double currentPlayers, Double gameNumber, String ID) {
-//        return startGame((Integer) playerCount.intValue(), (Integer) currentPlayers.intValue(), (Integer) gameNumber.intValue(), ID);
-//    }
 
     @Override
     public Result startGame(String ID) {
-
         Game game = Server.getSpecificActiveGame(ID);
 
         if (game == null) {
@@ -163,6 +177,15 @@ public class TicketToRideFacade implements ITicketToRide {
             }
             else {
                 initializeHands(game);
+                String[] instanceParamTypeNames = new String[0];
+                Object[] instanceMethodArgs = new Object[0];
+                String[] methodParamTypeNames = {"java.lang.String"};
+                Object[] methodArguments = {ID};
+
+                Command command = new Command("Model.TicketToRideFacade", "getInstance",
+                        "startGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                        methodArguments);
+                storeCommand(game, command);
                 return new Result(true, "Starting Game number " + game.getGameNumber());
             }
         }
@@ -184,24 +207,6 @@ public class TicketToRideFacade implements ITicketToRide {
         updatePlayers(game);
     }
 
-// KEEP!!!
-//    public void updateFaceUpCards(Double card1, Double card2, Double card3, Double card4, Double card5)
-//    {
-//        String[] instanceParamTypeNames = new String[0];
-//        Object[] instanceMethodArgs = new Object[0];
-//        String[] methodParamTypeNames = {"java.util.ArrayList<Integer>"};
-//        TrainCard[] faceUpDeck = game.getTrainCardFaceupDeck();
-//        ArrayList<Integer> faceUpIDs = new ArrayList<Integer>();
-//        for (int i = 0; i < faceUpIDs.size(); i++)
-//        {
-//            faceUpIDs.add(i, faceUpDeck[i].getID());
-//        }
-//        Object[] methodArguments = {faceUpIDs};
-//        Command command = new Command("Model.PlayFacade", "getInstance",
-//                "updateFaceUpCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
-//                methodArguments);
-//        CommandManager.getInstance().addCommandAllUsers(command);
-//    }
 
     public Result sendChat(String userName, String msg, String gameID) {
         Game toChat = Server.getSpecificActiveGame(gameID);
@@ -217,7 +222,15 @@ public class TicketToRideFacade implements ITicketToRide {
                     "addChat", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);
             CommandManager.getInstance().addCommandMultipleUsers(toChat.getUserList(),command);
-            //
+            String[] instanceParamTypeNames2 = new String[0];
+            Object[] instanceMethodArgs2 = new Object[0];
+            String[] methodParamTypeNames2 = {"java.lang.String", "java.lang.String", "java.lang.String"};
+            Object[] methodArguments2 = {userName, msg, gameID};
+
+            Command command2 = new Command("Model.TicketToRideFacade", "getInstance",
+                    "sendChat", instanceParamTypeNames2, instanceMethodArgs2, methodParamTypeNames2,
+                    methodArguments2);
+            storeCommand(toChat, command2);
             return new Result(true, "");
         }
         else {
@@ -264,6 +277,15 @@ public class TicketToRideFacade implements ITicketToRide {
         }
         addGameHistory(game,"<<"+username+" kept " + (3 - numberdiscarded) + " Destination Cards>>");
         updatePlayers(game);
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.String", "java.lang.String", "java.lang.Double", "java.lang.Double"};
+        Object[] methodArguments = {username, gameID, card1, card2};
+
+        Command command = new Command("Model.TicketToRideFacade", "getInstance",
+                "discardDestCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+        storeCommand(game, command);
         return new Result(true, "");
     }
 
@@ -290,6 +312,15 @@ public class TicketToRideFacade implements ITicketToRide {
         addGameHistory(game, "<<"+ username + " claimed a route>>");
         game.checkDestCompleted(username);
         updatePlayers(game);
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.String", "java.lang.String", "java.lang.Double"};
+        Object[] methodArguments = {username, gameID, routeID};
+
+        Command command = new Command("Model.TicketToRideFacade", "getInstance",
+                "claimRoute", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+        storeCommand(game, command);
         return toReturn;
     }
     public Result chooseFaceUpCard(String username, String gameID, Double cardID) {
@@ -298,6 +329,15 @@ public class TicketToRideFacade implements ITicketToRide {
         addGameHistory(game,"<<" + username + " picked up a " + toReturn.getMessage()
                 + " from the face up pile>>");
         updatePlayers(game);
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.String", "java.lang.String", "java.lang.Double"};
+        Object[] methodArguments = {username, gameID, cardID};
+
+        Command command = new Command("Model.TicketToRideFacade", "getInstance",
+                "chooseFaceUpCard", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+        storeCommand(game, command);
         return toReturn;
     }
     public Result drawFromTrainDeck(String username, String gameID) {
@@ -305,6 +345,15 @@ public class TicketToRideFacade implements ITicketToRide {
         Result toReturn = game.drawFromTrainDeck(username);
         addGameHistory(game, "<<" + username + " drew a card from the face down deck>>");
         updatePlayers(game);
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.String", "java.lang.String"};
+        Object[] methodArguments = {username, gameID};
+
+        Command command = new Command("Model.TicketToRideFacade", "getInstance",
+                "drawFromTrainDeck", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+        storeCommand(game, command);
         return toReturn;
     }
     public Result drawDestCards(String username, String gameID) {
@@ -327,6 +376,15 @@ public class TicketToRideFacade implements ITicketToRide {
             CommandManager.getInstance().addCommand(user,command);
         }
         updatePlayers(game);
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.String", "java.lang.String"};
+        Object[] methodArguments = {username, gameID};
+
+        Command command = new Command("Model.TicketToRideFacade", "getInstance",
+                "drawDestCards", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+        storeCommand(game, command);
         return toReturn;
     }
 
@@ -346,6 +404,15 @@ public class TicketToRideFacade implements ITicketToRide {
             CommandManager.getInstance().addCommandMultipleUsers(game.getUserList(), command);
             updatePlayers(game);
         }
+        String[] instanceParamTypeNames = new String[0];
+        Object[] instanceMethodArgs = new Object[0];
+        String[] methodParamTypeNames = {"java.lang.String", "java.lang.String"};
+        Object[] methodArguments = {username, gameID};
+
+        Command command = new Command("Model.TicketToRideFacade", "getInstance",
+                "endTurn", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
+                methodArguments);
+        storeCommand(game,command);
         return new Result(true,"its player " + turn +"s turn");
     }
 
@@ -367,7 +434,7 @@ public class TicketToRideFacade implements ITicketToRide {
 
     public Result rejoinGame(String userName) {
         UserPass user = new UserPass(userName);
-        Game toRet = Server.findActiveGameByUser(user);
+        Game toRet = Server.findGameByUser(user);
         Player p = toRet.getPlayer(user);
         UpdateInfo updateInfo = toRet.getUpdateInfo(p);
         Encoder encoder = new Encoder();
@@ -392,6 +459,15 @@ public class TicketToRideFacade implements ITicketToRide {
     }
 
     public boolean storeCommand(Game game, Command command){
+        List<Command> commandList = gameDAO.loadCommands(game);
+        if(commandList.size() == sigma){
+            gameDAO.updateGameState(game);
+            gameDAO.updateCommandsForGame(game, new ArrayList<Command>());
+        }
+        else{
+            commandList.add(command);
+            gameDAO.updateCommandsForGame(game, commandList);
+        }
         return true;
     }
 }

@@ -35,11 +35,15 @@ public class SQLiteDatabaseManager {
         return connection;
     }
 
-    public static void closeConnection(boolean commit, Connection connection) throws SQLException{
-        if(commit) {
-            connection.commit();
-        } else {
-            connection.rollback();
+    public static void closeConnection(boolean commit, Connection connection){
+        try{
+            if(commit) {
+                connection.commit();
+            } else {
+                connection.rollback();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

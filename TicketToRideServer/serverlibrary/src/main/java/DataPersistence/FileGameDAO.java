@@ -63,7 +63,7 @@ public class FileGameDAO implements IGameDAO {
             br.close();
 
 
-            ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>> commandList = (ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>) encoder.Decode(response, new TypeToken<ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>>(){}.getClass());
+            ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>> commandList = (ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>) encoder.Decode(response, new TypeToken<ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>>(){}.getType());
 
             if (commandList == null) {
                 return new ArrayList<Command>(0);
@@ -93,7 +93,7 @@ public class FileGameDAO implements IGameDAO {
             for (String line; (line = br.readLine()) != null; response += line);
             br.close();
 
-            ArrayList<Game> games = (ArrayList<Game>) encoder.Decode(response, new TypeToken<ArrayList<Game>>(){}.getClass());
+            ArrayList<Game> games = (ArrayList<Game>) encoder.Decode(response, new TypeToken<ArrayList<Game>>(){}.getType());
 
             if (games == null) {
                 games = new ArrayList<Game>(0);
@@ -185,6 +185,27 @@ public class FileGameDAO implements IGameDAO {
 
         } catch (Exception e) {
             System.out.println("Exception updating game in FileGameDAO");
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean clearGames() {
+        try {
+            BufferedWriter gameBW = new BufferedWriter(new FileWriter(gameFileName));
+            gameBW.write("");
+            gameBW.close();
+
+            BufferedWriter commandBW = new BufferedWriter(new FileWriter(commandFileName));
+            commandBW.write("");
+            commandBW.close();
+
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println("Exception clearing games in FileGameDAO");
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
             return false;

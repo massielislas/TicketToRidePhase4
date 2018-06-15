@@ -3,6 +3,7 @@ package Communication;
 import com.google.gson.Gson;
 
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 
 
 /**
@@ -34,6 +35,11 @@ public class Encoder
 
     public Object Decode(String JSON, Class type)
     {
+        Gson gson = new Gson();
+        return gson.fromJson(JSON, type);
+    }
+
+    public Object Decode(String JSON, Type type) {
         Gson gson = new Gson();
         return gson.fromJson(JSON, type);
     }
