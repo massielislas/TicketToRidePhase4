@@ -102,7 +102,7 @@ public class SQLiteGameDAO implements IGameDAO {
         String json = encoder.Encode(game);
 
         sqlStatement += "INSERT INTO Game(gameID, game)" + '\n';
-        sqlStatement += "Values('" + game.getID() + ",";
+        sqlStatement += "Values('" + game.getID() + "',";
         sqlStatement += "'" + json  + "')";
 
         try{
