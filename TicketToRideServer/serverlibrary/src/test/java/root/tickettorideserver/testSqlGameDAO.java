@@ -1,5 +1,6 @@
 package root.tickettorideserver;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -88,5 +89,10 @@ public class testSqlGameDAO {
         for(int i = 0; i < commands.size(); i++){
             assertTrue(commandsFromDb.contains(commands.get(i)));
         }
+    }
+
+    @After
+    public void afterClear(){
+        dao.clearGames();
     }
 }
