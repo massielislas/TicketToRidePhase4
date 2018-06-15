@@ -185,7 +185,7 @@ public class SQLiteGameDAO implements IGameDAO {
                 statement = connection.prepareStatement(sqlQuery);
                 resultSet = statement.executeQuery();
                 while(resultSet.next()){
-                    commands = (List<Command>) encoder.Decode(resultSet.getString("game"), new TypeToken<ArrayList<Command>>(){}.getType());
+                    commands = (List<Command>) encoder.Decode(resultSet.getString("commands"), new TypeToken<ArrayList<Command>>(){}.getType());
                     success = true;
 
                 }
