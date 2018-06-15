@@ -30,4 +30,9 @@ public class SQLiteGameDAO implements IGameDAO {
     public boolean updateCommandsForGame(Game game, List<Command> commands) {
         return false;
     }
+
+    @Override
+    public List<Command> loadCommands(Game game) {
+        return null;
+    }
 }
