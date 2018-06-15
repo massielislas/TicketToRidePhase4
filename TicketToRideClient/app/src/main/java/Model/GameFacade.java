@@ -77,7 +77,6 @@ public class GameFacade
 
     private void updateGame(UpdateInfo update)
     {
-        Game currentGame = UserData.getUserData().getCurrentGame();
         userData.getCurrentGame().setFaceUpTrainDeck(update.getCurrentFaceUpCards());
         userData.getCurrentGame().setDestDeckSize(update.getDestDeckSize());
         userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
