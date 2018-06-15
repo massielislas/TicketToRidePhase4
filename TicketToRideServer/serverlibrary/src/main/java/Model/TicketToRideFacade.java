@@ -206,7 +206,7 @@ public class TicketToRideFacade implements ITicketToRide {
         }
         updatePlayers(game);
     }
-    
+
 
     public Result sendChat(String userName, String msg, String gameID) {
         Game toChat = Server.getSpecificActiveGame(gameID);
