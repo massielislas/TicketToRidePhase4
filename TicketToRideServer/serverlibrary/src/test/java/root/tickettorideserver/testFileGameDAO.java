@@ -29,19 +29,20 @@ public class testFileGameDAO {
 
     }
 
+    /*
     @Test
     public void test2 () {
         FileGameDAO dao = new FileGameDAO("serverlibrary/src/main/java/DataPersistence/testCommandfile.txt",
                 "serverlibrary/src/main/java/DataPersistence/testGamefile.txt");
 
-        List<Game> users = dao.loadGames();
+        List<Game> games = dao.loadGames();
 
-        for (int i = 0; i < users.size(); ++i) {
-            System.out.println(users.get(i).getUserName().getNameOrPassword());
+        for (int i = 0; i < games.size(); ++i) {
+            System.out.println(games.get(i).getUserName().getNameOrPassword());
         }
 
         assertEquals(users.size(), 1);
-    }
+    }*/
 
     /*
     @Test
@@ -73,6 +74,7 @@ public class testFileGameDAO {
     }
     */
 
+    /*
     @Test
     public void test5 () {
         FileGameDAO dao = new FileGameDAO("serverlibrary/src/main/java/DataPersistence/testCommandfile.txt",
@@ -99,5 +101,6 @@ public class testFileGameDAO {
 
         assertEquals(commands.size(), 0);
     }
+    */
 
 }
