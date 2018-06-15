@@ -63,7 +63,7 @@ public class FileGameDAO implements IGameDAO {
             br.close();
 
 
-            ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>> commandList = (ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>) encoder.Decode(response, new TypeToken<ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>>(){}.getClass());
+            ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>> commandList = (ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>) encoder.Decode(response, new TypeToken<ArrayList<AbstractMap.SimpleEntry<String, ArrayList<Command>>>>(){}.getType());
 
             if (commandList == null) {
                 return new ArrayList<Command>(0);
@@ -93,7 +93,7 @@ public class FileGameDAO implements IGameDAO {
             for (String line; (line = br.readLine()) != null; response += line);
             br.close();
 
-            ArrayList<Game> games = (ArrayList<Game>) encoder.Decode(response, new TypeToken<ArrayList<Game>>(){}.getClass());
+            ArrayList<Game> games = (ArrayList<Game>) encoder.Decode(response, new TypeToken<ArrayList<Game>>(){}.getType());
 
             if (games == null) {
                 games = new ArrayList<Game>(0);

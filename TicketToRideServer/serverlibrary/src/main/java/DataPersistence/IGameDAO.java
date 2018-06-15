@@ -15,4 +15,6 @@ public interface IGameDAO {
     public boolean addGame(Game game);
     public boolean updateGameState(Game game);
     public boolean updateCommandsForGame(Game game, List<Command> commands);
+
+    public boolean clearGames();
 }
