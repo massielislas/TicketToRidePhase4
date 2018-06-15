@@ -1,6 +1,5 @@
 package DataPersistence;
 
-import com.google.gson.Gson;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +11,6 @@ import java.util.List;
 
 import Communication.Encoder;
 import Model.User;
-import Results.Result;
 
 /**
  * Created by madeleineaydelotte on 6/14/18.
@@ -21,6 +19,36 @@ import Results.Result;
 public class SQLiteUserDAO implements IUserDAO {
 
     private static Encoder encoder = new Encoder();
+
+    @Override
+    public boolean clearUsers() {
+        Connection connection = null;
+        boolean success = false;
+        try{
+            connection = SQLiteDatabaseManager.openConnection();
+            Statement statement = null;
+            try{
+                statement = connection.createStatement();
+                statement.executeUpdate("DELETE FROM User");
+                System.out.println("Clearing games executed successfully");
+                success = true;
+            } finally{
+                if(statement != null){
+                    statement.close();
+                    statement = null;
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+            success = false;
+        }finally {
+            if(connection != null){
+                SQLiteDatabaseManager.closeConnection(true, connection);
+                connection = null;
+            }
+        }
+        return  success;
+    }
 
     @Override
     public List<User> loadUsers() {

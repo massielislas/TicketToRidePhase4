@@ -23,6 +23,36 @@ public class SQLiteGameDAO implements IGameDAO {
     private static Encoder encoder = new Encoder();
 
     @Override
+    public boolean clearGames() {
+        Connection connection = null;
+        boolean success = false;
+        try{
+            connection = SQLiteDatabaseManager.openConnection();
+            Statement statement = null;
+            try{
+                statement = connection.createStatement();
+                statement.executeUpdate("DELETE FROM Game");
+                System.out.println("Clearing games executed successfully");
+                success = true;
+            } finally{
+                if(statement != null){
+                    statement.close();
+                    statement = null;
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+            success = false;
+        }finally {
+            if(connection != null){
+                SQLiteDatabaseManager.closeConnection(true, connection);
+                connection = null;
+            }
+        }
+        return  success;
+    }
+
+    @Override
     public List<Game> loadGames() {
         System.out.println("getting games from database");
         ResultSet resultSet = null;
