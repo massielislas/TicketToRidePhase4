@@ -21,6 +21,7 @@ public class GameFacade
     TicketToRideProxy proxy = new TicketToRideProxy();
     UserData userData = UserData.getUserData();
     Games gameList = Games.getGames();
+    Poller poller = Poller.getInstance();
 
     public static GameFacade getInstance() {return instance;}
     public Result createGame(int playerCount)
@@ -64,15 +65,17 @@ public class GameFacade
 
     public Result rejoinGame()
     {
-        return proxy.rejoinGame(userData.getUsername().getNameOrPassword());
+        poller.setLastCommand(0);
+        Result result = proxy.rejoinGame(userData.getUsername().getNameOrPassword());
+        return result;
     }
 
     public void restoreClientGame(String ID, Double playerCount, String jsonUpdateInfo)
     {
         UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonUpdateInfo, UpdateInfo.class);
-        updateGame(update);
         Game game = new Game(playerCount.intValue(), playerCount.intValue(), ID);
         UserData.getUserData().setCurrentGame(game);
+        updateGame(update);
     }
 
     private void updateGame(UpdateInfo update)

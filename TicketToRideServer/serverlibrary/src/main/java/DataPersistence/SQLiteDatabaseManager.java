@@ -25,8 +25,7 @@ public class SQLiteDatabaseManager {
 
     public static Connection openConnection() throws SQLException{
         Connection connection;
-        final String CONNECTION_URL = "jdbc:sqlite:FamilyServer.sqlite";
-        //System.out.println(CONNECTION_URL);
+        final String CONNECTION_URL = "jdbc:sqlite:TicketToRide.sqlite";
 
         //Open a database connection
         connection = DriverManager.getConnection(CONNECTION_URL);
@@ -43,5 +42,4 @@ public class SQLiteDatabaseManager {
             connection.rollback();
         }
     }
-
 }
