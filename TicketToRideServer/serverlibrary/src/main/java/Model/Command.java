@@ -92,6 +92,7 @@ public class Command {
         }
         catch (Exception exc)
         {
+            System.out.println(exc.getMessage());
             exc.printStackTrace();
             return null;
         }
