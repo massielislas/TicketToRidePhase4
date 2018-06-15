@@ -190,4 +190,25 @@ public class FileGameDAO implements IGameDAO {
             return false;
         }
     }
+
+    @Override
+    public boolean clearGames() {
+        try {
+            BufferedWriter gameBW = new BufferedWriter(new FileWriter(gameFileName));
+            gameBW.write("");
+            gameBW.close();
+
+            BufferedWriter commandBW = new BufferedWriter(new FileWriter(commandFileName));
+            commandBW.write("");
+            commandBW.close();
+
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println("Exception clearing games in FileGameDAO");
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+            return false;
+        }
+    }
 }
