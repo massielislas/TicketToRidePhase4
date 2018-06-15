@@ -47,6 +47,11 @@ public class TicketToRideFacade implements ITicketToRide {
         }
     }
 
+    public void clearDAOs(){
+        gameDAO.clearGames();
+        userDAO.clearUsers();
+    }
+
     public void setSigma(int sigma) {
         this.sigma = sigma;
     }

@@ -24,7 +24,7 @@ public class ServerCommunicator {
 
     public static ServerCommunicator getInstance(){ return instance; }
 
-    private void run(String portNum, String storageType) {
+    private void run(String portNum, String storageType, boolean clear) {
         try {
             server = HttpServer.create(new InetSocketAddress(Integer.parseInt(portNum)), MAX_WAITING);
         }
@@ -39,11 +39,14 @@ public class ServerCommunicator {
         server.createContext("/command", new CommandHandler());
 
         createDAOs(storageType);
+
         //todo: get sigma and clear from args[]
 
         TicketToRideFacade.getInstance().setSigma(10);
 
-       // TicketToRideFacade.getInstance().clearTables();
+        if(clear) {
+            TicketToRideFacade.getInstance().clearDAOs();
+        }
 
         server.start();
 
@@ -65,6 +68,7 @@ public class ServerCommunicator {
     public static void main(String[] args) {
         String port = "";
         String storageType = "";
+        boolean clear = false;
         if (args.length == 0) {
             port = "8080";
             storageType = "sql";
@@ -76,9 +80,12 @@ public class ServerCommunicator {
         else {
             port = args[0];
             storageType = args[1];
+            if (args.length == 3){
+                clear = true;
+            }
         }
         System.out.println("Starting Server on port " + port);
-        new ServerCommunicator().run(port, storageType);
+        new ServerCommunicator().run(port, storageType, clear);
         System.out.println("Server started successfully on port " + port);
     }
 }
