@@ -434,7 +434,7 @@ public class TicketToRideFacade implements ITicketToRide {
 
     public Result rejoinGame(String userName) {
         UserPass user = new UserPass(userName);
-        Game toRet = Server.findActiveGameByUser(user);
+        Game toRet = Server.findGameByUser(user);
         Player p = toRet.getPlayer(user);
         UpdateInfo updateInfo = toRet.getUpdateInfo(p);
         Encoder encoder = new Encoder();
