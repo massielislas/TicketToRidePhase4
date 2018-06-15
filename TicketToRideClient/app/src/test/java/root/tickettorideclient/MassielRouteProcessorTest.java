@@ -99,7 +99,7 @@ public class MassielRouteProcessorTest {
         routes.add(connecticutCharlotte);
         routes.add(charlotteAcapulco);
 
-        int longestRouteLength = RouteProcessor.LongestRoute(routes, 0);
+        int longestRouteLength = RouteProcessor.LongestRoute(routes);
         assertTrue(longestRouteLength == 16);
     }
 
@@ -112,7 +112,7 @@ public class MassielRouteProcessorTest {
         routes.add(NYConnecticut);
         routes.add(connecticutCharlotte);
 
-        int longestRouteLength = RouteProcessor.LongestRoute(routes, 0);
+        int longestRouteLength = RouteProcessor.LongestRoute(routes);
         assertTrue(longestRouteLength == 6);
     }
 }

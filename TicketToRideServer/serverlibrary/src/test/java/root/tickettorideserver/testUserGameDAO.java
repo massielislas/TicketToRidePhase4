@@ -46,10 +46,18 @@ public class testUserGameDAO {
 
     @Test
     public void test3 () {
-        FileUserDAO dao = new FileUserDAO("serverlibrary/src/main/java/DataPersistence/emptyfile.txt");
+        FileUserDAO dao = new FileUserDAO("serverlibrary/src/main/java/DataPersistence/testUserfile.txt");
+
+        boolean result = dao.clearUsers();
+        assertEquals(result, true);
+    }
+
+    @Test
+    public void test4 () {
+        FileUserDAO dao = new FileUserDAO("serverlibrary/src/main/java/DataPersistence/testUserfile.txt");
 
         List<User> users = dao.loadUsers();
 
-        assertNull(users);
+        assertEquals(users.size(), 0);
     }
 }
