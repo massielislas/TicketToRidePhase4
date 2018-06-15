@@ -67,7 +67,11 @@ public class ServerCommunicator {
     public static void main(String[] args) {
         String port = "";
         String storageType = "";
-        if (args.length == 1) {
+        if (args.length == 0) {
+            port = "8080";
+            storageType = "sql";
+        }
+        else if (args.length == 1) {
             port = "8080";
             storageType = args[0];
         }
