@@ -30,7 +30,9 @@ class TicketToRideServer {
     }
 
     void setGames(List<Game> games) {
-        this.games = games;
+        if (games != null) {
+            this.games = games;
+        }
     }
 
     public void setUserPasswordMap(Map<UserPass, UserPass> userPasswordMap) {

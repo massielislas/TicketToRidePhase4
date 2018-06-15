@@ -29,15 +29,20 @@ public class TicketToRideFacade implements ITicketToRide {
     public void initializeServer(IGameDAO gameDAO, IUserDAO userDAO){
         this.gameDAO = gameDAO;
         this.userDAO = userDAO;
-        for(User u:userDAO.loadUsers()){
-            Server.addUserPass(u.getUserName(), u.getPassword());
+        List<User> users = userDAO.loadUsers();
+        if (users != null) {
+            for (User u : userDAO.loadUsers()) {
+                Server.addUserPass(u.getUserName(), u.getPassword());
+            }
         }
         List<Game> games = gameDAO.loadGames();
         Server.setGames(games);
-        for(Game g:games){
-            List<Command> commands = gameDAO.loadCommands(g);
-            for(Command c : commands){
-                c.Execute();
+        if (games != null) {
+            for (Game g : games) {
+                List<Command> commands = gameDAO.loadCommands(g);
+                for (Command c : commands) {
+                    c.Execute();
+                }
             }
         }
     }

@@ -171,7 +171,7 @@ public class SQLiteGameDAO implements IGameDAO {
         String sqlStatement = "";
         Connection connection = null;
         String json = encoder.Encode(commands);
-        sqlStatement += "UPDATE Game Set commands=" + json + "' WHERE gameID='" + game.getID() + "'";
+        sqlStatement += "UPDATE Game Set commands='" + json + "' WHERE gameID='" + game.getID() + "'";
         try{
             connection = SQLiteDatabaseManager.openConnection();
             Statement statement = null;
