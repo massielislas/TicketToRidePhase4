@@ -16,8 +16,7 @@ import Results.Result;
 class TicketToRideServer {
     private static final TicketToRideServer instance = new TicketToRideServer();
 
-    private List<Game> activeGames;
-    private List<Game> notYetActiveGames;
+    private List<Game> games;
     private Map<UserPass,UserPass> userPasswordMap;
 
     static TicketToRideServer getInstance(){
@@ -25,8 +24,7 @@ class TicketToRideServer {
     }
 
     private TicketToRideServer() {
-        activeGames = new ArrayList<>();
-        notYetActiveGames = new ArrayList<>();
+        games = new ArrayList<>();
         userPasswordMap = new HashMap<>();
     }
 
@@ -58,7 +56,7 @@ class TicketToRideServer {
     }
 
     boolean doesGameExist(Game toCheck) {
-        if (notYetActiveGames.contains(toCheck) || activeGames.contains(toCheck)) {
+        if (games.contains(toCheck)) {
             return true;
         }
         else {
@@ -79,10 +77,9 @@ class TicketToRideServer {
 
     Result addPlayerToGame(Game game, UserPass user) {
 
-        for (Game find : notYetActiveGames) {
+        for (Game find : games) {
             if (game.equals(find)) {
                 game = find;
-
                 if (game.addPlayerToGame(user)) {
                     return new Result(true, "Successfully joined game");
                 }
@@ -95,7 +92,7 @@ class TicketToRideServer {
     }
 
     public void addGameToQueue(Game toAdd) {
-        notYetActiveGames.add(toAdd);
+        games.add(toAdd);
     }
 
     public boolean startGame(Game game) {
@@ -103,14 +100,13 @@ class TicketToRideServer {
             return true;
         }
         else {
-            activeGames.add(game);
-            notYetActiveGames.remove(game);
+            games.add(game);
             return false;
         }
     }
 
     public Game getSpecificActiveGame(String ID) {
-        for (Game g : activeGames) {
+        for (Game g : games) {
             if (g.getID().equals(ID)) {
                 return g;
             }
@@ -118,12 +114,15 @@ class TicketToRideServer {
         return null;
     }
     public void activateGame(Game game){
-        notYetActiveGames.remove(game);
-        activeGames.add(game);
+        for (Game g : games) {
+            if (g.equals(game)) {
+                g.setGameActive(true);
+            }
+        }
     }
 
     public Game getInactiveGame(String ID) {
-        for (Game g : notYetActiveGames) {
+        for (Game g : games) {
             if (g.getID().equals(ID)) {
                 return g;
             }
@@ -132,7 +131,7 @@ class TicketToRideServer {
     }
 
     public Game findActiveGameByUser(UserPass user) {
-        for (Game g : activeGames) {
+        for (Game g : games) {
             Player p = g.getPlayer(user);
             if (p != null) {
                 return g;

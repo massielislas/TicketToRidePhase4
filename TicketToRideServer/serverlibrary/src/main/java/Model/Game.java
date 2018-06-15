@@ -36,6 +36,7 @@ public class Game {
     private int playerCount;
     private int currentPlayers;
     private int finalCountdown;
+    private boolean gameActive;
     private boolean isLastRound;
     private boolean gameIsOver;
     //UUID for this specific game
@@ -66,6 +67,7 @@ public class Game {
         turnNumber = 1;
         isLastRound = false;
         gameIsOver = false;
+        gameActive = false;
     }
 
     public Game(int playerCount, int currentPlayers, int gameNumber, String ID)
@@ -87,6 +89,14 @@ public class Game {
         gameIsOver = false;
         routes = new Routes();
         initializeTrainCards();
+    }
+
+    public void setGameActive(boolean gameActive) {
+        this.gameActive = gameActive;
+    }
+
+    public boolean isGameActive() {
+        return gameActive;
     }
 
     public boolean addPlayerToGame(UserPass user) {
