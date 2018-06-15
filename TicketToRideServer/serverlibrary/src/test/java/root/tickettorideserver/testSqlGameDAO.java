@@ -46,5 +46,10 @@ public class testSqlGameDAO {
         assertTrue(games.contains(game));
 
         game.setCurrentPlayers(0);
+
+        dao.updateGameState(game);
+
+        List<Game>gamesUpdated  = dao.loadGames();
+        assertTrue(gamesUpdated.get(0).getCurrentPlayers() == 0);
     }
 }
