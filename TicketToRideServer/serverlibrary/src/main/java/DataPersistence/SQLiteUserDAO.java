@@ -10,7 +10,7 @@ import Model.User;
 
 public class SQLiteUserDAO implements IUserDAO {
     @Override
-    public List<User> loadUser() {
+    public List<User> loadUsers() {
         return null;
     }
 

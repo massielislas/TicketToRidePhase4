@@ -11,6 +11,7 @@ import Model.Game;
 
 public interface IGameDAO {
     public List<Game> loadGames();
+    public List<Command> loadCommands(Game game);
     public boolean addGame(Game game);
     public boolean updateGameState(Game game);
     public boolean updateCommandsForGame(Game game, List<Command> commands);
