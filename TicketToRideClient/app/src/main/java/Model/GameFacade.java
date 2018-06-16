@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Observer;
 
 import Communication.Encoder;
+import Model.InGameModels.Chat;
 import Model.InGameModels.Player;
 import Model.InGameModels.Route;
 import Results.GameResult;
@@ -23,6 +24,7 @@ public class GameFacade
     UserData userData = UserData.getUserData();
     Games gameList = Games.getGames();
     Poller poller = Poller.getInstance();
+    Chat chat = Chat.getInstance();
 
     public static GameFacade getInstance() {return instance;}
     public Result createGame(int playerCount)
@@ -106,6 +108,15 @@ public class GameFacade
         UpdateInfo updateInfo = (UpdateInfo) Encoder.Decode(info.getJsonUpdateInfo(), UpdateInfo.class);
         updateGame(updateInfo);
         userData.getCurrentGame().setCities(info.getCities());
+        setChat(info.getChat());
+    }
+
+    private void setChat(List<String> chat)
+    {
+        for (String message: chat)
+        {
+            chat.add(message);
+        }
     }
 
     private void updateGame(UpdateInfo update)
