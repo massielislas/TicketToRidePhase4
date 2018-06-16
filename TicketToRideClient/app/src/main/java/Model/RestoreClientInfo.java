@@ -2,6 +2,7 @@ package Model;
 
 import java.util.List;
 
+import Model.InGameModels.Chat;
 import Model.InGameModels.City;
 
 public class RestoreClientInfo {
@@ -10,6 +11,15 @@ public class RestoreClientInfo {
     private String jsonUpdateInfo;
     private Double turnNumber;
     private List<City> cities;
+    private List<String> chat;
+
+    public List<String> getChat() {
+        return chat;
+    }
+
+    public void setChat(List<String> chat) {
+        this.chat = chat;
+    }
 
     public String getID() {
         return ID;

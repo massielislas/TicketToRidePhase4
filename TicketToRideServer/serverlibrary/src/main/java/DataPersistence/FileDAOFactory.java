@@ -28,7 +28,8 @@ public class FileDAOFactory implements IDAOFactory {
 
     @Override
     public IGameDAO createGameDAO() {
-        return new FileGameDAO(commandFileName, gameFileName);
+        return new
+                FileGameDAO(commandFileName, gameFileName);
     }
 
     @Override
