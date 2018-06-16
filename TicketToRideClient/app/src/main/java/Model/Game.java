@@ -115,6 +115,14 @@ public class Game extends Observable
         return error;
     }
 
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
     public boolean isGameComplete() {
         return isGameComplete;
     }
