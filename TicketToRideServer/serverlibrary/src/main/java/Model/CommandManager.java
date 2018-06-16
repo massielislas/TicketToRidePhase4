@@ -44,7 +44,8 @@ public class CommandManager {
         UserPass username = new UserPass(user);
         if(commandMap.containsKey(username)){
             Command[] allCommands = commandMap.get(username);
-            Command[] toReturn = new Command[allCommands.length-lastCommand];
+            Command[] toReturn = new Command[allCommands.length];
+            commandMap.put(username,new Command[0]);
             System.arraycopy(allCommands,lastCommand,toReturn,0,allCommands.length-lastCommand);
             return new PollResult(true,"good",toReturn);
         }
