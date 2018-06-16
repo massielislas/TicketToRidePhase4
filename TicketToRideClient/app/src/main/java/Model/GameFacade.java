@@ -111,11 +111,11 @@ public class GameFacade
         setChat(info.getChat());
     }
 
-    private void setChat(List<String> chat)
+    private void setChat(List<String> chatToAdd)
     {
-        for (String message: chat)
+        for (String message: chatToAdd)
         {
-            chat.add(message);
+            chat.addChatMessage(message);
         }
     }
 
