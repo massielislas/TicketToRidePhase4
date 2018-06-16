@@ -4,11 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
-import DataPersistence.SQLiteUserDAO;
+import DataPersistence.IUserDAO;
+import DataPersistence.SQLiteDAOFactory;
 import Model.User;
 import Model.UserPass;
 
@@ -19,7 +18,7 @@ import static org.junit.Assert.assertTrue;
  */
 
 public class testSqlUserDAO {
-    SQLiteUserDAO dao = new SQLiteUserDAO();
+    IUserDAO dao = new SQLiteDAOFactory().createUserDAO();
     @Before
     public void clearUsers(){
         dao.clearUsers();

@@ -3,11 +3,13 @@ package root.tickettorideserver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.sqlite.SQLiteJDBCLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import DataPersistence.SQLiteGameDAO;
+import DataPersistence.IGameDAO;
+import DataPersistence.SQLiteDAOFactory;
 import Model.Command;
 import Model.Game;
 
@@ -18,7 +20,7 @@ import static org.junit.Assert.assertTrue;
  */
 
 public class testSqlGameDAO {
-    SQLiteGameDAO dao = new SQLiteGameDAO();
+    IGameDAO dao = new SQLiteDAOFactory().createGameDAO();
 
     @Before
     public void clearGames(){
