@@ -1,5 +1,2 @@
-<<<<<<< HEAD
 include ':app', ':serverlibrary', ':gson-2.8.4', ':sqlite-jdbc-3.7.2', ':sqlModule'
-=======
 include ':app', ':serverlibrary', ':gson-2.8.4', ':sqlite-jdbc-3.7.2', ':FlatFilePlugin'
->>>>>>> 5ffa9e8d44432c6b548184c41da3be16f69ba42c
