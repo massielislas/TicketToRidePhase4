@@ -484,6 +484,9 @@ public class TicketToRideFacade implements ITicketToRide {
     public boolean storeCommand(Game game, Command command){
         game = Server.getSpecificActiveGame(game.getID());
         List<Command> commandList = gameDAO.loadCommands(game);
+        if(commandList == null){
+            commandList = new ArrayList<>();
+        }
         if(commandList.size() == sigma){
             gameDAO.updateGameState(game);
             gameDAO.updateCommandsForGame(game, new ArrayList<Command>());
