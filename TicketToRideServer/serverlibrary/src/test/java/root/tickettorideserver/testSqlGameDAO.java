@@ -72,6 +72,15 @@ public class testSqlGameDAO {
     }
 
     @Test
+    public void gameWithNoCommands(){
+        Game game = new Game(3, 5, 1, "1");
+        assertTrue(dao.addGame(game));
+
+        assertTrue(dao.loadCommands(game).isEmpty());
+
+    }
+
+    @Test
     public void getCommands(){
         Game game = new Game(3, 5, 1, "1");
         assertTrue(dao.addGame(game));
