@@ -46,7 +46,7 @@ public class CommandManager {
             Command[] allCommands = commandMap.get(username);
             Command[] toReturn = new Command[allCommands.length];
             commandMap.put(username,new Command[0]);
-            System.arraycopy(allCommands,lastCommand,toReturn,0,allCommands.length-lastCommand);
+            System.arraycopy(allCommands,lastCommand,toReturn,0,allCommands.length);
             return new PollResult(true,"good",toReturn);
         }
         else {
