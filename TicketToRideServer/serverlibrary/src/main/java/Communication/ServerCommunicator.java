@@ -38,21 +38,17 @@ public class ServerCommunicator {
 
         server.createContext("/command", new CommandHandler());
 
-        createDAOs(storageType);
+        createDAOs(storageType, clear);
 
         //todo: get sigma and clear from args[]
 
         TicketToRideFacade.getInstance().setSigma(10);
 
-        if(clear) {
-            TicketToRideFacade.getInstance().clearDAOs();
-        }
-
         server.start();
 
     }
 
-    private void createDAOs(String storageType)
+    private void createDAOs(String storageType, boolean clear)
     {
         IDAOFactory daoFactory = null;
         if (storageType.equals("flat")) {
@@ -61,7 +57,13 @@ public class ServerCommunicator {
         if (storageType.equals("sql")){
             daoFactory = new SQLiteDAOFactory();
         }
-        TicketToRideFacade.getInstance().initializeServer(daoFactory.createGameDAO(),daoFactory.createUserDAO());
+        IGameDAO gameDAO = daoFactory.createGameDAO();
+        IUserDAO userDAO = daoFactory.createUserDAO();
+        if(clear){
+            gameDAO.clearGames();
+            userDAO.clearUsers();
+        }
+        TicketToRideFacade.getInstance().initializeServer(gameDAO,userDAO);
     }
 
 
