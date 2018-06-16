@@ -10,6 +10,7 @@ public class RestoreClientInfo {
     private String jsonUpdateInfo;
     private Double turnNumber;
     private List<City> cities;
+    private List<String> chat;
 
     public String getID() {
         return ID;
@@ -49,5 +50,15 @@ public class RestoreClientInfo {
 
     public void setCities(List<City> cities) {
         this.cities = cities;
+    }
+
+    public List<String> getChat()
+    {
+        return chat;
+    }
+
+    public void setChat(List<String> chat)
+    {
+        this.chat = chat;
     }
 }

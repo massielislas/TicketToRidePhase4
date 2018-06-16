@@ -443,19 +443,29 @@ public class TicketToRideFacade implements ITicketToRide {
     }
 
     public Result rejoinGame(String userName) {
+        Encoder encoder = new Encoder();
+        RestoreClientInfo restore = new RestoreClientInfo();
         UserPass user = new UserPass(userName);
         Game toRet = Server.findGameByUser(user);
         Player p = toRet.getPlayer(user);
+        Double turn = new Double(p.getTurnNumber());
+        Double playerCount = new Double(toRet.getPlayerCount());
+        restore.setTurnNumber(turn);
+        restore.setPlayerCount(playerCount);
+        restore.setID(toRet.getID());
+        restore.setCities(Cities.getInstance().getCities());
+        restore.setChat(toRet.getChat());
         UpdateInfo updateInfo = toRet.getUpdateInfo(p);
-        Encoder encoder = new Encoder();
         String jsonUpdate = encoder.Encode(updateInfo);
+        restore.setJsonUpdateInfo(jsonUpdate);
+        String restoreStr = encoder.Encode(restore);
         if (toRet != null) {
             CommandManager manager = CommandManager.getInstance();
             manager.reAddUser(user);
             String[] instanceParamTypeNames = new String[0];
             Object[] instanceMethodArgs = new Object[0];
-            String[] methodParamTypeNames = {"java.lang.String", "java.lang.Double", "java.lang.String", "java.lang.Double"};
-            Object[] methodArguments = {toRet.getID(), Double.valueOf(toRet.getPlayerCount()), jsonUpdate, p.getTurnNumber()};
+            String[] methodParamTypeNames = {"java.lang.String"};
+            Object[] methodArguments = {restoreStr};
             Command command = new Command("Model.GameFacade", "getInstance",
                     "restoreClientGame", instanceParamTypeNames, instanceMethodArgs, methodParamTypeNames,
                     methodArguments);

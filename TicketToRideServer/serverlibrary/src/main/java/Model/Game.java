@@ -547,6 +547,11 @@ public class Game {
         this.trainCardFacedownDeck = trainCardFacedownDeck;
     }
 
+    public List<String> getChat()
+    {
+        return chat;
+    }
+
     public List<DestinationCard> getDestinationCardDeck() {
         return destinationCardDeck;
     }
