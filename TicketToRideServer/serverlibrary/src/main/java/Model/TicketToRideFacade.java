@@ -458,6 +458,7 @@ public class TicketToRideFacade implements ITicketToRide {
         restore.setID(toRet.getID());
         restore.setCities(Cities.getInstance().getCities());
         restore.setChat(toRet.getChat());
+        restore.setCurrentTurnNumber(toRet.getTurnNumber());
         UpdateInfo updateInfo = toRet.getUpdateInfo(p);
         String jsonUpdate = encoder.Encode(updateInfo);
         restore.setJsonUpdateInfo(jsonUpdate);

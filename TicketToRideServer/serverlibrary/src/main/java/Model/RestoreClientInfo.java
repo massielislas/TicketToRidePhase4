@@ -11,6 +11,15 @@ public class RestoreClientInfo {
     private Double turnNumber;
     private List<City> cities;
     private List<String> chat;
+    private int currentTurnNumber;
+
+    public int getCurrentTurnNumber() {
+        return currentTurnNumber;
+    }
+
+    public void setCurrentTurnNumber(int currentTurnNumber) {
+        this.currentTurnNumber = currentTurnNumber;
+    }
 
     public String getID() {
         return ID;

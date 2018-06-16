@@ -8,6 +8,7 @@ import java.util.Observer;
 import Communication.Encoder;
 import Model.InGameModels.Chat;
 import Model.InGameModels.Player;
+import Model.InGameModels.PlayerShallow;
 import Model.InGameModels.Route;
 import Results.GameResult;
 import Results.Result;
@@ -109,6 +110,7 @@ public class GameFacade
         updateGame(updateInfo);
         userData.getCurrentGame().setCities(info.getCities());
         setChat(info.getChat());
+        setCurrentPlayer(info.getCurrentTurnNumber());
     }
 
     private void setChat(List<String> chatToAdd)
@@ -142,6 +144,25 @@ public class GameFacade
             userData.getCurrentPlayer().setTrainCards(update.getHand());
         }
         userData.getCurrentPlayer().setDestCards(update.getDestHand());
+    }
+
+    private void setCurrentPlayer(Integer turnNumber)
+    {
+        if (turnNumber.intValue() == userData.getCurrentPlayer().getTurnNumber()) {
+            //userData.getCurrentPlayer().getMyState().activateTurn();
+            //boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
+            userData.getCurrentGame().setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
+        }
+        else{
+            List<PlayerShallow> otherPlayers = userData.getCurrentGame().getOtherPlayers();
+            for (PlayerShallow player: otherPlayers)
+            {
+                if (player.getTurnNumber() == turnNumber.intValue()) {
+                    //boardData.setUserPlaying(player.getuName());
+                    userData.getCurrentGame().setUserPlaying(player.getuName());
+                }
+            }
+        }
     }
 
     private void checkForRouteColorChange(List<Route> routes)
