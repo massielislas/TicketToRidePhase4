@@ -207,6 +207,8 @@ public class Game {
         chat.add(userName + ": " + msg);
     }
 
+    public void addGameHistory(String msg) {chat.add(msg);}
+
     public boolean userAlreadyInGame(UserPass name) {
         for (Player p : playerList) {
             if (p.getUserName().equals(name)) {

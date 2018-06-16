@@ -253,6 +253,7 @@ public class TicketToRideFacade implements ITicketToRide {
     public void addGameHistory(Game game, String message){
         //ToDo: add these commands to the game chat history
         String totalMessage = message;
+        game.addGameHistory(totalMessage);
         String[] instanceParamTypeNames = new String[0];
         Object[] instanceMethodArgs = new Object[0];
         String[] methodParamTypeNames = {"java.lang.String"};

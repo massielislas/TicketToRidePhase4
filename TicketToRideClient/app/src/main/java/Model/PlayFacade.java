@@ -120,7 +120,6 @@ public class PlayFacade {
         return proxy.sendChat(userData.getUsername().getNameOrPassword(), message, userData.getCurrentGame().getID());
     }
 
-
     public Result discardCards(ArrayList<Integer> discard)
     {
         Double cardOne = new Double(discard.get(0));
