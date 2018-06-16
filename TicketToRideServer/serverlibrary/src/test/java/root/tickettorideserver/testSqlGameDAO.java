@@ -27,13 +27,13 @@ public class testSqlGameDAO {
 
     @Test
     public void addGame(){
-        Game game = new Game(3, 5, 1, "1");
+        Game game = new Game(3, 5, 1, "abc-cde");
         assertTrue(dao.addGame(game));
     }
 
     @Test
     public void getGames(){
-        Game game = new Game(3, 5, 1, "1");
+        Game game = new Game(3, 5, 1, "abc-cde");
         assertTrue(dao.addGame(game));
 
         List<Game>games  = dao.loadGames();

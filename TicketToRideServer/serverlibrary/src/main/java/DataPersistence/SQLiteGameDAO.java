@@ -204,7 +204,7 @@ public class SQLiteGameDAO implements IGameDAO {
         ResultSet resultSet = null;
         boolean resultSetIsEmpty = true;
         Connection connection = null;
-        String sqlQuery = "SELECT * FROM Game where gameID=" + game.getID();
+        String sqlQuery = "SELECT * FROM Game where gameID='" + game.getID() + "'";
         List<Command>commands = new ArrayList<>();
         boolean success = false;
 
