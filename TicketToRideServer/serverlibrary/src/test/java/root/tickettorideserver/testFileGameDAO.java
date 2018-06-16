@@ -17,6 +17,7 @@ import Model.Game;
 
 public class testFileGameDAO {
 
+    /*
     @Test
     public void test1 () {
         FileGameDAO dao = new FileGameDAO("serverlibrary/src/main/java/DataPersistence/testCommandfile.txt",
@@ -125,6 +126,6 @@ public class testFileGameDAO {
 
         assertEquals(commands.size(), 0);
     }
-
+*/
 
 }

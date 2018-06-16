@@ -20,12 +20,12 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation files('libs/gson-2.6.2.jar')
-    compile 'com.google.android.gms:play-services-maps:11.0.4'
-    compile 'com.google.android.gms:play-services-location:11.0.4'
     implementation 'com.google.code.gson:gson:2.2.4'
-    compile project(':sqlite-jdbc-3.7.2')
-    compile files('libs/sqlite-jdbc-3.7.2.jar')
-    testImplementation 'junit:junit:4.12'
+    implementation files('libs/gson-2.6.2.jar')
+    implementation files('libs/sqlite-jdbc-3.7.2.jar')
+    implementation project(':gson-2.8.4')
+    implementation project(':FlatFilePlugin')
+    implementation project(':sqlite-jdbc-3.7.2')
+    implementation project(':serverlibrary')
+    implementation project(':sqlModule')
 }
