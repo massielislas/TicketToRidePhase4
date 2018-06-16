@@ -1,4 +1,4 @@
-package DAOs;
+package DataPersistence;
 
 import com.google.gson.reflect.TypeToken;
 
