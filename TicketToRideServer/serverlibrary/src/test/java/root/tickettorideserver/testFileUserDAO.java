@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNull;
  * Created by madeleineaydelotte on 6/15/18.
  */
 
-public class testUserGameDAO {
+public class testFileUserDAO {
 
     /*
     @Test
