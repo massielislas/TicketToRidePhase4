@@ -7,7 +7,6 @@ dependencies {
     implementation files('libs/sqlite-jdbc-3.7.2.jar')
     implementation project(':gson-2.8.4')
     implementation project(':sqlite-jdbc-3.7.2')
-    implementation project(':sqlModule')
 }
 
 sourceCompatibility = "1.7"

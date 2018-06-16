@@ -20,12 +20,11 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:26.0.1'
     implementation 'com.google.code.gson:gson:2.2.4'
     implementation files('libs/gson-2.6.2.jar')
     implementation files('libs/sqlite-jdbc-3.7.2.jar')
     implementation project(':gson-2.8.4')
-    implementation project(':FlatFilePlugin')
     implementation project(':sqlite-jdbc-3.7.2')
     implementation project(':serverlibrary')
-    implementation project(':sqlModule')
 }
