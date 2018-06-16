@@ -23,6 +23,14 @@ public class Chat extends Observable
                                 // replace chat with necessary view list
         clearChanged(); //no longer have a change!
     }
+
+    public void setChange()
+    {
+        setChanged(); //set change has occurred
+        notifyObservers(this); //TODO:
+        // replace chat with necessary view list
+        clearChanged(); //no longer have a change!
+    }
     public void addAnObserver(Observer o)
     {
         addObserver(o);

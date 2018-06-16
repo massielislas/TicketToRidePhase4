@@ -92,6 +92,7 @@ public class PlayFacade {
     public void addChatObserver(Observer o)
     {
         chat.addAnObserver(o);
+        if (chat.getChat()!=null) chat.setChange();
     }
 
     public void desRegisterChatObserver(Observer o)
