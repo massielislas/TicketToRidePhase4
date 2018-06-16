@@ -72,11 +72,11 @@ public class GameFacade
         return result;
     }
 
-    public void restoreClientGame(String ID, Double playerCount, String jsonUpdateInfo, Double turnNumber)
+    public void restoreClientGame(String restoreClientString)
     {
-        UpdateInfo update = (UpdateInfo) Encoder.Decode(jsonUpdateInfo, UpdateInfo.class);
+        RestoreClientInfo info = (RestoreClientInfo) Encoder.Decode(restoreClientString, RestoreClientInfo.class);
         String color = null;
-        switch(turnNumber.intValue()) //set color
+        switch(info.getTurnNumber().intValue()) //set color
         {
             case 1: {
                 color = "Blue";
@@ -99,11 +99,13 @@ public class GameFacade
                 break;
             }
         }
-        Player currentPlayer = new Player(userData.getUsername(), turnNumber.intValue(), color);
+        Player currentPlayer = new Player(userData.getUsername(), info.getTurnNumber().intValue(), color);
         userData.setCurrentPlayer(currentPlayer);
-        Game game = new Game(playerCount.intValue(), playerCount.intValue(), ID);
+        Game game = new Game(info.getPlayerCount().intValue(), info.getPlayerCount().intValue(), info.getID());
         userData.getUserData().setCurrentGame(game);
-        updateGame(update);
+        UpdateInfo updateInfo = (UpdateInfo) Encoder.Decode(info.getJsonUpdateInfo(), UpdateInfo.class);
+        updateGame(updateInfo);
+        userData.getCurrentGame().setCities(info.getCities());
     }
 
     private void updateGame(UpdateInfo update)
@@ -113,6 +115,7 @@ public class GameFacade
         userData.getCurrentGame().setOtherPlayers(update.getPlayerInfo());
         userData.getCurrentGame().setTrainDeckSize(update.getTrainDeckSize());
         userData.getCurrentGame().setGameComplete(update.isGameComplete());
+
         userData.getCurrentPlayer().setTrainPiecesLeft(update.getPiecesLeft());
         userData.getCurrentPlayer().setCurrentScore(update.getPoints());
         if (update.getGameRoutes() != null) {
