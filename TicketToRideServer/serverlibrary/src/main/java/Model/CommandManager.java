@@ -79,4 +79,11 @@ public class CommandManager {
             commandMap.put(user, new Command[0]);
         }
     }
+
+    public void resetCommandsAllUsers(){
+        Command[] empty = new Command[0];
+        for(UserPass u :commandMap.keySet()){
+            commandMap.put(u,empty);
+        }
+    }
 }

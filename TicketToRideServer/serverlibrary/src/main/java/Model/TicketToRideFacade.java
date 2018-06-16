@@ -38,13 +38,14 @@ public class TicketToRideFacade implements ITicketToRide {
         List<Game> games = gameDAO.loadGames();
         Server.setGames(games);
         if (games != null) {
-            for (Game g : games) {
+            for (Game g : new ArrayList<Game>(games)) {
                 List<Command> commands = gameDAO.loadCommands(g);
                 for (Command c : commands) {
                     c.Execute();
                 }
             }
         }
+        CommandManager.getInstance().resetCommandsAllUsers();
     }
 
     public void clearDAOs(){
@@ -66,6 +67,7 @@ public class TicketToRideFacade implements ITicketToRide {
         //If they don't, add them to the Map of players that currently exist
         else {
             Server.addUserPass(uName, pWord);
+            userDAO.addUser(new User(uName, pWord));
             CommandManager.getInstance().addAllCommandsNewUser(username);
             return new LoginRegisterResult(true);
         }
