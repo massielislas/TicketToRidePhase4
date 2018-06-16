@@ -25,10 +25,12 @@ public class SQLiteDAOFactory implements IDAOFactory {
         try{
             Class klass = Class.forName(gameDAOClass);
             Object o = klass.newInstance();
+            gameDAO = (IGameDAO) o;
         } catch (Exception e){
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             System.out.println(e.getStackTrace().toString());
+            e.printStackTrace();
             return null;
         }
 
@@ -46,6 +48,7 @@ public class SQLiteDAOFactory implements IDAOFactory {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             System.out.println(e.getStackTrace().toString());
+            e.printStackTrace();
             return null;
         }
         return userDAO;
