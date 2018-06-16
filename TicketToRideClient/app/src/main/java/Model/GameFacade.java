@@ -149,7 +149,7 @@ public class GameFacade
     private void setCurrentPlayer(Integer turnNumber)
     {
         if (turnNumber.intValue() == userData.getCurrentPlayer().getTurnNumber()) {
-            userData.getCurrentPlayer().getMyState().activateTurn();
+            //userData.getCurrentPlayer().getMyState().activateTurn();
             //boardData.setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
             userData.getCurrentGame().setUserPlaying(userData.getCurrentPlayer().getUserName().getNameOrPassword());
         }

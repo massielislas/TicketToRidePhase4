@@ -385,7 +385,12 @@ public class PlayFacade {
                 if (player.getTurnNumber() == 1) boardData.setUserPlaying(player.getuName());
             }
         }
-        else boardData.setUserPlaying(userData.getCurrentGame().getUserPlaying());
+        else
+        {
+            boardData.setUserPlaying(userData.getCurrentGame().getUserPlaying());
+            if (userData.getCurrentGame().getUserPlaying().equals(userData.getCurrentPlayer().getUserName().getNameOrPassword()))
+                userData.getCurrentPlayer().getMyState().activateTurn();
+        }
         boardData.setChange();
         /*if ((userData.getCurrentGame().getUserPlaying() == null) &&
                 (userData.getCurrentPlayer().getTurnNumber() == 1))
