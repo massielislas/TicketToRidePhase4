@@ -4,7 +4,8 @@ import org.junit.Test;
 
 import java.util.List;
 
-import DataPersistence.FileUserDAO;
+
+//import DataPersistence.FileUserDAO;
 import Model.User;
 import Model.UserPass;
 
@@ -18,6 +19,7 @@ import static org.junit.Assert.assertNull;
 
 public class testUserGameDAO {
 
+    /*
     @Test
     public void test1 () {
         FileUserDAO dao = new FileUserDAO("serverlibrary/src/main/java/DataPersistence/testUserfile.txt");
@@ -60,4 +62,6 @@ public class testUserGameDAO {
 
         assertEquals(users.size(), 0);
     }
+    */
 }
+

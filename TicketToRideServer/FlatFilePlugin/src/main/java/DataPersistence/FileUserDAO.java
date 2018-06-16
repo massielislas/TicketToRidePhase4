@@ -1,13 +1,11 @@
 package DataPersistence;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +21,13 @@ public class FileUserDAO implements IUserDAO {
     private String userFileName;
     private Encoder encoder;
 
-    public FileUserDAO (String userFileName) {
-        this.userFileName = userFileName;
+    public static FileUserDAO getInstance() {
+        return new FileUserDAO();
+    }
+
+    public FileUserDAO () {
         this.encoder = new Encoder();
+        this.userFileName = "/FlatFilePlugin/src/main/java/DataPersistence/users.txt";
     }
 
     @Override
