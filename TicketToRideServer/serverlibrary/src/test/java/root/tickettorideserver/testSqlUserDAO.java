@@ -1,5 +1,6 @@
 package root.tickettorideserver;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,6 +48,11 @@ public class testSqlUserDAO {
 
         assertTrue(users.contains(user));
 
+    }
+
+    @After
+    public void afterClear(){
+        dao.clearUsers();
     }
 
 }

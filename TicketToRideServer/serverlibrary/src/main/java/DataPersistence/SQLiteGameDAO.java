@@ -100,9 +100,12 @@ public class SQLiteGameDAO implements IGameDAO {
         boolean success = false;
         String sqlStatement = "";
         String json = encoder.Encode(game);
+        final List<Command>emptyCommandList = new ArrayList<>();
+        String jsonEmptyList = encoder.Encode(emptyCommandList);
 
-        sqlStatement += "INSERT INTO Game(gameID, game)" + '\n';
+        sqlStatement += "INSERT INTO Game(gameID, commands, game)" + '\n';
         sqlStatement += "Values('" + game.getID() + "',";
+        sqlStatement += "'" + jsonEmptyList + "',";
         sqlStatement += "'" + json  + "')";
 
         try{
@@ -137,7 +140,7 @@ public class SQLiteGameDAO implements IGameDAO {
         String sqlStatement = "";
         Connection connection = null;
         String json = encoder.Encode(game);
-        sqlStatement += "UPDATE Game Set game=" + json + "' WHERE gameID='" + game.getID() + "'";
+        sqlStatement += "UPDATE Game Set game='" + json + "' WHERE gameID='" + game.getID() + "'";
         try{
             connection = SQLiteDatabaseManager.openConnection();
             Statement statement = null;
@@ -171,7 +174,7 @@ public class SQLiteGameDAO implements IGameDAO {
         String sqlStatement = "";
         Connection connection = null;
         String json = encoder.Encode(commands);
-        sqlStatement += "UPDATE Game Set commands=" + json + "' WHERE gameID='" + game.getID() + "'";
+        sqlStatement += "UPDATE Game Set commands='" + json + "' WHERE gameID='" + game.getID() + "'";
         try{
             connection = SQLiteDatabaseManager.openConnection();
             Statement statement = null;
@@ -204,7 +207,7 @@ public class SQLiteGameDAO implements IGameDAO {
         ResultSet resultSet = null;
         boolean resultSetIsEmpty = true;
         Connection connection = null;
-        String sqlQuery = "SELECT * FROM Game where gameID=" + game.getID();
+        String sqlQuery = "SELECT * FROM Game where gameID='" + game.getID() + "'";
         List<Command>commands = new ArrayList<>();
         boolean success = false;
 

@@ -24,7 +24,7 @@ public class ServerCommunicator {
 
     public static ServerCommunicator getInstance(){ return instance; }
 
-    private void run(String portNum, String storageType) {
+    private void run(String portNum, String storageType, boolean clear) {
         try {
             server = HttpServer.create(new InetSocketAddress(Integer.parseInt(portNum)), MAX_WAITING);
         }
@@ -38,7 +38,7 @@ public class ServerCommunicator {
 
         server.createContext("/command", new CommandHandler());
 
-        createDAOs(storageType);
+        createDAOs(storageType, clear);
 
         //todo: get sigma and clear from args[]
 
@@ -48,7 +48,7 @@ public class ServerCommunicator {
 
     }
 
-    private void createDAOs(String storageType)
+    private void createDAOs(String storageType, boolean clear)
     {
         IDAOFactory daoFactory = null;
         if (storageType.equals("flat")) {
@@ -57,16 +57,20 @@ public class ServerCommunicator {
         if (storageType.equals("sql")){
             daoFactory = new SQLiteDAOFactory();
         }
-        TicketToRideFacade.getInstance().initializeServer(daoFactory.createGameDAO(),daoFactory.createUserDAO());
+        IGameDAO gameDAO = daoFactory.createGameDAO();
+        IUserDAO userDAO = daoFactory.createUserDAO();
+        if(clear){
+            gameDAO.clearGames();
+            userDAO.clearUsers();
+        }
+        TicketToRideFacade.getInstance().initializeServer(gameDAO,userDAO);
     }
 
-    private void clearDAOs(){
-        
-    }
 
     public static void main(String[] args) {
         String port = "";
         String storageType = "";
+        boolean clear = false;
         if (args.length == 0) {
             port = "8080";
             storageType = "sql";
@@ -78,9 +82,12 @@ public class ServerCommunicator {
         else {
             port = args[0];
             storageType = args[1];
+            if (args.length == 3){
+                clear = true;
+            }
         }
         System.out.println("Starting Server on port " + port);
-        new ServerCommunicator().run(port, storageType);
+        new ServerCommunicator().run(port, storageType, clear);
         System.out.println("Server started successfully on port " + port);
     }
 }
